@@ -75,10 +75,110 @@ angular.module('starter', ['ionic', 'starter.controllers', 'starter.services'])
           controller: 'AccountCtrl'
         }
       }
+    })
+        .state('app', {
+      url: "/app",
+      abstract: true,
+      templateUrl: "templates/menu.html",
+      controller: 'AppCtrl'
+    })
+
+    .state('app.search', {
+      url: "/search",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/search.html"
+        }
+      }
+    })
+
+    .state('app.playlists', {
+      url: "/playlists",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/playlists.html",
+          controller: 'PlaylistsCtrl'
+        }
+      }
+    })
+    .state('app.profile', {
+      url: "/profile",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/profile.html",
+        }
+      }
+    })
+    .state('app.login', {
+      url: "/login",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/login.html",
+        }
+      }
+    })
+    .state('app.signup', {
+      url: "/signup",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/signup.html",
+        }
+      }
+    })
+    .state('app.newdinner', {
+      url: "/newdinner",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/newdinner.html",
+        }
+      }
+    })
+    .state('app.dinner', {
+      url: "/dinner",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/dinner.html",
+        }
+      }
+    })
+    .state('app.lookfor', {
+      url: "/lookfor",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/lookfor.html",
+        }
+      }
+    })
+    .state('app.lookfor_filter', {
+      url: "/lookfor_filter",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/lookfor_filter.html",
+        }
+      }
+    })
+    .state('app.settings', {
+      url: "/settings",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/settings.html",
+        }
+      }
+    })
+
+    .state('app.single', {
+      url: "/playlists/:playlistId",
+      views: {
+        'menuContent' :{
+          templateUrl: "templates/playlist.html",
+          controller: 'PlaylistCtrl'
+        }
+      }
     });
+  // if none of the above states are matched, use this as the fallback
+  $urlRouterProvider.otherwise('/app/playlists');
 
   // if none of the above states are matched, use this as the fallback
-  $urlRouterProvider.otherwise('/tab/dash');
-
+  // $urlRouterProvider.otherwise('/tab/dash');
 });
 

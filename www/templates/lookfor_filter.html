@@ -1,0 +1,119 @@
+<ion-view title="Look for Dinners">
+    <ion-nav-buttons side="left">
+        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+    </ion-nav-buttons>
+    
+    <ion-tabs class="tabs-top tabs-striped tabs-icon-only">
+        <ion-tab title="Location" icon="ion-navigate">
+            <ion-content>
+
+                <h2>Search within</h2>
+                <div class="card">
+                    <div class="range">
+                      <i class="icon ion-home"></i>
+                      <input type="range" name="volume">
+                      <i class="icon ion-earth"></i>
+                    </div>  
+                </div>
+                
+                <h2>Refine</h2>
+                <div class="card">
+                    <div class="list">
+                        <div class="item item-checkbox">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                            </label>
+                            Vegan
+                        </div>
+                        <div class="item item-checkbox">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                            </label>
+                            Vegetarian
+                        </div>
+                        <div class="item item-checkbox">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                            </label>
+                            Organic
+                        </div>
+                        <div class="item item-checkbox">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                            </label>
+                            Halal
+                        </div>
+                        <div class="item item-checkbox">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                            </label>
+                            Kosher
+                        </div>
+                        <div class="item item-checkbox">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                            </label>
+                            Sweet
+                        </div>
+                        <div class="item item-checkbox item-positive">
+                            <label class="checkbox">
+                                <input type="checkbox">
+                            </label>
+                            Show only Dinners by Friends
+                        </div> 
+                    </div>  
+                </div>
+                
+                <h2>Time</h2>
+                <div class="card">
+                    <div class="row item">
+                        <label class="col col-80 item-input">
+                            <span class="input-label">From</span>
+                            <input type="text">
+                        </label>
+                        <button class="button button-light col col-20">Now</button>
+                    </div>
+                    <label class="item item-input">
+                        <span class="input-label">Until</span>
+                        <input type="text">
+                    </label>
+                </div>
+                
+                <h2>Look somewhere else</h2>
+                <div class="card">
+                    <div class="list">
+                                <label class="item item-input">
+                                    <input type="text" placeholder="Street name">
+                                </label>
+                                <label class="item item-input">
+                                    <input type="text" placeholder="No./Door">
+                                </label>
+                                <label class="item item-input">
+                                    <input type="text" placeholder="ZIP">
+                                </label>
+                                <label class="item item-input">
+                                    <input type="text" placeholder="City">
+                                </label>
+                                <label class="item item-input">
+                                    <input type="text" placeholder="Country">
+                                </label>
+                    </div>
+                </div>
+
+            </ion-content>
+        </ion-tab>
+
+        <ion-tab title="Home" icon="ion-home">
+            <ion-content>
+
+
+
+            </ion-content>
+        </ion-tab>
+    </ion-tabs>
+    
+    <div class="bar bar-footer">
+        <button class="button button-calm icon ion-location"></button>
+        <button class="button button-calm pull-right">Apply Filters</button>
+    </div>
+</ion-view>
