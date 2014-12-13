@@ -1,32 +1,35 @@
 <ion-view title="Sign Up">
-    
-    <!-- Der Burgerbutton kommt wieder raus, nur zu Testzwecken! -->
-    <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	
+	<!-- Der Burgerbutton kommt wieder raus, nur zu Testzwecken! -->
+  <ion-nav-buttons side="left">
+	<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-    
+	
   <ion-content>
-    <form>
-      <div class="card">
-        <div class="list">
-        <label class="item item-input">
-            <input type="text" placeholder="First Name">
-        </label>
-        <label class="item item-input">
-            <input type="text" placeholder="Last Name">
-        </label>
-        <label class="item item-input">
-            <input type="text" placeholder="E-Mail">
-        </label>
-        <label class="item item-input">
-            <input type="password" placeholder="Password">
-        </label>
-        <label class="item">
-            <button class="button button-calm button-block">Sign up</button>
-        </label>
-      </div>
-    </div>
-    </form>
-      
+	<form>
+	  <div class="card">
+		<div class="list">
+		<label class="item item-input">
+			<input ng-model="user.firstname" type="text" placeholder="First Name">
+		</label>
+		<label class="item item-input">
+			<input ng-model="user.lastname" type="text" placeholder="Last Name">
+		</label>
+		<label class="item item-input">
+			<input ng-model="user.email" type="text" placeholder="E-Mail">
+		</label>
+		<label class="item item-input">
+			<input ng-model="user.password" type="password" placeholder="Password">
+		</label>
+		<label class="item item-input">
+			<input ng-model="user.passwordCheck" type="password" placeholder="Repeat Password">
+		</label>
+		<label class="item">
+			<button ng-click="signup()" class="button button-calm button-block">Sign up</button>
+		</label>
+	  </div>
+	</div>
+	</form>
+	  
   </ion-content>
 </ion-view>
