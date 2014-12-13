@@ -63,30 +63,44 @@ c.controller('DashCtrl', function($scope) {
 
 
 /* Sign up */
-c.controller('SignupCtrl', function($scope, db) {
+c.controller('SignupCtrl', function($scope, db, $rootScope) {
 	$scope.user = {};
 	$scope.signup = function() {
 		console.log('signing up', $scope.user);
-		db.signup($scope.user).then( function(user) {
-			console.log('Signup successful', user);
+		db.signup($scope.user).then( function(userData) {
+			console.log('Signup successful', userData);
+			$rootScope.user = userData;
+			$state.go('app.settings');
 		}, function(error) {
-			console.warn('Error signing up', error);
+			console.error('Error signing up', error);
 		});
 	};
 });
 
 /* Log in */
-c.controller('LoginCtrl', function($scope, db) {
+c.controller('LoginCtrl', function($scope, db, $rootScope, $state) {
 	$scope.user = {};
 	$scope.login = function() {
 		console.log("logging in", $scope.user);
-		db.login($scope.user).then(function() {
-			console.log("Login successful");
+		db.login($scope.user).then(function(userData) {
+			console.log("Login successful", userData);
+			$rootScope.user = userData;
+			$state.go('app.settings');
 		}, function(error) {
-			console.warn('Error logging in', error);
-			console.warn()		});
+			console.error('Error logging in', error);
+		});
 	};
-	$scope.gotoSignup = function() {
-		console.log("signup");
+});
+
+/* Log in */
+c.controller('SettingsCtrl', function($scope, db, $rootScope, $state) {
+	console.log('using user:', $rootScope.user);
+	$scope.user = $rootScope.user;
+	$scope.update = function() {
+		db.updateUserData($scope.user).then(function() {
+			console.log('User update sucessful', $scope.user);
+		}, function(error) {
+			console.error('Error updating user', error);
+		});
 	};
 });

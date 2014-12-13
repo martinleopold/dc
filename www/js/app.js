@@ -165,6 +165,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.db'])
 			views: {
 				'menuContent' :{
 					templateUrl: "templates/settings.html",
+					controller: 'SettingsCtrl'
 				}
 			}
 		})

@@ -21,13 +21,13 @@
             <div class="card">
                     <div class="list">
                         <label class="item item-input">
-                            <input type="text" placeholder="First Name">
+                            <input ng-model="user.firstname" type="text" placeholder="First Name">
                         </label>
                         <label class="item item-input">
-                            <input type="text" placeholder="Last Name">
+                            <input ng-model="user.lastname" type="text" placeholder="Last Name">
                         </label>
                         <label class="item item-input">
-                            <textarea placeholder="Tell us a bit about yourself - for example what you like to eat, what your hobbies are or what kind of socks you like to wear."></textarea>
+                            <textarea ng-model="user.info" placeholder="Tell us a bit about yourself - for example what you like to eat, what your hobbies are or what kind of socks you like to wear."></textarea>
                         </label>
                     </div>
                     
@@ -65,7 +65,7 @@
                 </div>
             </div>
             
-            <button class="button button-positive button-block">Save Changes</button>
+            <button ng-click="update()" class="button button-positive button-block">Save Changes</button>
         </ion-content>
       </ion-tab>
        
@@ -76,19 +76,19 @@
             <div class="card">
                 <div class="list">
                             <label class="item item-input">
-                                <input type="text" placeholder="Street name">
+                                <input ng-model="user.address.street" type="text" placeholder="Street name">
                             </label>
                             <label class="item item-input">
-                                <input type="text" placeholder="No./Door">
+                                <input ng-model="user.address.no" type="text" placeholder="No./Door">
                             </label>
                             <label class="item item-input">
-                                <input type="text" placeholder="ZIP">
+                                <input ng-model="user.address.zip" type="text" placeholder="ZIP">
                             </label>
                             <label class="item item-input">
-                                <input type="text" placeholder="City">
+                                <input ng-model="user.address.city" type="text" placeholder="City">
                             </label>
                             <label class="item item-input">
-                                <input type="text" placeholder="Country">
+                                <input ng-model="user.address.country" type="text" placeholder="Country">
                             </label>
                             <div class="item item-image">
                                 <img src="../img/map.png">
@@ -109,7 +109,7 @@
             <div class="card">
                 <div class="range">
                   <i class="icon ion-home"></i>
-                  <input type="range" name="volume">
+                  <input ng-model="user.settings.searchradius" type="range" name="radius" min="0" max="4">
                   <i class="icon ion-earth"></i>
                 </div>  
             </div>
