@@ -77,6 +77,7 @@ c.controller('SignupCtrl', function($scope, db, $rootScope) {
 	};
 });
 
+
 /* Log in */
 c.controller('LoginCtrl', function($scope, db, $rootScope, $state) {
 	$scope.user = {};
@@ -92,7 +93,8 @@ c.controller('LoginCtrl', function($scope, db, $rootScope, $state) {
 	};
 });
 
-/* User Settings*/
+
+/* User Settings */
 c.controller('SettingsCtrl', function($scope, db, $rootScope, $state) {
 	console.log('using user:', $rootScope.user);
 	$scope.user = $rootScope.user;
@@ -107,5 +109,22 @@ c.controller('SettingsCtrl', function($scope, db, $rootScope, $state) {
 
 	$scope.mapCreated = function(map) {
 		$scope.map = map;
+	};
+});
+
+
+/* New Dinner */
+c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state) {
+	console.log('using user:', $rootScope.user);
+	$scope.user = $rootScope.user;
+	$scope.dinner = {};
+	if ($scope.user) $scope.dinner = {user: $scope.user.uid};
+	
+	$scope.create = function() {
+		db.newDinner($scope.dinner).then(function() {
+			console.log('Dinner created', $scope.dinner);
+		}, function(error) {
+			console.error('Error creating dinner', error);
+		});
 	};
 });

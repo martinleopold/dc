@@ -64,10 +64,22 @@ angular.module('dc.db', [])
 		return d.promise;
 	};
 
+
 	db.updateUserData = function(userData) {
 		var user = fb.child('user').child(userData.uid);
 		var d = $q.defer();
 		user.update(userData, function onComplete(error) {
+			if (error === null) d.resolve();
+			else d.reject(error);
+		});
+		return d.promise;
+	};
+
+
+	db.newDinner = function(dinner) {
+		var dinners = fb.child('dinner');
+		var d = $q.defer();
+		dinners.push(dinner, function onComplete(error) {
 			if (error === null) d.resolve();
 			else d.reject(error);
 		});

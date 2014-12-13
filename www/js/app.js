@@ -133,6 +133,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.db', 'dc.dir
 			views: {
 				'menuContent' :{
 					templateUrl: "templates/newdinner.html",
+					controller: "NewDinnerCtrl"
 				}
 			}
 		})
