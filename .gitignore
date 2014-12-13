@@ -17,4 +17,4 @@ platforms/
 plugins/
 
 #
-.sublime-workspace
+*.sublime-workspace
