@@ -92,15 +92,20 @@ c.controller('LoginCtrl', function($scope, db, $rootScope, $state) {
 	};
 });
 
-/* Log in */
+/* User Settings*/
 c.controller('SettingsCtrl', function($scope, db, $rootScope, $state) {
 	console.log('using user:', $rootScope.user);
 	$scope.user = $rootScope.user;
+	
 	$scope.update = function() {
 		db.updateUserData($scope.user).then(function() {
 			console.log('User update sucessful', $scope.user);
 		}, function(error) {
 			console.error('Error updating user', error);
 		});
+	};
+
+	$scope.mapCreated = function(map) {
+		$scope.map = map;
 	};
 });

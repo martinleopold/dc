@@ -1,122 +1,133 @@
 <ion-view title="Settings">
-  <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
-  
-    <ion-tabs class="tabs-top tabs-striped">
-        
-      <ion-tab title="About You">
-        <ion-content>
-            <div class="card">
-                <div class="item item-image">
-                    <img src="../img/pm_b.jpg">
-                </div>
-                <div class="button-bar">
-                        <a class="button button-light icon-left ion-upload">Upload new photo</a>
-                        <a class="button button-light icon ion-camera" style="max-width: 15%"></a>
-                </div>
-            </div>
-            
-            <h2>Information</h2>
-            <div class="card">
-                    <div class="list">
-                        <label class="item item-input">
-                            <input ng-model="user.firstname" type="text" placeholder="First Name">
-                        </label>
-                        <label class="item item-input">
-                            <input ng-model="user.lastname" type="text" placeholder="Last Name">
-                        </label>
-                        <label class="item item-input">
-                            <textarea ng-model="user.info" placeholder="Tell us a bit about yourself - for example what you like to eat, what your hobbies are or what kind of socks you like to wear."></textarea>
-                        </label>
-                    </div>
-                    
-            </div>
-            
-            <h2>Gallery</h2>
-            <p>Upload photos of your food, your kitchen or where you'll eat with your guests.</p>
-            <div class="card">
-                <div class="list">
-                    <div class="item item-image">
-                        <div class="row">
-                            <div class="col col-20"><button class="button button-light icon ion-close"></div>
-                            <div class="col col-60 item-image"><img src="../img/lndsc.jpeg"></div>
-                            <div class="col col-20"><button class="button button-light icon ion-drag"></div>
-                        </div>
-                    </div>
-                    <div class="item item-image">
-                        <div class="row">
-                            <div class="col col-20"><button class="button button-light icon ion-close"></div>
-                            <div class="col col-60 item-image"><img src="../img/lndsc.jpeg"></div>
-                            <div class="col col-20"><button class="button button-light icon ion-drag"></div>
-                        </div>
-                    </div>
-                    <div class="item item-image">
-                        <div class="row">
-                            <div class="col col-20"><button class="button button-light icon ion-close"></div>
-                            <div class="col col-60 item-image"><img src="../img/lndsc.jpeg"></div>
-                            <div class="col col-20"><button class="button button-light icon ion-drag"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="button-bar">
-                        <a class="button button-light icon-left ion-upload">Upload new photo</a>
-                        <a class="button button-light icon ion-camera" style="max-width: 15%"></a>
-                </div>
-            </div>
-            
-            <button ng-click="update()" class="button button-positive button-block">Save Changes</button>
-        </ion-content>
-      </ion-tab>
-       
-      <ion-tab title="Other Settings">
-        <ion-content>
-            <h2>Your Address</h2>
-            <p>This is where you'll cook. Your exact adress will only be shared with people you accept as guests.</p>
-            <div class="card">
-                <div class="list">
-                            <label class="item item-input">
-                                <input ng-model="user.address.street" type="text" placeholder="Street name">
-                            </label>
-                            <label class="item item-input">
-                                <input ng-model="user.address.no" type="text" placeholder="No./Door">
-                            </label>
-                            <label class="item item-input">
-                                <input ng-model="user.address.zip" type="text" placeholder="ZIP">
-                            </label>
-                            <label class="item item-input">
-                                <input ng-model="user.address.city" type="text" placeholder="City">
-                            </label>
-                            <label class="item item-input">
-                                <input ng-model="user.address.country" type="text" placeholder="Country">
-                            </label>
-                            <div class="item item-image">
-                                <img src="../img/map.png">
-                            </div>
-                            <div class="row">
-                                <div class="col">
-                                    This is not where you live?
-                                </div>
-                                <div class="col">
-                                    <button class="button button-light">Place pin manually</button>
-                                </div>
-                            </div>
-                </div>
-            </div>
-            
-            <h2>Default search radius</h2>
-            <p>Always start to search within this distance.</p>
-            <div class="card">
-                <div class="range">
-                  <i class="icon ion-home"></i>
-                  <input ng-model="user.settings.searchradius" type="range" name="radius" min="0" max="4">
-                  <i class="icon ion-earth"></i>
-                </div>  
-            </div>
-        </ion-content>
-      </ion-tab>
-        
-    </ion-tabs>
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	</ion-nav-buttons>
+	
+		<ion-tabs class="tabs-top tabs-striped">
+				
+			<ion-tab title="About You">
+				<ion-content>
+						<div class="card">
+								<div class="item item-image">
+										<img src="../img/pm_b.jpg">
+								</div>
+								<div class="button-bar">
+												<a class="button button-light icon-left ion-upload">Upload new photo</a>
+												<a class="button button-light icon ion-camera" style="max-width: 15%"></a>
+								</div>
+						</div>
+						
+						<h2>Information</h2>
+						<div class="card">
+										<div class="list">
+												<label class="item item-input">
+														<input ng-model="user.firstname" type="text" placeholder="First Name">
+												</label>
+												<label class="item item-input">
+														<input ng-model="user.lastname" type="text" placeholder="Last Name">
+												</label>
+												<label class="item item-input">
+														<textarea ng-model="user.info" placeholder="Tell us a bit about yourself - for example what you like to eat, what your hobbies are or what kind of socks you like to wear."></textarea>
+												</label>
+										</div>
+										
+						</div>
+						
+						<h2>Gallery</h2>
+						<p>Upload photos of your food, your kitchen or where you'll eat with your guests.</p>
+						<div class="card">
+								<div class="list">
+										<div class="item item-image">
+												<div class="row">
+														<div class="col col-20"><button class="button button-light icon ion-close"></div>
+														<div class="col col-60 item-image"><img src="../img/lndsc.jpeg"></div>
+														<div class="col col-20"><button class="button button-light icon ion-drag"></div>
+												</div>
+										</div>
+										<div class="item item-image">
+												<div class="row">
+														<div class="col col-20"><button class="button button-light icon ion-close"></div>
+														<div class="col col-60 item-image"><img src="../img/lndsc.jpeg"></div>
+														<div class="col col-20"><button class="button button-light icon ion-drag"></div>
+												</div>
+										</div>
+										<div class="item item-image">
+												<div class="row">
+														<div class="col col-20"><button class="button button-light icon ion-close"></div>
+														<div class="col col-60 item-image"><img src="../img/lndsc.jpeg"></div>
+														<div class="col col-20"><button class="button button-light icon ion-drag"></div>
+												</div>
+										</div>
+								</div>
+								<div class="button-bar">
+												<a class="button button-light icon-left ion-upload">Upload new photo</a>
+												<a class="button button-light icon ion-camera" style="max-width: 15%"></a>
+								</div>
+						</div>
+						
+						<button ng-click="update()" class="button button-positive button-block">Save Changes</button>
+				</ion-content>
+			</ion-tab>
+			 
+			<ion-tab title="Other Settings">
+				<ion-content>
+						<h2>Your Address</h2>
+						<p>This is where you'll cook. Your exact adress will only be shared with people you accept as guests.</p>
+						<div class="card">
+								<div class="list">
+									<label class="item item-input">
+											<input ng-model="user.address.street" type="text" placeholder="Street name">
+									</label>
+									<label class="item item-input">
+											<input ng-model="user.address.no" type="text" placeholder="No./Door">
+									</label>
+									<label class="item item-input">
+											<input ng-model="user.address.zip" type="text" placeholder="ZIP">
+									</label>
+									<label class="item item-input">
+											<input ng-model="user.address.city" type="text" placeholder="City">
+									</label>
+									<label class="item item-input">
+											<input ng-model="user.address.country" type="text" placeholder="Country">
+									</label>
+
+									<style>
+										map {
+										  display: block;
+										  width: 100%;
+										  height: 100%;
+										  height: 250px;
+										}
+										.scroll {
+										  height: 100%;
+										}
+									</style>
+									<map on-create="mapCreated(map)"></map>
+
+									<div class="row">
+											<div class="col">
+													This is not where you live?
+											</div>
+											<div class="col">
+													<button class="button button-light">Place pin manually</button>
+											</div>
+									</div>
+								</div>
+						</div>
+						
+						<h2>Default search radius</h2>
+						<p>Always start to search within this distance.</p>
+						<div class="card">
+								<div class="range">
+									<i class="icon ion-home"></i>
+									<input ng-model="user.settings.searchradius" type="range" name="radius" min="0" max="4">
+									<i class="icon ion-earth"></i>
+								</div>  
+						</div>
+				</ion-content>
+			</ion-tab>
+				
+		</ion-tabs>
 
 </ion-view>
-    
+		
