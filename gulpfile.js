@@ -48,3 +48,22 @@ gulp.task('git-check', function(done) {
   }
   done();
 });
+
+
+var sftpConfig = JSON.parse( require('fs').readFileSync('sftp.config') );
+var sftp = require('gulp-sftp')(sftpConfig);
+
+gulp.task('deploy-web', ['sass'], function() {
+  gulp.src('./www/**/*').pipe(sftp);
+});
+
+// 
+// var ssh = require('gulp-ssh')({
+//   ignoreErrors: false,
+//   sshConfig: JSON.parse( require('fs').readFileSync('ssh.config') )
+// });
+
+// gulp.task('deploy-web', ['sass'], function() {
+//   gulp.src('./www/**/*').pipe(gutil.log);
+//     //.pipe( ssh.sftp('write', 'preview.txt') );
+// });

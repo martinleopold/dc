@@ -18,3 +18,4 @@ plugins/
 
 #
 *.sublime-workspace
+sftp.config
