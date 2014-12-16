@@ -13,6 +13,12 @@ var paths = {
 
 gulp.task('default', ['sass']);
 
+var exec = require('child_process').exec;
+gulp.task('serve', function() {
+  exec('ionic serve --nobrowser');
+  exec('open "http://localhost:8100" -a "Google Chrome"');
+});
+
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
     .pipe(sass())
@@ -56,14 +62,3 @@ var sftp = require('gulp-sftp')(sftpConfig);
 gulp.task('deploy-web', ['sass'], function() {
   gulp.src('./www/**/*').pipe(sftp);
 });
-
-// 
-// var ssh = require('gulp-ssh')({
-//   ignoreErrors: false,
-//   sshConfig: JSON.parse( require('fs').readFileSync('ssh.config') )
-// });
-
-// gulp.task('deploy-web', ['sass'], function() {
-//   gulp.src('./www/**/*').pipe(gutil.log);
-//     //.pipe( ssh.sftp('write', 'preview.txt') );
-// });
