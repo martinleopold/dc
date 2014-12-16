@@ -1,4 +1,4 @@
-var c = angular.module('dc.controllers', []);
+var c = angular.module( 'dc.controllers', ['dc.services'] );
 
 c.controller('DashCtrl', function($scope) {
 })
@@ -93,11 +93,18 @@ c.controller('LoginCtrl', function($scope, db, $rootScope, $state) {
 	};
 });
 
+/**
+ * Log out
+ */
+c.controller('LogoutCtrl', function(db, $state) {
+	db.logout();
+	$state.go('app.login');
+});
+
 
 /* User Settings */
-c.controller('SettingsCtrl', function($scope, db, $rootScope, $state) {
-	console.log('using user:', $rootScope.user);
-	$scope.user = $rootScope.user;
+c.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession) {
+	resumeSession($scope);
 	
 	$scope.update = function() {
 		db.updateUserData($scope.user).then(function() {
@@ -114,9 +121,9 @@ c.controller('SettingsCtrl', function($scope, db, $rootScope, $state) {
 
 
 /* New Dinner */
-c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state) {
-	console.log('using user:', $rootScope.user);
-	$scope.user = $rootScope.user;
+c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSession) {
+	resumeSession($scope);
+
 	$scope.dinner = {};
 	if ($scope.user) $scope.dinner = {user: $scope.user.uid};
 	

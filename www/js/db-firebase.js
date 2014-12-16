@@ -1,6 +1,6 @@
 angular.module('dc.db', [])
 
-.factory('db', function($q) {
+.factory('db', ['$rootScope', '$q', function($rootScope, $q) {
 	var fb = new Firebase("https://dinner-collective.firebaseio.com/");
 	var db = {};
 
@@ -41,11 +41,36 @@ angular.module('dc.db', [])
 	 */
 	db.login = function(credentials) {
 		var d = $q.defer();
-		fb.authWithPassword(credentials, function(error, authData) {
-			if (error === null) d.resolve(authData.uid);
+		fb.authWithPassword(credentials, function(error, auth) {
+			if (error === null) d.resolve(auth.uid);
 			else d.reject(error);
 		});
 		return d.promise.then(db.getUserData);
+	};
+
+	/**
+	 * Log out the user
+	 */
+	db.logout = function() {
+		fb.onAuth(function onAuth(auth) {
+		 	if (auth === null) {
+		 		console.log('user un-authenticated');
+		 		fb.offAuth(onAuth);
+		 	}
+		});
+		fb.unauth();
+		delete $rootScope.user;
+	};
+
+	/**
+	 * Synchronously get current authentication session
+	 * @return {String} - uid on success, null if not authenticated
+	 */
+	db.currentSession = function() {
+		var auth = fb.getAuth();
+		// console.log('auth:', auth);
+		if (auth != null) return auth.uid;
+		else return null;
 	};
 
 	/**
@@ -87,4 +112,4 @@ angular.module('dc.db', [])
 	};
 
 	return db;
-});
+}]);

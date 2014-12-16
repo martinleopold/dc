@@ -119,6 +119,16 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.db', 'dc.dir
 				}
 			}
 		})
+
+		.state('app.logout', {
+			url: "/logout",
+			views: {
+				'menuContent' :{
+					controller: "LogoutCtrl"
+				}
+			}
+		})
+
 		.state('app.signup', {
 			url: "/signup",
 			views: {
