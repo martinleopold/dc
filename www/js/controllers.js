@@ -121,7 +121,7 @@ c.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSess
 
 
 /* New Dinner */
-c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSession) {
+c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSession, util) {
 	resumeSession($scope);
 
 	$scope.dinner = {};
@@ -133,5 +133,13 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 		}, function(error) {
 			console.error('Error creating dinner', error);
 		});
+	};
+
+	$scope.fromNow = function() {
+		$scope.dinner.takeaway = {
+			from : util.now(),
+			until : util.now(60),
+			enabled: true
+		};
 	};
 });

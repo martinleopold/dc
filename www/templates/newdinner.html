@@ -62,7 +62,7 @@
                 </div>
                 <label class="item item-input">
                     <span class="input-label">When?</span>
-                    <input ng-model="dinner.dinein.time" type="datetime">
+                    <input ng-model="dinner.dinein.time" type="datetime-local">
                 </label>
                 <div class="item item-checkbox">
                     <label class="checkbox">
@@ -73,13 +73,13 @@
                 <div class="row item">
                     <label class="col col-80 item-input">
                         <span class="input-label">From</span>
-                        <input ng-model="dinner.takeaway.from" type="datetime">
+                        <input ng-model="dinner.takeaway.from" type="datetime-local">
                     </label>
-                    <button class="button button-light col col-20">Now</button>
+                    <button ng-click="fromNow()" class="button button-light col col-20">Now</button>
                 </div>
                 <label class="item item-input">
                     <span class="input-label">Until</span>
-                    <input ng-model="dinner.takeaway.until" type="datetime">
+                    <input ng-model="dinner.takeaway.until" type="datetime-local">
                 </label>
                 
                 <div class="item item-checkbox">

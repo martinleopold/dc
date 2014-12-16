@@ -50,3 +50,14 @@ s.factory('resumeSession', function($rootScope, db, $q, $state) {
 		return d.promise;
 	};
 });
+
+s.factory('util', function() {
+	return {
+		now: function(offsetMins) {
+			offsetMins = offsetMins || 0;
+			var n = new Date();
+			var d = new Date( n.getTime() - n.getTimezoneOffset()*60000 + offsetMins*60000 );
+			return (d.toISOString()).substring(0,16);
+		}
+	};
+});
