@@ -12,8 +12,8 @@
 										<img src="../img/pm_b.jpg">
 								</div>
 								<div class="button-bar">
-												<a class="button button-light icon-left ion-upload">Upload new photo</a>
-												<a class="button button-light icon ion-camera" style="max-width: 15%"></a>
+												<a disabled class="button button-light icon-left ion-upload">Upload new photo</a>
+												<a disabled class="button button-light icon ion-camera" style="max-width: 15%"></a>
 								</div>
 						</div>
 						
@@ -33,7 +33,7 @@
 										
 						</div>
 						
-						<h2>Gallery</h2>
+						<!-- <h2>Gallery</h2>
 						<p>Upload photos of your food, your kitchen or where you'll eat with your guests.</p>
 						<div class="card">
 								<div class="list">
@@ -60,10 +60,10 @@
 										</div>
 								</div>
 								<div class="button-bar">
-												<a class="button button-light icon-left ion-upload">Upload new photo</a>
-												<a class="button button-light icon ion-camera" style="max-width: 15%"></a>
+									<a class="button button-light icon-left ion-upload">Upload new photo</a>
+									<a class="button button-light icon ion-camera" style="max-width: 15%"></a>
 								</div>
-						</div>
+						</div> -->
 						
 						<button ng-click="update()" class="button button-positive button-block">Save Changes</button>
 				</ion-content>
@@ -120,10 +120,11 @@
 						<div class="card">
 								<div class="range">
 									<i class="icon ion-home"></i>
-									<input ng-model="user.settings.searchradius" type="range" name="radius" min="0" max="4">
+									<input ng-model="user.settings.searchradius" type="range" name="radius" min="0" max="5">
 									<i class="icon ion-earth"></i>
 								</div>  
 						</div>
+						<button ng-click="update()" class="button button-positive button-block">Save Changes</button>
 				</ion-content>
 			</ion-tab>
 				
