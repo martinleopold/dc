@@ -160,6 +160,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.db', 'dc.dir
 			views: {
 				'menuContent' :{
 					templateUrl: "templates/lookfor.html",
+					controller: 'LookForDinnersCtrl'
 				}
 			}
 		})

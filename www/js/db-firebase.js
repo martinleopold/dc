@@ -1,6 +1,6 @@
-angular.module('dc.db', [])
+angular.module('dc.db', ['firebase'])
 
-.factory('db', ['$rootScope', '$q', function($rootScope, $q) {
+.factory('db', ['$rootScope', '$q', '$firebase', function($rootScope, $q, $firebase) {
 	var fb = new Firebase("https://dinner-collective.firebaseio.com/");
 	var db = {};
 
@@ -109,6 +109,26 @@ angular.module('dc.db', [])
 			else d.reject(error);
 		});
 		return d.promise;
+	};
+
+
+	// db.getDinners = function(cb) {
+	// 	var dinners = fb.child('dinner');
+	// 	var d = $q.defer();
+	// 	dinners.on('value', function(data) {
+	// 		if (cb) cb( data.val() );
+	// 		if (d) {
+	// 			d.resolve( data.val() );
+	// 			delete d;
+	// 		}
+	// 	});
+	// 	return d.promise;
+	// };
+
+	db.getDinnersSync = function() {
+		var dinners = fb.child('dinner');
+		var sync = $firebase(dinners);		
+		return sync.$asArray();
 	};
 
 	return db;

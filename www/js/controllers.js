@@ -143,3 +143,11 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 		};
 	};
 });
+
+
+/* Look for  Dinner */
+c.controller('LookForDinnersCtrl', function($scope, db, resumeSession) {
+	resumeSession($scope);
+	var dinners = db.getDinnersSync();
+	console.log('dinners', dinners);
+});
