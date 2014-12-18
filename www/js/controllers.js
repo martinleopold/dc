@@ -159,3 +159,16 @@ c.controller('LookForDinnersCtrl', function($scope, db, resumeSession) {
 		return time;
 	};
 });
+
+
+/* Dinner */
+c.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams) {
+	resumeSession($scope);
+	$scope.dinner = db.getDinnerSync($stateParams.dinnerId);
+	console.log($scope.dinner);
+	// TODO: proper security. onlu get name.
+	// db.getUserData().then(function(user) {
+	// 	$scope.host = user;
+	// });
+	
+});

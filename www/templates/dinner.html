@@ -1,127 +1,118 @@
 <ion-view title="Dinner">
-    <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	<ion-nav-buttons side="left">
+		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
 
   <ion-content class="has-header">
-    <div class="card">
-        <div class="item item-text-wrap">
-            <h1>Spaghetti Pomodoro</h1>
-            <div class="row row-center">
-                <div class="col">12.05.<br />17:15</div>
-                <div class="col col-75">
-                    <button class="button button-light">
-                        <div class="item-avatar">
-                            <img src="img/pw.jpg">
-                            <span>at Selma's place</span>
-                        </div>
-                    </button>
-                </div>
-            </div>
-            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>
-            <div class="row row-center">
-                <div class="col icon-left ion-record">
-                    Vegetarian
-                </div>
-                <div class="col icon-left ion-record">
-                    Vegetarian
-                </div>
-                <div class="col icon-left ion-record icon-calm">
-                    Vegetarian
-                </div>
-            </div>
-            
-            <div class="item item-image">
-                <img src="img/map.png">
-            </div>
-            
-            
-        </div>
-    </div>
-      
-    <h2>Guests</h2>
-    <div class="card">
-               <div class="row row-center">
-                    <div class="col">
-                        <a class="item item-avatar" href="#">
-                            <img src="img/pw.jpg">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a class="item item-avatar" href="#">
-                            <img src="img/pw.jpg">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a class="item item-avatar" href="#">
-                            <img src="img/pw.jpg">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a class="item item-avatar" href="#">
-                            <img src="img/pw.jpg">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <button class="button button-light">
-                            4 more
-                        </button>
-                    </div>
-                </div>
-    </div>
-    
-    <h2>Conversations</h2>
-    <div class="card">
-    
-    <div class="list">
-        <div class="item item-text-wrap">
-        <div class="item-avatar" href="#">
-          <img src="img/pw.jpg">
-          <h2>Venkman</h2>
-          <p>on Aug 14, 17:30</p>  
-        </div>
-        <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
-        </div>
-        <div class="item item-text-wrap">
-        <div class="item-avatar" href="#">
-          <img src="img/pw.jpg">
-          <h2>Venkman</h2>
-          <p>on Aug 14, 17:30</p>  
-        </div>
-        <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
-        </div>
-    </div>
-        
-        <button class="button button-block button-light icon-left ion-chatbubble-working">Reply to conversation</button>
-    
-    </div>  
-    <div class="card">
-        <button class="button button-block button-light icon-left ion-chatbubble-working">Start new conversation</button>  
-    </div> 
-      
-    <h2>Apply</h2>
-    <div class="row">
-        <div class="col col-50">
-            <p>For how many pepole?</p>
-            <p>You'll also be charged this many credits.</p>
-        </div>
-        <div class="col col">
-            <button class="button button-light icon ion-android-remove"></button>
-        </div>
-        <div class="col col">
-            <h2>1</h2>
-        </div>
-        <div class="col col">
-            <button class="button button-light icon ion-android-add"></button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col col-50">
-            <button class="button button-balanced">I want to go there!</button>
-        </div>
-        <div class="col col-50">
-            <button class="button button-positive">I want to take my food away!</button>
-        </div>
-      </div>
+	<div class="card">
+		<div class="item item-text-wrap">
+			<h1>{{dinner.title}}</h1>
+			<div class="row row-center">
+				<div class="col">{{dinner | getBeginTime | date : 'd.M. HH:mm'}}</div>
+				<div class="col col-75">
+					<button ng-show="dinner.userData.firstname" class="button button-light">
+						<div class="item-avatar">
+							<img src="img/pw.jpg">
+							<span>at {{dinner.userData.firstname}}'s place</span>
+						</div>
+					</button>
+				</div>
+			</div>
+			<p>{{dinner.info}}</p>
+			<div class="row row-center">
+				<div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="col icon-left ion-record"> {{type}}</div>
+			</div>
+			
+			<div class="item item-image">
+				<img src="img/map.png">
+			</div>
+		</div>
+	</div>
+	  
+<!-- 	<h2>Guests</h2>
+	<div class="card">
+		<div class="row row-center">
+			<div class="col">
+				<a class="item item-avatar" href="#">
+					<img src="img/pw.jpg">
+				</a>
+			</div>
+			<div class="col">
+				<a class="item item-avatar" href="#">
+					<img src="img/pw.jpg">
+				</a>
+			</div>
+			<div class="col">
+				<a class="item item-avatar" href="#">
+					<img src="img/pw.jpg">
+				</a>
+			</div>
+			<div class="col">
+				<a class="item item-avatar" href="#">
+					<img src="img/pw.jpg">
+				</a>
+			</div>
+			<div class="col">
+				<button class="button button-light">
+					4 more
+				</button>
+			</div>
+		</div>
+	</div> -->
+	
+<!-- 	<h2>Conversations</h2>
+	<div class="card">
+	
+	<div class="list">
+		<div class="item item-text-wrap">
+		<div class="item-avatar" href="#">
+		  <img src="img/pw.jpg">
+		  <h2>Venkman</h2>
+		  <p>on Aug 14, 17:30</p>  
+		</div>
+		<p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+		</div>
+		<div class="item item-text-wrap">
+		<div class="item-avatar" href="#">
+		  <img src="img/pw.jpg">
+		  <h2>Venkman</h2>
+		  <p>on Aug 14, 17:30</p>  
+		</div>
+		<p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+		</div>
+	</div>
+		
+		<button class="button button-block button-light icon-left ion-chatbubble-working">Reply to conversation</button>
+	
+	</div>  
+	<div class="card">
+		<button class="button button-block button-light icon-left ion-chatbubble-working">Start new conversation</button>  
+	</div>  -->
+	  
+<!-- 	<h2>Apply</h2>
+	<div class="row">
+		<div class="col col-50">
+			<p>For how many pepole?</p>
+			<p>You'll also be charged this many credits.</p>
+		</div>
+		<div class="col col">
+			<button class="button button-light icon ion-android-remove"></button>
+		</div>
+		<div class="col col">
+			<h2>1</h2>
+		</div>
+		<div class="col col">
+			<button class="button button-light icon ion-android-add"></button>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col col-50">
+			<button class="button button-balanced">I want to go there!</button>
+		</div>
+		<div class="col col-50">
+			<button class="button button-positive">I want to take my food away!</button>
+		</div>
+	  </div> -->
+
   </ion-content>
 </ion-view>

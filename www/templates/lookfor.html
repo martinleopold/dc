@@ -7,10 +7,11 @@
 	  <ion-tab title="Location" icon="ion-navigate">
 		<ion-content>
 			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card">
-				<div class="row row-center">
+				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
+				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
 					<div class="col col-75">{{dinner.title}}</div>
 					<div class="col">{{dinner | getBeginTime | date : 'd.M. HH:mm'}}</div>
-				</div>
+				</a>
 			</div>
 		</ion-content>
 	  </ion-tab>

@@ -127,9 +127,24 @@ angular.module('dc.db', ['firebase'])
 
 	db.getDinnersSync = function() {
 		var dinners = fb.child('dinner');
-		var sync = $firebase(dinners);		
-		return sync.$asArray();
+		var sync = $firebase(dinners).$asArray();
+		return sync;
 	};
+
+
+	db.getDinnerSync = function(dinnerId) {
+		var dinner = fb.child('dinner').child(dinnerId);
+		var sync = $firebase(dinner).$asObject();
+		// TODO: proper security. only get user name
+		sync.$loaded(function() {
+			sync.userData = $firebase(fb.child('user').child(sync.user)).$asObject();
+		});	
+		return sync;
+	};
+
+	// db.getUserName = function(userId) {
+	// 	var firstname = fb.child('dinner').child(dinnerId)
+	// };
 
 	return db;
 }]);
