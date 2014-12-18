@@ -148,6 +148,14 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 /* Look for  Dinner */
 c.controller('LookForDinnersCtrl', function($scope, db, resumeSession) {
 	resumeSession($scope);
-	var dinners = db.getDinnersSync();
-	console.log('dinners', dinners);
+	$scope.dinners = db.getDinnersSync();
+	console.log('dinners', $scope.dinners);
+
+	$scope.getBeginTime = function(dinner) {
+		console.log(dinner);
+		var time;
+		if (dinner.dinein && dinner.dinein.enabled) time = dinner.dinein.time;
+		else if (dinner.takeaway && dinner.takeaway.enabled) time = dinner.takeaway.from;
+		return time;
+	};
 });
