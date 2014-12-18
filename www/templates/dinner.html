@@ -23,9 +23,18 @@
 				<div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="col icon-left ion-record"> {{type}}</div>
 			</div>
 			
-			<div class="item item-image">
-				<img src="img/map.png">
-			</div>
+			<style>
+				map {
+				  display: block;
+				  width: 100%;
+				  height: 100%;
+				  height: 250px;
+				}
+				.scroll {
+				  height: 100%;
+				}
+			</style>
+			<map on-create="mapCreated(map)"></map>
 		</div>
 	</div>
 	  

@@ -178,9 +178,4 @@ c.controller('LookForDinnersCtrl', function($scope, db, resumeSession) {
 c.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams, $state) {
 	resumeSession($scope);
 	$scope.dinner = db.getDinnerSync($stateParams.dinnerId);
-
-	$scope.gotUser = function() {
-		
-	};
-
 });
