@@ -151,8 +151,8 @@ c.controller('LookForDinnersCtrl', function($scope, db, resumeSession) {
 	$scope.dinners = db.getDinnersSync();
 	console.log('dinners', $scope.dinners);
 
+	// TODO: remove this. use filter instea
 	$scope.getBeginTime = function(dinner) {
-		console.log(dinner);
 		var time;
 		if (dinner.dinein && dinner.dinein.enabled) time = dinner.dinein.time;
 		else if (dinner.takeaway && dinner.takeaway.enabled) time = dinner.takeaway.from;

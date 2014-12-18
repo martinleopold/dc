@@ -9,7 +9,7 @@
 			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card">
 				<div class="row row-center">
 					<div class="col col-75">{{dinner.title}}</div>
-					<div class="col">{{getBeginTime(dinner) | date : 'd.M. HH:mm'}}</div>
+					<div class="col">{{dinner | getBeginTime | date : 'd.M. HH:mm'}}</div>
 				</div>
 			</div>
 		</ion-content>
@@ -20,7 +20,7 @@
 			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card">
 				<div class="row row-center">
 					<div class="col col-75">{{dinner.title}}</div>
-					<div class="col">{{getBeginTime(dinner) | date : 'd.M. HH:mm'}}</div>
+					<div class="col">{{dinner | getBeginTime | date : 'd.M. HH:mm'}}</div>
 				</div>
 			</div>
 		</ion-content>
