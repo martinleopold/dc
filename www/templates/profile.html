@@ -1,91 +1,81 @@
 <ion-view title="Profile">
   <ion-nav-buttons side="left">
-    <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+	<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
   
-    <ion-tabs class="tabs-top tabs-striped">
-      <ion-tab title="About">
-        <ion-content >
-            <div class="item item-image">
-                <img src="img/pm_b.jpg">
-                <span class="badge badge-energized icon-left ion-ribbon-a">14</span>
-            </div>
-            
-            <div class="card">
-                <div class="item item-text-wrap">
-                    <h1>Sebastian Köck</h1>
-                    <p>cooked 28 times</p>
-                    <button class="button button-light">
-                        Befriend
-                    </button>
-                    <button class="button button-light icon-left ion-ribbon-a">
-                        Award a tip!
-                    </button>
-                    <button class="button button-light icon-left ion-chatbubble-working">
-                        Send message
-                    </button>
-                    <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>
-                </div>
-            </div>
-            
-            <h2>Dinners</h2>
-            <div class="card">
-                <div class="row row-center">
-                    <div class="col col-75">Spaghetti Pomodoro</div>
-                    <div class="col">Today<br />17:15</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="row row-center">
-                    <div class="col col-75">Spaghetti Pomodoro</div>
-                    <div class="col">Today<br />17:15</div>
-                </div>
-            </div>
-            <div class="card">
-                <div class="row row-center">
-                    <div class="col col-75">Spaghetti Pomodoro</div>
-                    <div class="col">Today<br />17:15</div>
-                </div>
-            </div>
-            
-            <h2>Friends</h2>
-            <div class="card">
-               <div class="row row-center">
-                    <div class="col">
-                        <a class="item item-avatar" href="#">
-                            <img src="img/pw.jpg">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a class="item item-avatar" href="#">
-                            <img src="img/pw.jpg">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a class="item item-avatar" href="#">
-                            <img src="img/pw.jpg">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <a class="item item-avatar" href="#">
-                            <img src="img/pw.jpg">
-                        </a>
-                    </div>
-                    <div class="col">
-                        <button class="button button-light">
-                            4 more
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </ion-content>
-      </ion-tab>
+	<ion-tabs class="tabs-top tabs-striped">
+	  <ion-tab title="About">
+		<ion-content >
+			<div class="item item-image">
+				<img src="img/pm_b.jpg">
+				<span class="badge badge-energized icon-left ion-ribbon-a">14</span>
+			</div>
+			
+			<div class="card">
+				<div class="item item-text-wrap">
+					<h1>{{user.firstname}} {{user.lastname}}</h1>
+					<p>cooked 28 times</p>
+					<button disabled class="button button-light">
+						Befriend
+					</button>
+					<button disabled class="button button-light icon-left ion-ribbon-a">
+						Award a tip!
+					</button>
+					<button disabled class="button button-light icon-left ion-chatbubble-working">
+						Send message
+					</button>
+					<p></br>{{user.info}}</p>
+				</div>
+			</div>
+			
+			<h2>Dinners</h2>
+			<div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card">
+				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
+				<a ng-href="#/app/dinner/{{dinnerId}}"class="row row-center">
+					<div class="col col-75">{{dinner.title}}</div>
+					<div class="col">{{dinner | getBeginTime | date : 'd.M. HH:mm'}}</div>
+				</a>
+			</div>
+			</div>
+			
+			<!-- <h2>Friends</h2>
+			<div class="card">
+			   <div class="row row-center">
+					<div class="col">
+						<a class="item item-avatar" href="#">
+							<img src="img/pw.jpg">
+						</a>
+					</div>
+					<div class="col">
+						<a class="item item-avatar" href="#">
+							<img src="img/pw.jpg">
+						</a>
+					</div>
+					<div class="col">
+						<a class="item item-avatar" href="#">
+							<img src="img/pw.jpg">
+						</a>
+					</div>
+					<div class="col">
+						<a class="item item-avatar" href="#">
+							<img src="img/pw.jpg">
+						</a>
+					</div>
+					<div class="col">
+						<button class="button button-light">
+							4 more
+						</button>
+					</div>
+				</div>
+			</div> -->
+		</ion-content>
+	  </ion-tab>
 
-      <ion-tab title="Reviews">
-        <ion-content >
-            <h1>Reviews</h1>
-        </ion-content>
-      </ion-tab>
+	  <ion-tab title="Reviews">
+		<ion-content >
+			<h1>Reviews</h1>
+		</ion-content>
+	  </ion-tab>
 
-    </ion-tabs>
+	</ion-tabs>
 </ion-view>

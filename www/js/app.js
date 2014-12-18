@@ -102,14 +102,17 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 				}
 			}
 		})
-		.state('app.profile', {
-			url: "/profile",
+		
+		.state('app.user', {
+			url: "/user/:userId",
 			views: {
 				'menuContent' :{
 					templateUrl: "templates/profile.html",
+					controller: 'UserCtrl'
 				}
 			}
 		})
+
 		.state('app.login', {
 			url: "/login",
 			views: {

@@ -120,6 +120,19 @@ c.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSess
 });
 
 
+/* User Profile */
+c.controller('UserCtrl', function($scope, db, resumeSession, $stateParams) {
+	resumeSession($scope);
+	db.getUserData($stateParams.userId).then(function(user) {
+		$scope.user = user;
+	});
+
+	db.getUserDinners($stateParams.userId).then(function(dinners) {
+		$scope.dinners = dinners;
+	});
+});
+
+
 /* New Dinner */
 c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSession, util) {
 	resumeSession($scope);
@@ -162,13 +175,12 @@ c.controller('LookForDinnersCtrl', function($scope, db, resumeSession) {
 
 
 /* Dinner */
-c.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams) {
+c.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams, $state) {
 	resumeSession($scope);
 	$scope.dinner = db.getDinnerSync($stateParams.dinnerId);
-	console.log($scope.dinner);
-	// TODO: proper security. onlu get name.
-	// db.getUserData().then(function(user) {
-	// 	$scope.host = user;
-	// });
-	
+
+	$scope.gotUser = function() {
+		
+	};
+
 });

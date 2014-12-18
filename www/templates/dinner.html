@@ -10,7 +10,7 @@
 			<div class="row row-center">
 				<div class="col">{{dinner | getBeginTime | date : 'd.M. HH:mm'}}</div>
 				<div class="col col-75">
-					<button ng-show="dinner.userData.firstname" class="button button-light">
+					<button ui-sref="app.user({userId: dinner.userData.uid})" ng-show="dinner.userData.firstname" class="button button-light">
 						<div class="item-avatar">
 							<img src="img/pw.jpg">
 							<span>at {{dinner.userData.firstname}}'s place</span>

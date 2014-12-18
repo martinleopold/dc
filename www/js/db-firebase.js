@@ -145,6 +145,18 @@ angular.module('dc.db', ['firebase'])
 	// db.getUserName = function(userId) {
 	// 	var firstname = fb.child('dinner').child(dinnerId)
 	// };
+	// 
+	
+	db.getUserDinners = function(userId) {
+		var dinners = fb.child('dinner').orderByChild('user').startAt(userId).endAt(userId);
+		var d = $q.defer();
+			dinners.once('value', function(data) {
+			d.resolve(data.val());
+		}, function(error) {
+			d.reject(error);
+		});
+		return d.promise;
+	};
 
 	return db;
 }]);
