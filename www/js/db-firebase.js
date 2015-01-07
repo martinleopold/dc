@@ -89,6 +89,11 @@ angular.module('dc.db', ['firebase'])
 		return d.promise;
 	};
 
+	db.getUserSync = function(userId) {
+		var user = fb.child('user').child(userId);
+		return $firebase(user).$asObject();
+	};
+
 
 	db.updateUserData = function(userData) {
 		var user = fb.child('user').child(userData.uid);
@@ -156,6 +161,47 @@ angular.module('dc.db', ['firebase'])
 			d.reject(error);
 		});
 		return d.promise;
+	};
+
+
+	db.newApplication = function(application) {
+		var applications = fb.child('application');
+		var d = $q.defer();
+		application.state = 'applied';
+		applications.push(application, function onComplete(error) {
+			if (error === null) d.resolve(application);
+			else d.reject(error);
+		});
+		return d.promise;
+	};
+
+
+	db.getUserApplicationsSync = function(userId) {
+		var applications = fb.child('application').orderByChild('userId').startAt(userId).endAt(userId);
+		var sync = $firebase(applications).$asObject();
+		return sync;
+	};
+
+
+	db.getDinnerApplicationsSync = function(dinnerId) {
+		var applications = fb.child('application').orderByChild('dinnerId').startAt(dinnerId).endAt(dinnerId);
+		var sync = $firebase(applications).$asArray();
+		// load user data
+		sync.$loaded(function() {
+			angular.forEach(sync, function(application) {
+				application.user = db.getUserSync(application.userId);
+			});
+		});
+		return sync;
+	};
+
+	db.updateApplicationState = function(aId, state) {
+		var a = fb.child('application').child(aId);
+		var sync = $firebase(a).$asObject();
+		return sync.$loaded(function() {
+			sync.state = state;
+			sync.$save();
+		});
 	};
 
 	return db;

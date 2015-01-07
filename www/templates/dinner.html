@@ -3,7 +3,16 @@
 		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
 
+  	<div ng-show="applicationState() == 'applied' || applicationState() == 'declined'" class="bar bar-subheader bar-positive">
+	 You <strong>applied</strong> to this dinner for <strong>{{application.count}}</strong> person(s) to <strong>{{application.dinein ? 'dine-in' : 'take away'}}</strong>.
+	 </div>
+
+	 <div ng-show="applicationState() == 'accepted'" class="bar	bar-subheader bar-balanced">
+	 You were <strong>accepted</strong> to this dinner as a total of <strong>{{application.count}}</strong> person(s) to <strong>{{application.dinein ? 'dine-in' : 'take away'}}</strong>.
+	 </div>
+
   <ion-content class="has-header">
+
 	<div class="card">
 		<div class="item item-text-wrap">
 			<h1>{{dinner.title}}</h1>
@@ -13,7 +22,7 @@
 					<button ui-sref="app.user({userId: dinner.userData.uid})" ng-show="dinner.userData.firstname" class="button button-light">
 						<div class="item-avatar">
 							<img src="img/pw.jpg">
-							<span>at {{dinner.userData.firstname}}'s place</span>
+							<span>at {{isHost() ? 'your' : dinner.userData.firstname + "'s"}} place</span>
 						</div>
 					</button>
 				</div>
@@ -37,38 +46,38 @@
 			<map on-create="mapCreated(map)"></map>
 		</div>
 	</div>
-	  
-<!-- 	<h2>Guests</h2>
-	<div class="card">
-		<div class="row row-center">
-			<div class="col">
-				<a class="item item-avatar" href="#">
-					<img src="img/pw.jpg">
+
+
+	<div ng-show="isHost()">
+	<h2>Applicants</h2>
+	<div ng-repeat="a in applications" class="row row-center" ng-show="a.state === 'applied'">
+		<div class="col col-50">
+				<a ui-sref="app.user({userId:a.userId})" class="button button-light">
+					<div class="item-avatar">
+						<img src="img/pw.jpg">
+						<span>{{a.user.firstname}} {{a.user.lastname}} </span>
+					</div>
 				</a>
-			</div>
-			<div class="col">
-				<a class="item item-avatar" href="#">
-					<img src="img/pw.jpg">
-				</a>
-			</div>
-			<div class="col">
-				<a class="item item-avatar" href="#">
-					<img src="img/pw.jpg">
-				</a>
-			</div>
-			<div class="col">
-				<a class="item item-avatar" href="#">
-					<img src="img/pw.jpg">
-				</a>
-			</div>
-			<div class="col">
-				<button class="button button-light">
-					4 more
-				</button>
-			</div>
 		</div>
-	</div> -->
-	
+		<div class="col"><a ng-click="acceptApplication(a)" class="button button-light ion-checkmark"></a></div>
+		<div class="col"><a ng-click="declineApplication(a)" class="button button-light ion-close"></a></div>
+	</div>
+	</div>
+	  
+
+	<h2>Guests</h2>
+	<div ng-repeat="a in applications" class="row row-center" ng-show="a.state === 'accepted'">
+		<div class="col col-100">
+				<a ui-sref="app.user({userId:a.userId})" class="button button-light">
+					<div class="item-avatar">
+						<img src="img/pw.jpg">
+						<span>{{a.user.firstname}} {{a.user.lastname}} </span>
+					</div>
+				</a>
+		</div>
+	</div>
+
+
 <!-- 	<h2>Conversations</h2>
 	<div class="card">
 	
@@ -97,31 +106,33 @@
 	<div class="card">
 		<button class="button button-block button-light icon-left ion-chatbubble-working">Start new conversation</button>  
 	</div>  -->
-	  
-<!-- 	<h2>Apply</h2>
-	<div class="row">
-		<div class="col col-50">
-			<p>For how many pepole?</p>
-			<p>You'll also be charged this many credits.</p>
+	
+	<div ng-show="!isHost() && !applicationState()">
+	<h2>Apply</h2>
+		<div class="row">
+			<div class="col col-50">
+				<p>For how many pepole?</p>
+				<p>You'll also be charged this many credits.</p>
+			</div>
+			<div class="col col">
+				<button ng-click="addCount(-1, 1, 9)" class="button button-light icon ion-android-remove"></button>
+			</div>
+			<div class="col col">
+				<h2>{{application.count}}</h2>
+			</div>
+			<div class="col col">
+				<button ng-click="addCount(1, 1, 9)" class="button button-light icon ion-android-add"></button>
+			</div>
 		</div>
-		<div class="col col">
-			<button class="button button-light icon ion-android-remove"></button>
+		<div class="row">
+			<div class="col col-50">
+				<button ng-click="apply(true)" ng-disabled="!dinner.dinein" class="button button-balanced">I want to go there!</button>
+			</div>
+			<div class="col col-50">
+				<button ng-click="apply(false)" ng-disabled="!dinner.takeaway" class="button button-positive">I want to take my food away!</button>
+			</div>
 		</div>
-		<div class="col col">
-			<h2>1</h2>
-		</div>
-		<div class="col col">
-			<button class="button button-light icon ion-android-add"></button>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col col-50">
-			<button class="button button-balanced">I want to go there!</button>
-		</div>
-		<div class="col col-50">
-			<button class="button button-positive">I want to take my food away!</button>
-		</div>
-	  </div> -->
+	 </div>
 
   </ion-content>
 </ion-view>
