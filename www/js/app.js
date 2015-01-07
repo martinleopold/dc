@@ -185,6 +185,14 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 				}
 			}
 		})
+		.state('app.developer', {
+			url: "/developer",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/developer.html"
+				}
+			}
+		})
 
 		.state('app.single', {
 			url: "/playlists/:playlistId",
