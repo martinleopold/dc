@@ -55,10 +55,13 @@ gulp.task('git-check', function(done) {
   done();
 });
 
+try {
+  var sftpConfig = JSON.parse( require('fs').readFileSync('sftp.config') );
+  var sftp = require('gulp-sftp')(sftpConfig);
 
-var sftpConfig = JSON.parse( require('fs').readFileSync('sftp.config') );
-var sftp = require('gulp-sftp')(sftpConfig);
-
-gulp.task('deploy-web', ['sass'], function() {
-  gulp.src('./www/**/*').pipe(sftp);
-});
+  gulp.task('deploy-web', ['sass'], function() {
+    gulp.src('./www/**/*').pipe(sftp);
+  });
+} catch(e) {
+  console.log("sftp.config not present. 'gulp deploy-web' not available.");
+}
