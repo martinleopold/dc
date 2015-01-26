@@ -193,6 +193,14 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 				}
 			}
 		})
+		.state('app.notifications', {
+			url: "/notifications",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/notifications.html"
+				}
+			}
+		})
 
 		.state('app.single', {
 			url: "/playlists/:playlistId",
