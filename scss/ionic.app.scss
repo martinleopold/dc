@@ -15,8 +15,321 @@ $royal:                           #8a6de9 !default;
 $dark:                            #444 !default;
 */
 
+//Define pixel values
+//--------------------------------
+
+//$dp:                              1px / 360px * 100%;
+//gru = grid unit
+$gru:                             8px !default;
+$hgru:                            4px !default;
+
+$height-small:                    11*$hgru !default;
+$height-medium:                   7*$gru !default;
+$height-large:                    9*$gru !default;
+
+$font-size-tiny:                  12px !default;
+$font-size-small:                 14px !default;
+$font-size-base:                  16px !default;
+$font-size-button:                18px !default;
+$font-size-large:                 20px !default;
+$font-size-xlarge:                24px !default;
+$font-size-title:                 36px !default;
+
+
+//Colors
+//--------------------------------
+
+$grey-05:                         #f2f2f2 !default;
+$grey-09:                         #e8e8e8 !default;
+$grey-15:                         #d8d8d8 !default;
+$grey-70:                         #4c4c4c !default;
+$grey-80:                         #323232 !default;
+
+$energized:                       #e83f72 !default;
+$positive:                        #16e6c0 !default;
+$dark:                            #323232 !default;
+
+
+//Bars
+//--------------------------------
+$bar-height:                      $height-medium !default;
+$bar-title-font-size:             $font-size-large !default;
+$bar-box-shadow:                  0px 3px 0 rgba(0, 0, 0, .3) !default;
+
+
+//Base
+//--------------------------------
+
+$base-background-color:           $grey-09 !default;
+$base-color:                      $grey-70 !default;
+
+$font-family-sans-serif:          "Source Sans Pro", "Roboto", sans-serif !default;
+$font-family-serif:               "Bree Serif", serif !default;
+
+$content-padding:                 $gru !default;
+
+
+//Buttons
+//--------------------------------
+
+$button-border-width:             0 !default;
+$button-border-radius:            0 !default;
+
+$button-font-size:                $font-size-button !default;
+$button-font-style:               italic !default;
+
+$button-bar-button-height:        5*$gru !default;
+$button-bar-button-padding:       $gru !default;
+
+$borderless-box-shadow:           0px 1px 0 rgba(0, 0, 0, .1) !default;
+
+// Cards
+//--------------------------------
+
+$card-box-shadow:                 1px 1px 0 rgba(0, 0, 0, .1) !default;
+$card-border-color:               none !default;
+$card-border-radius:              0 !default;
+
+//Tabs
+//--------------------------------
+
+$tabs-height:                     $height-medium !default;
+$tabs-text-font-size:             $font-size-button !default;
+$tabs-text-font-style:            italic !default;
+
+$tabs-striped-border-width:       20px; //???
+
+//Z-Indexes
+//--------------------------------
+
+
+
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+
+h1{
+    font-size: $font-size-title;
+    font-family: $font-family-serif;
+}
+
+h2{
+    font-size: $font-size-tiny;
+    text-transform: uppercase;
+    margin: 2*$content-padding 2*$content-padding $content-padding 2*$content-padding;
+}
+
+.bar{
+    box-shadow: $bar-box-shadow;
+    
+    .button{
+        box-shadow: none;
+    }
+}
+
+.bar-header{
+    border-bottom-width: 0px;
+    padding: $gru;
+    
+    &.has-tabs-top{
+        box-shadow: none;
+    }
+}
+
+.card{
+    margin: 0 $content-padding $content-padding $content-padding;
+    padding: 0;
+    
+    
+    button.button-block{
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+    }
+}
+
+.button{
+    box-shadow: $card-box-shadow;
+    font-style: $button-font-style;
+}
+
+button.button-block{
+    height: $height-large;
+    margin-left: $gru;
+    margin-right: $gru;
+    width: ceil(340px / 360px * 100%);  //UNSAUBER?
+}
+
+.info{
+    font-size: $font-size-small;
+    margin: $content-padding 2*$content-padding $content-padding 2*$content-padding;
+    
+    i{
+        font-style: italic;
+        font-weight: normal;
+    }
+}
+
+.scroll{
+    padding-top: 2*$gru;
+}
+
+.tabs{
+    font-style: $tabs-text-font-style;
+    box-shadow: $bar-box-shadow;
+}
+
+.tabs-top{
+    &.tabs-striped{
+
+        .tabs{
+            border-bottom: none;
+
+            
+        }
+        .tab-item{
+                color: #fff; //UNSAUBER!
+            }
+            &.tab-item-active,
+            &.active,
+            &.activated {
+                margin-top: 0;
+                margin-bottom: -$tabs-striped-border-width;
+                border-width: 0px 0px $tabs-striped-border-width 0px !important;
+                border-style: solid;
+            }
+    }
+}
+
+
+.scroll-content{
+    &.has-header.has-tabs-top {
+        top: $bar-height + $tabs-height;
+        
+        .scroll{
+            height: auto;
+            padding-bottom: $bar-height + $tabs-height;
+        }
+    }
+    
+    &.has-footer{
+        bottom: $bar-footer-height;
+    }
+}
+
+.list{
+    padding: $gru;
+    
+    .categories{
+        padding: 0;
+        margin: 0 0 $gru 0;
+        
+        .col{
+            padding:0 $gru 0 0;
+        }
+        
+        .col:last-child{
+            padding: 0;
+        }
+    }
+    
+    .categories:last-child{
+        margin: 0;
+    }
+    
+}
+
+
+.item{
+    margin: 0 0 $gru 0;
+    border: none;
+    
+    &.item-input{
+        padding:0;
+        box-shadow: $card-box-shadow;
+        
+        textarea, input{
+            font-size: $font-size-button;
+            padding: 2*$gru;
+            font-style: italic;
+            background-color: $grey-05;
+        }
+        
+        textarea{
+            height: 15*$gru;
+            line-height: 24px;
+        }
+    }
+    
+    &.item-checkbox{
+        font-style: italic;
+        font-size: $font-size-button;
+        box-shadow: $card-box-shadow;
+        background-color: $grey-05;
+        padding-left: 50px;
+        padding-right: 8px;
+        
+        input{
+            padding: 0;
+            box-shadow: none;
+            background-color: rgba(0,0,0,0);
+            height: 20px;
+            width: 20px;
+        }
+        
+        .checkbox{
+            padding-top: 7+$hgru;
+        }
+    }
+    
+    &.borderless{
+            margin-top: 0;
+            box-shadow: $borderless-box-shadow;
+    }
+    
+    &.isolated{
+        height: 9*$gru;
+        padding-top: 25px;
+    }
+
+}
+
+.item:last-child{
+    margin:0;
+}
+    
+.dinner{
+    padding: 2*$gru;
+    
+    .row, .col{
+        padding:0;
+    }
+    
+    p{
+        padding:0;
+        margin:0;
+        
+        &.dinnertitle{
+            font-size: $font-size-xlarge;
+            font-family: "Bree Serif", serif;
+            font-weight: 300;
+            padding-bottom: $hgru;
+            white-space: nowrap;
+            overflow: hidden;
+        }
+        
+        &.dinnerlocation{
+            font-size: $font-size-small;
+            font-style: italic;
+            font-weight: 300;
+            line-height: 14px;
+        }
+        
+        &.dinnerdate{
+            line-height: 14px;
+        }
+    }
+}
