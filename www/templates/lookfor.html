@@ -4,8 +4,28 @@
   </ion-nav-buttons>
   
 	<ion-tabs class="tabs-top tabs-dark tabs-striped tabs-icon-only">
-	  <ion-tab title="Location" icon="ion-navigate">
-		<ion-content class="has-footer">
+	  <ion-tab title=" <!-- Location --> " icon="ion-navigate">
+		<ion-content>
+			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
+				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
+				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
+					<div class="col col-75">
+                        <p class="dinnertitle">{{dinner.title}}</p>
+                        <p class="dinnerlocation">at Selma's place</p>
+                    </div>
+					<div class="col">
+                        <p class="dinnerdate">
+                        {{dinner | getBeginTime | date : 'd.M. HH:mm'}}
+                        </p>
+                    </div>
+				</a>
+			</div>
+
+		</ion-content>
+	  </ion-tab>
+		
+	  <ion-tab title=" <!-- Home --> " icon="ion-home">
+		<ion-content>
 			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
 				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
 				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
@@ -22,22 +42,15 @@
 			</div>
 		</ion-content>
 	  </ion-tab>
-		
-	  <ion-tab title="Home" icon="ion-home">
-		<ion-content class="has-footer">
-			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card">
-				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
-				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
-					<div class="col col-75">{{dinner.title}}</div>
-					<div class="col">{{dinner | getBeginTime | date : 'd.M. HH:mm'}}</div>
-				</a>
-			</div>
-		</ion-content>
-	  </ion-tab>
+        
+      <ion-tab title=" <!-- Custom Location --> " icon="ion-edit">
+        <ion-content>
+        
+        </ion-content>
+      </ion-tab>
 	</ion-tabs>
 	
-	<div class="bar bar-footer">
-		<button class="button button-calm icon ion-location"></button>
-		<button class="button button-calm pull-right">Filter</button>
-	</div>
+	<button class="button button-positive icon ion-location maptoggle"></button>
+    <button class="button button-positive filterbutton">Filter</button>
+	
 </ion-view>

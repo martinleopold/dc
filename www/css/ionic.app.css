@@ -7157,3 +7157,24 @@ button.button-block {
       line-height: 14px; }
     .dinner p.dinnerdate {
       line-height: 14px; }
+
+.maptoggle {
+  z-index: 9999;
+  display: block;
+  position: absolute;
+  bottom: 16px;
+  left: 16px;
+  height: 44px;
+  width: 44px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3); }
+
+.filterbutton {
+  z-index: 9999;
+  display: block;
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  box-shadow: 3px 3px 0 rgba(0, 0, 0, 0.3); }
+
+.dinner:last-child {
+  margin-bottom: 72px; }

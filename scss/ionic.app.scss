@@ -82,6 +82,7 @@ $button-bar-button-height:        5*$gru !default;
 $button-bar-button-padding:       $gru !default;
 
 $borderless-box-shadow:           0px 1px 0 rgba(0, 0, 0, .1) !default;
+$hoverbutton-box-shadow:          3px 3px 0 rgba(0, 0, 0, .3) !default;
 
 // Cards
 //--------------------------------
@@ -332,4 +333,28 @@ button.button-block{
             line-height: 14px;
         }
     }
+}
+
+.maptoggle{
+    z-index: 9999;
+    display: block;
+    position: absolute;
+    bottom: 2*$gru;
+    left: 2*$gru;
+    height: 44px;
+    width: 44px;
+    box-shadow: $hoverbutton-box-shadow;
+}
+
+.filterbutton{
+    z-index: 9999;
+    display: block;
+    position: absolute;
+    bottom: 2*$gru;
+    right: 2*$gru;
+    box-shadow: $hoverbutton-box-shadow;
+}
+
+.dinner:last-child{
+    margin-bottom: 9*$gru;
 }
