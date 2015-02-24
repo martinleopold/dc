@@ -16,22 +16,34 @@
 	<div class="card">
 		<div class="item item-text-wrap">
 			<h1>{{dinner.title}}</h1>
+        </div>
+        <div class="list novpadding">
 			<div class="row row-center">
-				<div class="col">{{dinner | getBeginTime | date : 'd.M. HH:mm'}}</div>
+				<div class="col">
+                    <p class="dinnerdate">
+                            <span>{{dinner | getBeginTime | date : 'd.M.'}}
+                            <span>{{dinner | getBeginTime | date : 'HH:mm'}}</span>
+                            </span>
+                        </p>
+                </div>
 				<div class="col col-75">
-					<button ui-sref="app.user({userId: dinner.userData.uid})" ng-show="dinner.userData.firstname" class="button button-light">
+					<button ui-sref="app.user({userId: dinner.userData.uid})" ng-show="dinner.userData.firstname" class="button button-stable button-block">
 						<div class="item-avatar">
 							<img src="img/pw.jpg">
 							<span>at {{isHost() ? 'your' : dinner.userData.firstname + "'s"}} place</span>
 						</div>
 					</button>
 				</div>
+                </div>
+            </div>
+        <div class="item item-text-wrap">
+			<p class="dinner-info">{{dinner.info}}</p>
+        
+			<div class="row row-center novpadding">
+                <div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="col-33 icon-left ion-record category"> <span>{{type}}</span></div>
 			</div>
-			<p>{{dinner.info}}</p>
-			<div class="row row-center">
-				<div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="col icon-left ion-record"> {{type}}</div>
-			</div>
-			
+        </div>
+        <div class="mapwrapper">
 			<style>
 				map {
 				  display: block;
@@ -44,38 +56,45 @@
 				}
 			</style>
 			<map on-create="mapCreated(map)"></map>
-		</div>
+        </div>
 	</div>
 
 
-	<div ng-show="isHost()">
+    <h2>Guests</h2>
+    <div class="card">
+        <div class="row guests">
+                <div ng-repeat="a in applications" class="col-20" ng-show="a.state === 'accepted'">
+                            <a ui-sref="app.user({userId:a.userId})" class="button button-light">
+                                <div class="item-avatar">
+                                    <img src="img/pw.jpg">
+                                    <!--<span>{{a.user.firstname}} {{a.user.lastname}} </span>-->
+                                </div>
+                            </a>
+                </div>  
+            
+        </div>
+    </div>
+      
+	<div ng-show="isHost()" class="provide-padding-for-h2">
 	<h2>Applicants</h2>
-	<div ng-repeat="a in applications" class="row row-center" ng-show="a.state === 'applied'">
-		<div class="col col-50">
-				<a ui-sref="app.user({userId:a.userId})" class="button button-light">
+    <div class="card">
+	<div ng-repeat="a in applications" class="application" ng-show="a.state === 'applied'">
+            <div class="applicant-info">
+            <a ui-sref="app.user({userId:a.userId})" class="button button-light button-block application">
 					<div class="item-avatar">
 						<img src="img/pw.jpg">
-						<span>{{a.user.firstname}} {{a.user.lastname}} </span>
+						<p class="applicant-name">{{a.user.firstname}}</p>
+                        <p class="mode">Take away</p>
 					</div>
-				</a>
-		</div>
-		<div class="col"><a ng-click="acceptApplication(a)" class="button button-light ion-checkmark"></a></div>
-		<div class="col"><a ng-click="declineApplication(a)" class="button button-light ion-close"></a></div>
+                
+            </a>
+            </div>
+		
+		<div class="accept-buttons"><a ng-click="declineApplication(a)" class="button button-stable ion-close"></a>
+            <a ng-click="acceptApplication(a)" class="button button-stable ion-checkmark"></a></div>
 	</div>
 	</div>
-	  
-
-	<h2>Guests</h2>
-	<div ng-repeat="a in applications" class="row row-center" ng-show="a.state === 'accepted'">
-		<div class="col col-100">
-				<a ui-sref="app.user({userId:a.userId})" class="button button-light">
-					<div class="item-avatar">
-						<img src="img/pw.jpg">
-						<span>{{a.user.firstname}} {{a.user.lastname}} </span>
-					</div>
-				</a>
-		</div>
-	</div>
+    </div>
 
 
 <!-- 	<h2>Conversations</h2>
@@ -109,24 +128,28 @@
 	
 	<div ng-show="!isHost() && !applicationState()">
 	<h2>Apply</h2>
-		<div class="row">
+		<div class="row apply-number">
 			<div class="col col-50">
-				<p>For how many pepole?</p>
-				<p>You'll also be charged this many credits.</p>
+                <p class="info card-info"><i>For how many pepole?</i></p>
+				<p class="info card-info">You'll also be charged this many credits.</p>
 			</div>
-			<div class="col col">
-				<button ng-click="addCount(-1, 1, 9)" class="button button-light icon ion-android-remove"></button>
-			</div>
-			<div class="col col">
-				<h2>{{application.count}}</h2>
-			</div>
-			<div class="col col">
-				<button ng-click="addCount(1, 1, 9)" class="button button-light icon ion-android-add"></button>
+			<div class="col counter col-center">
+            <div class="row">
+				<div class="col">
+                    <button ng-click="addCount(-1, 1, 9)" class="button button-stable icon ion-android-remove"></button>
+                </div>
+                <div class="col">
+				    <h2>{{application.count}}</h2>
+                </div>
+                <div class="col">
+				<button ng-click="addCount(1, 1, 9)" class="button button-stable icon ion-android-add"></button>
+                </div>
+            </div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row apply-visit-take-away">
 			<div class="col col-50">
-				<button ng-click="apply(true)" ng-disabled="!dinner.dinein" class="button button-balanced">I want to go there!</button>
+				<button ng-click="apply(true)" ng-disabled="!dinner.dinein" class="button button-energized">I want to go there!</button>
 			</div>
 			<div class="col col-50">
 				<button ng-click="apply(false)" ng-disabled="!dinner.takeaway" class="button button-positive">I want to take my food away!</button>

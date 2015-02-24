@@ -42,12 +42,15 @@ $font-size-title:                 36px !default;
 $grey-05:                         #f2f2f2 !default;
 $grey-09:                         #e8e8e8 !default;
 $grey-15:                         #d8d8d8 !default;
+$grey-30:                         #b2b2b2 !default;
 $grey-70:                         #4c4c4c !default;
 $grey-80:                         #323232 !default;
+$grey-85:                         #262626 !default;
 
 $energized:                       #e83f72 !default;
 $positive:                        #16e6c0 !default;
 $dark:                            #323232 !default;
+$stable:                          $grey-05 !default;
 
 
 //Bars
@@ -84,12 +87,19 @@ $button-bar-button-padding:       $gru !default;
 $borderless-box-shadow:           0px 1px 0 rgba(0, 0, 0, .1) !default;
 $hoverbutton-box-shadow:          3px 3px 0 rgba(0, 0, 0, .3) !default;
 
+$block-button-box-shadow:         1px 1px 0 rgba(0, 0, 0, .3) !default;
+
 // Cards
 //--------------------------------
 
 $card-box-shadow:                 1px 1px 0 rgba(0, 0, 0, .1) !default;
 $card-border-color:               none !default;
 $card-border-radius:              0 !default;
+
+//Checkboxes
+//--------------------------------
+
+$checkbox-on-bg-default:          white !default;
 
 //Tabs
 //--------------------------------
@@ -104,6 +114,9 @@ $tabs-striped-border-width:       20px; //???
 //--------------------------------
 
 
+//Footer
+//--------------------------------
+$footer-box-shadow:                  0 -3px 0 rgba(0, 0, 0, .1) !default;
 
 
 // The path for our ionicons font files, relative to the built CSS in www/css
@@ -135,6 +148,11 @@ h2{
     border-bottom-width: 0px;
     padding: $gru;
     
+    .title-center{
+        text-align: left;
+        margin-left: $gru;
+    }
+    
     &.has-tabs-top{
         box-shadow: none;
     }
@@ -146,10 +164,38 @@ h2{
     
     
     button.button-block{
-        margin-left: 0;
-        margin-right: 0;
+        margin: 0;
         width: 100%;
+        height: auto;
+        box-shadow: $card-box-shadow;
+        
+        .item-avatar{
+            padding-left: 0;
+            min-height: 7*$gru;
+            line-height: 7*$gru;
+            text-align: left;
+            
+            img:first-child{
+                height: 4*$gru;
+                width: 4*$gru;
+                top: $gru + $hgru;
+                left: $gru + $hgru;
+            }
+            
+            span{
+                padding-left: 5*$gru;
+            }
+        }
     }
+    
+    .row, .col{
+        padding: 0;
+    }
+    
+    &.last-before-hoverbuttons{ //only relevant on the filter-options screen
+        margin-bottom: 10*$gru;
+    }
+
 }
 
 .button{
@@ -158,15 +204,44 @@ h2{
 }
 
 button.button-block{
+    box-shadow: $block-button-box-shadow;
     height: $height-large;
-    margin-left: $gru;
-    margin-right: $gru;
+    margin: $gru;
     width: ceil(340px / 360px * 100%);  //UNSAUBER?
+}
+
+.button-bar{
+    
+    .button{
+        line-height: 9*$gru;
+        border: 0;
+        box-shadow: none;
+        border-right: solid 1px rgba(0,0,0,.1);
+        min-width: 9*$gru;
+        
+        .icon{
+            display: block;
+            vertical-align: middle;
+            font-size: 40px;
+            
+            &.icon-with-text{
+                float:left;
+            }
+        }
+    }
+    
+    .button:last-child{
+        border: 0;
+    }
 }
 
 .info{
     font-size: $font-size-small;
     margin: $content-padding 2*$content-padding $content-padding 2*$content-padding;
+    
+    &.card-info{
+        margin: 0;
+    }
     
     i{
         font-style: italic;
@@ -203,6 +278,13 @@ button.button-block{
                 border-style: solid;
             }
     }
+    
+    .icon{
+        font-size: 24px;
+    }
+    /*.ion-edit, .ion-home, .ion-navigate{
+        font-size: 24px;
+    }*/
 }
 
 
@@ -223,8 +305,9 @@ button.button-block{
 
 .list{
     padding: $gru;
+    margin-bottom: 0;
     
-    .categories{
+    .categories{ //kind of .row
         padding: 0;
         margin: 0 0 $gru 0;
         
@@ -241,12 +324,58 @@ button.button-block{
         margin: 0;
     }
     
+    .row{
+        padding:0;
+        margin: 0 0 $gru 0;
+        
+        &.single{
+            margin:0;
+        }
+        
+        .col{
+            padding:0 $gru 0 0;
+        }
+        
+        .col:last-child{
+            padding: 0;
+        }
+    }
+    
+    &.novpadding{            //profile, dinner
+        padding-top: 0;
+        padding-bottom: 1px; //to not clip shadows
+    }
+    
+    .dinnerdate{
+        line-height: $font-size-small + $hgru;
+        font-size: $font-size-small;
+        font-weight: 300;
+        margin:0;
+
+        span{
+            display:block;
+            width: 7*$gru;
+            margin-left: $gru;
+
+            span{
+                margin-left: 0;
+                font-weight: normal;
+                font-size: $font-size-xlarge;
+                line-height: $font-size-button + $hgru;
+            }
+        }
+    }
+    
 }
 
 
 .item{
     margin: 0 0 $gru 0;
     border: none;
+    
+    p{
+        color: $base-color;
+    }
     
     &.item-input{
         padding:0;
@@ -255,14 +384,25 @@ button.button-block{
         textarea, input{
             font-size: $font-size-button;
             padding: 2*$gru;
-            font-style: italic;
             background-color: $grey-05;
+        }
+        
+        input{
+            padding: 3*$gru 2*$gru;
         }
         
         textarea{
             height: 15*$gru;
             line-height: 24px;
         }
+    }
+    
+    &.item-image{
+        margin-bottom: 0;
+    }
+    
+    &.item-text-wrap{
+        padding: 2*$gru;
     }
     
     &.item-checkbox{
@@ -273,16 +413,37 @@ button.button-block{
         padding-left: 50px;
         padding-right: 8px;
         
-        input{
-            padding: 0;
-            box-shadow: none;
-            background-color: rgba(0,0,0,0);
-            height: 20px;
-            width: 20px;
-        }
-        
         .checkbox{
             padding-top: 7+$hgru;
+            
+            input, .checkbox-icon{
+                padding: 0;
+                box-shadow: none;
+                background-color: rgba(0,0,0,0);
+                height: 5*$hgru;
+                width: 5*$hgru;
+                
+                &:before{
+                    background: none;
+                    border-color: $base-color;
+                }
+                
+                &:after{
+                    @include rotate(0);
+                    border-width: 0px;
+                    color: $positive;
+                    top: -3px;
+                    left: 0px;
+                    font-size: 5*$hgru+4px;
+                    font-family: "Ionicons";
+                    content: $ionicon-var-checkmark-circled;
+                }
+            }
+            
+            input:checked:before, input:checked + .checkbox-icon:before{
+                border-width: 0px;
+            }
+            
         }
     }
     
@@ -298,15 +459,72 @@ button.button-block{
 
 }
 
+
+//Styling placeholder-text in input- and textarea-elements
+//-----------------------------
+
+textarea::-webkit-input-placeholder, input::-webkit-input-placeholder { /* WebKit browsers */
+    color: $base-color;
+    font-style:italic;
+    font-weight: 300;
+}
+textarea:-moz-placeholder, input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color: $base-color;
+    font-style:italic;
+    font-weight: 300;
+    opacity:  1;
+}
+textarea::-moz-placeholder, input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color: $base-color;
+    font-style:italic;
+    font-weight: 300;
+    opacity:  1;
+}
+textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color: $base-color;
+    font-style:italic;
+    font-weight: 300;
+}
+
+//-----------------------------
+
 .item:last-child{
     margin:0;
 }
     
 .dinner{
-    padding: 2*$gru;
+    padding: 0;
+    min-height: 9*$gru;
     
-    .row, .col{
+    .row{
         padding:0;
+    }
+    
+    .col{
+        padding: 2*$gru 0 2*$gru 0;
+    }
+    
+    .col:first-child{
+        
+        padding-left: 2*$gru;
+    }
+    
+    .title-location:before{
+        position: absolute;
+        content: '';
+        background-image: url(../img/dinner_mask.png);
+        pointer-events: none;
+        height: 9*$gru;
+        width: 40px;
+        right: 10*$gru + $hgru;
+        margin-top: -2*$gru;
+        background-repeat: no-repeat;
+        background-position: right;
+    }
+    
+    .col:last-child{
+        //background-color: $energized;
+        border-left: 1px solid rgba(0,0,0,0.1);
     }
     
     p{
@@ -326,13 +544,31 @@ button.button-block{
             font-size: $font-size-small;
             font-style: italic;
             font-weight: 300;
-            line-height: 14px;
+            line-height: $font-size-small;
         }
         
         &.dinnerdate{
-            line-height: 14px;
+            line-height: $font-size-small + $hgru;
+            font-size: $font-size-small;
+            font-weight: 300;
+            
+            span{
+                display:block;
+                width: 7*$gru;
+                margin: 0 auto;
+              
+                span{
+                    font-weight: normal;
+                    font-size: $font-size-xlarge;
+                    line-height: $font-size-button + $hgru;
+                }
+            }
         }
     }
+}
+
+.dinner:last-child{
+    margin-bottom: 9*$gru;
 }
 
 .maptoggle{
@@ -341,9 +577,20 @@ button.button-block{
     position: absolute;
     bottom: 2*$gru;
     left: 2*$gru;
-    height: 44px;
-    width: 44px;
+    height: 5*$gru + $hgru;
+    width: 5*$gru + $hgru;
     box-shadow: $hoverbutton-box-shadow;
+    min-width: 5*$gru + $hgru;
+    min-height: 5*$gru + $hgru;
+    
+    &.activated{
+        box-shadow: $card-box-shadow;
+    }
+}
+
+
+.maptoggle.icon:before, .maptoggle.icon-left:before, .maptoggle.icon-right:before{
+    line-height: 5*$gru + $hgru;
 }
 
 .filterbutton{
@@ -353,8 +600,487 @@ button.button-block{
     bottom: 2*$gru;
     right: 2*$gru;
     box-shadow: $hoverbutton-box-shadow;
+    min-width: 19*$gru;
+    min-height: 5*$gru + $hgru;
+    
+    &.activated{
+        box-shadow: $card-box-shadow;
+    }
 }
 
-.dinner:last-child{
-    margin-bottom: 9*$gru;
+.filterbutton.icon:before, .filterbutton.icon-left:before, .filterbutton.icon-right:before{
+    line-height: 5*$gru + $hgru;
+}
+
+.mapwrapper{
+    margin-bottom: $gru;
+}
+
+.placepin{
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.item-text-wrap{
+    margin: 0;
+    padding: $gru 2*$gru;
+    
+    h1{
+        margin: 0;
+    }
+    
+    .row{
+        margin-bottom: 2*$gru;
+        
+        &.novpadding{
+            margin-bottom: 0;
+        }
+    }
+    
+    .button{
+        vertical-align: middle;
+    }
+    
+    p.dinner-info, p.user-info{
+        font-family: $font-family-serif;
+        font-size: $font-size-base;
+        font-weight: 300;
+        margin-bottom: 2*$gru;
+    }
+    
+    p.user-info{
+        margin-bottom: 0;
+    }
+    
+    .category{
+        font-size: $font-size-small;
+        text-transform: capitalize;
+        overflow: hidden;
+        
+        span{
+            padding-left: $hgru;
+        }
+    }
+
+}
+
+.application{
+    box-shadow:none;
+    font-style:normal;
+    text-align: left;
+    
+    &.button-block{
+        margin: 0;
+        width: 100%;
+        height: auto;
+        
+        .item-avatar{
+            padding-left: 8*$gru;
+            min-height: 7*$gru;
+            padding-top: 2*$gru + $hgru;
+            
+            img:first-child{
+                max-height: 7*$gru;
+                max-width: 7*$gru;
+                height: 7*$gru;
+                width: 7*$gru;
+                top: $gru;
+                left: $gru;
+            }
+        }
+    }
+    
+    
+    .applicant-name{
+        line-height: $font-size-button; 
+        margin-bottom: 0;
+    }
+    
+    .mode{
+        font-size: $font-size-small;
+        font-weight: 300;
+        line-height: $font-size-small;
+    }
+    
+    .col{
+        border-right: 1px solid rgba(0,0,0,0.1);
+    }
+    
+    .col:last-child{
+        margin-right: $gru;
+        border: 0;
+    }
+    
+    .applicant-info{
+        float:left;
+    }
+    
+    .accept-buttons{
+        float: right;
+        margin: $gru $gru 0 $gru;
+        box-shadow: $card-box-shadow;
+        background-color: $stable;
+        
+        .button{
+            box-shadow:none;
+            margin:0;
+            padding:0;
+            height: 7*$gru;
+            width: 7*$gru;
+            line-height: 7*$gru;   
+        }
+        .button:last-child{
+            border-left: 1px solid rgba(0,0,0,0.1);
+        }
+            
+    }
+}
+
+.application:last-child{
+    .accept-buttons{
+        margin: $gru;
+    }
+}
+
+.provide-padding-for-h2{
+    padding-top: $gru;
+}
+
+.guests{
+    .button{
+        padding: 0;
+        box-shadow:none;
+    }
+    
+    .item-avatar{
+    
+        img:first-child{
+                $avatar-size: 9*$gru*0.7;
+                max-height: $avatar-size;
+                max-width: $avatar-size;
+                height: 7*$gru;
+                width: 7*$gru;
+                top: 9*$gru*0.15;
+                left: $gru;
+            }
+    }
+    
+}
+
+.apply-number{
+    
+    padding: 0 $gru $gru $gru;
+    margin-bottom: $gru;
+    
+    .col:first-child{
+        padding: 0 0 0 $gru;
+    }
+    
+    p{
+        line-height: $font-size-small + $hgru;
+    }
+    
+    .counter{
+        background-color: $stable;
+        box-shadow: $block-button-box-shadow;
+        padding: 0;
+        
+        .row, .col{
+            padding:0;
+            overflow:hidden;
+        }
+        
+        h2{
+            display: block;
+            width: 100%;
+            height: 7*$gru;
+            margin: 0;
+            background-color: #fff;
+            text-align: center;
+            line-height: 7*$gru;
+            font-size: $font-size-title;
+        }
+        
+        button{
+            display:block;
+            box-shadow: none;
+            height: 7*$gru;
+            padding:0;
+            width: 100%;
+            min-width: 0;
+            text-align: center;
+        }
+    }
+}
+
+.apply-visit-take-away{
+    padding: $gru;
+    
+    .col{
+        padding: 0 $gru 0 0;
+    }
+    
+    .col:last-child{
+        padding: 0;
+    }
+    
+    .button{
+        line-height: $font-size-button + $hgru;
+        height: 9*$gru;
+    }
+}
+
+.bar-menu{
+    height: 2*$bar-height;
+    box-shadow: none;
+    
+    .row, .col{
+        margin: 0;
+        padding: 0;
+    }
+    
+    .username{
+        font-family: $font-family-serif, serif;
+        font-size: $font-size-xlarge;
+        font-weight: 300;
+        margin-bottom: 2*$gru;
+    }
+    
+    .credits{
+        font-size: $font-size-xlarge;
+        text-align: center;
+    }
+    
+    .credits-label{
+        font-size: $font-size-small;
+        line-height: $font-size-small;
+        padding-left: $gru;
+    }
+}
+
+.content-menu{
+    top: 2*$bar-height;
+    background-color: $dark;
+    
+    .scroll{
+        padding-top: 0;
+    }
+    
+    .list{
+        padding:0;
+        
+        .item{
+            height: $height-medium - 1px;
+            margin-bottom: 1px;
+            background-color: $grey-85;
+            
+            .item-content{
+                background-color: $grey-85;
+                color: white;
+                font-size: $font-size-button;
+            }
+        }
+    }
+    
+}
+
+.person-list{
+    .button-block{
+        &.borderless{
+            margin: 0;
+            box-shadow: none;
+            //border-top: 1px solid rgba(0,0,0,0.1);
+            height: 9*$gru;
+            line-height: 9*$gru;
+            margin-top: $gru;
+        }
+    }
+}
+
+.person-item{
+    padding-bottom: $hgru;
+    
+    .button-block{
+        font-style:normal;
+        text-align: left;
+        box-shadow:none;
+        margin: 0;
+        width: 100%;
+        height: auto;
+        padding-left: 0;
+        
+        .item-avatar{
+            padding-left: 9*$gru+$hgru;
+            min-height: 7*$gru;
+            padding-top: $gru;
+            
+            img:first-child{
+                max-height: 7*$gru;
+                max-width: 7*$gru;
+                height: 7*$gru;
+                width: 7*$gru;
+                top: $gru;
+                left: $gru;
+            }
+        }
+    }
+    
+    .person-name{
+        line-height: 7*$gru; 
+        margin-bottom: 0;
+    }
+    
+    &.notification{
+        
+        vertical-align: middle;
+        border-bottom: 1px solid rgba(0,0,0,0.1);
+        
+        .person-info{
+            padding-bottom: $gru+$hgru;
+        }
+        
+        p{
+            padding-top: $gru;
+            display: block;
+            font-size: $font-size-base;
+            text-transform: none;
+            margin: 0;
+            line-height: $font-size-large;
+            height:2*$font-size-large + $gru;
+            white-space: normal;
+            overflow:auto;
+            text-overflow: ellipsis;
+            
+            span{
+                color: $energized;
+                font-weight: 600;
+            }
+        }
+        
+        a.activated{
+            background-color: white;
+            box-shadow: none;
+        }
+    }
+    
+    &.with-icon{
+        .icon{
+            display:block;
+            float: left;
+            vertical-align: middle;
+            padding-top: $gru;
+            padding-left: $gru;
+            line-height: 7*$gru;
+            width: 8*$gru;
+            text-align: center;
+            color: $energized;
+        }
+        
+        .icon:before{
+            font-size: 5*$gru;
+        }
+    }
+    
+    &.with-checkbox{
+        
+        .item-avatar{
+            float: left;
+        }
+        
+        .person-checkbox{
+            line-height: 7*$gru;
+            vertical-align: middle;
+            float: right;
+            height: 7*$gru;
+            padding-top: 3*$gru+0.5*$hgru;
+            padding-right: 3*$gru + $hgru;
+        }
+        
+        .checkbox{
+            line-height: 8*$gru;
+            height: 8*$gru;
+            padding-right: 0;
+            
+            &.activated{
+                background-color: white;
+                box-shadow: none;
+            }
+        }
+        
+        input, .checkbox-icon{
+                padding: 0;
+                box-shadow: none;
+                background-color: rgba(0,0,0,0);
+                height: 5*$hgru;
+                width: 5*$hgru;
+                
+                &:before{
+                    background: none;
+                    border-color: $base-color;
+                }
+                
+                &:after{
+                    @include rotate(0);
+                    border-width: 0px;
+                    color: $base-color;
+                    top: -3px;
+                    left: 0px;
+                    font-size: 5*$hgru+4px;
+                    font-family: "Ionicons";
+                    content: $ionicon-var-checkmark-circled;
+                }
+            }
+    }
+    
+    &.old{
+        .icon{
+            color: $grey-30;
+        }
+        
+        p{
+            span{
+                color: $grey-30;
+            }
+        }
+    }
+}
+
+.person-item:last-child{
+    padding-bottom: $gru;
+    
+    &.notification{
+        padding-bottom: $hgru;
+    }
+}
+
+.bar-footer{
+    padding: 0;
+    margin: 0;
+    border-top: 0px;
+    box-shadow: $footer-box-shadow;
+    height: $height-large;
+    
+    .button-block{
+        margin: 0;
+        font-size: $font-size-button;
+        width: 100%;
+    }
+}
+
+.bar-search{
+        padding:0;
+        box-shadow: $bar-box-shadow;
+        background-color: $grey-05;
+        
+        input{
+            font-size: $font-size-button;
+            padding: 2*$gru;
+            background-color: $grey-05;
+            border: 0px;
+            line-height: normal;
+            height: 7*$gru;
+        }
+        
+        input{
+        }
 }

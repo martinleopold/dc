@@ -201,6 +201,30 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 				}
 			}
 		})
+        .state('app.dinner_list', {
+			url: "/dinner_list",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/dinner_list.html"
+				}
+			}
+		})
+        .state('app.person_list', {
+			url: "/person_list",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/person_list.html"
+				}
+			}
+		})
+        .state('app.person_list_interactive', {
+			url: "/person_list_interactive",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/person_list_interactive.html"
+				}
+			}
+		})
 
 		.state('app.single', {
 			url: "/playlists/:playlistId",
