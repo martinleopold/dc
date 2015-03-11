@@ -6,6 +6,14 @@ angular.module('dc.db', ['firebase'])
 
 	var db = {}; // the db interface to be exported (as 'db')
 
+	/**
+	 * Get current firebase URL. Used for testing.
+	 * @return {String} - URL of the firebase reference currently in use.
+	 */
+	db.getRefURL = function() {
+		return fb.toString();
+	};
+
 
 /*
  * queries can be grouped due to different criteria:
@@ -87,25 +95,67 @@ angular.module('dc.db', ['firebase'])
 /**
  * Create a new user
  * @param {Object} user
- * firstname, lastname, email
- * @return {Promise} - User object on success. Error message on error.
+ * email, password
+ * @return {Promise} - nothing on success. Error message on error.
  */
-db.createUser = function(user) {
-	console.log(fb);
-};
-
-db.getRefURL = function() {
-	return fb.toString();
+db.createUser = function (credentials) {
+	return $q(function resolver (resolve, reject) {
+		fb.createUser(credentials, function onComplete (error) {
+			if (error === null) {
+				resolve();
+			} else {
+				reject(error);
+			}
+		});
+	});
 };
 
 /**
  * Login a user with email and password.
- * @param {UserCredentials} user
- * @return {Promise} - User object on success. Error message on error.
+ * @param {UserCredentials} credentials
+ * email, password
+ * @return {Promise} - user id on success. error object on error.
  */
-db.loginUser = function(user) {
-
+db.loginUser = function(credentials) {
+	return $q(function resolver (resolve, reject) {
+	  fb.authWithPassword(credentials, function onComplete (error, session) {
+	    if (error === null) {
+	    	resolve(session.uid);
+	    } else {
+	    	reject(error);
+	    }
+	  });
+	});
 };
+
+db.logoutUser = function() {
+	return $q(function resolver (resolve, reject) {
+		var onComplete = function (session) {
+			fb.offAuth(onComplete);
+			if (session === null) {
+				resolve();
+			} else {
+				reject();
+			}
+		}
+		fb.onAuth(onComplete).unauth();
+	});
+};
+
+/**
+ * [getCurrentSession description]
+ * @return {Promise} - user id on success.
+ */
+db.getCurrentSession = function () {
+	return $q(function resolver (resolve, reject) {
+		var session = fb.getAuth(); // sync
+		if (session === null) {
+			reject();
+		} else {
+			resolve(session.uid);
+		}
+	});
+}
 
 
 /*
