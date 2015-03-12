@@ -33,10 +33,9 @@ describe("firebase db service", function() {
    };
 
    // wrap angular promise to make sure it's resolved
-   var when = function(promise, done) {
+   var when = function(promise) {
       var newPromise = promise.finally(function() {
          stopApply();
-         if (typeof done === 'function') done();
       });
       startApply();
       return newPromise;
@@ -84,6 +83,27 @@ describe("firebase db service", function() {
       });
    };
 
+   var ensureUserLoggedIn = function(credentials) {
+      return new Promise(function(resolve) {
+         fb.authWithPassword(credentials, function onComplete (error, session) {
+            if (error !== null || !session.uid) throw new Error('Failed authenticating user');
+            resolve();
+         });
+      });
+   };
+
+   var ensureUserLoggedOut = function() {
+      return new Promise(function(resolve) {
+         fb.onAuth(function onAuth (session) {
+            if (session === null) {
+               fb.offAuth(onAuth);
+               resolve();
+            }
+         });
+         fb.unauth();
+      });
+   };
+
 
    // test the setup itself
    describe('testing setup', function() {
@@ -122,6 +142,24 @@ describe("firebase db service", function() {
             expect(function () { ensureUserRemoved(credentials).then(done); }).not.toThrow();
          });
       });
+
+      describe('ensure user logged out', function() {
+         it('logs the user out', function(done) {
+            ensureUserCreated(credentials).then(function() {
+              return ensureUserLoggedIn(credentials);
+           }).then(function() {
+             expect(function () { ensureUserLoggedOut().then(done); }).not.toThrow();
+           });
+         });
+      });
+
+      describe('ensure user logged in', function() {
+         it('logs the user in', function(done) {
+            ensureUserCreated(credentials).then(function() {
+               expect(function () { ensureUserLoggedIn(credentials).then(done); }).not.toThrow();
+            });
+         });
+      });
    });
 
 
@@ -131,16 +169,18 @@ describe("firebase db service", function() {
       describe('createUser function', function() {
          it('resolves its promise when the user is not already created', function(done) {
             ensureUserRemoved(credentials).then(function() {
-               when( db.createUser(credentials), done ).then(function(error) {
+               when( db.createUser(credentials) ).then(function(error) {
                   expect(error).toBeUndefined();
-               });
+                  done();
+               }, fail);
             });
          });
 
          it('rejects its promise when the user is already created', function(done) {
             ensureUserCreated(credentials).then(function() {
-               when( db.createUser(credentials), done ).catch(function(error) {
+               when( db.createUser(credentials) ).then(fail, function(error) {
                   expect(error.code).toBe('EMAIL_TAKEN');
+                  done();
                });
             });
          });
@@ -148,21 +188,53 @@ describe("firebase db service", function() {
 
       describe('loginUser function', function() {
          it('resolves its promise with an uid on success', function(done) {
-            ensureUserCreated(credentials);
-            when( db.loginUser(credentials), done ).then(function(uid) {
-               expect(uid).toBeDefined();
+            ensureUserCreated(credentials).then(function() {
+               when( db.loginUser(credentials) ).then(function(uid) {
+                  expect(uid).toBeDefined();
+                  done();
+               }, fail);
             });
          });
 
-         fit('rejects its promise if the user is not present', function(done) {
-            ensureUserRemoved(credentials);
-            when( db.loginUser(credentials), done ).catch(function(error) {
-               expect(error).toBeDefinded();
+         it('rejects its promise if the user is not present', function(done) {
+            ensureUserRemoved(credentials).then(function() {
+               when( db.loginUser(credentials) ).then(fail, function(error) {
+                  expect(error.code).toBe('INVALID_USER');
+                  done();
+               });
             });
          });
       });
 
+      describe('logoutUser function', function() {
+         it('resolves its promise', function(done) {
+            ensureUserCreated(credentials).then(function() {
+               return ensureUserLoggedIn(credentials);
+            }).then(function() {
+               when( db.logoutUser() ).then(done, fail);
+           });
+         });
+      });
 
+      describe('getCurrentSession function', function() {
+         it('resolves its promise when logged in', function(done) {
+            ensureUserCreated(credentials).then(function() {
+               return ensureUserLoggedIn(credentials);
+            }).then(function() {
+               when( db.getCurrentSession() ).then(function(uid) {
+                  expect(uid).toBeDefined();
+               }).then(done, fail);
+           });
+         });
+
+         it('rejects its promise when not logged in', function(done) {
+            ensureUserLoggedOut(credentials).then(function() {
+               when( db.getCurrentSession() ).then(fail, done);
+           });
+         });
+
+
+      });
 
 
    });

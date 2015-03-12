@@ -120,7 +120,7 @@ db.loginUser = function(credentials) {
 	return $q(function resolver (resolve, reject) {
 	  fb.authWithPassword(credentials, function onComplete (error, session) {
 	    if (error === null) {
-	    	resolve(session.uid);
+	    	resolve(session.uid, session);
 	    } else {
 	    	reject(error);
 	    }
@@ -130,15 +130,13 @@ db.loginUser = function(credentials) {
 
 db.logoutUser = function() {
 	return $q(function resolver (resolve, reject) {
-		var onComplete = function (session) {
-			fb.offAuth(onComplete);
+		fb.onAuth(function onAuth (session) {
 			if (session === null) {
+				fb.offAuth(onAuth);
 				resolve();
-			} else {
-				reject();
 			}
-		}
-		fb.onAuth(onComplete).unauth();
+		});
+		fb.unauth();
 	});
 };
 
@@ -155,7 +153,7 @@ db.getCurrentSession = function () {
 			resolve(session.uid);
 		}
 	});
-}
+};
 
 
 /*
