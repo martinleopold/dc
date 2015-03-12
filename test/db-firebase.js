@@ -32,52 +32,55 @@ describe("firebase db service", function() {
       clearInterval(applyInterval);
    };
 
-
-   // verify that a promises success callback is called with an expected value
-   var expectPromiseSuccess = function(promise, expected, done) {
-      promise.then(function(value) {
-         expect(value).toBe(expected);
-      }).finally(function() {
+   // wrap angular promise to make sure it's resolved
+   var when = function(promise, done) {
+      var newPromise = promise.finally(function() {
          stopApply();
-         done();
+         if (typeof done === 'function') done();
       });
       startApply();
+      return newPromise;
    };
 
-
-
    // set firebase data for testing
-   var useFixture = function(path, fixture, done) {
+   var useFixture = function(path, fixture) {
       path = path || '/'; // default to root
-      fb.child(path).set(fixture, function onComplete(error) {
-         if (error !== null) throw new Error("Failed setting fixture", fixture);
-         done();
+      return new Promise(function(resolve) {
+         fb.child(path).set(fixture, function onComplete(error) {
+            if (error !== null) throw new Error("Failed setting fixture", fixture);
+            resolve();
+         });
       });
    };
 
    // query and verify returned data
-   var verifyData = function(query, expected, done) {
-      query.once('value', function successCallback(data) {
-         // use jasmine toEqual matcher for this
-         var equals = jasmine.matchers.toEqual(jasmine.matchersUtil).compare;
-         var result = equals( data.val(), expected );
-         if ( !result.pass ) throw new Error("Data not as expected");
-         done();
+   var verifyData = function(query, expected) {
+      return new Promise(function(resolve) {
+         query.once('value', function successCallback(data) {
+            // use jasmine toEqual matcher for this
+            var equals = jasmine.matchers.toEqual(jasmine.matchersUtil).compare;
+            var result = equals( data.val(), expected );
+            if ( !result.pass ) throw new Error("Data not as expected");
+            resolve();
+         });
       });
    };
 
-   var ensureUserCreated = function(credentials, done) {
-      fb.createUser(credentials, function onComplete (error) {
-         console.log(error);
-         if (error !== null && error.code !== 'EMAIL_TAKEN') throw new Error('Failed adding user');
-         done();
+   var ensureUserCreated = function(credentials) {
+      return new Promise(function(resolve) {
+         fb.createUser(credentials, function onComplete (error) {
+            if (error !== null && error.code !== 'EMAIL_TAKEN') throw new Error('Failed adding user');
+            resolve();
+         });
       });
    };
 
-   var ensureUserRemoved = function(credentials, done) {
-      fb.removeUser(credentials, function onComplete (error) {
-         if (error !== null && error.code !== 'INVALID_USER') throw new Error('Failed removing user');
-         done();
+   var ensureUserRemoved = function(credentials) {
+      return new Promise(function(resolve) {
+         fb.removeUser(credentials, function onComplete (error) {
+            if (error !== null && error.code !== 'INVALID_USER') throw new Error('Failed removing user');
+            resolve();
+         });
       });
    };
 
@@ -92,7 +95,7 @@ describe("firebase db service", function() {
       describe('use fixture', function() {
          it('successfully sets firebase to a fixture', function(done) {
             expect(function () {
-               useFixture( '/', fixture, done);
+               useFixture('/', fixture).then(done);
             }).not.toThrow();
          });
       });
@@ -100,7 +103,7 @@ describe("firebase db service", function() {
       describe('verify data', function() {
          it('checks that firebase holds the expected data', function(done) {
             expect(function () {
-               verifyData( fb, fixture, done );
+               verifyData(fb, fixture).then(done);
             }).not.toThrow();
          });
       });
@@ -108,39 +111,60 @@ describe("firebase db service", function() {
       var credentials = {email:'jd@example.com', password:'asdf'};
       describe('ensure user created', function() {
          it('can be called two times without throwing an error', function(done) {
-            expect(function () { ensureUserCreated(credentials, done); }).not.toThrow();
-            expect(function () { ensureUserCreated(credentials, done); }).not.toThrow();
+            expect(function () { ensureUserCreated(credentials).then(done); }).not.toThrow();
+            expect(function () { ensureUserCreated(credentials).then(done); }).not.toThrow();
          });
       });
 
       describe('ensure user removed', function() {
          it('can be called two times without throwing an error', function(done) {
-            expect(function () { ensureUserRemoved(credentials, done); }).not.toThrow();
-            expect(function () { ensureUserRemoved(credentials, done); }).not.toThrow();
+            expect(function () { ensureUserRemoved(credentials).then(done); }).not.toThrow();
+            expect(function () { ensureUserRemoved(credentials).then(done); }).not.toThrow();
          });
       });
    });
 
 
-   // beforeEach(function () {
-   //    startApply();
-   // });
-   //
-   // afterEach(function () {
-   //    stopApply();
-   // });
-
    describe('authentication and session management', function()    {
+      var credentials = {email:'jd@example.com', password:'asdf'};
+
       describe('createUser function', function() {
-         var credentials = {email:'jd@example.com', password:'asdf'};
-
-         //ensureUserCreated(credentials);
-
-         it('resolves its promise', function(done) {
-            expectPromiseSuccess( db.createUser(credentials), undefined, done );
+         it('resolves its promise when the user is not already created', function(done) {
+            ensureUserRemoved(credentials).then(function() {
+               when( db.createUser(credentials), done ).then(function(error) {
+                  expect(error).toBeUndefined();
+               });
+            });
          });
 
+         it('rejects its promise when the user is already created', function(done) {
+            ensureUserCreated(credentials).then(function() {
+               when( db.createUser(credentials), done ).catch(function(error) {
+                  expect(error.code).toBe('EMAIL_TAKEN');
+               });
+            });
+         });
       });
+
+      describe('loginUser function', function() {
+         it('resolves its promise with an uid on success', function(done) {
+            ensureUserCreated(credentials);
+            when( db.loginUser(credentials), done ).then(function(uid) {
+               expect(uid).toBeDefined();
+            });
+         });
+
+         fit('rejects its promise if the user is not present', function(done) {
+            ensureUserRemoved(credentials);
+            when( db.loginUser(credentials), done ).catch(function(error) {
+               expect(error).toBeDefinded();
+            });
+         });
+      });
+
+
+
+
    });
 
 
