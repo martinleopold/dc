@@ -11,7 +11,7 @@
 	/**
 	 * GENERAL
 	 */
-	
+
 	// a geolocation
 	"locationSchema" : {
 		"type" : "object",
@@ -38,7 +38,7 @@
 	"idSchema" : {
 		"type" : "string"
 	},
-	
+
 	// a single reference (using string ID)
 	"refSchema" : {
 		"type" : "string"
@@ -62,7 +62,7 @@
 	/**
 	 * USER
 	 */
-	
+
 	"userSchema" : {
 		"type" : "object",
 		"properties" : {
@@ -75,17 +75,15 @@
 			"email" 			: { "type" : "email" },
 			"info"				: { "type" : "string" },
 			"settings"			: { "$ref" : "#/userSettingsSchema" },
-			"images"			: { 
-				"type" : "array", 
-				"items" : { "$ref" : "#/userImageSchema" } 
+			"images"			: {
+				"type" : "array",
+				"items" : { "$ref" : "#/userImageSchema" }
 			},
 			"numCredits"			: { "type" : "integer" },
-
 			"friends"				: { "$ref" : "#/refListSchema" },
-			"incomingFriendRequests": { "$ref" : "#/refListSchema" }
 		}
 	},
-	
+
 	"userImageSchema" : {
 		"type" : "object",
 		"properties" : {
@@ -104,11 +102,27 @@
 	},
 
 
+   /**
+	 * FRIEND REQUESTS
+	 */
+
+    "friendRequestSchema" : {
+      "type" : "object",
+      "properties" : {
+         "friendRequestId"    : { "$ref" : "#/idSchema" },
+          "createdAt"			: { "$ref" : "#/timestampSchema" },
+          "updatedAt"			: { "$ref" : "#/timestampSchema" },
+          "byUser"			   : { "$ref" : "#/idSchema" },
+          "toUser"			   : { "$ref" : "#/idSchema" },
+          "status"            : { "enum" : [ "pending", "accepted", "rejected" ] }
+      }
+    },
+
 
 	/**
 	 * DINNER
 	 */
-	
+
 	"dinnerSchema" : {
 		"type" : "object",
 		"properties" : {
@@ -141,7 +155,7 @@
 	 *
 	 * An application by a user to join a dinner.
 	 */
-	
+
 	"applicationSchema" : {
 		"type" : "object",
 		"properties" : {
@@ -159,38 +173,38 @@
 
 
 
-	/**
-	 * INVITATION
-	 * 
-	 * An invitation for a user to join a dinner or group.
-	 * Can't add this to the user, since a way is needed to list invited users for a dinner.
-	 * If a group is invited to a dinner, invitations are sent to all current members.
-	 */
-	
-	"invitationSchema" : {
-		"type" : "object",
-		"properties" : {
-			"invitationId"	: { "$ref" : "#/idSchema" },
-			"createdAt"		: { "$ref" : "#/timestampSchema" },
-			"updatedAt"		: { "$ref" : "#/timestampSchema" }, // when status changes
-			"forUser"		: { "$ref" : "#/refSchema" },
-			"byUser"		: { "$ref" : "#/refSchema" },
-			"type"			: { "enum" : [ "dinner", "group" ] },
-			"toDinner"		: { "$ref" : "#/refSchema" },
-			"toGroup"		: { "$ref" : "#/refSchema" },
-			"status"		: { "enum" : [ "pending", "accepted", "rejected" ] }
-		}
-	},
+   // /**
+	//  * INVITATION
+	//  *
+	//  * An invitation for a user to join a dinner or group.
+	//  * Can't add this to the user, since a way is needed to list invited users for a dinner.
+	//  * If a group is invited to a dinner, invitations are sent to all current members.
+	//  */
+   //
+	// "invitationSchema" : {
+	// 	"type" : "object",
+	// 	"properties" : {
+	// 		"invitationId"	: { "$ref" : "#/idSchema" },
+	// 		"createdAt"		: { "$ref" : "#/timestampSchema" },
+	// 		"updatedAt"		: { "$ref" : "#/timestampSchema" }, // when status changes
+	// 		"forUser"		: { "$ref" : "#/refSchema" },
+	// 		"byUser"	   	: { "$ref" : "#/refSchema" },
+	// 		"type"			: { "enum" : [ "dinner", "group" ] },
+	// 		"toDinner"		: { "$ref" : "#/refSchema" },
+	// 		"toGroup"		: { "$ref" : "#/refSchema" },
+	// 		"status"       : { "enum" : [ "pending", "accepted", "rejected" ] }
+	// 	}
+	// },
 
 	// /**
 	//  * INVITATION
-	//  * 
+	//  *
 	//  * An invitation for a user to join a dinner.
 	//  */
 	// "invitationToDinnerSchema" : {
 	// 	"allOf" : [
 	// 		{ "$ref": "#/invitationSchema" },
-	// 		{ "type" : "object", 
+	// 		{ "type" : "object",
 	// 			"properties" : {
 	// 				"dinner"	: { "$ref" : "#/refSchema" }
 	// 			}
@@ -200,13 +214,13 @@
 
 	// /**
 	//  * INVITATION
-	//  * 
+	//  *
 	//  * An invitation for a user to join a group.
 	//  */
 	// "invitationToGroupSchema" : {
 	// 	"allOf" : [
 	// 		{ "$ref": "#/invitationSchema" },
-	// 		{ "type" : "object", 
+	// 		{ "type" : "object",
 	// 			"properties" : {
 	// 				"group"		: { "$ref" : "#/refSchema" }
 	// 			}
@@ -218,11 +232,11 @@
 
 	/**
 	 * MESSAGE
-	 * 
+	 *
 	 * A message posted to a dinner or group, possibly in reply to another message.
 	 * Either dinner or group needs to be != "".
 	 */
-	
+
 	"messageSchema" : {
 		"type" : "object",
 		"properties" : {
@@ -241,7 +255,7 @@
 	/**
 	 * GROUP
 	 */
-	
+
 	"groupSchema" : {
 		"type" : "object",
 		"properties" : {
@@ -270,7 +284,7 @@
 	/**
 	 * NOTIFICATION
 	 */
-	
+
 	"notificationSchema" : {
 		"type" : "object",
 		"properties" : {
@@ -288,7 +302,7 @@
 	/**
 	 * REVIEW
 	 */
-	
+
 	"reviewSchema" : {
 		"type" : "object",
 		"properties" : {
