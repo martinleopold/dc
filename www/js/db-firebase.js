@@ -164,17 +164,18 @@ db.getCurrentSession = function () {
  * add photo (C)
  * remove photo (D)
  * reorder photo (U)
- * send friend request (U)
- * accept friend request (U)
  *
  *
+ *
+ * friends of this user
  * user data incl. settings
  * gallery pictures
+ *
+ *
  * dinners hosted by this user
  * dinners the user applied to/was accepted to/was rejected from (mutually excl.)
  * dinners invited to
- * friends of this user
- * friend requests received
+ *
  * groups with member status
  * groups with admin status
  * notifications received
@@ -182,6 +183,64 @@ db.getCurrentSession = function () {
  *
  */
 
+db.updateUser = function (uid, user) {
+
+};
+
+db.updateUserSettings = function (uid, settings) {
+
+};
+
+db.createUserImage = function () {
+
+};
+
+db.deleteUserImage = function () {
+
+};
+
+db.reorderUserImage = function () {
+
+};
+
+db.getUserFriends = function () {
+
+};
+
+// user data incl. settings and pics
+db.getUser = function () {
+
+};
+
+
+/*
+ * FRIEND REQUESTS
+ *
+ * send friend request (U)
+ * accept friend request (U)
+ * friend requests received
+ *
+ */
+
+db.sendFriendRequest = function (fromUserId, toUserId) {
+
+};
+
+db.acceptFriendRequest = function () {
+
+};
+
+db.rejectFriendRequest = function () {
+
+};
+
+db.getIncomingFriendRequests = function (userId, fromUserId) {
+
+};
+
+db.getOutgoingFriendRequests = function (userId, toUserId) {
+
+};
 
 
 
