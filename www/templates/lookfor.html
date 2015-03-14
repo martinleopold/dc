@@ -2,34 +2,10 @@
   <ion-nav-buttons side="left">
 	<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
-
-		<div class="bar bar-subheader bar-search has-dropdown">
-            <i class="icon ion-navigate"></i>
-            <input class="adress-search" placeholder="Your location">
-        </div>
-        <ul class="adress-dropdown">
-            <li class="dropdown-item">
-                    <i class="icon ion-navigate"></i>
-                    <label>Your location</label>
-            </li>
-            <li class="dropdown-item">
-                <i class="icon ion-home"></i>
-                <label>Your home adress</label>
-            </li>
-            <li class="dropdown-item">
-                <i class="icon ion-search"></i>
-                <label>Salmansdorfer Platz, 1060 Wien</label>
-            </li>
-            <li class="dropdown-item">
-                <i class=""></i>
-                <label>Salzburger Straße, 1170 Wien</label>
-            </li>
-            <li class="dropdown-item">
-                <i class=""></i>
-                <label>Salzgries, 1010 Wien</label>
-            </li>
-        </ul>
-        <ion-content class="has-subheader">
+  
+	<ion-tabs class="tabs-top tabs-dark tabs-striped tabs-icon-only">
+	  <ion-tab title=" <!-- Location --> " icon="ion-navigate">
+		<ion-content>
 			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
 				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
 				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
@@ -48,7 +24,58 @@
 			</div>
 
 		</ion-content>
-
+	  </ion-tab>
+		
+	  <ion-tab title=" <!-- Home --> " icon="ion-home">
+		<ion-content>
+			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
+				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
+				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
+					<div class="col col-75 title-location">
+                        <p class="dinnertitle">{{dinner.title}}</p>
+                        <p class="dinnerlocation">at Selma's place</p>
+                    </div>
+					<div class="col">
+                        <p class="dinnerdate">
+                            <span>{{dinner | getBeginTime | date : 'd.M.'}}
+                            <span>{{dinner | getBeginTime | date : 'HH:mm'}}</span>
+                            </span>
+                        </p>
+                    </div>
+				</a>
+			</div>
+		</ion-content>
+	  </ion-tab>
+        
+      <ion-tab title=" <!-- Custom Location --> " icon="ion-edit">
+        <ion-content>
+            <h2>Look somewhere else</h2>
+            <div class="card">
+                <div class="list">
+                    <label class="item item-input">
+                        <input type="text" placeholder="Enter an adress...">
+                    </label>
+                </div>
+                <div class="mapwrapper">
+                    <style>
+                            map {
+                              display: block;
+                              width: 100%;
+                              height: 100%;
+                              height: 250px;
+                            }
+                            .scroll {
+                              height: 100%;
+                            }
+                    </style>
+                    <map on-create="mapCreated(map)"></map>
+                </div>
+            </div>
+            
+            <button class="button button-positive button-block">Look for Dinners</button>
+        </ion-content>
+      </ion-tab>
+	</ion-tabs>
 	
 	<button class="button button-positive icon ion-location maptoggle"></button>
     <button class="button button-positive filterbutton">Filter</button>
