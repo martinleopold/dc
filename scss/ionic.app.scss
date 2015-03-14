@@ -58,7 +58,6 @@ $stable:                          $grey-05 !default;
 $bar-height:                      $height-medium !default;
 $bar-title-font-size:             $font-size-large !default;
 $bar-box-shadow:                  0px 3px 0 rgba(0, 0, 0, .3) !default;
-$bar-search-shadow:               0px 3px 0 rgba(0, 0, 0, .1) !default;
 
 
 //Base
@@ -125,6 +124,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+@import "fonts";
 
 h1{
     font-size: $font-size-title;
@@ -138,7 +138,8 @@ h2{
 }
 
 .bar{
-    box-shadow: $bar-box-shadow; 
+    box-shadow: $bar-box-shadow;
+
     .button{
         box-shadow: none;
     }
@@ -253,12 +254,6 @@ button.button-block{
     padding-top: 2*$gru;
 }
 
-.has-subheader{
-    .scroll{
-        padding-top: $gru;
-    }
-}
-
 .tabs{
     font-style: $tabs-text-font-style;
     box-shadow: $bar-box-shadow;
@@ -266,7 +261,7 @@ button.button-block{
 
 .tabs-top{
     &.tabs-striped{
-        
+
         .tabs{
             border-bottom: none;
 
@@ -1075,14 +1070,8 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .bar-search{
         padding:0;
-        box-shadow: $bar-search-shadow;
+        box-shadow: $bar-box-shadow;
         background-color: $grey-05;
-    
-        //When dropdown opens, dropshadow is changed
-    
-        &.has-dropdown{
-            box-shadow: $borderless-box-shadow;
-        }
 
         input{
             font-size: $font-size-button;
@@ -1091,57 +1080,8 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             border: 0px;
             line-height: normal;
             height: 7*$gru;
-            
-            &.adress-search{
-                float: left;
-                width: auto;
-                padding-left: $hgru;
-            }
         }
-    
-        i{
-            display: block;
-            float: left;
-            width: 5*$gru;
-            font-size: 3*$gru;
-            height: 7*$gru;
-            text-align: center;
-            padding-left: $gru;
-            line-height: 7*$gru;
-            vertical-align: middle;
-        }
-}
 
-.adress-dropdown{
-    //visibility: hidden;
-    position: absolute;
-    top: 2*$bar-height;
-    background-color: $grey-09;
-    z-index: 8;
-    width: 100%;
-    box-shadow: $bar-search-shadow;
-    
-    label{
-        font-size: $font-size-button;
-        font-weight: 300;
-        font-style:italic;
-        padding-left: $hgru;
-    }
-    
-    li{
-        line-height: 5*$gru+$hgru;
-        vertical-align: middle;
-    }
-    
-    i{
-            display: block;
-            float: left;
-            width: 5*$gru;
-            font-size: 3*$gru;
-            height: 5*$gru+$hgru;
-            text-align: center;
-            padding-left: $gru;
-            line-height: 6*$gru;
-            vertical-align: middle;
+        input{
         }
 }
