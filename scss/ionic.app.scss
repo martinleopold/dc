@@ -125,6 +125,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
+@import "fonts";
 
 h1{
     font-size: $font-size-title;
@@ -138,7 +139,7 @@ h2{
 }
 
 .bar{
-    box-shadow: $bar-box-shadow; 
+    box-shadow: $bar-box-shadow;
     .button{
         box-shadow: none;
     }
@@ -266,7 +267,7 @@ button.button-block{
 
 .tabs-top{
     &.tabs-striped{
-        
+
         .tabs{
             border-bottom: none;
 
@@ -1077,9 +1078,9 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         padding:0;
         box-shadow: $bar-search-shadow;
         background-color: $grey-05;
-    
+
         //When dropdown opens, dropshadow is changed
-    
+
         &.has-dropdown{
             box-shadow: $borderless-box-shadow;
         }
@@ -1091,14 +1092,14 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             border: 0px;
             line-height: normal;
             height: 7*$gru;
-            
+
             &.adress-search{
                 float: left;
                 width: auto;
                 padding-left: $hgru;
             }
         }
-    
+
         i{
             display: block;
             float: left;
@@ -1120,19 +1121,19 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     z-index: 8;
     width: 100%;
     box-shadow: $bar-search-shadow;
-    
+
     label{
         font-size: $font-size-button;
         font-weight: 300;
         font-style:italic;
         padding-left: $hgru;
     }
-    
+
     li{
         line-height: 5*$gru+$hgru;
         vertical-align: middle;
     }
-    
+
     i{
             display: block;
             float: left;
