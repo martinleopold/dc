@@ -58,6 +58,7 @@ $stable:                          $grey-05 !default;
 $bar-height:                      $height-medium !default;
 $bar-title-font-size:             $font-size-large !default;
 $bar-box-shadow:                  0px 3px 0 rgba(0, 0, 0, .3) !default;
+$bar-search-shadow:               0px 3px 0 rgba(0, 0, 0, .1) !default;
 
 
 //Base
@@ -141,6 +142,7 @@ h2{
     box-shadow: $bar-box-shadow;
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
     
 =======
 
@@ -148,6 +150,8 @@ h2{
 =======
 
 >>>>>>> parent of e5e2beb... Revert "Merge remote-tracking branch 'origin/views' into views"
+=======
+>>>>>>> origin/views
     .button{
         box-shadow: none;
     }
@@ -156,12 +160,12 @@ h2{
 .bar-header{
     border-bottom-width: 0px;
     padding: $gru;
-    
+
     .title-center{
         text-align: left;
         margin-left: $gru;
     }
-    
+
     &.has-tabs-top{
         box-shadow: none;
     }
@@ -170,37 +174,37 @@ h2{
 .card{
     margin: 0 $content-padding $content-padding $content-padding;
     padding: 0;
-    
-    
+
+
     button.button-block{
         margin: 0;
         width: 100%;
         height: auto;
         box-shadow: $card-box-shadow;
-        
+
         .item-avatar{
             padding-left: 0;
             min-height: 7*$gru;
             line-height: 7*$gru;
             text-align: left;
-            
+
             img:first-child{
                 height: 4*$gru;
                 width: 4*$gru;
                 top: $gru + $hgru;
                 left: $gru + $hgru;
             }
-            
+
             span{
                 padding-left: 5*$gru;
             }
         }
     }
-    
+
     .row, .col{
         padding: 0;
     }
-    
+
     &.last-before-hoverbuttons{ //only relevant on the filter-options screen
         margin-bottom: 10*$gru;
     }
@@ -220,25 +224,25 @@ button.button-block{
 }
 
 .button-bar{
-    
+
     .button{
         line-height: 9*$gru;
         border: 0;
         box-shadow: none;
         border-right: solid 1px rgba(0,0,0,.1);
         min-width: 9*$gru;
-        
+
         .icon{
             display: block;
             vertical-align: middle;
             font-size: 40px;
-            
+
             &.icon-with-text{
                 float:left;
             }
         }
     }
-    
+
     .button:last-child{
         border: 0;
     }
@@ -247,11 +251,11 @@ button.button-block{
 .info{
     font-size: $font-size-small;
     margin: $content-padding 2*$content-padding $content-padding 2*$content-padding;
-    
+
     &.card-info{
         margin: 0;
     }
-    
+
     i{
         font-style: italic;
         font-weight: normal;
@@ -260,6 +264,12 @@ button.button-block{
 
 .scroll{
     padding-top: 2*$gru;
+}
+
+.has-subheader{
+    .scroll{
+        padding-top: $gru;
+    }
 }
 
 .tabs{
@@ -273,7 +283,7 @@ button.button-block{
         .tabs{
             border-bottom: none;
 
-            
+
         }
         .tab-item{
                 color: #fff; //UNSAUBER!
@@ -287,7 +297,7 @@ button.button-block{
                 border-style: solid;
             }
     }
-    
+
     .icon{
         font-size: 24px;
     }
@@ -300,13 +310,13 @@ button.button-block{
 .scroll-content{
     &.has-header.has-tabs-top {
         top: $bar-height + $tabs-height;
-        
+
         .scroll{
             height: auto;
             padding-bottom: $bar-height + $tabs-height;
         }
     }
-    
+
     &.has-footer{
         bottom: $bar-footer-height;
     }
@@ -315,46 +325,46 @@ button.button-block{
 .list{
     padding: $gru;
     margin-bottom: 0;
-    
+
     .categories{ //kind of .row
         padding: 0;
         margin: 0 0 $gru 0;
-        
+
         .col{
             padding:0 $gru 0 0;
         }
-        
+
         .col:last-child{
             padding: 0;
         }
     }
-    
+
     .categories:last-child{
         margin: 0;
     }
-    
+
     .row{
         padding:0;
         margin: 0 0 $gru 0;
-        
+
         &.single{
             margin:0;
         }
-        
+
         .col{
             padding:0 $gru 0 0;
         }
-        
+
         .col:last-child{
             padding: 0;
         }
     }
-    
+
     &.novpadding{            //profile, dinner
         padding-top: 0;
         padding-bottom: 1px; //to not clip shadows
     }
-    
+
     .dinnerdate{
         line-height: $font-size-small + $hgru;
         font-size: $font-size-small;
@@ -374,46 +384,46 @@ button.button-block{
             }
         }
     }
-    
+
 }
 
 
 .item{
     margin: 0 0 $gru 0;
     border: none;
-    
+
     p{
         color: $base-color;
     }
-    
+
     &.item-input{
         padding:0;
         box-shadow: $card-box-shadow;
-        
+
         textarea, input{
             font-size: $font-size-button;
             padding: 2*$gru;
             background-color: $grey-05;
         }
-        
+
         input{
             padding: 3*$gru 2*$gru;
         }
-        
+
         textarea{
             height: 15*$gru;
             line-height: 24px;
         }
     }
-    
+
     &.item-image{
         margin-bottom: 0;
     }
-    
+
     &.item-text-wrap{
         padding: 2*$gru;
     }
-    
+
     &.item-checkbox{
         font-style: italic;
         font-size: $font-size-button;
@@ -421,22 +431,22 @@ button.button-block{
         background-color: $grey-05;
         padding-left: 50px;
         padding-right: 8px;
-        
+
         .checkbox{
             padding-top: 7+$hgru;
-            
+
             input, .checkbox-icon{
                 padding: 0;
                 box-shadow: none;
                 background-color: rgba(0,0,0,0);
                 height: 5*$hgru;
                 width: 5*$hgru;
-                
+
                 &:before{
                     background: none;
                     border-color: $base-color;
                 }
-                
+
                 &:after{
                     @include rotate(0);
                     border-width: 0px;
@@ -448,19 +458,19 @@ button.button-block{
                     content: $ionicon-var-checkmark-circled;
                 }
             }
-            
+
             input:checked:before, input:checked + .checkbox-icon:before{
                 border-width: 0px;
             }
-            
+
         }
     }
-    
+
     &.borderless{
             margin-top: 0;
             box-shadow: $borderless-box-shadow;
     }
-    
+
     &.isolated{
         height: 9*$gru;
         padding-top: 25px;
@@ -500,24 +510,24 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 .item:last-child{
     margin:0;
 }
-    
+
 .dinner{
     padding: 0;
     min-height: 9*$gru;
-    
+
     .row{
         padding:0;
     }
-    
+
     .col{
         padding: 2*$gru 0 2*$gru 0;
     }
-    
+
     .col:first-child{
-        
+
         padding-left: 2*$gru;
     }
-    
+
     .title-location:before{
         position: absolute;
         content: '';
@@ -530,16 +540,16 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         background-repeat: no-repeat;
         background-position: right;
     }
-    
+
     .col:last-child{
         //background-color: $energized;
         border-left: 1px solid rgba(0,0,0,0.1);
     }
-    
+
     p{
         padding:0;
         margin:0;
-        
+
         &.dinnertitle{
             font-size: $font-size-xlarge;
             font-family: "Bree Serif", serif;
@@ -548,24 +558,24 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             white-space: nowrap;
             overflow: hidden;
         }
-        
+
         &.dinnerlocation{
             font-size: $font-size-small;
             font-style: italic;
             font-weight: 300;
             line-height: $font-size-small;
         }
-        
+
         &.dinnerdate{
             line-height: $font-size-small + $hgru;
             font-size: $font-size-small;
             font-weight: 300;
-            
+
             span{
                 display:block;
                 width: 7*$gru;
                 margin: 0 auto;
-              
+
                 span{
                     font-weight: normal;
                     font-size: $font-size-xlarge;
@@ -591,7 +601,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     box-shadow: $hoverbutton-box-shadow;
     min-width: 5*$gru + $hgru;
     min-height: 5*$gru + $hgru;
-    
+
     &.activated{
         box-shadow: $card-box-shadow;
     }
@@ -611,7 +621,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     box-shadow: $hoverbutton-box-shadow;
     min-width: 19*$gru;
     min-height: 5*$gru + $hgru;
-    
+
     &.activated{
         box-shadow: $card-box-shadow;
     }
@@ -633,39 +643,39 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 .item-text-wrap{
     margin: 0;
     padding: $gru 2*$gru;
-    
+
     h1{
         margin: 0;
     }
-    
+
     .row{
         margin-bottom: 2*$gru;
-        
+
         &.novpadding{
             margin-bottom: 0;
         }
     }
-    
+
     .button{
         vertical-align: middle;
     }
-    
+
     p.dinner-info, p.user-info{
         font-family: $font-family-serif;
         font-size: $font-size-base;
         font-weight: 300;
         margin-bottom: 2*$gru;
     }
-    
+
     p.user-info{
         margin-bottom: 0;
     }
-    
+
     .category{
         font-size: $font-size-small;
         text-transform: capitalize;
         overflow: hidden;
-        
+
         span{
             padding-left: $hgru;
         }
@@ -677,17 +687,17 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     box-shadow:none;
     font-style:normal;
     text-align: left;
-    
+
     &.button-block{
         margin: 0;
         width: 100%;
         height: auto;
-        
+
         .item-avatar{
             padding-left: 8*$gru;
             min-height: 7*$gru;
             padding-top: 2*$gru + $hgru;
-            
+
             img:first-child{
                 max-height: 7*$gru;
                 max-width: 7*$gru;
@@ -698,50 +708,50 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             }
         }
     }
-    
-    
+
+
     .applicant-name{
-        line-height: $font-size-button; 
+        line-height: $font-size-button;
         margin-bottom: 0;
     }
-    
+
     .mode{
         font-size: $font-size-small;
         font-weight: 300;
         line-height: $font-size-small;
     }
-    
+
     .col{
         border-right: 1px solid rgba(0,0,0,0.1);
     }
-    
+
     .col:last-child{
         margin-right: $gru;
         border: 0;
     }
-    
+
     .applicant-info{
         float:left;
     }
-    
+
     .accept-buttons{
         float: right;
         margin: $gru $gru 0 $gru;
         box-shadow: $card-box-shadow;
         background-color: $stable;
-        
+
         .button{
             box-shadow:none;
             margin:0;
             padding:0;
             height: 7*$gru;
             width: 7*$gru;
-            line-height: 7*$gru;   
+            line-height: 7*$gru;
         }
         .button:last-child{
             border-left: 1px solid rgba(0,0,0,0.1);
         }
-            
+
     }
 }
 
@@ -760,9 +770,9 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         padding: 0;
         box-shadow:none;
     }
-    
+
     .item-avatar{
-    
+
         img:first-child{
                 $avatar-size: 9*$gru*0.7;
                 max-height: $avatar-size;
@@ -773,32 +783,32 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 left: $gru;
             }
     }
-    
+
 }
 
 .apply-number{
-    
+
     padding: 0 $gru $gru $gru;
     margin-bottom: $gru;
-    
+
     .col:first-child{
         padding: 0 0 0 $gru;
     }
-    
+
     p{
         line-height: $font-size-small + $hgru;
     }
-    
+
     .counter{
         background-color: $stable;
         box-shadow: $block-button-box-shadow;
         padding: 0;
-        
+
         .row, .col{
             padding:0;
             overflow:hidden;
         }
-        
+
         h2{
             display: block;
             width: 100%;
@@ -809,7 +819,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             line-height: 7*$gru;
             font-size: $font-size-title;
         }
-        
+
         button{
             display:block;
             box-shadow: none;
@@ -824,15 +834,15 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .apply-visit-take-away{
     padding: $gru;
-    
+
     .col{
         padding: 0 $gru 0 0;
     }
-    
+
     .col:last-child{
         padding: 0;
     }
-    
+
     .button{
         line-height: $font-size-button + $hgru;
         height: 9*$gru;
@@ -842,24 +852,24 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 .bar-menu{
     height: 2*$bar-height;
     box-shadow: none;
-    
+
     .row, .col{
         margin: 0;
         padding: 0;
     }
-    
+
     .username{
         font-family: $font-family-serif, serif;
         font-size: $font-size-xlarge;
         font-weight: 300;
         margin-bottom: 2*$gru;
     }
-    
+
     .credits{
         font-size: $font-size-xlarge;
         text-align: center;
     }
-    
+
     .credits-label{
         font-size: $font-size-small;
         line-height: $font-size-small;
@@ -870,19 +880,19 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 .content-menu{
     top: 2*$bar-height;
     background-color: $dark;
-    
+
     .scroll{
         padding-top: 0;
     }
-    
+
     .list{
         padding:0;
-        
+
         .item{
             height: $height-medium - 1px;
             margin-bottom: 1px;
             background-color: $grey-85;
-            
+
             .item-content{
                 background-color: $grey-85;
                 color: white;
@@ -890,7 +900,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             }
         }
     }
-    
+
 }
 
 .person-list{
@@ -908,7 +918,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .person-item{
     padding-bottom: $hgru;
-    
+
     .button-block{
         font-style:normal;
         text-align: left;
@@ -917,12 +927,12 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         width: 100%;
         height: auto;
         padding-left: 0;
-        
+
         .item-avatar{
             padding-left: 9*$gru+$hgru;
             min-height: 7*$gru;
             padding-top: $gru;
-            
+
             img:first-child{
                 max-height: 7*$gru;
                 max-width: 7*$gru;
@@ -933,21 +943,21 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             }
         }
     }
-    
+
     .person-name{
-        line-height: 7*$gru; 
+        line-height: 7*$gru;
         margin-bottom: 0;
     }
-    
+
     &.notification{
-        
+
         vertical-align: middle;
         border-bottom: 1px solid rgba(0,0,0,0.1);
-        
+
         .person-info{
             padding-bottom: $gru+$hgru;
         }
-        
+
         p{
             padding-top: $gru;
             display: block;
@@ -959,19 +969,19 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             white-space: normal;
             overflow:auto;
             text-overflow: ellipsis;
-            
+
             span{
                 color: $energized;
                 font-weight: 600;
             }
         }
-        
+
         a.activated{
             background-color: white;
             box-shadow: none;
         }
     }
-    
+
     &.with-icon{
         .icon{
             display:block;
@@ -984,18 +994,18 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             text-align: center;
             color: $energized;
         }
-        
+
         .icon:before{
             font-size: 5*$gru;
         }
     }
-    
+
     &.with-checkbox{
-        
+
         .item-avatar{
             float: left;
         }
-        
+
         .person-checkbox{
             line-height: 7*$gru;
             vertical-align: middle;
@@ -1004,30 +1014,30 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             padding-top: 3*$gru+0.5*$hgru;
             padding-right: 3*$gru + $hgru;
         }
-        
+
         .checkbox{
             line-height: 8*$gru;
             height: 8*$gru;
             padding-right: 0;
-            
+
             &.activated{
                 background-color: white;
                 box-shadow: none;
             }
         }
-        
+
         input, .checkbox-icon{
                 padding: 0;
                 box-shadow: none;
                 background-color: rgba(0,0,0,0);
                 height: 5*$hgru;
                 width: 5*$hgru;
-                
+
                 &:before{
                     background: none;
                     border-color: $base-color;
                 }
-                
+
                 &:after{
                     @include rotate(0);
                     border-width: 0px;
@@ -1040,12 +1050,12 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 }
             }
     }
-    
+
     &.old{
         .icon{
             color: $grey-30;
         }
-        
+
         p{
             span{
                 color: $grey-30;
@@ -1056,7 +1066,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .person-item:last-child{
     padding-bottom: $gru;
-    
+
     &.notification{
         padding-bottom: $hgru;
     }
@@ -1068,7 +1078,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     border-top: 0px;
     box-shadow: $footer-box-shadow;
     height: $height-large;
-    
+
     .button-block{
         margin: 0;
         font-size: $font-size-button;
@@ -1078,16 +1088,24 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .bar-search{
         padding:0;
-        box-shadow: $bar-box-shadow;
+        box-shadow: $bar-search-shadow;
         background-color: $grey-05;
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         
 =======
 =======
 >>>>>>> parent of e5e2beb... Revert "Merge remote-tracking branch 'origin/views' into views"
+=======
+>>>>>>> origin/views
 
->>>>>>> parent of e5e2beb... Revert "Merge remote-tracking branch 'origin/views' into views"
+        //When dropdown opens, dropshadow is changed
+
+        &.has-dropdown{
+            box-shadow: $borderless-box-shadow;
+        }
+
         input{
             font-size: $font-size-button;
             padding: 2*$gru;
@@ -1095,7 +1113,14 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             border: 0px;
             line-height: normal;
             height: 7*$gru;
+
+            &.adress-search{
+                float: left;
+                width: auto;
+                padding-left: $hgru;
+            }
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
         
@@ -1106,5 +1131,52 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 >>>>>>> parent of e5e2beb... Revert "Merge remote-tracking branch 'origin/views' into views"
         input{
+=======
+
+        i{
+            display: block;
+            float: left;
+            width: 5*$gru;
+            font-size: 3*$gru;
+            height: 7*$gru;
+            text-align: center;
+            padding-left: $gru;
+            line-height: 7*$gru;
+            vertical-align: middle;
+>>>>>>> origin/views
+        }
+}
+
+.adress-dropdown{
+    //visibility: hidden;
+    position: absolute;
+    top: 2*$bar-height;
+    background-color: $grey-09;
+    z-index: 8;
+    width: 100%;
+    box-shadow: $bar-search-shadow;
+
+    label{
+        font-size: $font-size-button;
+        font-weight: 300;
+        font-style:italic;
+        padding-left: $hgru;
+    }
+
+    li{
+        line-height: 5*$gru+$hgru;
+        vertical-align: middle;
+    }
+
+    i{
+            display: block;
+            float: left;
+            width: 5*$gru;
+            font-size: 3*$gru;
+            height: 5*$gru+$hgru;
+            text-align: center;
+            padding-left: $gru;
+            line-height: 6*$gru;
+            vertical-align: middle;
         }
 }
