@@ -614,6 +614,24 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     &.activated{
         box-shadow: $card-box-shadow;
     }
+
+    .button{
+        line-height: 5*$gru + $hgru;
+        float:left;
+        min-height: 5*$gru + $hgru;
+    }
+        
+    .button:first-child{
+        min-width: 5*$gru + $hgru;
+        width: 5*$gru + $hgru;
+        padding: 0;
+        font-size: $font-size-small;
+        border-right: 1px solid #15D9B7;
+    }
+    
+    a.button.icon:before, a.button.icon-left:before, a.button.icon-right:before{
+    font-size: $font-size-large;
+    }
 }
 
 .filterbutton.icon:before, .filterbutton.icon-left:before, .filterbutton.icon-right:before{

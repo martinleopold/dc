@@ -7381,6 +7381,18 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
   min-height: 44px; }
   .filterbutton.activated {
     box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1); }
+  .filterbutton .button {
+    line-height: 44px;
+    float: left;
+    min-height: 44px; }
+  .filterbutton .button:first-child {
+    min-width: 44px;
+    width: 44px;
+    padding: 0;
+    font-size: 14px;
+    border-right: 1px solid #15D9B7; }
+  .filterbutton a.button.icon:before, .filterbutton a.button.icon-left:before, .filterbutton a.button.icon-right:before {
+    font-size: 20px; }
 
 .filterbutton.icon:before, .filterbutton.icon-left:before, .filterbutton.icon-right:before {
   line-height: 44px; }
