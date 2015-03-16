@@ -1147,3 +1147,91 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             vertical-align: middle;
         }
 }
+
+//Conversations
+
+.conversation{
+    padding-top: 2*$gru 0 0 0;
+    
+    .list{
+        padding: 0;
+        
+        .item{
+            border-bottom: 1px solid $grey-15;
+            
+            &.item-text-wrap{
+                padding: 2*$gru 0 0 0;
+                
+                p{
+                    padding: 0 2*$gru 2*$gru 2*$gru;
+                    font-family: $font-family-serif;
+                    font-weight: 300;
+                    line-height: 2*$gru + $hgru;
+                }
+            }
+            
+            .item-avatar{
+                padding-left: 7*$gru;
+                line-height: 4*$gru;
+                vertical-align: middle;
+                min-height: 4*$gru;
+                margin-bottom: $gru + $hgru;
+                
+                img:first-child{
+                    height: 4*$gru;
+                    width: 4*$gru;
+                }
+                
+                h3{
+                    display: inline;
+                    font-size: $font-size-button;
+                }
+                
+                span{
+                    font-size: $font-size-small;
+                    font-weight: 300;
+                }
+            }
+            
+            textarea{
+                padding: 2*$gru;
+                background-color: $grey-05;
+                color: $grey-70;
+                font-family: $font-family-serif;
+                font-weight: 300;
+                line-height: 2*$gru + $hgru;
+                font-size: $font-size-small;
+                min-height: 9*$gru;
+            }
+            
+        }
+        
+    }
+    
+    .button-bar{
+            
+            .button{
+                line-height: 7*$gru;
+                height: 7*$gru;
+                min-width: 7*$gru;
+            }
+        
+            .button:first-child{
+                border-right: 1px solid $grey-15;
+            }
+    }
+    
+    button{
+        
+        &.button-block{
+            line-height: 9*$gru;
+        }
+        
+        &.icon:before{
+            line-height: 9*$gru;
+            padding-right: $gru+$hgru;
+            font-size: 3*$gru+$hgru;
+        }
+    }
+}
+
