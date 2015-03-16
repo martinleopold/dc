@@ -77,7 +77,7 @@ angular.module('dc.db', ['firebase'])
 
 
 /*
- * SESSION
+ * AUTHENTICATION
  *
  * login user
  * logout user
@@ -91,14 +91,14 @@ angular.module('dc.db', ['firebase'])
  * @property {string} password
  */
 
-
+db.auth = {};
 /**
  * Create a new user
  * @param {Object} user
  * email, password
  * @return {Promise} - nothing on success. Error message on error.
  */
-db.createUser = function (credentials) {
+db.auth.createUser = function (credentials) {
 	return $q(function resolver (resolve, reject) {
 		fb.createUser(credentials, function onComplete (error) {
 			if (error === null) {
@@ -116,7 +116,7 @@ db.createUser = function (credentials) {
  * email, password
  * @return {Promise} - user id on success. error object on error.
  */
-db.loginUser = function(credentials) {
+db.auth.login = function (credentials) {
 	return $q(function resolver (resolve, reject) {
 	  fb.authWithPassword(credentials, function onComplete (error, session) {
 	    if (error === null) {
@@ -128,7 +128,7 @@ db.loginUser = function(credentials) {
 	});
 };
 
-db.logoutUser = function() {
+db.auth.logout = function () {
 	return $q(function resolver (resolve, reject) {
 		fb.onAuth(function onAuth (session) {
 			if (session === null) {
@@ -144,7 +144,7 @@ db.logoutUser = function() {
  * [getCurrentSession description]
  * @return {Promise} - user id on success.
  */
-db.getCurrentSession = function () {
+db.auth.getCurrentSession = function () {
 	return $q(function resolver (resolve, reject) {
 		var session = fb.getAuth(); // sync
 		if (session === null) {
@@ -183,32 +183,36 @@ db.getCurrentSession = function () {
  *
  */
 
-db.updateUser = function (uid, user) {
+db.user = {};
+
+db.user.create = db.auth.createUser;
+
+db.user.update = function (uid, user) {
 
 };
 
-db.updateUserSettings = function (uid, settings) {
+db.user.updateSettings = function (uid, settings) {
 
 };
 
-db.createUserImage = function () {
+db.user.createImage = function () {
 
 };
 
-db.deleteUserImage = function () {
+db.user.deleteImage = function () {
 
 };
 
-db.reorderUserImage = function () {
+db.user.reorderImage = function () {
 
 };
 
-db.getUserFriends = function () {
+db.user.getFriends = function () {
 
 };
 
 // user data incl. settings and pics
-db.getUser = function () {
+db.user.get = function () {
 
 };
 
@@ -221,24 +225,25 @@ db.getUser = function () {
  * friend requests received
  *
  */
+db.friendRequest = {};
 
-db.sendFriendRequest = function (fromUserId, toUserId) {
-
-};
-
-db.acceptFriendRequest = function () {
+db.friendRequest.send = function (fromUserId, toUserId) {
 
 };
 
-db.rejectFriendRequest = function () {
+db.friendRequest.accept = function () {
 
 };
 
-db.getIncomingFriendRequests = function (userId, fromUserId) {
+db.friendRequest.reject = function () {
 
 };
 
-db.getOutgoingFriendRequests = function (userId, toUserId) {
+db.friendRequest.getIncoming = function (userId, fromUserId) {
+
+};
+
+db.friendRequest.getOutgoing = function (userId, toUserId) {
 
 };
 
@@ -255,6 +260,28 @@ db.getOutgoingFriendRequests = function (userId, toUserId) {
  *
  */
 
+db.dinner = {};
+
+db.dinner.get = function (dinnerId) {
+
+};
+
+db.dinner.getMessages = function (dinnerId) {
+
+};
+
+db.dinner.getReviews = function (dinnerId) {
+
+};
+
+db.dinner.acceptApplication = function (applicationId) {
+
+};
+
+db.dinner.createMessage = function (message) {
+
+};
+
 
 /*
  * DINNER (Host)
@@ -266,22 +293,46 @@ db.getOutgoingFriendRequests = function (userId, toUserId) {
  * x invite group (C invitation)
  * accept/reject application (U applicaton)
  *
- * basic info (title, description, address, time, ...)
- * users that applied/were accepted/were rejected (mutally excl.)
  * x users that are invited
- * messages posted regarding this dinner
- * reviews of this dinner
  *
  */
+
+db.dinner.create = function (dinner) {
+
+};
+
+db.dinner.close = function (dinnerId) {
+
+};
+
+db.dinner.cancel = function (dinnerId) {
+
+};
+
+db.dinner.acceptApplication = function (applicationId) {
+
+};
+
+db.dinner.rejectApplication = function (applicationId) {
+
+};
 
 
 /*
  * DINNER (Guest)
  *
  * apply (C application)
- * accept invitation (U invitation)
+ * x accept invitation (U invitation)
  *
  */
+
+db.dinner.createApplication = function (dinnerId) {
+
+};
+
+db.dinner.createReview = function (review) {
+
+};
 
 
 /*
@@ -291,6 +342,45 @@ db.getOutgoingFriendRequests = function (userId, toUserId) {
  * post message to group (C message)
  *
  */
+// db.createDinnerMessage = function (message) {
+//
+// };
+//
+// db.createGroupMessage = function (message) {
+//
+// };
+
+
+/*
+ * NOTIFICATION
+ *
+ * post notification (C notification)
+ * mark as read (U notification)
+ *
+ */
+
+db.notification = {};
+
+db.notification.create = function (notification) {
+
+};
+
+db.notification.markAsRead = function (notificationId) {
+
+};
+
+
+
+/*
+ * REVIEW
+ *
+ * post review (C review)
+ *
+ */
+
+// db.createReview = function (review) {
+//
+// };
 
 
 /*
@@ -309,23 +399,41 @@ db.getOutgoingFriendRequests = function (userId, toUserId) {
  * messages regarding this group
  *
  */
+db.group = {};
+
+db.group.create = function (group) {
+
+};
+
+db.group.inviteUser = function (group) {
+
+};
+
+db.group.join = function (groupId) {
+
+};
+
+db.group.leave = function (groupId) {
+
+};
+
+db.group.get = function (group) {
+
+};
+
+db.group.getMembers = function (group) {
+
+};
+
+db.group.getAdmins = function (group) {
+
+};
+
+db.group.getMessages = function (group) {
+
+};
 
 
-/*
- * NOTIFICATION
- *
- * post notification (C notification)
- * mark as read (U notification)
- *
- */
-
-
-/*
- * REVIEW
- *
- * post review (C review)
- *
- */
 
 
 	return db;

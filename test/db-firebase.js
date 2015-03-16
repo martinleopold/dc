@@ -169,7 +169,7 @@ describe("firebase db service", function() {
       describe('createUser function', function() {
          it('resolves its promise when the user is not already created', function(done) {
             ensureUserRemoved(credentials).then(function() {
-               when( db.createUser(credentials) ).then(function(error) {
+               when( db.auth.createUser(credentials) ).then(function(error) {
                   expect(error).toBeUndefined();
                   done();
                }, fail);
@@ -178,7 +178,7 @@ describe("firebase db service", function() {
 
          it('rejects its promise when the user is already created', function(done) {
             ensureUserCreated(credentials).then(function() {
-               when( db.createUser(credentials) ).then(fail, function(error) {
+               when( db.auth.createUser(credentials) ).then(fail, function(error) {
                   expect(error.code).toBe('EMAIL_TAKEN');
                   done();
                });
@@ -189,7 +189,7 @@ describe("firebase db service", function() {
       describe('loginUser function', function() {
          it('resolves its promise with an uid on success', function(done) {
             ensureUserCreated(credentials).then(function() {
-               when( db.loginUser(credentials) ).then(function(uid) {
+               when( db.auth.login(credentials) ).then(function(uid) {
                   expect(uid).toBeDefined();
                   done();
                }, fail);
@@ -198,7 +198,7 @@ describe("firebase db service", function() {
 
          it('rejects its promise if the user is not present', function(done) {
             ensureUserRemoved(credentials).then(function() {
-               when( db.loginUser(credentials) ).then(fail, function(error) {
+               when( db.auth.login(credentials) ).then(fail, function(error) {
                   expect(error.code).toBe('INVALID_USER');
                   done();
                });
@@ -211,7 +211,7 @@ describe("firebase db service", function() {
             ensureUserCreated(credentials).then(function() {
                return ensureUserLoggedIn(credentials);
             }).then(function() {
-               when( db.logoutUser() ).then(done, fail);
+               when( db.auth.logout() ).then(done, fail);
            });
          });
       });
@@ -221,7 +221,7 @@ describe("firebase db service", function() {
             ensureUserCreated(credentials).then(function() {
                return ensureUserLoggedIn(credentials);
             }).then(function() {
-               when( db.getCurrentSession() ).then(function(uid) {
+               when( db.auth.getCurrentSession() ).then(function(uid) {
                   expect(uid).toBeDefined();
                }).then(done, fail);
            });
@@ -229,7 +229,7 @@ describe("firebase db service", function() {
 
          it('rejects its promise when not logged in', function(done) {
             ensureUserLoggedOut(credentials).then(function() {
-               when( db.getCurrentSession() ).then(fail, done);
+               when( db.auth.getCurrentSession() ).then(fail, done);
            });
          });
 
