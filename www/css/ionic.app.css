@@ -7059,7 +7059,7 @@ a.button {
   font-style: italic; }
 
 h1 {
-  font-size: 36px;
+  font-size: 30px;
   font-family: "Bree Serif", serif; }
 
 h2 {
@@ -7384,7 +7384,9 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
   .filterbutton .button {
     line-height: 44px;
     float: left;
-    min-height: 44px; }
+    min-height: 44px;
+    min-width: 152px;
+    max-width: 152px; }
   .filterbutton .button:first-child {
     min-width: 44px;
     width: 44px;
@@ -7404,11 +7406,30 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
   white-space: nowrap;
   overflow: hidden; }
 
+.application-status {
+  color: white;
+  padding: 16px 24px;
+  font-size: 14px;
+  line-height: 18px;
+  font-style: italic; }
+  .application-status.positive {
+    background-color: #16e6c0; }
+  .application-status strong {
+    font-weight: 600;
+    font-style: normal; }
+
 .item-text-wrap {
   margin: 0;
   padding: 8px 16px; }
   .item-text-wrap h1 {
+    font-size: 30px;
+    line-height: 34px;
     margin: 0; }
+  .item-text-wrap.dinner-title {
+    padding-top: 12px; }
+  .item-text-wrap.dinner-info {
+    padding-top: 0;
+    padding-bottom: 20px; }
   .item-text-wrap .row {
     margin-bottom: 16px; }
     .item-text-wrap .row.novpadding {
@@ -7418,16 +7439,45 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
   .item-text-wrap p.dinner-info, .item-text-wrap p.user-info {
     font-family: "Bree Serif", serif;
     font-size: 16px;
-    font-weight: 300;
-    margin-bottom: 16px; }
-  .item-text-wrap p.user-info {
-    margin-bottom: 0; }
-  .item-text-wrap .category {
+    line-height: 20px;
+    font-weight: 300; }
+
+.dinner-categories {
+  padding: 8px 24px 16px 24px; }
+  .dinner-categories .category {
     font-size: 14px;
     text-transform: capitalize;
     overflow: hidden; }
-    .item-text-wrap .category span {
+    .dinner-categories .category span {
       padding-left: 4px; }
+
+.profile-link span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis; }
+
+.dinnerdate {
+  line-height: 18px;
+  font-size: 14px;
+  font-weight: 300;
+  margin: 0; }
+  .dinnerdate span {
+    display: block;
+    width: 56px;
+    margin: 0 auto; }
+    .dinnerdate span span {
+      margin-left: 0;
+      font-weight: normal;
+      font-size: 24px;
+      line-height: 22px; }
+
+.adress-information {
+  padding: 4px 16px 8px 16px;
+  font-size: 14px;
+  font-weight: 300; }
+  .adress-information strong {
+    font-weight: normal;
+    font-style: italic; }
 
 .application {
   box-shadow: none;
@@ -7516,7 +7566,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
       background-color: #fff;
       text-align: center;
       line-height: 56px;
-      font-size: 36px; }
+      font-size: 30px; }
     .apply-number .counter button {
       display: block;
       box-shadow: none;
@@ -7721,6 +7771,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
     vertical-align: middle; }
 
 .adress-dropdown {
+  visibility: hidden;
   position: absolute;
   top: 112px;
   background-color: #e8e8e8;

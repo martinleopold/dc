@@ -33,7 +33,7 @@ $font-size-base:                  16px !default;
 $font-size-button:                18px !default;
 $font-size-large:                 20px !default;
 $font-size-xlarge:                24px !default;
-$font-size-title:                 36px !default;
+$font-size-title:                 30px !default;
 
 
 //Colors
@@ -619,6 +619,8 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         line-height: 5*$gru + $hgru;
         float:left;
         min-height: 5*$gru + $hgru;
+        min-width: 19*$gru;
+        max-width: 19*$gru;
     }
         
     .button:first-child{
@@ -647,14 +649,44 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     overflow: hidden;
 }
 
+//Styling for Dinner-Screen
+
+.application-status{
+    color: white;
+    padding: 2*$gru 3*$gru;
+    font-size: $font-size-small;
+    line-height: $font-size-button;
+    font-style: italic;
+    
+    &.positive{
+        background-color: $positive;
+    }
+    
+    strong{
+        font-weight: 600;
+        font-style: normal;
+    }
+}
+
 .item-text-wrap{
     margin: 0;
     padding: $gru 2*$gru;
 
     h1{
+        font-size: $font-size-title;
+        line-height: $font-size-title + $hgru;
         margin: 0;
     }
 
+    &.dinner-title{
+        padding-top: $gru + $hgru;
+    }
+    
+    &.dinner-info{
+        padding-top: 0;
+        padding-bottom: 2*$gru + $hgru
+    }
+    
     .row{
         margin-bottom: 2*$gru;
 
@@ -670,14 +702,15 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     p.dinner-info, p.user-info{
         font-family: $font-family-serif;
         font-size: $font-size-base;
+        line-height: $font-size-large;
         font-weight: 300;
-        margin-bottom: 2*$gru;
     }
 
-    p.user-info{
-        margin-bottom: 0;
-    }
+}
 
+.dinner-categories{
+    padding: $gru 3*$gru 2*$gru 3*$gru;
+    
     .category{
         font-size: $font-size-small;
         text-transform: capitalize;
@@ -687,7 +720,45 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             padding-left: $hgru;
         }
     }
+}
 
+.profile-link{
+    span{
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
+
+.dinnerdate{
+        line-height: $font-size-small + $hgru;
+        font-size: $font-size-small;
+        font-weight: 300;
+        margin:0;
+
+        span{
+            display:block;
+            width: 7*$gru;
+            margin: 0 auto;
+
+            span{
+                margin-left: 0;
+                font-weight: normal;
+                font-size: $font-size-xlarge;
+                line-height: $font-size-button + $hgru;
+            }
+        }
+}
+
+.adress-information{
+    padding: $hgru 2*$gru $gru 2*$gru;
+    font-size: $font-size-small;
+    font-weight: 300;
+    
+    strong{
+        font-weight: normal;
+        font-style: italic;
+    }
 }
 
 .application{
@@ -1133,7 +1204,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 }
 
 .adress-dropdown{
-    //visibility: hidden;
+    visibility: hidden;
     position: absolute;
     top: 2*$bar-height;
     background-color: $grey-09;
