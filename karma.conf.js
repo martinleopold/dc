@@ -20,6 +20,7 @@ module.exports = function(config) {
       'www/lib/angular-mocks/angular-mocks.js',
       'www/lib/firebase/firebase.js',
       'www/lib/angularfire/dist/angularfire.min.js',
+      'www/lib/lodash/lodash.min.js',
       'www/js/db-firebase.js',
       'test/*.js'
     ],
