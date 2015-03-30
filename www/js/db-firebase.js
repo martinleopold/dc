@@ -4,15 +4,43 @@ angular.module('dc.db', ['firebase'])
 
 .factory('db', ['$rootScope', '$q', '$firebase', 'fb' , function($rootScope, $q, $firebase, fb) {
 
-	var db = {}; // the db interface to be exported (as 'db')
+	var ref = { root: fb }; // store firebase references. place the main ref in there as 'root' as well, even though is shorter just to use 'fb'
 
+	var db = {}; // the db interface to be exported (as 'db')
+	db.ref = ref; // make refs available for testing
+	db.settings = {};
+	db.settings.checkArguments = false; // set true to check arguments using the checkObject function
+
+	db.util = {};
 	/**
 	 * Get current firebase URL. Used for testing.
 	 * @return {String} - URL of the firebase reference currently in use.
 	 */
-	db.getRefURL = function() {
+	db.util.getRefURL = function() {
 		return fb.toString();
 	};
+
+	// check that an object is defined and optionally has some defined properties
+	// properties can be given as array of strings or as separate string arguments
+	function checkObject (obj, properties) {
+		if ( ! db.settings.checkArguments ) return true;
+		// check obj itself
+		if ( typeof obj != 'object' || obj == undefined ) {
+			throw new Error(obj + ' is expected to be an object.');
+		}
+		// if properties is not given or is not an array, create the properties array from arguments
+		if ( properties == undefined || !Array.isArray(properties) ) { // == undefined tests for null and undefined
+			properties = Array.prototype.slice.call(arguments, 1);
+		}
+		// check properties
+		properties.forEach( function checkProperties (p) {
+			if ( obj[p] === undefined ) {
+				throw new Error(obj.p + ' is expected to be defined.');
+			}
+		});
+		return true;
+	};
+	db.util.checkObject = checkObject; // make it available for testing
 
 
 /*
@@ -96,13 +124,13 @@ db.auth = {};
  * Create a new user
  * @param {Object} user
  * email, password
- * @return {Promise} - nothing on success. Error message on error.
+ * @return {Promise} - user id on success. Error message on error.
  */
 db.auth.createUser = function (credentials) {
 	return $q(function resolver (resolve, reject) {
-		fb.createUser(credentials, function onComplete (error) {
+		fb.createUser(credentials, function onComplete (error, user) {
 			if (error === null) {
-				resolve();
+				resolve(user.uid);
 			} else {
 				reject(error);
 			}
@@ -147,6 +175,7 @@ db.auth.logout = function () {
 db.auth.getCurrentSession = function () {
 	return $q(function resolver (resolve, reject) {
 		var session = fb.getAuth(); // sync
+		console.log(session);
 		if (session === null) {
 			reject();
 		} else {
@@ -183,13 +212,45 @@ db.auth.getCurrentSession = function () {
  *
  */
 
+
+ref.user = fb.child('user');
 db.user = {};
 
-db.user.create = db.auth.createUser;
-
-db.user.update = function (uid, user) {
-
+/*
+	create a user record
+	user needs to have userId (obtained from auth.createUser and auth.login)
+	other fields are optional, the ones that are present are updated
+ */
+db.user.create = function (user) {
+	user = _.cloneDeep(user); // don't modify the passed data
+	return $q(function (resolve, reject) {
+		checkObject(user, 'userId', 'firstName', 'lastName', 'email');
+		user.createdAt = Firebase.ServerValue.TIMESTAMP;
+		ref.user.child(user.userId).set(user, function onComplete(error) {
+			if (error === null) resolve();
+			else reject(error);
+		});
+	});
 };
+
+/*
+	update user data
+	user needs to have userId
+	other fields are optional, the ones that are present are updated
+ */
+db.user.update = function (user) {
+	user = _.cloneDeep(user); // don't modify the passed data
+
+	return $q(function (resolve, reject) {
+		checkObject(user, 'userId');
+		user.updateddAt = Firebase.ServerValue.TIMESTAMP;
+		ref.user.child(user.userId).update(user, function onComplete(error) {
+			if (error === null) resolve();
+			else reject(error);
+		});
+	});
+};
+
 
 db.user.updateSettings = function (uid, settings) {
 
