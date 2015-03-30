@@ -6,9 +6,11 @@
     <ion-content>
         <div class="card">
             <div class="list">
+                <label class="item error">Please enter a title for your Dinner.</label>
                 <label class="item item-input">
                     <input ng-model="dinner.title" type="text" placeholder="What are you cooking?">
                 </label>
+                <label class="item error">Please give us a short description.</label>
                 <label class="item item-input">
                     <textarea ng-model="dinner.info" placeholder="Are there any special ingredients? Where did you get the recipe? Tell us more about your Dinner!"></textarea>
                 </label>
@@ -86,6 +88,8 @@
         </div>
         
         <h2>Arrangements</h2>
+        <label class="error">Hmm... you'll have to pick at least one of the two.</label>
+        
         <div class="card">
             <div class="item item-checkbox borderless">
                     <label class="checkbox">

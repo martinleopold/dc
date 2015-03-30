@@ -225,7 +225,14 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 				}
 			}
 		})
-
+        .state('app.confirm_application', {
+			url: "/confirm_application",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/confirm_application.html"
+				}
+			}
+		})
 		.state('app.single', {
 			url: "/playlists/:playlistId",
 			views: {

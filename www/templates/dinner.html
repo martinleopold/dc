@@ -105,6 +105,11 @@
 
 
  	<h2>Conversations</h2>
+    
+    <div class="card conversation">
+		<button class="button button-block button-stable icon ion-chatbubble-working">Start new conversation</button>  
+	</div>
+      
 	<div class="card conversation">
         <div class="list">
             <div class="item item-text-wrap">
@@ -158,11 +163,22 @@
         </div>
         
 	</div> 
-      
-	<div class="card conversation">
-		<button class="button button-block button-stable icon ion-chatbubble-working">Start new conversation</button>  
-	</div>
 	
+    <h2>Reviews</h2>
+      
+    <div class="card conversation">
+        <div class="list">
+            <div class="item item-text-wrap">
+            <div class="item-avatar" href="#">
+              <img src="img/pw.jpg">
+              <h3>Venkman</h3>
+              <span>on Aug 14, 17:30</span>  
+            </div>
+            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+            </div>
+        </div>
+    </div>  
+      
 	<div ng-show="!isHost() && !applicationState()">
 	<h2>Apply</h2>
 		<div class="row apply-number">

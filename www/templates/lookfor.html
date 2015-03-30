@@ -30,6 +30,11 @@
             </li>
         </ul>
         <ion-content class="has-subheader">
+            <div class="error">
+                <br />
+                Hrm. We don't seem to have anything that matches your query at the moment - maybe try changing your filter settings. <br /><br />Or being less picky, but what do I know...
+            </div>
+            
 			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
 				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
 				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">

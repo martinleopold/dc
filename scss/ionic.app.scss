@@ -136,6 +136,12 @@ h2{
     font-size: $font-size-tiny;
     text-transform: uppercase;
     margin: 2*$content-padding 2*$content-padding $content-padding 2*$content-padding;
+    
+    .dinnertitle{
+        font-family: $font-family-serif;
+        text-transform: none;
+        font-weight: 300;
+    }
 }
 
 .bar{
@@ -239,6 +245,7 @@ button.button-block{
 
 .info{
     font-size: $font-size-small;
+    line-height: $font-size-base;
     margin: $content-padding 2*$content-padding $content-padding 2*$content-padding;
 
     &.card-info{
@@ -248,6 +255,11 @@ button.button-block{
     i{
         font-style: italic;
         font-weight: normal;
+    }
+    
+    .data{
+        color: $positive;
+        font-weight: 600;
     }
 }
 
@@ -288,7 +300,11 @@ button.button-block{
     }
 
     .icon{
-        font-size: 24px;
+        font-size: $font-size-xlarge;
+    }
+    
+    .button{
+        font-size: $font-size-button;
     }
     /*.ion-edit, .ion-home, .ion-navigate{
         font-size: 24px;
@@ -454,6 +470,17 @@ button.button-block{
 
         }
     }
+    
+    //Error-Labels within a form
+    
+    &.error{
+        padding: 0 $gru $hgru $gru;
+        margin: 0;
+    }
+    
+    &.error:last-child{
+        padding-bottom: $hgru;
+    }
 
     &.borderless{
             margin-top: 0;
@@ -498,6 +525,37 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .item:last-child{
     margin:0;
+}
+
+
+//Error-Labels outside of a card
+
+.error, .hint{
+    display: block;
+    font-size: $font-size-small;
+    font-style: italic;
+    padding: 0 2*$gru $gru 2*$gru;
+    white-space: normal;
+    line-height: $font-size-base;
+    display: none;
+    
+    strong{
+        font-weight: 900;
+    }
+    
+    .dinnertitle{
+        font-family: $font-family-serif;
+        text-transform: none;
+        font-weight: 300;
+    }
+}
+
+.error{
+    color: $energized;
+}
+
+.hint{
+    color: $positive;
 }
 
 .dinner{
@@ -1299,6 +1357,8 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     
     .button-bar{
             
+            background-color: $stable;
+        
             .button{
                 line-height: 7*$gru;
                 height: 7*$gru;
