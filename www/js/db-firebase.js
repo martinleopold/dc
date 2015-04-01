@@ -175,10 +175,12 @@ db.auth.logout = function () {
 db.auth.getCurrentSession = function () {
 	return $q(function resolver (resolve, reject) {
 		var session = fb.getAuth(); // sync
-		console.log(session);
+		// console.log('current session:', session);
 		if (session === null) {
+			// console.log('rejecting');
 			reject();
 		} else {
+			// console.log('resolving');
 			resolve(session.uid);
 		}
 	});
