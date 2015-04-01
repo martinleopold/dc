@@ -43,6 +43,18 @@ angular.module('dc.db', ['firebase'])
 	db.util.checkObject = checkObject; // make it available for testing
 
 
+	function createError (name, message) {
+		var error = new Error(message);
+		error.name = name;
+		return error
+	};
+	db.util.createError = createError;
+
+	db.error = {
+		unauthorized : 'UNAUTHORIZED',
+		notFound : 'NOT_FOUND'
+	};
+
 /*
  * queries can be grouped due to different criteria:
  * technical type (create, update, delete)
@@ -53,7 +65,11 @@ angular.module('dc.db', ['firebase'])
  */
 
 
-
+/**
+ * TODO: return defined errors
+ * TODO: move errors and util functions to a seperat file
+ *
+ */
 
 
 /**
@@ -324,9 +340,21 @@ db.friendRequest.getOutgoing = function (userId, toUserId) {
  */
 
 db.dinner = {};
+ref.dinner = fb.child('dinner');
 
 db.dinner.get = function (dinnerId) {
-
+	return $q(function(resolve, reject) {
+		ref.dinner.once('value', function callback (snap) {
+			var data = snap.val();
+			if ( data === null ) {
+				reject( createError(db.error.notFound, 'Dinner not found.') );
+			} else {
+				resolve( data.val() );
+			}
+		}, function cancelCallback (error) { // permission problem
+			reject( createError(db.error.unauthorized, error.message) );
+		});
+	});
 };
 
 db.dinner.getMessages = function (dinnerId) {
@@ -462,39 +490,39 @@ db.notification.markAsRead = function (notificationId) {
  * messages regarding this group
  *
  */
-db.group = {};
-
-db.group.create = function (group) {
-
-};
-
-db.group.inviteUser = function (group) {
-
-};
-
-db.group.join = function (groupId) {
-
-};
-
-db.group.leave = function (groupId) {
-
-};
-
-db.group.get = function (group) {
-
-};
-
-db.group.getMembers = function (group) {
-
-};
-
-db.group.getAdmins = function (group) {
-
-};
-
-db.group.getMessages = function (group) {
-
-};
+// db.group = {};
+//
+// db.group.create = function (group) {
+//
+// };
+//
+// db.group.inviteUser = function (group) {
+//
+// };
+//
+// db.group.join = function (groupId) {
+//
+// };
+//
+// db.group.leave = function (groupId) {
+//
+// };
+//
+// db.group.get = function (group) {
+//
+// };
+//
+// db.group.getMembers = function (group) {
+//
+// };
+//
+// db.group.getAdmins = function (group) {
+//
+// };
+//
+// db.group.getMessages = function (group) {
+//
+// };
 
 
 
