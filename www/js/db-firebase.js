@@ -127,9 +127,62 @@ angular.module('dc.db', ['firebase'])
  */
 
 
+/*
+ * generic firebase query functions
+ * using angular promises
+ */
+db.query = {};
 
+db.query.set = function set (ref, data) {
+	return $q(function resolver (resolve, reject) {
+		ref.set(data, function onComplete (error) {
+			if (error === null) {
+				resolve();
+			} else {
+				reject(error);
+			}
+		});
+	});
+};
 
+db.query.push = function push (ref, data) {
+	return $q(function resolver (resolve, reject) {
+		var newRef = ref.push(data, function onComplete (error) {
+			if (error === null) {
+				resolve(newRef.key());
+			} else {
+				reject(error);
+			}
+		});
+	});
+};
 
+db.query.update = function update (ref, data) {
+	return $q(function resolver (resolve, reject) {
+		ref.update(data, function onComplete (error) {
+			if (error === null) {
+				resolve();
+			} else {
+				reject(error);
+			}
+		});
+	});
+};
+
+db.query.get = function get (ref) {
+	return $q(function resolver (resolve, reject) {
+		ref.once('value', function callback (dataSnapshot) {
+			var data = dataSnapshot.val();
+			if (data === null) {
+				reject( createError(db.error.notFound, 'db.query.get: no data.') );
+			} else {
+				resolve(data);
+			}
+		}, function cancelCallback (error) {
+			reject( createError(db.error.unauthorized, error.message) );
+		});
+	});
+};
 
 /*
  * AUTHENTICATION
@@ -326,97 +379,55 @@ ref.friendRequest = fb.child('friendRequest');
 // TODO: check that users exist
 db.friendRequest.send = function (byUser, toUser) {
 	// TODO: check values
-	return $q(function(resolve, reject) {
-		var friendRequest = {
-			createdAt : Firebase.ServerValue.TIMESTAMP,
-			byUser : byUser,
-			toUser : toUser,
-			status : 'pending'
-		};
-		var friendRequestRef = ref.friendRequest.push(friendRequest, function onComplete(error) {
-			if (error === null) {
-				resolve( friendRequest.key() );
-			} else {
-				reject(error);
-			}
-		});
-	});
+	var friendRequest = {
+		createdAt : Firebase.ServerValue.TIMESTAMP,
+		byUser : byUser,
+		toUser : toUser,
+		status : 'pending'
+	};
+	return db.query.push( ref.friendRequest, friendRequest );
 };
 
 // TODO: test
 // TODO: only if toUser is sending the request
 db.friendRequest.accept = function (friendRequestId) {
-	return $q(function(resolve, reject) {
-		var friendRequest = {
-			updatedAt : Firebase.ServerValue.TIMESTAMP,
-			status : 'accepted'
-		};
-		ref.friendRequest.child(friendRequestId).update(friendRequest, function onComplete(error) {
-			if (error === null) {
-				resolve();
-			} else {
-				reject(error);
-			}
-		});
-	});
+	var friendRequest = {
+		updatedAt : Firebase.ServerValue.TIMESTAMP,
+		status : 'accepted'
+	};
+	return db.query.update(
+		ref.friendRequest.child(friendRequestId),
+		friendRequest
+	);
 };
 
 // TODO: test
 // TODO: only if toUser is sending the request
 db.friendRequest.reject = function (friendRequestId) {
-	return $q(function(resolve, reject) {
-		var friendRequest = {
-			updatedAt : Firebase.ServerValue.TIMESTAMP,
-			status : 'rejected'
-		};
-		ref.friendRequest.child(friendRequestId).update(friendRequest, function onComplete(error) {
-			if (error === null) {
-				resolve();
-			} else {
-				reject(error);
-			}
-		});
-	});
+	var friendRequest = {
+		updatedAt : Firebase.ServerValue.TIMESTAMP,
+		status : 'rejected'
+	};
+	return db.query.update(
+		ref.friendRequest.child(friendRequestId),
+		friendRequest
+	);
 };
 
 // TODO: test
 // TODO: only if userId is sending the request
 db.friendRequest.getIncoming = function (userId) {
-	return $q(function(resolve, reject) {
-		ref.friendRequest
-		.orderByChild('toUser')
-		.equalTo(userId)
-		.once('value', function callback(snapshot) {
-			var data = snapshot.val();
-			if (val === null) {
-				reject( createError(db.error.notFound, 'friendRequest not found.') );
-			} else {
-				resolve(data);
-			}
-		}, function cancelCallback(error) {
-			reject( createError(db.error.unauthorized, error.message) );
-		});
-	});
+	return db.query.get(
+		ref.friendRequest.orderByChild('toUser').equalTo(userId)
+	);
 };
 
 // TODO: test
 // TODO: only if userId is sending the request
 db.friendRequest.getOutgoing = function (userId) {
-	return $q(function(resolve, reject) {
-		ref.friendRequest
-		.orderByChild('toUser')
-		.equalTo(userId)
-		.once('value', function callback(snapshot) {
-			var data = snapshot.val();
-			if (val === null) {
-				reject( createError(db.error.notFound, 'friendRequest not found.') );
-			} else {
-				resolve(data);
-			}
-		}, function cancelCallback(error) {
-			reject( createError(db.error.unauthorized, error.message) );
-		});
-	});
+	return db.query.get(
+		ref.friendRequest.orderByChild('fromUser').equalTo(userId)
+	);
 };
 
 
@@ -439,18 +450,9 @@ ref.message = fb.child('message');
 ref.review = fb.child('review');
 
 db.dinner.get = function (dinnerId) {
-	return $q(function(resolve, reject) {
-		ref.dinner.once('value', function callback (snap) {
-			var data = snap.val();
-			if ( data === null ) {
-				reject( createError(db.error.notFound, 'Dinner not found.') );
-			} else {
-				resolve( data.val() );
-			}
-		}, function cancelCallback (error) { // permission problem
-			reject( createError(db.error.unauthorized, error.message) );
-		});
-	});
+	return db.query.get(
+		ref.dinner.orderByKey().equalTo(dinnerId)
+	);
 };
 
 db.dinner.getMessages = function (dinnerId) {
@@ -484,93 +486,55 @@ db.dinner.createMessage = function (message) {
 // fulfills with the new dinnerId, rejects with the error
 // TODO: test
 db.dinner.create = function (dinner) {
-	dinner = _.cloneDeep(dinner); // don't modify the passed data
-	return $q(function(resolve, reject) {
-		checkObject(dinner, 'hostedByUser', 'title', 'description', 'tags', 'isPublic');
+	return $q(function resolver (resolve, reject) {
+		dinner = _.cloneDeep(dinner); // don't modify the passed data
+		checkObject(dinner, 'hostedByUser', 'title', 'description', 'tags', 'isPublic'); // can throw and thus reject this promise
 		// TODO: check for dineinAt or (takeawayFrom and takeawayUntil)
 		dinner.createdAt = Firebase.ServerValue.TIMESTAMP;
-		var dinnerRef = ref.dinner.push(dinner, function onComplete(error) {
-			if (error === null) {
-				resolve( dinnerRef.key() );
-			} else {
-				reject(error);
-			}
-		});
+		resolve( db.query.push(ref.dinner, dinner) );
 	});
 };
 
 // TODO: test
 // TODO: can't close if cancelled, only possible if host of dinner
 db.dinner.close = function (dinnerId) {
-	return $q(function(resolve, reject) {
-		var dinner = {
-			// dinnerId : dinnerId,
-			updatedAt : Firebase.ServerValue.TIMESTAMP,
-			closedAt : Firebase.ServerValue.TIMESTAMP
-		};
-		ref.dinner.child(dinnerId).update(dinner, function onComplete(error) {
-			if (error === null) {
-				resolve();
-			} else {
-				reject(error);
-			}
-		});
-	});
+	var dinner = {
+		// dinnerId : dinnerId,
+		updatedAt : Firebase.ServerValue.TIMESTAMP,
+		closedAt : Firebase.ServerValue.TIMESTAMP
+	};
+	return db.query.update( ref.dinner.child(dinnerId), dinner );
 };
 
 // TODO: test
 // TODO: only possible if host of dinner
 db.dinner.cancel = function (dinnerId) {
-	return $q(function(resolve, reject) {
-		var dinner = {
-			// dinnerId : dinnerId,
-			updatedAt : Firebase.ServerValue.TIMESTAMP,
-			cancelledAt : Firebase.ServerValue.TIMESTAMP
-		};
-		ref.dinner.child(dinnerId).update(dinner, function onComplete(error) {
-			if (error === null) {
-				resolve();
-			} else {
-				reject(error);
-			}
-		});
-	});
+	var dinner = {
+		// dinnerId : dinnerId,
+		updatedAt : Firebase.ServerValue.TIMESTAMP,
+		cancelledAt : Firebase.ServerValue.TIMESTAMP
+	};
+	return db.query.update( ref.dinner.child(dinnerId), dinner );
 };
 
 // TODO: test
 // TODO: only possible if host of dinner
 db.dinner.acceptApplication = function (applicationId) {
-	return $q(function(resolve, reject) {
-		var application = {
-			updatedAt : Firebase.ServerValue.TIMESTAMP,
-			status : 'accepted'
-		};
-		ref.application.child(applicationId).update(application, function onComplete(error) {
-			if (error === null) {
-				resolve();
-			} else {
-				reject(error);
-			}
-		});
-	});
+	var application = {
+		updatedAt : Firebase.ServerValue.TIMESTAMP,
+		status : 'accepted'
+	};
+	return db.query.update( ref.application.child(applicationId), application );
 };
 
 // TODO: test
 // TODO: only possible if host of dinner
 db.dinner.rejectApplication = function (applicationId) {
-	return $q(function(resolve, reject) {
-		var application = {
-			updatedAt : Firebase.ServerValue.TIMESTAMP,
-			status : 'rejected'
-		};
-		ref.application.child(applicationId).update(application, function onComplete(error) {
-			if (error === null) {
-				resolve();
-			} else {
-				reject(error);
-			}
-		});
-	});
+	var application = {
+		updatedAt : Firebase.ServerValue.TIMESTAMP,
+		status : 'rejected'
+	};
+	return db.query.update( ref.application.child(applicationId), application );
 };
 
 
@@ -584,20 +548,16 @@ db.dinner.rejectApplication = function (applicationId) {
 
 // TODO: test
 db.dinner.createApplication = function (application) {
-	application = _.cloneDeep(application); // don't modify the passed data
 	return $q(function(resolve, reject) {
+		application = _.cloneDeep(application); // don't modify the passed data
 		checkObject(application, 'byUser', 'forDinner', 'numSpots', 'isDineIn', 'isPublic');
 		// TODO: what about host property?
 		// TODO: cant apply to own dinner, can't apply to closed or cancelled or past dinner.
 		application.createdAt = Firebase.ServerValue.TIMESTAMP;
 		application.status = 'pending';
-		var applicationRef = ref.application.push(application, function onComplete(error) {
-			if (error === null) {
-				resolve( applicationRef.key() );
-			} else {
-				reject(error);
-			}
-		});
+		resolve(
+			db.query.push(ref.application, application)
+		);
 	});
 };
 
