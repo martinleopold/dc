@@ -296,6 +296,7 @@ db.auth.getCurrentSession = function () {
 
 
 ref.user = fb.child('user');
+ref.notification = fb.child('notification');
 db.user = {};
 
 /*
@@ -333,9 +334,8 @@ db.user.update = function (user) {
 	});
 };
 
-
-db.user.updateSettings = function (uid, settings) {
-
+db.user.updateSettings = function (userId, settings) {
+	return db.query.update( ref.user.child(userId).child('settings'), settings );
 };
 
 db.user.createImage = function () {
@@ -350,17 +350,17 @@ db.user.reorderImage = function () {
 
 };
 
-db.user.getFriends = function () {
-
+db.user.getFriends = function (userId) {
+	return db.query.get( ref.user.child(userId).child('friends') );
 };
 
 // user data incl. settings and pics
-db.user.get = function () {
-
+db.user.get = function (userId) {
+	return db.query.get( ref.user.child(userId) );
 };
 
 db.user.getNotifications = function (userId) {
-
+	return db.query.get( ref.notification.orderByChild('forUser').equals(userId) );
 };
 
 
@@ -456,15 +456,21 @@ db.dinner.get = function (dinnerId) {
 };
 
 db.dinner.getMessages = function (dinnerId) {
-
+	return db.query.get( ref.message.orderByChild('toDinner').equals(dinnerId) );
 };
 
 db.dinner.getReviews = function (dinnerId) {
-
+	return db.query.get( ref.review.orderByChild('aboutDinner').equals(dinnerId) );
 };
 
 db.dinner.createMessage = function (message) {
-
+	return $q(function resolver (resolve, reject) {
+		message = _.cloneDeep(message);
+		checkObject(message, createdAt, byUser, text);
+		message.createdAt = Firebase.ServerValue.TIMESTAMP;
+		// TODO: either toDinner or toGroup needs to be set.
+		resolve( db.query.create(ref.message.push(message)) );
+	});
 };
 
 
@@ -562,7 +568,23 @@ db.dinner.createApplication = function (application) {
 };
 
 db.dinner.createReview = function (review) {
+	return $q(function resolver (resolve, reject) {
+		review = _.cloneDeep(review);
+		checkObject(review, byUser, text, aboutDinner, aboutUser);
+		review.createdAt = Firebase.ServerValue.TIMESTAMP;
+		// TODO: either toDinner or toGroup needs to be set.
+		resolve( db.query.push(ref.review, review) );
+	});
+};
 
+db.dinner.createMessage = function (message) {
+	return $q(function resolver (resolve, reject) {
+		message = _.cloneDeep(message);
+		checkObject(message, byUser, text, toDinner);
+		message.createdAt = Firebase.ServerValue.TIMESTAMP;
+		delete message.toGroup;
+		resolve( db.query.push(ref.message, message) );
+	});
 };
 
 
@@ -593,11 +615,22 @@ db.dinner.createReview = function (review) {
 db.notification = {};
 
 db.notification.create = function (notification) {
-
+	return function resolver (resolve, reject) {
+		notification = _.cloneDeep(notification);
+		checkObject( notification, forUser, type, text, aboutUser );
+	 	notification = Firebase.ServerValue.TIMESTAMP;
+		// TODO: either toDinner or toGroup needs to be set.
+		resolve( db.query.create(ref.notification.push(message)) );
+	}
 };
 
 db.notification.markAsRead = function (notificationId) {
-
+	return function resolver (resolve, reject) {
+		var notification = {
+			openedAt : Firebase.ServerValue.TIMESTAMP
+		}
+		resolve( db.query.update(notificationId, notification) );
+	}
 };
 
 
@@ -609,9 +642,13 @@ db.notification.markAsRead = function (notificationId) {
  *
  */
 
-// db.createReview = function (review) {
-//
-// };
+db.createReview = function (review) {
+	return function resolver (resolve, reject) {
+		checkObject(review, byUser, text);
+		// TODO: either aboutDinner or aboutUser needs to be set.
+		resolve( db.query.push(ref.review, review) );
+	}
+};
 
 
 /*
