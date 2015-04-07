@@ -1,8 +1,5 @@
 describe("firebase db service", function() {
 
-   // TODO: get rid of .partial calls
-   // TODO: get rid of when() calls, since applyWrap() is used globally
-
    // load db module
    beforeEach( module('dc.db') );
 
@@ -59,7 +56,7 @@ describe("firebase db service", function() {
 
    // wrap a single angular promise in an ES6 promise
    // and make sure its resolved
-   // deprecated. use chain() instead.
+   /*
    var when = function(promise) {
       return new Promise(function(resolve, reject) {
          promise.then(function onFulfilled(result) {
@@ -74,18 +71,22 @@ describe("firebase db service", function() {
          startApply();
       });
    };
+   */
 
    // turn something into a function that returns it
    // constant function
-   // function cfn(something) {
-   //    return function giveMeIt () {
-   //       return something;
-   //    };
-   // }
+   /*
+   function cfn(something) {
+      return function giveMeIt () {
+         return something;
+      };
+   }
+   */
 
    // add partial application to function prototype
+   // returns the function with the given parameters already bound to it
    // used to be able to pass a promise to .then (which expects a function that returns a promise)
-   // deprecated. use chain() instead
+   // also used with chainFns()
    Function.prototype.partial = function partial() {
       // this: the function partial was called on
       // call bind on the function: this.bind(null, arg1, arg2, arg3, ...)
@@ -96,7 +97,8 @@ describe("firebase db service", function() {
 
    // simple chaining of promises
    // (simpler than when + partial in .then chains...)
-   // FIXME: this actually doesn't ensure the proper sequence since the promises already started the race!
+   /*
+   !!! this actually doesn't ensure the proper sequence since the promises already started the race!
    function chain() {
       var promise = Promise.resolve();
       var args = Array.prototype.slice.call(arguments);
@@ -107,16 +109,22 @@ describe("firebase db service", function() {
       });
       return promise;
    }
+   */
 
    // chain (promise-returning) functions
    // makes sure the functions are called in sequence
    // if a function doesn't return a promise, a promise that fulfills with its return value is used instead
+   // thus promises can also be used instead of functions
+   // returns a promise that resolves when all input functions resloved its promises
    function chainFns() {
       var promise = Promise.resolve();
       var args = Array.prototype.slice.call(arguments);
       args.forEach(function(fn) {
          promise = promise.then(function() {
-            return Promise.resolve( fn.call(null) ); // assimilate, if not already a promise
+            var result;
+            if (typeof fn == 'function') result = fn.apply(null, arguments); // call function with incoming arguments
+            else result = fn;
+            return Promise.resolve( result ); // assimilate, if not already a promise
          });
       });
       return promise;
@@ -146,7 +154,6 @@ describe("firebase db service", function() {
    // if returned data is an object, all expected properties need to match, but the returned object can have, additional properties
    // query is a firebase reference, possibly queries with startAt, etc..
    var verifyData = function(query, expected) {
-
       // compare objects using jasmine toEqual matcher
       function isEqual( o1, o2 ) {
          var equals = jasmine.matchers.toEqual(jasmine.matchersUtil).compare;
@@ -260,12 +267,17 @@ describe("firebase db service", function() {
    // * check that old data is still present, updated, and new data also present (requires expected data, ref)
    var testUpdateFn = function (fn, ref, expectedData) {
       var fixture = { 'someOldData': generateUUID() };
-      return chain(
-         useFixture(ref, fixture),
-         fn(),
-         verifyData(ref, fixture),
-         verifyData(ref, expectedData)
+      return chainFns(
+         useFixture.partial(ref, fixture),
+         fn,
+         verifyData.partial(ref, fixture),
+         verifyData.partial(ref, expectedData)
       );
+
+      // return useFixture(ref, fixture)
+      // .then( fn )
+      // .then( verifyData.partial(ref, fixture) )
+      // .then( verifyData.partial(ref, expectedData) );
    };
 
    // test a set-type function
@@ -274,34 +286,38 @@ describe("firebase db service", function() {
    // * check that expected data is present (requires ref, expected data)
    var testSetFn = function (fn, ref, expectedData) {
       var fixture = { 'someOldData': generateUUID() };
-      return chain(
-         useFixture(ref, fixture),
-         fn(),
-         verifyData(ref, fixture).then(function onFulfilled () {
-            // old data is still present
-            throw new Error('testSet: old data not removed');
-         }, function onRejected () {
-            // old data is not present anymore
-            return undefined;
-         }),
-         verifyData(ref, expectedData)
-      );
+
+      return useFixture(ref, fixture)
+      .then( fn )
+      .then( verifyData.partial(ref, fixture) )
+      .then( function onFulfilled () {
+         // old data is still present
+         throw new Error('testSet: old data not removed');
+      }, function onRejected () {
+         // old data is not present anymore
+         return undefined; // move on now
+      })
+      .then( verifyData.partial(ref, expectedData) );
    };
 
 
    describe('ES6 Promise', function() {
-      var stack = [undefined];
+      var stack;
+
+      beforeEach(function() {
+         stack = [undefined];
+      });
 
       function getTimeoutPromise(time) {
          return new Promise(function(resolve, reject) {
             stack.push(time);
             setTimeout(function() {
-               resolve();
+               resolve(time);
             }, time);
          });
       }
 
-      fit('should call chained promise functions in the proper sequence', function(done) {
+      it('should call chained promise functions in the proper sequence', function(done) {
          chainFns(
             getTimeoutPromise.partial(1000),
             function() {
@@ -326,20 +342,21 @@ describe("firebase db service", function() {
          .then( function() {
             return Promise.reject( new Error('just because.') );
          })
-         .then( fail, done );
+         .then( done.fail, done );
       });
 
       it('should work with the custom chain method', function(done) {
-         var timeoutPromise = new Promise(function(resolve, reject) {
-            setTimeout(function() {
-               resolve();
-            }, 2000);
-         });
-         chain('a', timeoutPromise, 'b')
-         .then(function(result) {
-            expect(result).toBe('b');
-            done();
-         }, fail);
+         chainFns(
+            'a',
+            getTimeoutPromise.partial(1000),
+            function(arg) {
+               stack.push('b')
+               return arg + 'b';
+            }
+         ).then(function(result) {
+            expect(result).toBe('1000b');
+            expect(stack).toEqual([undefined, 1000, 'b'])
+         }).then(done, done.fail);
       });
    });
 
@@ -350,9 +367,10 @@ describe("firebase db service", function() {
       });
 
       var fixture = {'test' : true};
+
       describe('useFixture function', function() {
          it('fulfills its promise', function(done) {
-            useFixture(fb, fixture).then(done, fail);
+            useFixture(fb, fixture).then(done, done.fail);
          });
       });
 
@@ -360,13 +378,13 @@ describe("firebase db service", function() {
          it('fulfills its promise if the data is as written', function(done) {
             useFixture(fb, fixture)
             .then( verifyData.partial(fb, fixture) )
-            .then( done, fail );
+            .then( done, done.fail );
          });
 
          it("rejects its promise if the data doesn't match", function(done) {
             useFixture(fb, fixture)
             .then( verifyData.partial(fb, {'test' : false}) )
-            .then( fail, done );
+            .then( done.fail, done );
          });
       });
 
@@ -376,86 +394,84 @@ describe("firebase db service", function() {
          beforeEach(function(done){
             fixedUser = { email:'jd@example.com', password:'asdf' };
             randomUser = randomCredentials();
-            chain(
-               ensureUserCreated(fixedUser),
-               ensureUserLoggedOut()
-            ).then(done, fail);
+            chainFns(
+               ensureUserCreated.partial(fixedUser),
+               ensureUserLoggedOut
+            ).then(done, done.fail);
          });
 
          describe('ensureUserCreated', function() {
             it('resolves its promise', function(done) {
-               ensureUserCreated(randomUser).then( done, fail );
+               ensureUserCreated(randomUser).then( done, done.fail );
             });
 
             it('can be called two times without throwing an error', function(done) {
-               chain(
-                  ensureUserCreated(randomUser),
-                  ensureUserCreated(randomUser)
-               ).then( done, fail );
+               chainFns(
+                  ensureUserCreated.partial(randomUser),
+                  ensureUserCreated.partial(randomUser)
+               ).then( done, done.fail );
             });
          });
 
          describe('ensureUserRemoved', function() {
             it('resolves its promise', function(done) {
-               chain(
-                  ensureUserCreated(randomUser),
-                  ensureUserRemoved(randomUser)
-               ).then( done, fail );
+               chainFns(
+                  ensureUserCreated.partial(randomUser),
+                  ensureUserRemoved.partial(randomUser)
+               ).then( done, done.fail );
             });
 
             it('can be called two times without throwing an error', function(done) {
-               chain(
-                  ensureUserCreated(randomUser),
-                  ensureUserRemoved(randomUser),
-                  ensureUserRemoved(randomUser)
-               ).then( done, fail );
+               chainFns(
+                  ensureUserCreated.partial(randomUser),
+                  ensureUserRemoved.partial(randomUser),
+                  ensureUserRemoved.partial(randomUser)
+               ).then( done, done.fail );
             });
          });
 
          describe('ensureUserLoggedOut', function() {
             it('logs the user out', function(done) {
-               chain(
-                  ensureUserLoggedIn(fixedUser),
-                  ensureUserLoggedOut()
-               ).then( done, fail );
+               chainFns(
+                  ensureUserLoggedIn.partial(fixedUser),
+                  ensureUserLoggedOut
+               ).then( done, done.fail );
             });
 
             it('can be called two times', function(done) {
-               chain(
-                  ensureUserLoggedIn(fixedUser),
-                  ensureUserLoggedOut(),
-                  ensureUserLoggedOut()
-               ).then( done, fail );
+               chainFns(
+                  ensureUserLoggedIn.partial(fixedUser),
+                  ensureUserLoggedOut,
+                  ensureUserLoggedOut
+               ).then( done, done.fail );
             });
          });
-      });
 
-      describe('ensureUserLoggedIn', function() {
-         it('logs the user in', function(done) {
-            chain(
-               ensureUserLoggedIn(fixedUser)
-            ).then( done, fail );
-         });
+         describe('ensureUserLoggedIn', function() {
+            it('logs the user in', function(done) {
+               ensureUserLoggedIn(fixedUser).then(done, done.fail);
+            });
 
-         it('can be called two times', function(done) {
-            chain(
-               ensureUserLoggedIn(fixedUser),
-               ensureUserLoggedIn(fixedUser)
-            ).then( done, fail );
-         });
+            it('can be called two times', function(done) {
+               chainFns(
+                  ensureUserLoggedIn.partial(fixedUser),
+                  ensureUserLoggedIn.partial(fixedUser)
+               ).then( done, done.fail );
+            });
 
-         it("fails if the user doesn't exist", function(done) {
-            chain(
-               ensureUserRemoved(randomUser),
-               ensureUserLoggedIn(randomUser)
-            ).then( fail, done );
+            it("fails if the user doesn't exist", function(done) {
+               chainFns(
+                  ensureUserRemoved.partial(randomUser),
+                  ensureUserLoggedIn.partial(randomUser)
+               ).then( done.fail, done );
+            });
          });
       });
 
       describe('generic query function', function() {
          var ref, fixture;
 
-         beforeAll(function () {
+         beforeEach(function () {
             ref = fb.child('test');
             fixture = {'a': 0, 'b': 1, 'c': 2};
          });
@@ -463,10 +479,10 @@ describe("firebase db service", function() {
          describe('get', function() {
             it('passes testGetFn', function(done) {
                var getFn = db.query.get.partial(ref);
-               chain(
-                  useFixture(ref, fixture),
-                  testGetFn( getFn, ref )
-               ).then(done, done.fail);
+               chainFns(
+                  useFixture.partial( ref, fixture ),
+                  testGetFn.partial( getFn, ref )
+               ).then( done, done.fail );
             });
          });
 
@@ -496,17 +512,15 @@ describe("firebase db service", function() {
 
    describe('authentication and session management', function() {
       // var credentials = {email:'jd@example.com', password:'asdf'};
-
       var fixedUser, randomUser;
+
       beforeEach(function(done){
          fixedUser = { email:'jd@example.com', password:'asdf' };
          randomUser = randomCredentials();
-         chain(
-            ensureUserCreated(fixedUser),
-            ensureUserLoggedOut()
-         ).then(done, fail);
+         ensureUserCreated(fixedUser)
+         .then(ensureUserLoggedOut)
+         .then(done, done.fail);
       });
-
 
       describe('createUser function', function() {
          it('resolves its promise when the user is not already created', function(done) {
@@ -514,7 +528,7 @@ describe("firebase db service", function() {
          });
 
          it('rejects its promise when the user is already created', function(done) {
-            db.auth.createUser(fixedUser).then( fail, function onReject (error) {
+            db.auth.createUser(fixedUser).then( done.fail, function onRejected (error) {
                // console.log(error);
                expect(error.code).toBe('EMAIL_TAKEN');
                done();
@@ -532,10 +546,9 @@ describe("firebase db service", function() {
          });
 
          it('rejects its promise if the user is not present', function(done) {
-            chain(
-               ensureUserRemoved(randomUser),
-               db.auth.login(randomUser)
-            ).then(fail, function(error) {
+            ensureUserRemoved(randomUser)
+            .then( db.auth.login.partial(randomUser) )
+            .then( done.fail, function(error) {
                expect(error.code).toBe('INVALID_USER');
                done();
             });
@@ -544,33 +557,29 @@ describe("firebase db service", function() {
 
       describe('logoutUser function', function() {
          it('resolves its promise', function(done) {
-            chain(
-               ensureUserLoggedIn(fixedUser),
-               db.auth.logout()
-            ).then(done, fail);
+            ensureUserLoggedIn(fixedUser)
+            .then( db.auth.logout )
+            .then( done, done.fail);
          });
       });
 
       describe('getCurrentSession function', function() {
-         // FIXME rejects its promise even when logged in...
-         xit('fulfills its promise when logged in', function(done) {
-            console.log('start');
-            chain(
-               ensureUserLoggedIn(fixedUser),
-               db.auth.getCurrentSession()
-            ).then( function onFulfilled(uid) {
-               console.log('current session', uid);
+         it('fulfills its promise when logged in', function(done) {
+            // console.log('start');
+            ensureUserLoggedIn(fixedUser)
+            .then( db.auth.getCurrentSession )
+            .then( function onFulfilled(uid) {
+               // console.log('current session', uid);
                expect(uid).toBeDefined();
                done();
             }, function onRejected(error) {
-               console.log('no current session');
+               // console.log('no current session');
                done.fail(error);
-               console.log(done.fail);
             });
          });
 
          it('rejects its promise when not logged in', function(done) {
-            db.auth.getCurrentSession().then(fail, done);
+            db.auth.getCurrentSession().then(done.fail, done);
          });
       });
    });
@@ -640,10 +649,10 @@ describe("firebase db service", function() {
 
       describe('create', function() {
          it('creates a user object and sets basic data', function(done) {
-            chain(
-               db.user.create(user),
-               verifyData(userRef, user)
-            ).then( done, fail );
+            chainFns(
+               db.user.create.partial(user),
+               verifyData.partial(userRef, user)
+            ).then( done, done.fail );
          });
       });
 
@@ -656,20 +665,20 @@ describe("firebase db service", function() {
             };
             var expected = _.extend( {}, user, update );
 
-            chain(
-               useFixture(userRef, user),
-               db.user.update(update),
-               verifyData(userRef, expected)
-            ).then(done, fail);
+            chainFns(
+               useFixture.partial(userRef, user),
+               db.user.update.partial(update),
+               verifyData.partial(userRef, expected)
+            ).then(done, done.fail);
          });
       });
 
       describe('get', function() {
          it('passes testGetFn', function(done) {
-            chain(
+            chainFns(
                useFixture(userRef, user),
-               testGetFn( db.user.get.partial(user.userId), userRef )
-            ).then(done, done.fail);
+               testGetFn.partial( db.user.get.partial(user.userId), userRef )
+            ).then( done, done.fail );
          });
       });
 
