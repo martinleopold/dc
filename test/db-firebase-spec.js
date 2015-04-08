@@ -675,12 +675,67 @@ describe("firebase db service", function() {
 
       describe('get', function() {
          it('passes testGetFn', function(done) {
-            chainFns(
-               useFixture(userRef, user),
-               testGetFn.partial( db.user.get.partial(user.userId), userRef )
-            ).then( done, done.fail );
+            var getFn = db.user.get.partial(user.userId);
+            useFixture(userRef, user)
+            .then( testGetFn.partial(getFn, userRef) )
+            .then( done, done.fail );
          });
       });
+
+      fdescribe('updateSettings', function() {
+         it('passes testUpdateFn', function(done) {
+            var settings = {
+               'settingA': 0,
+               'settingB': 1,
+               'settingC': 2
+            };
+            var settingsUpdate = {
+               'settingC': 'c',
+               'settingD': 'd'
+            };
+            user.settings = settings;
+            var updateFn = db.user.updateSettings.partial(user.userId, settingsUpdate);
+
+            useFixture(userRef, user)
+            .then( testUpdateFn.partial(updateFn, userRef.child('settings'), settingsUpdate) )
+            .then( done, done.fail );
+         });
+      });
+
+      fdescribe('getFriends', function() {
+         it('passes testGetFn', function(done) {
+            var friends = {
+               'friend0' : true,
+               'friend1' : true,
+               'friend2' : true
+            };
+            user.friends = friends;
+            var getFn = db.user.getFriends.partial(user.userId);
+
+            useFixture(userRef, user)
+            .then( testGetFn.partial(getFn, userRef.child('friends')) )
+            .then( done, done.fail );
+         });
+      });
+
+      fdescribe('getNotifications', function() {
+         it('passes testGetFn', function(done) {
+            var notifications = {
+               'notification0' : { forUser: user.userId },
+               'notification1' : { forUser: user.userId },
+               'notification2' : { forUser: user.userId }
+            };
+
+            var getFn = db.user.getNotifications.partial(user.userId);
+
+            Promise.all([
+               useFixture(userRef, user),
+               useFixture(db.ref.notification, notifications)
+            ]).then( testGetFn.partial(getFn, db.ref.notification) )
+            .then( done, done.fail );
+         });
+      });
+
 
    });
 

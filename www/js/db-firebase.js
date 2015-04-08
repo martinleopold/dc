@@ -360,7 +360,9 @@ db.user.get = function (userId) {
 };
 
 db.user.getNotifications = function (userId) {
-	return db.query.get( ref.notification.orderByChild('forUser').equals(userId) );
+	return db.query.get(
+		ref.notification.orderByChild('forUser').equalTo(userId)
+	);
 };
 
 
@@ -456,11 +458,11 @@ db.dinner.get = function (dinnerId) {
 };
 
 db.dinner.getMessages = function (dinnerId) {
-	return db.query.get( ref.message.orderByChild('toDinner').equals(dinnerId) );
+	return db.query.get( ref.message.orderByChild('toDinner').equalTo(dinnerId) );
 };
 
 db.dinner.getReviews = function (dinnerId) {
-	return db.query.get( ref.review.orderByChild('aboutDinner').equals(dinnerId) );
+	return db.query.get( ref.review.orderByChild('aboutDinner').equalTo(dinnerId) );
 };
 
 db.dinner.createMessage = function (message) {
