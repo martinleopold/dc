@@ -326,7 +326,7 @@ db.user.update = function (user) {
 
 	return $q(function (resolve, reject) {
 		checkObject(user, 'userId');
-		user.updateddAt = Firebase.ServerValue.TIMESTAMP;
+		user.updatedAt = Firebase.ServerValue.TIMESTAMP;
 		ref.user.child(user.userId).update(user, function onComplete(error) {
 			if (error === null) resolve();
 			else reject(error);
