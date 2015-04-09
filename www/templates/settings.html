@@ -3,26 +3,36 @@
 		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
 	</ion-nav-buttons>
 	
-		<ion-tabs class="tabs-top tabs-striped">
+		<ion-tabs class="tabs-top tabs-dark tabs-striped">
 				
 			<ion-tab title="About You">
 				<ion-content>
+                        
+                        <h2>Your photo</h2>
 						<div class="card">
 								<div class="item item-image">
 										<img src="img/pm_b.jpg">
 								</div>
 								<div class="button-bar">
-												<a disabled class="button button-light icon-left ion-upload">Upload new photo</a>
-												<a disabled class="button button-light icon ion-camera" style="max-width: 15%"></a>
+								    <a  class="button button-stable">
+                                        <i class="icon ion-upload icon-with-text"></i>
+                                        Upload new photo
+                                    </a>
+								    <a  class="button button-stable" style="max-width: 15%">
+                                        <i class="icon ion-camera"></i>
+                                    </a>
 								</div>
 						</div>
 						
 						<h2>Information</h2>
 						<div class="card">
 										<div class="list">
+                                                <label class="item error">Your name cannot contain certain characters.</label>
 												<label class="item item-input">
 														<input ng-model="user.firstname" type="text" placeholder="First Name">
 												</label>
+                                            
+                                                <label class="item error">Your name cannot contain certain characters.</label>
 												<label class="item item-input">
 														<input ng-model="user.lastname" type="text" placeholder="Last Name">
 												</label>
@@ -72,25 +82,38 @@
 			<ion-tab title="Other Settings">
 				<ion-content>
 						<h2>Your Address</h2>
-						<p>This is where you'll cook. Your exact adress will only be shared with people you accept as guests.</p>
+						<p class="info"><i>This is where you'll cook.</i> Your exact adress will only be shared with people you accept as guests.</p>
 						<div class="card">
 								<div class="list">
-									<label class="item item-input">
-											<input ng-model="user.address.street" type="text" placeholder="Street name">
-									</label>
-									<label class="item item-input">
-											<input ng-model="user.address.no" type="text" placeholder="No./Door">
-									</label>
-									<label class="item item-input">
-											<input ng-model="user.address.zip" type="text" placeholder="ZIP">
-									</label>
-									<label class="item item-input">
-											<input ng-model="user.address.city" type="text" placeholder="City">
-									</label>
+                                    <label class="item error">It seems we couldn't find an adress that matches your inputs...</label>
+									<div class="row">
+                                        <div class="col col-67">
+                                            <label class="item item-input">
+                                                <input ng-model="user.address.street" type="text" placeholder="Street name">             
+                                            </label>
+                                        </div>
+                                        <div class="col col-33">
+                                            <label class="item item-input">
+                                                    <input ng-model="user.address.no" type="text" placeholder="No./Door">
+                                            </label>
+                                        </div>
+                                    </div>
+									<div class="row">
+                                        <div class="col col-33">
+                                            <label class="item item-input">
+                                                    <input ng-model="user.address.zip" type="text" placeholder="ZIP">
+                                            </label>
+                                        </div>
+                                        <div class="col col-67">
+                                            <label class="item item-input">
+                                                    <input ng-model="user.address.city" type="text" placeholder="City">
+                                            </label>
+                                        </div>
+                                    </div>
 									<label class="item item-input">
 											<input ng-model="user.address.country" type="text" placeholder="Country">
 									</label>
-
+                                </div>
 									<style>
 										map {
 										  display: block;
@@ -103,20 +126,20 @@
 										}
 									</style>
 									<map on-create="mapCreated(map)"></map>
-
-									<div class="row">
+                                
+                                <div class="list">
+									<div class="row single">
 											<div class="col">
-													This is not where you live?
+                                                <p class="info card-info">This is not where you live?</p>
 											</div>
-											<div class="col">
-													<button class="button button-light">Place pin manually</button>
+											<div class="col col-50">
+												<button class="placepin button button-positive">Place pin manually</button>
 											</div>
 									</div>
 								</div>
 						</div>
 						
-						<h2>Default search radius</h2>
-						<p>Always start to search within this distance.</p>
+						<h2>Always start to search within</h2>
 						<div class="card">
 								<div class="range">
 									<i class="icon ion-home"></i>

@@ -9,26 +9,28 @@
 	<form>
 	  <div class="card">
 		<div class="list">
+        <label class="item error">Your name cannot contain certain characters.</label>
 		<label class="item item-input">
 			<input ng-model="user.firstname" type="text" placeholder="First Name">
 		</label>
+        <label class="item error">Your name cannot contain certain characters.</label>
 		<label class="item item-input">
 			<input ng-model="user.lastname" type="text" placeholder="Last Name">
 		</label>
+        <label class="item error">This doesn't seem to be a valid E-Mail adress.</label>
 		<label class="item item-input">
 			<input ng-model="user.email" type="text" placeholder="E-Mail">
 		</label>
+        <label class="item error">Your password has to contain at least one character and one number.</label>
 		<label class="item item-input">
 			<input ng-model="user.password" type="password" placeholder="Password">
 		</label>
 <!-- 		<label class="item item-input">
 			<input ng-model="user.passwordCheck" type="password" placeholder="Repeat Password">
 		</label> -->
-		<label class="item">
-			<button ng-click="signup()" class="button button-calm button-block">Sign up</button>
-		</label>
 	  </div>
 	</div>
+    <button ng-click="signup()" class="button button-energized button-block">Sign up</button>
 	</form>
 	  
   </ion-content>

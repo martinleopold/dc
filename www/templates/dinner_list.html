@@ -1,0 +1,66 @@
+<ion-view title="Dinner List">
+  <ion-nav-buttons side="left">
+	<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+  </ion-nav-buttons>
+  
+	<ion-tabs class="tabs-top tabs-dark tabs-striped">
+	  <ion-tab title="At your place">
+		<ion-content>
+			
+            <h2>Current Dinners</h2>
+            
+            <div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
+				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
+				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
+					<div class="col col-75">
+                        <p class="dinnertitle">{{dinner.title}}</p>
+                        <p class="dinnerlocation">at Selma's place</p>
+                    </div>
+					<div class="col">
+                        <p class="dinnerdate">
+                        {{dinner | getBeginTime | date : 'd.M. HH:mm'}}
+                        </p>
+                    </div>
+				</a>
+			</div>
+            
+            <h2>Past Dinners</h2>
+            
+            <!-- Block of own Dinners whose date has passed-->
+
+		</ion-content>
+	  </ion-tab>
+		
+	  <ion-tab title="Somewhere else">
+		<ion-content>
+            
+            <h2>Current Dinners</h2>
+            
+			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
+				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
+				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
+					<div class="col col-75">
+                        <p class="dinnertitle">{{dinner.title}}</p>
+                        <p class="dinnerlocation">at Selma's place</p>
+                    </div>
+					<div class="col">
+                        <p class="dinnerdate">
+                        {{dinner | getBeginTime | date : 'd.M. HH:mm'}}
+                        </p>
+                    </div>
+				</a>
+			</div>
+            
+            <h2>Application pending</h2>
+            
+            <!-- Block of Dinners the user is not accepted to yet -->
+            
+            <h2>Past Dinners</h2>
+            
+            <!-- Block of own Dinners whose date has passed-->
+            
+		</ion-content>
+	  </ion-tab>
+	</ion-tabs>
+	
+</ion-view>

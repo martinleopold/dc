@@ -3,136 +3,214 @@
 		<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
   </ion-nav-buttons>
 
-  	<div ng-show="applicationState() == 'applied' || applicationState() == 'declined'" class="bar bar-subheader bar-positive">
-	 You <strong>applied</strong> to this dinner for <strong>{{application.count}}</strong> person(s) to <strong>{{application.dinein ? 'dine-in' : 'take away'}}</strong>.
-	 </div>
-
-	 <div ng-show="applicationState() == 'accepted'" class="bar	bar-subheader bar-balanced">
-	 You were <strong>accepted</strong> to this dinner as a total of <strong>{{application.count}}</strong> person(s) to <strong>{{application.dinein ? 'dine-in' : 'take away'}}</strong>.
-	 </div>
-
   <ion-content class="has-header">
 
 	<div class="card">
-		<div class="item item-text-wrap">
+        
+        <div ng-show="applicationState() == 'applied' || applicationState() == 'declined'" class="application-status positive">
+         You already <strong>applied</strong> to this Dinner for <strong>{{application.count}} person(s)</strong> to <strong>{{application.dinein ? 'eat there' : 'take your food away'}}</strong>, but you can still change your application below. 
+         </div>
+
+         <div ng-show="applicationState() == 'accepted'" class="application-status positive">
+         Yay! You are already <strong>accepted</strong> to this Dinner! You applied for <strong>{{application.count}}</strong> person(s) and you want to <strong>{{application.dinein ? 'eat there' : 'take your food away'}}</strong>. Look below for an exact adress. 
+         </div>
+        
+        
+		<div class="item item-text-wrap dinner-title">
 			<h1>{{dinner.title}}</h1>
-			<div class="row row-center">
-				<div class="col">{{dinner | getBeginTime | date : 'd.M. HH:mm'}}</div>
-				<div class="col col-75">
-					<button ui-sref="app.user({userId: dinner.userData.uid})" ng-show="dinner.userData.firstname" class="button button-light">
-						<div class="item-avatar">
-							<img src="img/pw.jpg">
-							<span>at {{isHost() ? 'your' : dinner.userData.firstname + "'s"}} place</span>
-						</div>
-					</button>
-				</div>
-			</div>
-			<p>{{dinner.info}}</p>
-			<div class="row row-center">
-				<div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="col icon-left ion-record"> {{type}}</div>
-			</div>
-			
+        </div>
+        <div class="item item-text-wrap dinner-info">
+			<p class="dinner-info">{{dinner.info}}</p>
+        </div>
+    </div>
+
+    <div class="row row-center dinner-categories">
+        <div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="col-33 icon-left ion-record category"> <span>{{type}}</span></div>
+    </div>
+      
+    <div class="card">
+        <div class="row row-center">
+            <div class="col">
+                <p class="dinnerdate">
+                    <span>{{dinner | getBeginTime | date : 'd.M.'}}
+                        <span>{{dinner | getBeginTime | date : 'HH:mm'}}</span>
+                    </span>
+                </p>
+            </div>
+            <div class="col col-75">
+				<button ui-sref="app.user({userId: dinner.userData.uid})" ng-show="dinner.userData.firstname" class="button button-stable button-block profile-link">
+				    <div class="item-avatar">
+				        <img src="img/pw.jpg">
+				        <span>at {{isHost() ? 'your' : dinner.userData.firstname + "'s"}} place</span>
+				    </div>
+				</button>
+            </div>
+        </div>
+        <div class="mapwrapper">
 			<style>
 				map {
 				  display: block;
 				  width: 100%;
 				  height: 100%;
-				  height: 250px;
+				  height: 168px;
 				}
 				.scroll {
 				  height: 100%;
 				}
 			</style>
 			<map on-create="mapCreated(map)"></map>
-		</div>
+        </div>
+        
+        <div class="adress-information">
+            <strong>Selma cooks here:</strong> Lützowgasse, 1140 Wien
+        </div>
 	</div>
 
 
-	<div ng-show="isHost()">
+    <h2>Guests</h2>
+    <div class="card">
+        <div class="row guests">
+                <div ng-repeat="a in applications" class="col-20" ng-show="a.state === 'accepted'">
+                            <a ui-sref="app.user({userId:a.userId})" class="button button-light">
+                                <div class="item-avatar">
+                                    <img src="img/pw.jpg">
+                                    <!--<span>{{a.user.firstname}} {{a.user.lastname}} </span>-->
+                                </div>
+                            </a>
+                </div>  
+            
+        </div>
+    </div>
+      
+	<div ng-show="isHost()" class="provide-padding-for-h2">
 	<h2>Applicants</h2>
-	<div ng-repeat="a in applications" class="row row-center" ng-show="a.state === 'applied'">
-		<div class="col col-50">
-				<a ui-sref="app.user({userId:a.userId})" class="button button-light">
+    <div class="card">
+	<div ng-repeat="a in applications" class="application" ng-show="a.state === 'applied'">
+            <div class="applicant-info">
+            <a ui-sref="app.user({userId:a.userId})" class="button button-light button-block application">
 					<div class="item-avatar">
 						<img src="img/pw.jpg">
-						<span>{{a.user.firstname}} {{a.user.lastname}} </span>
+						<p class="applicant-name">{{a.user.firstname}}</p>
+                        <p class="mode">Take away</p>
 					</div>
-				</a>
-		</div>
-		<div class="col"><a ng-click="acceptApplication(a)" class="button button-light ion-checkmark"></a></div>
-		<div class="col"><a ng-click="declineApplication(a)" class="button button-light ion-close"></a></div>
-	</div>
-	</div>
-	  
-
-	<h2>Guests</h2>
-	<div ng-repeat="a in applications" class="row row-center" ng-show="a.state === 'accepted'">
-		<div class="col col-100">
-				<a ui-sref="app.user({userId:a.userId})" class="button button-light">
-					<div class="item-avatar">
-						<img src="img/pw.jpg">
-						<span>{{a.user.firstname}} {{a.user.lastname}} </span>
-					</div>
-				</a>
-		</div>
-	</div>
-
-
-<!-- 	<h2>Conversations</h2>
-	<div class="card">
-	
-	<div class="list">
-		<div class="item item-text-wrap">
-		<div class="item-avatar" href="#">
-		  <img src="img/pw.jpg">
-		  <h2>Venkman</h2>
-		  <p>on Aug 14, 17:30</p>  
-		</div>
-		<p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
-		</div>
-		<div class="item item-text-wrap">
-		<div class="item-avatar" href="#">
-		  <img src="img/pw.jpg">
-		  <h2>Venkman</h2>
-		  <p>on Aug 14, 17:30</p>  
-		</div>
-		<p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
-		</div>
-	</div>
+                
+            </a>
+            </div>
 		
-		<button class="button button-block button-light icon-left ion-chatbubble-working">Reply to conversation</button>
+		<div class="accept-buttons"><a ng-click="declineApplication(a)" class="button button-stable ion-close"></a>
+            <a ng-click="acceptApplication(a)" class="button button-stable ion-checkmark"></a></div>
+	</div>
+	</div>
+    </div>
+
+
+ 	<h2>Conversations</h2>
+    
+    <div class="card conversation">
+		<button class="button button-block button-stable icon ion-chatbubble-working">Start new conversation</button>  
+	</div>
+      
+	<div class="card conversation">
+        <div class="list">
+            <div class="item item-text-wrap">
+            <div class="item-avatar" href="#">
+              <img src="img/pw.jpg">
+              <h3>Venkman</h3>
+              <span>on Aug 14, 17:30</span>  
+            </div>
+            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+            </div>
+            <div class="item item-text-wrap">
+            <div class="item-avatar" href="#">
+              <img src="img/pw.jpg">
+              <h3>Venkman</h3>
+              <span>on Aug 14, 17:30</span>  
+            </div>
+            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+            </div>
+        </div>
+
+        <button class="button button-block button-stable icon ion-chatbubble-working">Reply to conversation</button>
+	</div>
+      
+    <div class="card conversation">
+        <div class="list">
+            <div class="item item-text-wrap">
+            <div class="item-avatar" href="#">
+              <img src="img/pw.jpg">
+              <h3>Venkman</h3>
+              <span>on Aug 14, 17:30</span>  
+            </div>
+            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+            </div>
+            <div class="item item-text-wrap">
+            <div class="item-avatar" href="#">
+              <img src="img/pw.jpg">
+              <h3>Venkman</h3>
+              <span>on Aug 14, 17:30</span>  
+            </div>
+            <textarea>
+                    
+            </textarea>
+            
+            </div>
+            
+        </div>
+        
+        <div class="button-bar">
+                <a class="button button-stable">Cancel</a>
+                <a class="button button-stable">Reply</a>
+        </div>
+        
+	</div> 
 	
-	</div>  
-	<div class="card">
-		<button class="button button-block button-light icon-left ion-chatbubble-working">Start new conversation</button>  
-	</div>  -->
-	
+    <h2>Reviews</h2>
+      
+    <div class="card conversation">
+        <div class="list">
+            <div class="item item-text-wrap">
+            <div class="item-avatar" href="#">
+              <img src="img/pw.jpg">
+              <h3>Venkman</h3>
+              <span>on Aug 14, 17:30</span>  
+            </div>
+            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+            </div>
+        </div>
+    </div>  
+      
 	<div ng-show="!isHost() && !applicationState()">
 	<h2>Apply</h2>
-		<div class="row">
+		<div class="row apply-number">
 			<div class="col col-50">
-				<p>For how many pepole?</p>
-				<p>You'll also be charged this many credits.</p>
+                <p class="info card-info"><i>For how many pepole?</i></p>
+				<p class="info card-info">You'll also be charged this many credits.</p>
 			</div>
-			<div class="col col">
-				<button ng-click="addCount(-1, 1, 9)" class="button button-light icon ion-android-remove"></button>
-			</div>
-			<div class="col col">
-				<h2>{{application.count}}</h2>
-			</div>
-			<div class="col col">
-				<button ng-click="addCount(1, 1, 9)" class="button button-light icon ion-android-add"></button>
+			<div class="col counter col-center">
+            <div class="row">
+				<div class="col">
+                    <button ng-click="addCount(-1, 1, 9)" class="button button-stable icon ion-android-remove"></button>
+                </div>
+                <div class="col">
+				    <h2>{{application.count}}</h2>
+                </div>
+                <div class="col">
+				<button ng-click="addCount(1, 1, 9)" class="button button-stable icon ion-android-add"></button>
+                </div>
+            </div>
 			</div>
 		</div>
-		<div class="row">
+		<div class="row apply-visit-take-away">
 			<div class="col col-50">
-				<button ng-click="apply(true)" ng-disabled="!dinner.dinein" class="button button-balanced">I want to go there!</button>
+				<button ng-click="apply(true)" ng-disabled="!dinner.dinein" class="button button-energized">I want to go there!</button>
 			</div>
 			<div class="col col-50">
 				<button ng-click="apply(false)" ng-disabled="!dinner.takeaway" class="button button-positive">I want to take my food away!</button>
 			</div>
 		</div>
+        
 	 </div>
-
+      
+    <!--<button class="button button-block button-stable">Change your application</button>-->
   </ion-content>
 </ion-view>
