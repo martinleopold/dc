@@ -55,6 +55,7 @@ gulp.task('git-check', function(done) {
   done();
 });
 
+// deploy app to web via ftp
 try {
   var sftpConfig = JSON.parse( require('fs').readFileSync('sftp.config') );
   var sftp = require('gulp-sftp')(sftpConfig);
@@ -65,3 +66,21 @@ try {
 } catch(e) {
   console.log("sftp.config not present. 'gulp deploy-web' not available.");
 }
+
+
+// run karma tests once
+var karma = require('karma').server;
+gulp.task('test', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js',
+    singleRun: true
+  }, done);
+});
+
+
+// (test driven development) watch for file changes and re-run tests on each change
+gulp.task('tdd', function (done) {
+  karma.start({
+    configFile: __dirname + '/karma.conf.js'
+  }, done);
+});
