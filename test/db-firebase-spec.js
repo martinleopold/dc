@@ -150,38 +150,45 @@ describe("firebase db service", function() {
       });
    };
 
+   // compare objects using jasmine toEqual matcher
+   // returns a boolean
+   function isEqual( o1, o2 ) {
+      var equals = jasmine.matchers.toEqual(jasmine.matchersUtil).compare;
+      return  equals(o1, o2).pass;
+   }
+
+   // check if data is a superset of the expected data.
+   // i.e. all the expected data must be contained in data
+   function checkSuperset( data, expected ) {
+      var match = false;
+      if (typeof data === 'object' && typeof expected === 'object') {
+         // match expected properties
+         match = Object.keys(expected).every(function (propertyName) {
+            var propertyMatch = isEqual(data[propertyName], expected[propertyName]);
+            return propertyMatch;
+         });
+      } else {
+         match = isEqual(data, expected);
+      }
+      if ( !match ) throw new Error("Unexpected Data:\nGot: " + JSON.stringify(returned) + '\nExpected: ' + JSON.stringify(expected));
+      return true;
+   }
+
    // query and verify returned data
    // if returned data is an object, all expected properties need to match, but the returned object can have, additional properties
    // query is a firebase reference, possibly queries with startAt, etc..
    var verifyData = function(query, expected) {
-      // compare objects using jasmine toEqual matcher
-      function isEqual( o1, o2 ) {
-         var equals = jasmine.matchers.toEqual(jasmine.matchersUtil).compare;
-         return  equals(o1, o2).pass;
-      }
-
       return new Promise(function resolver (resolve, reject) {
       // return $q(function resolver (resolve) {
          query.once('value', function successCallback(data) {
-            var returned = data.val();
-            var match = false;
-            if (typeof returned === 'object' && typeof expected === 'object') {
-               // match expected properties
-               match = Object.keys(expected).every(function (propertyName) {
-                  var propertyMatch = isEqual(returned[propertyName], expected[propertyName]);
-                  return propertyMatch;
-               });
-            } else {
-               match = isEqual(returned, expected);
-            }
             // don't just throw the exception here, since firebase will handle it
-            if ( !match ) {
-               // console.log('rejecting');
-               reject( new Error("Unexpected Data:\nGot: " + JSON.stringify(returned) + '\nExpected: ' + JSON.stringify(expected)) );
-            } else {
-               // console.log('resolving');
-               resolve();
+            try {
+               checkSuperset( data.val(), expected );
+            } catch (error) {
+               reject( error );
+               return;
             }
+            resolve();
          });
       });
    };
@@ -245,10 +252,13 @@ describe("firebase db service", function() {
    // test get-type function
    // fn is a function that returns a promise.
    // * check that promise is fulfilled (requires promise)
-   // * check that returned data is the data at the get location (requires, ref)
-   var testGetFn = function (fn, ref) {
-      return fn().then(function onFulfilled (data) {
-         return verifyData(ref, data);
+   // * check that returned data is the data at the get location (requires ref)
+   // * check that returned data is the expected data
+   var testGetFn = function (fn, ref, expectedData) {
+      return fn().then(function (data) {
+         return verifyData(ref, data).then(function() {
+            checkSuperset( data, expectedData ); // throws on failure
+         });
       });
    };
 
@@ -266,18 +276,8 @@ describe("firebase db service", function() {
    // * check that promise is fulfilled (requires promise)
    // * check that old data is still present, updated, and new data also present (requires expected data, ref)
    var testUpdateFn = function (fn, ref, expectedData) {
-      var fixture = { 'someOldData': generateUUID() };
-      return chainFns(
-         useFixture.partial(ref, fixture),
-         fn,
-         verifyData.partial(ref, fixture),
-         verifyData.partial(ref, expectedData)
-      );
-
-      // return useFixture(ref, fixture)
-      // .then( fn )
-      // .then( verifyData.partial(ref, fixture) )
-      // .then( verifyData.partial(ref, expectedData) );
+      return Promise.resolve(fn())
+      .then( verifyData.partial(ref, expectedData) );
    };
 
    // test a set-type function
@@ -301,6 +301,10 @@ describe("firebase db service", function() {
    };
 
 
+
+   /*
+    * promises
+    */
    describe('ES6 Promise', function() {
       var stack;
 
@@ -360,7 +364,11 @@ describe("firebase db service", function() {
       });
    });
 
-   // test the setup itself
+
+
+   /*
+    * test the setup itself
+    */
    describe('testing setup', function() {
       it('should use the overridden firebase', function() {
          expect(db.util.getRefURL()).toEqual(fb.toString());
@@ -468,7 +476,7 @@ describe("firebase db service", function() {
          });
       });
 
-      describe('generic query function', function() {
+      fdescribe('generic query function', function() {
          var ref, fixture;
 
          beforeEach(function () {
@@ -481,7 +489,7 @@ describe("firebase db service", function() {
                var getFn = db.query.get.partial(ref);
                chainFns(
                   useFixture.partial( ref, fixture ),
-                  testGetFn.partial( getFn, ref )
+                  testGetFn.partial( getFn, ref, fixture )
                ).then( done, done.fail );
             });
          });
@@ -510,6 +518,10 @@ describe("firebase db service", function() {
    });
 
 
+
+   /*
+    * auth and sessions
+    */
    describe('authentication and session management', function() {
       // var credentials = {email:'jd@example.com', password:'asdf'};
       var fixedUser, randomUser;
@@ -584,6 +596,11 @@ describe("firebase db service", function() {
       });
    });
 
+
+
+   /*
+    * utility functions
+    */
    describe('utility function', function() {
       describe('checkObject', function() {
          it('should handle undefined object', function() {
@@ -627,12 +644,9 @@ describe("firebase db service", function() {
 
 
 
-   // describe('query function', function() {
-   //    describe('push', function() {
-   //       // body...
-   //    });
-   // });
-
+   /*
+    * user
+    */
    describe('user function', function() {
       var user;
       var userRef;
@@ -677,12 +691,12 @@ describe("firebase db service", function() {
          it('passes testGetFn', function(done) {
             var getFn = db.user.get.partial(user.userId);
             useFixture(userRef, user)
-            .then( testGetFn.partial(getFn, userRef) )
+            .then( testGetFn.partial(getFn, userRef, user) )
             .then( done, done.fail );
          });
       });
 
-      fdescribe('updateSettings', function() {
+      describe('updateSettings', function() {
          it('passes testUpdateFn', function(done) {
             var settings = {
                'settingA': 0,
@@ -702,7 +716,7 @@ describe("firebase db service", function() {
          });
       });
 
-      fdescribe('getFriends', function() {
+      describe('getFriends', function() {
          it('passes testGetFn', function(done) {
             var friends = {
                'friend0' : true,
@@ -713,12 +727,12 @@ describe("firebase db service", function() {
             var getFn = db.user.getFriends.partial(user.userId);
 
             useFixture(userRef, user)
-            .then( testGetFn.partial(getFn, userRef.child('friends')) )
+            .then( testGetFn.partial(getFn, userRef.child('friends'), friends) )
             .then( done, done.fail );
          });
       });
 
-      fdescribe('getNotifications', function() {
+      describe('getNotifications', function() {
          it('passes testGetFn', function(done) {
             var notifications = {
                'notification0' : { forUser: user.userId },
@@ -731,12 +745,58 @@ describe("firebase db service", function() {
             Promise.all([
                useFixture(userRef, user),
                useFixture(db.ref.notification, notifications)
-            ]).then( testGetFn.partial(getFn, db.ref.notification) )
+            ]).then( testGetFn.partial(getFn, db.ref.notification, notifications) )
             .then( done, done.fail );
          });
       });
+   });
 
+   describe('friend request function', function() {
+      var friendRequest;
+      var refFriendRequest;
 
+      beforeEach(function () {
+         friendRequest = {
+            byUser : 'userId:0',
+            toUser : 'userId:1'
+            // status : 'pending'
+         };
+         refFriendRequest = db.ref.friendRequest;
+      });
+
+      describe('send', function() {
+         it('passes testPushFn', function(done) {
+            var pushFn = db.friendRequest.send.partial(friendRequest.byUser, friendRequest.toUser);
+            testPushFn(pushFn, refFriendRequest)
+            .then(done, done.fail);
+         });
+      });
+
+      describe('accept', function() {
+         it('passes testUpdateFn', function(done) {
+            var updateFn = db.friendRequest.accept.partial();
+            // TODO set friendrequest
+            testUpdateFn(updateFn, refFriendRequest)
+            .then(done, done.fail);
+         });
+      });
+
+      describe('reject', function() {
+         it('passes testUpdateFn', function(done) {
+            var updateFn = db.friendRequest.request.partial();
+            // TODO set friendrequest
+            testUpdateFn(updateFn, refFriendRequest)
+            .then(done, done.fail);
+         });
+      });
+
+      describe('getIncoming', function() {
+         // body...
+      });
+
+      describe('getOutgoing', function() {
+         // body...
+      });
    });
 
 });
