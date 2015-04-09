@@ -476,7 +476,7 @@ describe("firebase db service", function() {
          });
       });
 
-      fdescribe('generic query function', function() {
+      describe('generic query function', function() {
          var ref, fixture;
 
          beforeEach(function () {
@@ -645,7 +645,7 @@ describe("firebase db service", function() {
 
 
    /*
-    * user
+    * USER
     */
    describe('user function', function() {
       var user;
@@ -751,7 +751,12 @@ describe("firebase db service", function() {
       });
    });
 
-   describe('friend request function', function() {
+
+
+   /*
+    * FRIEND REQUEST
+    */
+   fdescribe('friend request function', function() {
       var friendRequest;
       var refFriendRequest;
 
@@ -767,35 +772,72 @@ describe("firebase db service", function() {
       describe('send', function() {
          it('passes testPushFn', function(done) {
             var pushFn = db.friendRequest.send.partial(friendRequest.byUser, friendRequest.toUser);
-            testPushFn(pushFn, refFriendRequest)
-            .then(done, done.fail);
+
+            testPushFn( pushFn, refFriendRequest, friendRequest )
+            .then( done, done.fail );
          });
       });
 
       describe('accept', function() {
          it('passes testUpdateFn', function(done) {
-            var updateFn = db.friendRequest.accept.partial();
-            // TODO set friendrequest
-            testUpdateFn(updateFn, refFriendRequest)
-            .then(done, done.fail);
+            var id = generateUUID();
+            var updateFn = db.friendRequest.accept.partial(id);
+            var ref = refFriendRequest.child(id);
+            var expected = _.extend({}, friendRequest, {status: 'accepted'});
+
+            useFixture( ref, friendRequest )
+            .then( testUpdateFn.partial(updateFn, ref, expected) )
+            .then( done, done.fail );
          });
       });
 
       describe('reject', function() {
          it('passes testUpdateFn', function(done) {
-            var updateFn = db.friendRequest.request.partial();
-            // TODO set friendrequest
-            testUpdateFn(updateFn, refFriendRequest)
-            .then(done, done.fail);
+            var id = generateUUID();
+            var updateFn = db.friendRequest.reject.partial(id);
+            var ref = refFriendRequest.child(id);
+            var expected = _.extend({}, friendRequest, {status: 'rejected'});
+
+            useFixture( ref, friendRequest )
+            .then( testUpdateFn.partial(updateFn, ref, expected) )
+            .then( done, done.fail );
          });
       });
 
       describe('getIncoming', function() {
-         // body...
+         it('passes testGetFn', function(done) {
+            var userId = generateUUID();
+            var expected = {};
+            expected[generateUUID()] = { byUser : 'id:x', toUser : userId };
+            expected[generateUUID()] = { byUser : 'id:y', toUser : userId };
+            expected[generateUUID()] = { byUser : 'id:z', toUser : userId };
+            var additional = {};
+            additional[generateUUID()] = { byUser : 'id:0', toUser : 'sombody:else' };
+            var friendRequests = _.extend({}, expected, additional);
+            var getFn = db.friendRequest.getIncoming.partial(userId);
+
+            useFixture( refFriendRequest, friendRequests )
+            .then( testGetFn(getFn, refFriendRequest, expected) )
+            .then( done, done.fail );
+         });
       });
 
       describe('getOutgoing', function() {
-         // body...
+         it('passes testGetFn', function(done) {
+            var userId = generateUUID();
+            var expected = {};
+            expected[generateUUID()] = { byUser : userId, toUser : 'id:x' };
+            expected[generateUUID()] = { byUser : userId, toUser : 'id:y' };
+            expected[generateUUID()] = { byUser : userId, toUser : 'id:z' };
+            var additional = {};
+            additional[generateUUID()] = { byUser : 'somebody:else', toUser : 'id:0' };
+            var friendRequests = _.extend({}, expected, additional);
+            var getFn = db.friendRequest.getOutgoing.partial(userId);
+
+            useFixture( refFriendRequest, friendRequests )
+            .then( testGetFn(getFn, refFriendRequest, expected) )
+            .then( done, done.fail );
+         });
       });
    });
 
