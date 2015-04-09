@@ -2,7 +2,7 @@
 
 // angular.module is a global place for creating, registering and retrieving Angular modules
 // 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires' 
+// the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
@@ -30,87 +30,95 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 	// Each state's controller can be found in controllers.js
 	$stateProvider
 
-		// setup an abstract state for the tabs directive
-		.state('tab', {
-			url: "/tab",
-			abstract: true,
-			templateUrl: "templates/tabs.html"
-		})
+		// // setup an abstract state for the tabs directive
+		// .state('tab', {
+		// 	url: "/tab",
+		// 	abstract: true,
+		// 	templateUrl: "templates/tabs.html"
+		// })
+		//
+		// // Each tab has its own nav history stack:
+		//
+		// .state('tab.dash', {
+		// 	url: '/dash',
+		// 	views: {
+		// 		'tab-dash': {
+		// 			templateUrl: 'templates/tab-dash.html',
+		// 			controller: 'DashCtrl'
+		// 		}
+		// 	}
+		// })
+		//
+		// .state('tab.friends', {
+		// 	url: '/friends',
+		// 	views: {
+		// 		'tab-friends': {
+		// 			templateUrl: 'templates/tab-friends.html',
+		// 			controller: 'FriendsCtrl'
+		// 		}
+		// 	}
+		// })
+		// .state('tab.friend-detail', {
+		// 	url: '/friend/:friendId',
+		// 	views: {
+		// 		'tab-friends': {
+		// 			templateUrl: 'templates/friend-detail.html',
+		// 			controller: 'FriendDetailCtrl'
+		// 		}
+		// 	}
+		// })
+		//
+		// .state('tab.account', {
+		// 	url: '/account',
+		// 	views: {
+		// 		'tab-account': {
+		// 			templateUrl: 'templates/tab-account.html',
+		// 			controller: 'AccountCtrl'
+		// 		}
+		// 	}
+		// })
 
-		// Each tab has its own nav history stack:
+		// .state('app', {
+		// 	url: "/app",
+		// 	abstract: true,
+		// 	templateUrl: "templates/menu.html",
+		// 	controller: 'AppCtrl'
+		// })
 
-		.state('tab.dash', {
-			url: '/dash',
-			views: {
-				'tab-dash': {
-					templateUrl: 'templates/tab-dash.html',
-					controller: 'DashCtrl'
-				}
-			}
-		})
+		// .state('app.search', {
+		// 	url: "/search",
+		// 	views: {
+		// 		'menuContent' :{
+		// 			templateUrl: "templates/search.html"
+		// 		}
+		// 	}
+		// })
+		//
+		// .state('app.playlists', {
+		// 	url: "/playlists",
+		// 	views: {
+		// 		'menuContent' :{
+		// 			templateUrl: "templates/playlists.html",
+		// 			controller: 'PlaylistsCtrl'
+		// 		}
+		// 	}
+		// })
+		// .state('app.single', {
+		// 	url: "/playlists/:playlistId",
+		// 	views: {
+		// 		'menuContent' :{
+		// 			templateUrl: "templates/playlist.html",
+		// 			controller: 'PlaylistCtrl'
+		// 		}
+		// 	}
+		// });
+		//
 
-		.state('tab.friends', {
-			url: '/friends',
-			views: {
-				'tab-friends': {
-					templateUrl: 'templates/tab-friends.html',
-					controller: 'FriendsCtrl'
-				}
-			}
-		})
-		.state('tab.friend-detail', {
-			url: '/friend/:friendId',
-			views: {
-				'tab-friends': {
-					templateUrl: 'templates/friend-detail.html',
-					controller: 'FriendDetailCtrl'
-				}
-			}
-		})
-
-		.state('tab.account', {
-			url: '/account',
-			views: {
-				'tab-account': {
-					templateUrl: 'templates/tab-account.html',
-					controller: 'AccountCtrl'
-				}
-			}
-		})
 		.state('app', {
 			url: "/app",
 			abstract: true,
 			templateUrl: "templates/menu.html",
 			controller: 'AppCtrl'
-		})
-
-		.state('app.search', {
-			url: "/search",
-			views: {
-				'menuContent' :{
-					templateUrl: "templates/search.html"
-				}
-			}
-		})
-
-		.state('app.playlists', {
-			url: "/playlists",
-			views: {
-				'menuContent' :{
-					templateUrl: "templates/playlists.html",
-					controller: 'PlaylistsCtrl'
-				}
-			}
-		})
-		
-		.state('app.user', {
-			url: "/user/:userId",
-			views: {
-				'menuContent' :{
-					templateUrl: "templates/profile.html",
-					controller: 'UserCtrl'
-				}
-			}
 		})
 
 		.state('app.login', {
@@ -131,6 +139,19 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 				}
 			}
 		})
+
+
+		.state('app.user', {
+			url: "/user/:userId",
+			views: {
+				'menuContent' :{
+					templateUrl: "templates/profile.html",
+					controller: 'UserCtrl'
+				}
+			}
+		})
+
+
 
 		.state('app.signup', {
 			url: "/signup",
@@ -233,19 +254,10 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 				}
 			}
 		})
-		.state('app.single', {
-			url: "/playlists/:playlistId",
-			views: {
-				'menuContent' :{
-					templateUrl: "templates/playlist.html",
-					controller: 'PlaylistCtrl'
-				}
-			}
-		});
+
 	// if none of the above states are matched, use this as the fallback
 	$urlRouterProvider.otherwise('/app/login');
 
 	// if none of the above states are matched, use this as the fallback
 	// $urlRouterProvider.otherwise('/tab/dash');
 });
-

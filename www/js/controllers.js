@@ -1,66 +1,57 @@
 var c = angular.module( 'dc.controllers', ['dc.services'] );
 
-c.controller('DashCtrl', function($scope) {
-})
+// c.controller('DashCtrl', function($scope) {
+// })
+//
+// .controller('FriendsCtrl', function($scope, Friends) {
+// 	$scope.friends = Friends.all();
+// })
+//
+// .controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
+// 	$scope.friend = Friends.get($stateParams.friendId);
+// })
+//
+// .controller('AccountCtrl', function($scope) {
+// })
+//
+// .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+// 	// Form data for the login modal
+// 	$scope.loginData = {};
+//
+// 	// Create the login modal that we will use later
+// 	$ionicModal.fromTemplateUrl('templates/login.html', {
+// 		scope: $scope
+// 	}).then(function(modal) {
+// 		$scope.modal = modal;
+// 	});
+//
+// 	// Triggered in the login modal to close it
+// 	$scope.closeLogin = function() {
+// 		$scope.modal.hide();
+// 	};
+//
+// 	// Open the login modal
+// 	$scope.login = function() {
+// 		$scope.modal.show();
+// 	};
+//
+// 	// Perform the login action when the user submits the login form
+// 	$scope.doLogin = function() {
+// 		console.log('Doing login', $scope.loginData);
+//
+// 		// Simulate a login delay. Remove this and replace with your login
+// 		// code if using a login system
+// 		$timeout(function() {
+// 			$scope.closeLogin();
+// 		}, 1000);
+// 	};
+// });
+//
 
-.controller('FriendsCtrl', function($scope, Friends) {
-	$scope.friends = Friends.all();
-})
 
-.controller('FriendDetailCtrl', function($scope, $stateParams, Friends) {
-	$scope.friend = Friends.get($stateParams.friendId);
-})
-
-.controller('AccountCtrl', function($scope) {
-})
-
-.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-	// Form data for the login modal
-	$scope.loginData = {};
-
-	// Create the login modal that we will use later
-	$ionicModal.fromTemplateUrl('templates/login.html', {
-		scope: $scope
-	}).then(function(modal) {
-		$scope.modal = modal;
-	});
-
-	// Triggered in the login modal to close it
-	$scope.closeLogin = function() {
-		$scope.modal.hide();
-	};
-
-	// Open the login modal
-	$scope.login = function() {
-		$scope.modal.show();
-	};
-
-	// Perform the login action when the user submits the login form
-	$scope.doLogin = function() {
-		console.log('Doing login', $scope.loginData);
-
-		// Simulate a login delay. Remove this and replace with your login
-		// code if using a login system
-		$timeout(function() {
-			$scope.closeLogin();
-		}, 1000);
-	};
-})
-
-.controller('PlaylistsCtrl', function($scope) {
-	$scope.playlists = [
-		{ title: 'Reggae', id: 1 },
-		{ title: 'Chill', id: 2 },
-		{ title: 'Dubstep', id: 3 },
-		{ title: 'Indie', id: 4 },
-		{ title: 'Rap', id: 5 },
-		{ title: 'Cowbell', id: 6 }
-	];
-})
-
-.controller('PlaylistCtrl', function($scope, $stateParams) {
+c.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
+	console.log('app starting');
 });
-
 
 /* Sign up */
 c.controller('SignupCtrl', function($scope, db, $rootScope, $state) {
@@ -105,7 +96,7 @@ c.controller('LogoutCtrl', function(db, $state) {
 /* User Settings */
 c.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession) {
 	resumeSession($scope);
-	
+
 	$scope.update = function() {
 		db.updateUserData($scope.user).then(function() {
 			console.log('User update sucessful', $scope.user);
@@ -139,7 +130,7 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 
 	$scope.dinner = {};
 	if ($scope.user) $scope.dinner = {user: $scope.user.uid};
-	
+
 	$scope.create = function() {
 		db.newDinner($scope.dinner).then(function(data) {
 			console.log('Dinner created', $scope.dinner);
