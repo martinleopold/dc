@@ -27,27 +27,25 @@ s.factory('Friends', function() {
 
 s.factory('resumeSession', function($rootScope, db, $q, $state) {
 	return function($scope) {
-		var d = $q.defer();
-		var uid = db.currentSession();
-		console.log('user session:', uid);
-		if (uid) {
-			if ($rootScope.user && $rootScope.user.uid === uid) {
+		return db.auth.getCurrentSession()
+		.then(function onFulfilled (userId) {
+			if ($rootScope.user && $rootScope.user.uid === userId) {
 				// no need to refetch user data
 				$scope.user = $rootScope.user;
-				d.resolve($scope.user);
+				return $scope.user;
 			} else {
-				db.getUserData(uid).then(function(user) {
+				console.log('resuming session for user', userId);
+				// fetch user data
+				db.user.get(userId).then(function(user) {
+					console.log('resume successful', user);
 					$rootScope.user = user;
 					$scope.user = user;
-					console.log('user:', user);
-					d.resolve(user);
+					return user;
 				});
 			}
-		} else {
-			d.reject();
+		}).catch(function onRejected (error) {
 			$state.go('app.login');
-		}
-		return d.promise;
+		});
 	};
 });
 
@@ -59,5 +57,23 @@ s.factory('util', function() {
 			var d = new Date( n.getTime() - n.getTimezoneOffset()*60000 + offsetMins*60000 );
 			return (d.toISOString()).substring(0,16);
 		}
+	};
+});
+
+s.factory('login', function($rootScope, db, $state) {
+	return function(user) {
+		console.log("logging in", user);
+
+		return db.auth.login(user).then(function(userId) {
+			console.log("getting user", userId);
+			db.user.get(userId).then(function (user) {
+				console.log("login successful", user);
+				$rootScope.user = user;
+				$state.go('app.settings');
+			});
+		}, function(error) {
+			console.error('error logging in', error);
+			throw error;
+		});
 	};
 });

@@ -50,37 +50,48 @@ var c = angular.module( 'dc.controllers', ['dc.services'] );
 
 
 c.controller('AppCtrl', function($scope, $ionicModal, $timeout) {
-	console.log('app starting');
+	console.log('Controller: app');
 });
 
 /* Sign up */
-c.controller('SignupCtrl', function($scope, db, $rootScope, $state) {
+c.controller('SignupCtrl', function($scope, db, $rootScope, $state, login) {
+	console.log('Controller: signup');
 	$scope.user = {};
+
 	$scope.signup = function() {
 		console.log('signing up', $scope.user);
-		db.signup($scope.user).then( function(userData) {
-			console.log('Signup successful', userData);
-			$rootScope.user = userData;
-			$state.go('app.settings');
-		}, function(error) {
-			console.error('Error signing up', error);
+		var user;
+		db.auth.createUser($scope.user)
+		.then(function(userId) {
+			user = {
+				userId: userId,
+				firstName: $scope.user.firstName,
+				lastName: $scope.user.lastName,
+				email: $scope.user.email
+			};
+			return db.user.create(user);
+		}).then(function() {
+			console.log('signup successful');
+			login($scope.user);
+		}).catch(function (error) {
+			console.error('error signing up', error);
 		});
 	};
 });
 
 
 /* Log in */
-c.controller('LoginCtrl', function($scope, db, $rootScope, $state) {
+c.controller('LoginCtrl', function($scope, login) {
+	console.log('Controller: login');
+
 	$scope.user = {};
+	$scope.user = {
+		'email': 'jd@example.com',
+		'password': 'asdf'
+	};
+
 	$scope.login = function() {
-		console.log("logging in", $scope.user);
-		db.login($scope.user).then(function(userData) {
-			console.log("Login successful", userData);
-			$rootScope.user = userData;
-			$state.go('app.settings');
-		}, function(error) {
-			console.error('Error logging in', error);
-		});
+		login($scope.user);
 	};
 });
 
@@ -88,20 +99,24 @@ c.controller('LoginCtrl', function($scope, db, $rootScope, $state) {
  * Log out
  */
 c.controller('LogoutCtrl', function(db, $state) {
-	db.logout();
+	console.log('Controller: logout');
+
+	db.auth.logout();
 	$state.go('app.login');
 });
 
 
 /* User Settings */
 c.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession) {
+	console.log('Controller: settings');
 	resumeSession($scope);
 
 	$scope.update = function() {
-		db.updateUserData($scope.user).then(function() {
-			console.log('User update sucessful', $scope.user);
+		console.log('updating user');
+		db.user.update($scope.user).then(function() {
+			console.log('update successful');
 		}, function(error) {
-			console.error('Error updating user', error);
+			console.error('update failed', error);
 		});
 	};
 

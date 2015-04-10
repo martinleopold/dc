@@ -1,59 +1,67 @@
 <ion-view title="Profile">
-  <ion-nav-buttons side="left">
-	<button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-  </ion-nav-buttons>
-  
-	<ion-tabs class="tabs-top tabs-dark tabs-striped">
-	  <ion-tab title="About">
-		<ion-content >
-			<div class="card">
-                <div class="item item-image">
-				<img src="img/pm_b.jpg">
-				<span class="badge badge-energized icon-left ion-ribbon-a">14</span>
-			</div>
-				<div class="item item-text-wrap">
-					<h1>{{user.firstname}} {{user.lastname}}</h1>
-					<p>cooked 28 times</p>
-                </div>
-                <div class="list novpadding">
-					<div class="row single">
-                        <div class="col">
-                            <button class="button button-block button-stable">
-                                Befriend
-                            </button>
-                        </div>
-                        <div class="col">
-                            <button class="button button-block button-stable icon-left ion-ribbon-a">
-                                Award a tip!
-                            </button>
-                        </div>
-                    </div>
-                </div>
-				<div class="item item-text-wrap">
-                    <p class="user-info">{{user.info}}</p>
-				</div>
-			</div>
-			
-			<h2>Dinners</h2>
-			<div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card dinner">
-				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
-				<a ng-href="#/app/dinner/{{dinnerId}}"class="row row-center">
-					<div class="col col-75 title-location">
-                        <p class="dinnertitle">{{dinner.title}}</p>
-                        <p class="dinnerlocation">at Selma's place</p>
-                    </div>
-					<div class="col">
-                        <p class="dinnerdate">
-                            <span>{{dinner | getBeginTime | date : 'd.M.'}}
-                            <span>{{dinner | getBeginTime | date : 'HH:mm'}}</span>
-                            </span>
-                        </p>
-                    </div>
-				</a>
-			</div>
-			</div>
-			
-			<!-- <h2>Friends</h2>
+   <ion-nav-buttons side="left">
+      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+   </ion-nav-buttons>
+
+   <ion-tabs class="tabs-top tabs-dark tabs-striped">
+      <ion-tab title="About">
+         <ion-content>
+            <div class="card">
+               <div class="item item-image">
+                  <img src="img/pm_b.jpg">
+                  <span class="badge badge-energized icon-left ion-ribbon-a">14</span>
+               </div>
+               <div class="item item-text-wrap">
+                  <h1>{{user.firstName}} {{user.lastName}}</h1>
+                  <p>cooked 28 times</p>
+               </div>
+               <div class="list novpadding">
+                  <div class="row single">
+                     <div class="col">
+                        <button class="button button-block button-stable">
+                           Befriend
+                        </button>
+                     </div>
+                     <div class="col">
+                        <button class="button button-block button-stable icon-left ion-ribbon-a">
+                           Award a tip!
+                        </button>
+                     </div>
+                  </div>
+               </div>
+               <div class="item item-text-wrap">
+                  <p class="user-info">{{user.info}}</p>
+               </div>
+            </div>
+
+            <h2>Dinners</h2>
+            <div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card dinner">
+               <style>
+                  a,
+                  a:visited,
+                  a:active,
+                  a:hover {
+                     text-decoration: none;
+                     color: black;
+                  }
+               </style>
+               <a ng-href="#/app/dinner/{{dinnerId}}" class="row row-center">
+                  <div class="col col-75 title-location">
+                     <p class="dinnertitle">{{dinner.title}}</p>
+                     <p class="dinnerlocation">at Selma's place</p>
+                  </div>
+                  <div class="col">
+                     <p class="dinnerdate">
+                        <span>{{dinner | getBeginTime | date : 'd.M.'}}
+                           <span>{{dinner | getBeginTime | date : 'HH:mm'}}</span>
+                        </span>
+                     </p>
+                  </div>
+               </a>
+            </div>
+            </div>
+
+            <!-- <h2>Friends</h2>
 			<div class="card">
 			   <div class="row row-center">
 					<div class="col">
@@ -83,97 +91,109 @@
 					</div>
 				</div>
 			</div> -->
-		</ion-content>
-	  </ion-tab>
+         </ion-content>
+      </ion-tab>
 
-	  <ion-tab title="Reviews">
-		<ion-content >
-			<h2>Reviews for <span class="dinnertitle">Wienerschnitzel with Kartoffelsalat</span></h2>
-            <label class="hint"><strong>Hey, you've taken part in this Dinner!</strong> Why don’t you write a bit about how you liked it?</label>
+      <ion-tab title="Reviews">
+         <ion-content>
+            <h2>Reviews for
+               <span class="dinnertitle">Wienerschnitzel with Kartoffelsalat</span>
+            </h2>
+            <label class="hint">
+               <strong>Hey, you've taken part in this Dinner!</strong> Why don’t you write a bit about how you liked it?</label>
             <div class="card conversation">
-		        <button class="button button-block button-stable icon ion-chatbubble-working">Write new review</button>  
-	        </div>
-      
-            <div class="card conversation">
-                <div class="list">
-                    <div class="item item-text-wrap">
-                    <div class="item-avatar" href="#">
-                      <img src="img/pw.jpg">
-                      <h3>Venkman</h3>
-                      <span>on Aug 14, 17:30</span>  
-                    </div>
-                    <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
-                    </div>
-                </div>
+               <button class="button button-block button-stable icon ion-chatbubble-working">Write new review</button>
             </div>
-            
-            <h2>Reviews for <span class="dinnertitle">Wienerschnitzel with Kartoffelsalat</span></h2>
-      
-            <div class="card conversation">
-                <div class="list">
-                    <div class="item item-text-wrap">
-                    <div class="item-avatar" href="#">
-                      <img src="img/pw.jpg">
-                      <h3>Venkman</h3>
-                      <span>on Aug 14, 17:30</span>  
-                    </div>
-                    <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
-                    </div>
-                </div>
-            </div>
-            
-            <div class="card conversation">
-                <div class="list">
-                    <div class="item item-text-wrap">
-                    <div class="item-avatar" href="#">
-                      <img src="img/pw.jpg">
-                      <h3>Venkman</h3>
-                      <span>on Aug 14, 17:30</span>  
-                    </div>
-                    <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
-                    </div>
-                </div>
-            </div>
-            
-            <h2>Reviews for <span class="dinnertitle">Wienerschnitzel with Kartoffelsalat</span></h2>
-            <label class="hint"><strong>Hey, you've taken part in this Dinner!</strong> Why don’t you write a bit about how you liked it?</label>
-            
-            <div class="card conversation">
-                <div class="list">
-                    <div class="item item-text-wrap">
-                    <div class="item-avatar" href="#">
-                      <img src="img/pw.jpg">
-                      <h3>Venkman</h3>
-                      <span>on Aug 14, 17:30</span>  
-                    </div>
-                    <textarea>
 
-                    </textarea>
-
-                    </div>
-
-                </div>
-                
-                <div class="button-bar">
-                    <a class="button button-stable">Cancel</a>
-                    <a class="button button-stable">Submit</a>
-                </div>
-            </div>
-      
             <div class="card conversation">
-                <div class="list">
-                    <div class="item item-text-wrap">
-                    <div class="item-avatar" href="#">
-                      <img src="img/pw.jpg">
-                      <h3>Venkman</h3>
-                      <span>on Aug 14, 17:30</span>  
-                    </div>
-                    <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
-                    </div>
-                </div>
+               <div class="list">
+                  <div class="item item-text-wrap">
+                     <div class="item-avatar" href="#">
+                        <img src="img/pw.jpg">
+                        <h3>Venkman</h3>
+                        <span>on Aug 14, 17:30</span>
+                     </div>
+                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
+                        wie die meine.</p>
+                  </div>
+               </div>
             </div>
-		</ion-content>
-	  </ion-tab>
 
-	</ion-tabs>
+            <h2>Reviews for
+               <span class="dinnertitle">Wienerschnitzel with Kartoffelsalat</span>
+            </h2>
+
+            <div class="card conversation">
+               <div class="list">
+                  <div class="item item-text-wrap">
+                     <div class="item-avatar" href="#">
+                        <img src="img/pw.jpg">
+                        <h3>Venkman</h3>
+                        <span>on Aug 14, 17:30</span>
+                     </div>
+                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
+                        wie die meine.</p>
+                  </div>
+               </div>
+            </div>
+
+            <div class="card conversation">
+               <div class="list">
+                  <div class="item item-text-wrap">
+                     <div class="item-avatar" href="#">
+                        <img src="img/pw.jpg">
+                        <h3>Venkman</h3>
+                        <span>on Aug 14, 17:30</span>
+                     </div>
+                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
+                        wie die meine.</p>
+                  </div>
+               </div>
+            </div>
+
+            <h2>Reviews for
+               <span class="dinnertitle">Wienerschnitzel with Kartoffelsalat</span>
+            </h2>
+            <label class="hint">
+               <strong>Hey, you've taken part in this Dinner!</strong> Why don’t you write a bit about how you liked it?</label>
+
+            <div class="card conversation">
+               <div class="list">
+                  <div class="item item-text-wrap">
+                     <div class="item-avatar" href="#">
+                        <img src="img/pw.jpg">
+                        <h3>Venkman</h3>
+                        <span>on Aug 14, 17:30</span>
+                     </div>
+                     <textarea>
+
+                     </textarea>
+
+                  </div>
+
+               </div>
+
+               <div class="button-bar">
+                  <a class="button button-stable">Cancel</a>
+                  <a class="button button-stable">Submit</a>
+               </div>
+            </div>
+
+            <div class="card conversation">
+               <div class="list">
+                  <div class="item item-text-wrap">
+                     <div class="item-avatar" href="#">
+                        <img src="img/pw.jpg">
+                        <h3>Venkman</h3>
+                        <span>on Aug 14, 17:30</span>
+                     </div>
+                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
+                        wie die meine.</p>
+                  </div>
+               </div>
+            </div>
+         </ion-content>
+      </ion-tab>
+
+   </ion-tabs>
 </ion-view>
