@@ -1,4 +1,4 @@
-<ion-view title="Log in">
+<ion-view view-title="Log in" hide-back-button>
 
    <!-- Der Burgerbutton kommt wieder raus, nur zu Testzwecken! -->
    <!-- <ion-nav-buttons side="left">
@@ -6,7 +6,6 @@
    </ion-nav-buttons> -->
 
    <ion-content>
-
       <form>
          <div class="card">
             <div class="list">
@@ -25,10 +24,9 @@
          <button ng-click="login()" type="submit" class="button button-block button-positive">Log in</button>
       </form>
 
-      <button ui-sref="app.signup" class="button button-energized button-block">Sign up</button>
+      <button ui-sref="signup" class="button button-energized button-block">Sign up</button>
       <button disabled class="button button-positive button-block icon-left ion-social-facebook">Login with Facebook</button>
       <button disabled class="button button-assertive button-block icon-left ion-social-google">Login with Google</button>
-
    </ion-content>
 
 </ion-view>
