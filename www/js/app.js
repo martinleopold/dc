@@ -36,7 +36,9 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 
    .state('logout', {
       url: '/logout',
-      controller: 'LogoutCtrl'
+      onEnter: function(logout) {
+         logout();
+      }
    })
 
    .state('signup', {

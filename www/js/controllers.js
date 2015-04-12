@@ -55,17 +55,6 @@ c.controller('LoginCtrl', function($scope, login) {
 
 
 /**
- * Log out
- */
-c.controller('LogoutCtrl', function(db, $state) {
-	console.log('Controller: logout');
-
-	db.auth.logout();
-	$state.go('app.login');
-});
-
-
-/**
  * Settings
  */
 c.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession) {

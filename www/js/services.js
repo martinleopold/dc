@@ -77,3 +77,16 @@ s.factory('login', function($rootScope, db, $state) {
 		});
 	};
 });
+
+s.factory('logout', function($rootScope, db, $state) {
+	return function() {
+		console.log("logging out");
+		$rootScope.user = {}; // immediately remove user from scope
+		db.auth.logout().then(function() {
+			console.log('logout sucessful');
+		}, function (error) {
+			console.error('error logging out', error);
+		});
+		$state.go('login'); // immediately go to login page
+	};
+});
