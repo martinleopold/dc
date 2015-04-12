@@ -46,7 +46,6 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
    })
 
 
-
    .state('app', {
       url: '/app',
       abstract: true,
@@ -54,12 +53,12 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       controller: 'AppCtrl'
    })
 
-   .state('app.user', {
-      url: "/user/:userId",
+   .state('app.settings', {
+      url: '/settings',
       views: {
-         'menuContent': {
-            templateUrl: "templates/profile.html",
-            controller: 'UserCtrl'
+         'mainContent': {
+            templateUrl: 'templates/settings.html',
+            controller: 'SettingsCtrl'
          }
       }
    })
@@ -67,48 +66,56 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
    .state('app.newdinner', {
       url: "/newdinner",
       views: {
-         'menuContent': {
+         'mainContent': {
             templateUrl: "templates/newdinner.html",
             controller: "NewDinnerCtrl"
          }
       }
    })
 
-   .state('app.dinner', {
-      url: "/dinner/:dinnerId",
-      views: {
-         'menuContent': {
-            templateUrl: "templates/dinner.html",
-            controller: 'DinnerCtrl'
-         }
-      }
-   })
+
 
    .state('app.lookfor', {
       url: "/lookfor",
       views: {
-         'menuContent': {
+         'mainContent': {
             templateUrl: "templates/lookfor.html",
             controller: 'LookForDinnersCtrl'
          }
       }
    })
 
-	.state('app.lookfor_filter', {
-      url: "/lookfor_filter",
+
+
+   .state('app.user', {
+      url: "/user/:userId",
       views: {
-         'menuContent': {
-            templateUrl: "templates/lookfor_filter.html",
+         'mainContent': {
+            templateUrl: "templates/profile.html",
+            controller: 'UserCtrl'
          }
       }
    })
 
-	.state('app.settings', {
-      url: "/settings",
+
+
+   .state('app.dinner', {
+      url: "/dinner/:dinnerId",
       views: {
-         'menuContent': {
-            templateUrl: "templates/settings.html",
-            controller: 'SettingsCtrl'
+         'mainContent': {
+            templateUrl: "templates/dinner.html",
+            controller: 'DinnerCtrl'
+         }
+      }
+   })
+
+
+
+	.state('app.lookfor_filter', {
+      url: "/lookfor_filter",
+      views: {
+         'mainContent': {
+            templateUrl: "templates/lookfor_filter.html",
          }
       }
    })
@@ -116,7 +123,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 	.state('app.developer', {
       url: "/developer",
       views: {
-         'menuContent': {
+         'mainContent': {
             templateUrl: "templates/developer.html"
          }
       }
@@ -125,7 +132,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 	.state('app.notifications', {
       url: "/notifications",
       views: {
-         'menuContent': {
+         'mainContent': {
             templateUrl: "templates/notifications.html"
          }
       }
@@ -134,7 +141,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 	.state('app.dinner_list', {
       url: "/dinner_list",
       views: {
-         'menuContent': {
+         'mainContent': {
             templateUrl: "templates/dinner_list.html"
          }
       }
@@ -143,7 +150,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 	.state('app.person_list', {
       url: "/person_list",
       views: {
-         'menuContent': {
+         'mainContent': {
             templateUrl: "templates/person_list.html"
          }
       }
@@ -152,7 +159,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 	.state('app.person_list_interactive', {
       url: "/person_list_interactive",
       views: {
-         'menuContent': {
+         'mainContent': {
             templateUrl: "templates/person_list_interactive.html"
          }
       }
@@ -161,7 +168,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 	.state('app.confirm_application', {
       url: "/confirm_application",
       views: {
-         'menuContent': {
+         'mainContent': {
             templateUrl: "templates/confirm_application.html"
          }
       }

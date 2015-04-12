@@ -1,62 +1,49 @@
 <ion-side-menus>
-	<ion-pane ion-side-menu-content>
+
+   <ion-side-menu-content>
+      <ion-nav-bar class="bar-dark">
+         <!-- <ion-nav-back-button></ion-nav-back-button> -->
+         <ion-nav-buttons side="left">
+            <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
+         </ion-nav-buttons>
+      </ion-nav-bar>
+
+	      <ion-nav-view name="mainContent"></ion-nav-view>
+   </ion-side-menu-content>
+
+   <!-- <ion-pane ion-side-menu-content>
 		<ion-nav-bar class="bar-dark nav-title-slide-ios7">
 			<ion-nav-back-button class="button-clear"><i class="icon ion-ios-arrow-back"></i> Back</ion-nav-back-button>
 		</ion-nav-bar>
 		<ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
-	</ion-pane>
+	</ion-pane> -->
 
-	<ion-side-menu side="left">
-		<header class="bar bar-header bar-dark bar-menu">
-            <div class="row row-center">
-                <div class="col-33">
-                    <!-- USER-IMAGE -->
-                </div>
-                <div class="col">
-                    <div class="username">John</div>
-                    <div class="row row-center">
-                        <div class="col-33 credits">8</div>
-                        <div class="col credits-label">Dinner<br />Credits</div>
-                    </div>
-                </div>
+   <ion-side-menu side="left">
+      <header class="bar bar-header bar-dark bar-menu">
+         <div class="row row-center">
+            <div class="col-33">
+               <!-- USER-IMAGE -->
             </div>
-		</header>
-		<ion-content class="has-header content-menu">
-			<ion-list>
-<!-- 				<ion-item nav-clear menu-close href="#/app/login">
-					Login
-				</ion-item> -->
+            <div class="col">
+               <div class="username">John</div>
+               <div class="row row-center">
+                  <div class="col-33 credits">8</div>
+                  <div class="col credits-label">Dinner
+                     <br />Credits</div>
+               </div>
+            </div>
+         </div>
+      </header>
 
-<!-- 				<ion-item nav-clear menu-close href="#/app/signup">
-					Sign Up
-				</ion-item> -->
-				<ion-item nav-clear menu-close href="#/app/newdinner">
-					Cook
-				</ion-item>
-				<ion-item nav-clear menu-close href="#/app/lookfor">
-					Eat
-				</ion-item>
-<!-- 				<ion-item nav-clear menu-close href="#/app/lookfor_filter">
-					Filter Options
-				</ion-item>
-				<ion-item nav-clear menu-close href="#/app/profile">
-					Profile
-				</ion-item>
-				<ion-item nav-clear menu-close href="#/app/dinner">
-					Dinner
-				</ion-item> -->
-				<ion-item nav-clear menu-close href="#/app/settings">
-					Settings
-				</ion-item>
-				<ion-item nav-clear menu-close href="#/app/logout">
-					Logout
-				</ion-item>
+      <ion-content class="has-header content-menu">
+         <ion-list>
+            <ion-item nav-clear menu-close ui-sref="app.newdinner">Cook</ion-item>
+            <ion-item nav-clear menu-close ui-sref="app.lookfor">Eat</ion-item>
+            <ion-item nav-clear menu-close ui-sref="app.settings">Settings</ion-item>
+            <ion-item nav-clear menu-close ui-sref="logout">Logout</ion-item>
+            <ion-item nav-clear menu-close ui-sref="app.developer">Developer</ion-item>
+         </ion-list>
+      </ion-content>
+   </ion-side-menu>
 
-				<ion-item nav-clear menu-close href="#/app/developer">
-					Developer
-				</ion-item>
-
-			</ion-list>
-		</ion-content>
-	</ion-side-menu>
 </ion-side-menus>
