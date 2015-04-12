@@ -4,7 +4,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.directives'])
+angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.directives', 'dc.dev'])
 
 .run(function($ionicPlatform) {
    $ionicPlatform.ready(function() {
@@ -73,30 +73,25 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       }
    })
 
-
-
    .state('app.lookfor', {
       url: "/lookfor",
       views: {
          'mainContent': {
             templateUrl: "templates/lookfor.html",
-            controller: 'LookForDinnersCtrl'
+            // controller: 'LookForDinnersCtrl' // FIXME
          }
       }
    })
-
-
 
    .state('app.user', {
       url: "/user/:userId",
       views: {
          'mainContent': {
             templateUrl: "templates/profile.html",
-            controller: 'UserCtrl'
+            // controller: 'UserCtrl'
          }
       }
    })
-
 
 
    .state('app.dinner', {
@@ -104,75 +99,11 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       views: {
          'mainContent': {
             templateUrl: "templates/dinner.html",
-            controller: 'DinnerCtrl'
+            // controller: 'DinnerCtrl'
          }
       }
    })
 
-
-
-	.state('app.lookfor_filter', {
-      url: "/lookfor_filter",
-      views: {
-         'mainContent': {
-            templateUrl: "templates/lookfor_filter.html",
-         }
-      }
-   })
-
-	.state('app.developer', {
-      url: "/developer",
-      views: {
-         'mainContent': {
-            templateUrl: "templates/developer.html"
-         }
-      }
-   })
-
-	.state('app.notifications', {
-      url: "/notifications",
-      views: {
-         'mainContent': {
-            templateUrl: "templates/notifications.html"
-         }
-      }
-   })
-
-	.state('app.dinner_list', {
-      url: "/dinner_list",
-      views: {
-         'mainContent': {
-            templateUrl: "templates/dinner_list.html"
-         }
-      }
-   })
-
-	.state('app.person_list', {
-      url: "/person_list",
-      views: {
-         'mainContent': {
-            templateUrl: "templates/person_list.html"
-         }
-      }
-   })
-
-	.state('app.person_list_interactive', {
-      url: "/person_list_interactive",
-      views: {
-         'mainContent': {
-            templateUrl: "templates/person_list_interactive.html"
-         }
-      }
-   })
-
-	.state('app.confirm_application', {
-      url: "/confirm_application",
-      views: {
-         'mainContent': {
-            templateUrl: "templates/confirm_application.html"
-         }
-      }
-   })
 
    // if none of the above states are matched, use this as the fallback
    $urlRouterProvider.otherwise('/login');

@@ -102,6 +102,7 @@ c.controller('UserCtrl', function($scope, db, resumeSession, $stateParams) {
 
 /* New Dinner */
 c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSession, util) {
+	console.log('Controller: newdinner');
 	resumeSession($scope);
 
 	$scope.dinner = {};
@@ -128,6 +129,7 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 
 /* Look for  Dinner */
 c.controller('LookForDinnersCtrl', function($scope, db, resumeSession) {
+	console.log('Controller: lookfor');
 	resumeSession($scope);
 	$scope.dinners = db.getDinnersSync();
 	//console.log('dinners', $scope.dinners);
