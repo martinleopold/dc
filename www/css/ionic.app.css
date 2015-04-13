@@ -3611,14 +3611,14 @@ a.subdued {
   background-image: none;
   border: none;
   border-bottom: 1px solid #ddd;
-  padding-top: 20px; }
+  padding-top: 2px; }
 .tabs-striped .tab-item.tab-item-active, .tabs-striped .tab-item.active, .tabs-striped .tab-item.activated {
-  margin-top: -20px;
+  margin-top: -2px;
   border-style: solid;
-  border-width: 20px 0 0 0;
+  border-width: 2px 0 0 0;
   border-color: #323232; }
   .tabs-striped .tab-item.tab-item-active .badge, .tabs-striped .tab-item.active .badge, .tabs-striped .tab-item.activated .badge {
-    top: 20px;
+    top: 2px;
     opacity: 1; }
 .tabs-striped.tabs-light .tabs {
   background-color: #fff; }
@@ -3628,10 +3628,10 @@ a.subdued {
   .tabs-striped.tabs-light .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-light .tab-item.tab-item-active, .tabs-striped.tabs-light .tab-item.active, .tabs-striped.tabs-light .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #323232;
     border-style: solid;
-    border-width: 20px 0 0 0;
+    border-width: 2px 0 0 0;
     border-color: #323232; }
 .tabs-striped.tabs-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-top .tab-item.active .badge, .tabs-striped.tabs-top .tab-item.activated .badge {
   top: 4%; }
@@ -3643,10 +3643,10 @@ a.subdued {
   .tabs-striped.tabs-stable .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-stable .tab-item.tab-item-active, .tabs-striped.tabs-stable .tab-item.active, .tabs-striped.tabs-stable .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #323232;
     border-style: solid;
-    border-width: 20px 0 0 0;
+    border-width: 2px 0 0 0;
     border-color: #323232; }
 .tabs-striped.tabs-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-top .tab-item.active .badge, .tabs-striped.tabs-top .tab-item.activated .badge {
   top: 4%; }
@@ -3658,10 +3658,10 @@ a.subdued {
   .tabs-striped.tabs-positive .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-positive .tab-item.tab-item-active, .tabs-striped.tabs-positive .tab-item.active, .tabs-striped.tabs-positive .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #fff;
     border-style: solid;
-    border-width: 20px 0 0 0;
+    border-width: 2px 0 0 0;
     border-color: #fff; }
 .tabs-striped.tabs-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-top .tab-item.active .badge, .tabs-striped.tabs-top .tab-item.activated .badge {
   top: 4%; }
@@ -3673,10 +3673,10 @@ a.subdued {
   .tabs-striped.tabs-calm .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-calm .tab-item.tab-item-active, .tabs-striped.tabs-calm .tab-item.active, .tabs-striped.tabs-calm .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #fff;
     border-style: solid;
-    border-width: 20px 0 0 0;
+    border-width: 2px 0 0 0;
     border-color: #fff; }
 .tabs-striped.tabs-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-top .tab-item.active .badge, .tabs-striped.tabs-top .tab-item.activated .badge {
   top: 4%; }
@@ -3688,10 +3688,10 @@ a.subdued {
   .tabs-striped.tabs-assertive .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-assertive .tab-item.tab-item-active, .tabs-striped.tabs-assertive .tab-item.active, .tabs-striped.tabs-assertive .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #fff;
     border-style: solid;
-    border-width: 20px 0 0 0;
+    border-width: 2px 0 0 0;
     border-color: #fff; }
 .tabs-striped.tabs-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-top .tab-item.active .badge, .tabs-striped.tabs-top .tab-item.activated .badge {
   top: 4%; }
@@ -3703,10 +3703,10 @@ a.subdued {
   .tabs-striped.tabs-balanced .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-balanced .tab-item.tab-item-active, .tabs-striped.tabs-balanced .tab-item.active, .tabs-striped.tabs-balanced .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #fff;
     border-style: solid;
-    border-width: 20px 0 0 0;
+    border-width: 2px 0 0 0;
     border-color: #fff; }
 .tabs-striped.tabs-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-top .tab-item.active .badge, .tabs-striped.tabs-top .tab-item.activated .badge {
   top: 4%; }
@@ -3718,10 +3718,10 @@ a.subdued {
   .tabs-striped.tabs-energized .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-energized .tab-item.tab-item-active, .tabs-striped.tabs-energized .tab-item.active, .tabs-striped.tabs-energized .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #fff;
     border-style: solid;
-    border-width: 20px 0 0 0;
+    border-width: 2px 0 0 0;
     border-color: #fff; }
 .tabs-striped.tabs-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-top .tab-item.active .badge, .tabs-striped.tabs-top .tab-item.activated .badge {
   top: 4%; }
@@ -3733,10 +3733,10 @@ a.subdued {
   .tabs-striped.tabs-royal .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-royal .tab-item.tab-item-active, .tabs-striped.tabs-royal .tab-item.active, .tabs-striped.tabs-royal .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #fff;
     border-style: solid;
-    border-width: 20px 0 0 0;
+    border-width: 2px 0 0 0;
     border-color: #fff; }
 .tabs-striped.tabs-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-top .tab-item.active .badge, .tabs-striped.tabs-top .tab-item.activated .badge {
   top: 4%; }
@@ -3748,10 +3748,10 @@ a.subdued {
   .tabs-striped.tabs-dark .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-dark .tab-item.tab-item-active, .tabs-striped.tabs-dark .tab-item.active, .tabs-striped.tabs-dark .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #fff;
     border-style: solid;
-    border-width: 20px 0 0 0;
+    border-width: 2px 0 0 0;
     border-color: #fff; }
 .tabs-striped.tabs-top .tab-item.tab-item-active .badge, .tabs-striped.tabs-top .tab-item.active .badge, .tabs-striped.tabs-top .tab-item.activated .badge {
   top: 4%; }
@@ -3788,12 +3788,12 @@ a.subdued {
   .tabs-striped.tabs-color-light .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-light .tab-item.tab-item-active, .tabs-striped.tabs-color-light .tab-item.active, .tabs-striped.tabs-color-light .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #fff;
     border: 0 solid #fff;
-    border-top-width: 20px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-light .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-light .tab-item.active .badge, .tabs-striped.tabs-color-light .tab-item.activated .badge {
-      top: 20px;
+      top: 2px;
       opacity: 1; }
 .tabs-striped.tabs-color-stable .tab-item {
   color: rgba(242, 242, 242, 0.4);
@@ -3801,12 +3801,12 @@ a.subdued {
   .tabs-striped.tabs-color-stable .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-stable .tab-item.tab-item-active, .tabs-striped.tabs-color-stable .tab-item.active, .tabs-striped.tabs-color-stable .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #f2f2f2;
     border: 0 solid #f2f2f2;
-    border-top-width: 20px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-stable .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-stable .tab-item.active .badge, .tabs-striped.tabs-color-stable .tab-item.activated .badge {
-      top: 20px;
+      top: 2px;
       opacity: 1; }
 .tabs-striped.tabs-color-positive .tab-item {
   color: rgba(22, 230, 192, 0.4);
@@ -3814,12 +3814,12 @@ a.subdued {
   .tabs-striped.tabs-color-positive .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-positive .tab-item.tab-item-active, .tabs-striped.tabs-color-positive .tab-item.active, .tabs-striped.tabs-color-positive .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #16e6c0;
     border: 0 solid #16e6c0;
-    border-top-width: 20px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-positive .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-positive .tab-item.active .badge, .tabs-striped.tabs-color-positive .tab-item.activated .badge {
-      top: 20px;
+      top: 2px;
       opacity: 1; }
 .tabs-striped.tabs-color-calm .tab-item {
   color: rgba(17, 193, 243, 0.4);
@@ -3827,12 +3827,12 @@ a.subdued {
   .tabs-striped.tabs-color-calm .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-calm .tab-item.tab-item-active, .tabs-striped.tabs-color-calm .tab-item.active, .tabs-striped.tabs-color-calm .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #11c1f3;
     border: 0 solid #11c1f3;
-    border-top-width: 20px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-calm .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-calm .tab-item.active .badge, .tabs-striped.tabs-color-calm .tab-item.activated .badge {
-      top: 20px;
+      top: 2px;
       opacity: 1; }
 .tabs-striped.tabs-color-assertive .tab-item {
   color: rgba(239, 71, 58, 0.4);
@@ -3840,12 +3840,12 @@ a.subdued {
   .tabs-striped.tabs-color-assertive .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-assertive .tab-item.tab-item-active, .tabs-striped.tabs-color-assertive .tab-item.active, .tabs-striped.tabs-color-assertive .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #ef473a;
     border: 0 solid #ef473a;
-    border-top-width: 20px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-assertive .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-assertive .tab-item.active .badge, .tabs-striped.tabs-color-assertive .tab-item.activated .badge {
-      top: 20px;
+      top: 2px;
       opacity: 1; }
 .tabs-striped.tabs-color-balanced .tab-item {
   color: rgba(51, 205, 95, 0.4);
@@ -3853,12 +3853,12 @@ a.subdued {
   .tabs-striped.tabs-color-balanced .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-balanced .tab-item.tab-item-active, .tabs-striped.tabs-color-balanced .tab-item.active, .tabs-striped.tabs-color-balanced .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #33cd5f;
     border: 0 solid #33cd5f;
-    border-top-width: 20px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-balanced .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-balanced .tab-item.active .badge, .tabs-striped.tabs-color-balanced .tab-item.activated .badge {
-      top: 20px;
+      top: 2px;
       opacity: 1; }
 .tabs-striped.tabs-color-energized .tab-item {
   color: rgba(232, 63, 114, 0.4);
@@ -3866,12 +3866,12 @@ a.subdued {
   .tabs-striped.tabs-color-energized .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-energized .tab-item.tab-item-active, .tabs-striped.tabs-color-energized .tab-item.active, .tabs-striped.tabs-color-energized .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #e83f72;
     border: 0 solid #e83f72;
-    border-top-width: 20px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-energized .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-energized .tab-item.active .badge, .tabs-striped.tabs-color-energized .tab-item.activated .badge {
-      top: 20px;
+      top: 2px;
       opacity: 1; }
 .tabs-striped.tabs-color-royal .tab-item {
   color: rgba(136, 106, 234, 0.4);
@@ -3879,12 +3879,12 @@ a.subdued {
   .tabs-striped.tabs-color-royal .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-royal .tab-item.tab-item-active, .tabs-striped.tabs-color-royal .tab-item.active, .tabs-striped.tabs-color-royal .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #886aea;
     border: 0 solid #886aea;
-    border-top-width: 20px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-royal .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-royal .tab-item.active .badge, .tabs-striped.tabs-color-royal .tab-item.activated .badge {
-      top: 20px;
+      top: 2px;
       opacity: 1; }
 .tabs-striped.tabs-color-dark .tab-item {
   color: rgba(50, 50, 50, 0.4);
@@ -3892,12 +3892,12 @@ a.subdued {
   .tabs-striped.tabs-color-dark .tab-item .badge {
     opacity: 0.4; }
   .tabs-striped.tabs-color-dark .tab-item.tab-item-active, .tabs-striped.tabs-color-dark .tab-item.active, .tabs-striped.tabs-color-dark .tab-item.activated {
-    margin-top: -20px;
+    margin-top: -2px;
     color: #323232;
     border: 0 solid #323232;
-    border-top-width: 20px; }
+    border-top-width: 2px; }
     .tabs-striped.tabs-color-dark .tab-item.tab-item-active .badge, .tabs-striped.tabs-color-dark .tab-item.active .badge, .tabs-striped.tabs-color-dark .tab-item.activated .badge {
-      top: 20px;
+      top: 2px;
       opacity: 1; }
 
 .tabs-background-light .tabs, .tabs-background-light > .tabs {
@@ -4091,11 +4091,11 @@ ion-tabs.tabs-color-active-dark .tab-item {
     -o-transition: color .1s ease;
     transition: color .1s ease; }
     .tabs-top.tabs-striped .tab-item.tab-item-active, .tabs-top.tabs-striped .tab-item.active, .tabs-top.tabs-striped .tab-item.activated {
-      margin-top: 19px;
-      border-width: 0px 0px 20px 0px !important;
+      margin-top: 1px;
+      border-width: 0px 0px 2px 0px !important;
       border-style: solid; }
       .tabs-top.tabs-striped .tab-item.tab-item-active > .badge, .tabs-top.tabs-striped .tab-item.tab-item-active > i, .tabs-top.tabs-striped .tab-item.active > .badge, .tabs-top.tabs-striped .tab-item.active > i, .tabs-top.tabs-striped .tab-item.activated > .badge, .tabs-top.tabs-striped .tab-item.activated > i {
-        margin-top: -19px; }
+        margin-top: -1px; }
     .tabs-top.tabs-striped .tab-item .badge {
       -webkit-transition: color .2s ease;
       -moz-transition: color .2s ease;
@@ -7756,8 +7756,8 @@ button.button-block {
     color: #fff; }
   .tabs-top.tabs-striped.tab-item-active, .tabs-top.tabs-striped.active, .tabs-top.tabs-striped.activated {
     margin-top: 0;
-    margin-bottom: -20px;
-    border-width: 0px 0px 20px 0px !important;
+    margin-bottom: -2px;
+    border-width: 0px 0px 2px 0px !important;
     border-style: solid; }
   .tabs-top .icon {
     font-size: 24px; }

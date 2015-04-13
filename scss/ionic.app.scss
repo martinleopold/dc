@@ -109,7 +109,7 @@ $tabs-height:                     $height-medium !default;
 $tabs-text-font-size:             $font-size-button !default;
 $tabs-text-font-style:            italic !default;
 
-$tabs-striped-border-width:       20px; //???
+// $tabs-striped-border-width:       20px; //???
 
 //Z-Indexes
 //--------------------------------
@@ -136,7 +136,7 @@ h2{
     font-size: $font-size-tiny;
     text-transform: uppercase;
     margin: 2*$content-padding 2*$content-padding $content-padding 2*$content-padding;
-    
+
     .dinnertitle{
         font-family: $font-family-serif;
         text-transform: none;
@@ -256,7 +256,7 @@ button.button-block{
         font-style: italic;
         font-weight: normal;
     }
-    
+
     .data{
         color: $positive;
         font-weight: 600;
@@ -302,7 +302,7 @@ button.button-block{
     .icon{
         font-size: $font-size-xlarge;
     }
-    
+
     .button{
         font-size: $font-size-button;
     }
@@ -470,14 +470,14 @@ button.button-block{
 
         }
     }
-    
+
     //Error-Labels within a form
-    
+
     &.error{
         padding: 0 $gru $hgru $gru;
         margin: 0;
     }
-    
+
     &.error:last-child{
         padding-bottom: $hgru;
     }
@@ -538,11 +538,11 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     white-space: normal;
     line-height: $font-size-base;
     display: none;
-    
+
     strong{
         font-weight: 900;
     }
-    
+
     .dinnertitle{
         font-family: $font-family-serif;
         text-transform: none;
@@ -680,7 +680,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         min-width: 19*$gru;
         max-width: 19*$gru;
     }
-        
+
     .button:first-child{
         min-width: 5*$gru + $hgru;
         width: 5*$gru + $hgru;
@@ -688,7 +688,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         font-size: $font-size-small;
         border-right: 1px solid #15D9B7;
     }
-    
+
     a.button.icon:before, a.button.icon-left:before, a.button.icon-right:before{
     font-size: $font-size-large;
     }
@@ -715,11 +715,11 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     font-size: $font-size-small;
     line-height: $font-size-button;
     font-style: italic;
-    
+
     &.positive{
         background-color: $positive;
     }
-    
+
     strong{
         font-weight: 600;
         font-style: normal;
@@ -739,12 +739,12 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     &.dinner-title{
         padding-top: $gru + $hgru;
     }
-    
+
     &.dinner-info{
         padding-top: 0;
         padding-bottom: 2*$gru + $hgru
     }
-    
+
     .row{
         margin-bottom: 2*$gru;
 
@@ -768,7 +768,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .dinner-categories{
     padding: $gru 3*$gru 2*$gru 3*$gru;
-    
+
     .category{
         font-size: $font-size-small;
         text-transform: capitalize;
@@ -812,7 +812,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     padding: $hgru 2*$gru $gru 2*$gru;
     font-size: $font-size-small;
     font-weight: 300;
-    
+
     strong{
         font-weight: normal;
         font-style: italic;
@@ -1299,16 +1299,16 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .conversation{
     padding-top: 2*$gru 0 0 0;
-    
+
     .list{
         padding: 0;
-        
+
         .item{
             border-bottom: 1px solid $grey-15;
-            
+
             &.item-text-wrap{
                 padding: 2*$gru 0 0 0;
-                
+
                 p{
                     padding: 0 2*$gru 2*$gru 2*$gru;
                     font-family: $font-family-serif;
@@ -1316,30 +1316,30 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                     line-height: 2*$gru + $hgru;
                 }
             }
-            
+
             .item-avatar{
                 padding-left: 7*$gru;
                 line-height: 4*$gru;
                 vertical-align: middle;
                 min-height: 4*$gru;
                 margin-bottom: $gru + $hgru;
-                
+
                 img:first-child{
                     height: 4*$gru;
                     width: 4*$gru;
                 }
-                
+
                 h3{
                     display: inline;
                     font-size: $font-size-button;
                 }
-                
+
                 span{
                     font-size: $font-size-small;
                     font-weight: 300;
                 }
             }
-            
+
             textarea{
                 padding: 2*$gru;
                 background-color: $grey-05;
@@ -1350,32 +1350,32 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 font-size: $font-size-small;
                 min-height: 9*$gru;
             }
-            
+
         }
-        
+
     }
-    
+
     .button-bar{
-            
+
             background-color: $stable;
-        
+
             .button{
                 line-height: 7*$gru;
                 height: 7*$gru;
                 min-width: 7*$gru;
             }
-        
+
             .button:first-child{
                 border-right: 1px solid $grey-15;
             }
     }
-    
+
     button{
-        
+
         &.button-block{
             line-height: 9*$gru;
         }
-        
+
         &.icon:before{
             line-height: 9*$gru;
             padding-right: $gru+$hgru;
@@ -1383,4 +1383,3 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         }
     }
 }
-
