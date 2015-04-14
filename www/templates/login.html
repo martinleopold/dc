@@ -6,25 +6,30 @@
    </ion-nav-buttons> -->
 
    <ion-content>
-      <form>
+      <form name="form" novalidate >
          <div class="card">
             <div class="list">
-               <label class="item error">Either E-Mail or password are incorrect. Maybe both.</label>
+               <label ng-show="error == 'NETWORK_ERROR'" class="item error">Oh my! Looks like there is a problem with the network...</label>
+               <label ng-show="error == 'INVALID_PASSWORD' || error == 'INVALID_EMAIL' || error == 'INVALID_USER'" class="item error">Either E-Mail or password are incorrect. Maybe both.</label>
+
+               <label ng-show="form.email.$touched && form.email.$invalid" class="item error">Please enter a valid e-mail address.</label>
                <label class="item item-input">
-                  <input ng-model="user.email" type="text" placeholder="E-Mail">
+                  <input ng-model="user.email" required name="email" type="email" placeholder="E-Mail">
                </label>
+
+               <label ng-show="form.password.$touched && form.password.$invalid" class="item error">Surely your password isn't empty, is it?</label>
                <label class="item item-input">
-                  <input ng-model="user.password" type="password" placeholder="Password">
+                  <input ng-model="user.password" required minLength=1 name="password" type="password" placeholder="Password">
                </label>
 
                <!-- doesn't work in here. will trigger login() -->
                <!-- 					<button ng-click="gotoSignup()" type="button" class="button button-calm button-block">Sign up</button> -->
             </div>
          </div>
-         <button ng-click="login()" type="submit" class="button button-block button-positive">Log in</button>
+         <button ng-disabled="pending || form.$invalid" ng-click="login()" type="submit" class="button button-block button-positive">{{ !pending ? 'Log in' : 'Logging in...' }}</button>
       </form>
 
-      <button ui-sref="signup" class="button button-energized button-block">Sign up</button>
+      <button ng-disabled="isBusy" ui-sref="signup" class="button button-energized button-block">Sign up</button>
       <button disabled class="button button-positive button-block icon-left ion-social-facebook">Login with Facebook</button>
       <button disabled class="button button-assertive button-block icon-left ion-social-google">Login with Google</button>
    </ion-content>
