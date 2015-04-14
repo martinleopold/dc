@@ -29,7 +29,7 @@
          <button ng-disabled="pending || form.$invalid" ng-click="login()" type="submit" class="button button-block button-positive">{{ !pending ? 'Log in' : 'Logging in...' }}</button>
       </form>
 
-      <button ng-disabled="isBusy" ui-sref="signup" class="button button-energized button-block">Sign up</button>
+      <button ng-disabled="pending" ui-sref="signup" class="button button-energized button-block">Sign up</button>
       <button disabled class="button button-positive button-block icon-left ion-social-facebook">Login with Facebook</button>
       <button disabled class="button button-assertive button-block icon-left ion-social-google">Login with Google</button>
    </ion-content>
