@@ -7909,8 +7909,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
   font-style: italic;
   padding: 0 16px 8px 16px;
   white-space: normal;
-  line-height: 16px;
-  display: none; }
+  line-height: 16px; }
   .error strong, .hint strong {
     font-weight: 900; }
   .error .dinnertitle, .hint .dinnertitle {

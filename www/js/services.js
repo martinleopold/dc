@@ -90,3 +90,26 @@ s.factory('logout', function($rootScope, db, $state) {
 		$state.go('login'); // immediately go to login page
 	};
 });
+
+// ping pending state of a promise to a variable $scope.name
+s.factory('bindPending', function() {
+	return function(promise, $scope, name) {
+		if (!name) name = 'pending';
+		// console.log(name);
+
+		function done () {
+			console.log('resetting isBusy');
+			$scope[name] = false;
+		}
+		console.log('setting isBusy');
+		$scope[name] = true;
+
+		return promise.then(function onResolve (value) {
+			done();
+			return value;
+		}, function onReject (error) {
+			done();
+			throw error;
+		});
+	};
+});

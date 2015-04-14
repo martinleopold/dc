@@ -39,7 +39,7 @@ c.controller('SignupCtrl', function($scope, db, $rootScope, $state, login) {
 /**
  * Log in
  */
-c.controller('LoginCtrl', function($scope, login) {
+c.controller('LoginCtrl', function($scope, login, bindPending) {
 	console.log('Controller: login');
 
 	$scope.user = {};
@@ -49,7 +49,11 @@ c.controller('LoginCtrl', function($scope, login) {
 	};
 
 	$scope.login = function() {
-		login($scope.user);
+		bindPending( login($scope.user), $scope )
+		.catch(function(error) {
+			$scope.error = error.code;
+			throw error;
+		});
 	};
 });
 
