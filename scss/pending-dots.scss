@@ -1,0 +1,34 @@
+.show-pending-dots {
+   &.pending-dots,
+   .pending-dots {
+      display: inline;
+   }
+}
+
+.pending-dots {
+   display: none;
+   span {
+      -webkit-animation-name: pulse;
+      -webkit-animation-duration: 1.5s;
+      -webkit-animation-iteration-count: infinite;
+      -webkit-animation-fill-mode: both;
+      &:nth-child(2) {
+         -webkit-animation-delay: 0.33s;
+      }
+      &:nth-child(3) {
+         -webkit-animation-delay: 0.66s;
+      }
+   }
+}
+
+@-webkit-keyframes pulse {
+   0% {
+      opacity: 0.2;
+   }
+   33% {
+      opacity: 1;
+   }
+   100% {
+      opacity: 0;
+   }
+}
