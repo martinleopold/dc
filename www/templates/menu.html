@@ -25,9 +25,9 @@
                <!-- USER-IMAGE -->
             </div>
             <div class="col">
-               <div class="username">John</div>
+               <div class="username">{{user.firstName}}</div>
                <div class="row row-center">
-                  <div class="col-33 credits">8</div>
+                  <div class="col-33 credits">{{user.numCredits || 0}}</div>
                   <div class="col credits-label">Dinner
                      <br />Credits</div>
                </div>
