@@ -98,11 +98,14 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 	console.log('Controller: newdinner');
 	resumeSession($scope);
 
-	$scope.dinner = {};
-	if ($scope.user) $scope.dinner = {user: $scope.user.uid};
+	$scope.dinner = {
+		isPublic: true
+	};
+
+	if ($scope.user) $scope.dinner.hostedByUser = $scope.user.userId;
 
 	$scope.create = function() {
-		db.newDinner($scope.dinner).then(function(data) {
+		db.dinner.create($scope.dinner).then(function(data) {
 			console.log('Dinner created', $scope.dinner);
 			$state.go('app.lookfor');
 		}, function(error) {
@@ -111,11 +114,8 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 	};
 
 	$scope.fromNow = function() {
-		$scope.dinner.takeaway = {
-			from : util.now(),
-			until : util.now(60),
-			enabled: true
-		};
+		$scope.dinner.takeawayFrom = util.now();
+		$scope.dinner.takeawayUntil = util.now(60);
 	};
 });
 

@@ -1,147 +1,148 @@
 <ion-view title="New Dinner">
-    <ion-nav-buttons side="left">
-        <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-    </ion-nav-buttons>
+   <ion-nav-buttons side="left">
+      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+   </ion-nav-buttons>
 
-    <ion-content>
-        <div class="card">
+   <ion-content>
+      <form name="form" novalidate>
+         <div class="card">
             <div class="list">
-                <label class="item error">Please enter a title for your Dinner.</label>
-                <label class="item item-input">
-                    <input ng-model="dinner.title" type="text" placeholder="What are you cooking?">
-                </label>
-                <label class="item error">Please give us a short description.</label>
-                <label class="item item-input">
-                    <textarea ng-model="dinner.info" placeholder="Are there any special ingredients? Where did you get the recipe? Tell us more about your Dinner!"></textarea>
-                </label>
+               <label ng-show="" class="item error">Please enter a title for your dinner.</label>
+               <label class="item item-input">
+                  <input ng-model="dinner.title" type="text" placeholder="What are you cooking?">
+               </label>
+               <label ng-show="" class="item error">Please give us a short description.</label>
+               <label class="item item-input">
+                  <textarea ng-model="dinner.description" placeholder="Are there any special ingredients? Where did you get the recipe? Tell us more about your dinner!"></textarea>
+               </label>
             </div>
-        </div>
-        
-        <h2>Categories</h2>
-        <div class="card">
+         </div>
+
+         <h2>Categories</h2>
+         <div class="card">
             <div class="list">
-                <div class="row categories">
-                    
-                    <div class="col">
-                        <div class="item item-checkbox">
-                            <label class="checkbox">
-                                <input ng-model="dinner.type.vegan" type="checkbox">
-                            </label>
-                            Vegan
-                        </div>
-                    </div>
-                    
-                    <div class="col">
-                        <div class="item item-checkbox">
-                            <label class="checkbox">
-                                <input ng-model="dinner.type.vegetarian" type="checkbox">
-                            </label>
-                            Vegetarian
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="row categories">
-                    
-                    <div class="col">
-                        <div class="item item-checkbox">
-                            <label class="checkbox">
-                                <input ng-model="dinner.type.organic" type="checkbox">
-                            </label>
-                            Organic
-                        </div>
-                    </div>
-                    
-                    <div class="col">
-                        <div class="item item-checkbox">
-                            <label class="checkbox">
-                                <input ng-model="dinner.type.halal" type="checkbox">
-                            </label>
-                            Halal
-                        </div>
-                    </div>
-                    
-                </div>
-                
-                <div class="row categories">
-                    
-                    <div class="col">
-                        <div class="item item-checkbox">
-                            <label class="checkbox">
-                                <input ng-model="dinner.type.kosher" type="checkbox">
-                            </label>
-                            Kosher
-                        </div>
-                    </div>
-                    
-                    <div class="col">
-                        <div class="item item-checkbox">
-                            <label class="checkbox">
-                                <input ng-model="dinner.type.sweet" type="checkbox">
-                            </label>
-                            Sweet
-                        </div>
-                    </div>
-                    
-                </div>
+               <div class="row categories">
+
+                  <div class="col">
+                     <div class="item item-checkbox">
+                        <label class="checkbox">
+                           <input ng-model="dinner.tags.vegan" type="checkbox">
+                        </label>
+                        Vegan
+                     </div>
+                  </div>
+
+                  <div class="col">
+                     <div class="item item-checkbox">
+                        <label class="checkbox">
+                           <input ng-model="dinner.tags.vegetarian" type="checkbox">
+                        </label>
+                        Vegetarian
+                     </div>
+                  </div>
+               </div>
+
+               <div class="row categories">
+
+                  <div class="col">
+                     <div class="item item-checkbox">
+                        <label class="checkbox">
+                           <input ng-model="dinner.tags.organic" type="checkbox">
+                        </label>
+                        Organic
+                     </div>
+                  </div>
+
+                  <div class="col">
+                     <div class="item item-checkbox">
+                        <label class="checkbox">
+                           <input ng-model="dinner.tags.halal" type="checkbox">
+                        </label>
+                        Halal
+                     </div>
+                  </div>
+
+               </div>
+
+               <div class="row categories">
+
+                  <div class="col">
+                     <div class="item item-checkbox">
+                        <label class="checkbox">
+                           <input ng-model="dinner.tags.kosher" type="checkbox">
+                        </label>
+                        Kosher
+                     </div>
+                  </div>
+
+                  <div class="col">
+                     <div class="item item-checkbox">
+                        <label class="checkbox">
+                           <input ng-model="dinner.tags.sweet" type="checkbox">
+                        </label>
+                        Sweet
+                     </div>
+                  </div>
+
+               </div>
             </div>
-        </div>
-        
-        <h2>Arrangements</h2>
-        <label class="error">Hmm... you'll have to pick at least one of the two.</label>
-        
-        <div class="card">
+         </div>
+
+         <h2>Arrangements</h2>
+         <label ng-show="" class="error">Hmm... you'll have to pick at least one of the two.</label>
+
+         <div class="card">
             <div class="item item-checkbox borderless">
-                    <label class="checkbox">
-                        <input ng-model="dinner.dinein.enabled" type="checkbox">
-                    </label>
-                    Guests can eat here!
+               <label class="checkbox">
+                  <input ng-model="dineinChecked" type="checkbox">
+               </label>
+               Guests can eat here!
             </div>
-            
-            <div class="list">
-                <label class="item item-input">
-                    <span class="input-label">When?</span>
-                    <input ng-model="dinner.dinein.time" type="datetime-local">
-                </label>
-            </div>
-            
-                <div class="item item-checkbox borderless">
-                    <label class="checkbox">
-                        <input ng-model="dinner.takeaway.enabled" type="checkbox">
-                    </label>
-                    Guests can take their food with them!
-                </div>
-            <div class="list">
-                <div class="row item">
-                    <label class="col col-80 item-input">
-                        <span class="input-label">From</span>
-                        <input ng-model="dinner.takeaway.from" type="datetime-local">
-                    </label>
-                    <button ng-click="fromNow()" class="button button-stable col col-20">Now</button>
-                </div>
-                <label class="item item-input">
-                    <span class="input-label">Until</span>
-                    <input ng-model="dinner.takeaway.until" type="datetime-local">
-                </label>
-            </div>
-        </div>
-        
-        <div class="card">
-                <div class="item item-checkbox borderless isolated">
-                    <label class="checkbox">
-                        <input ng-model="dinner.public" type="checkbox">
-                    </label>
-                    Visible for everyone
-                </div>
-        </div>
-                <button class="item button button-light button-block" disabled>
-                    You're not cooking at your home address
-                </button>
 
+            <div class="list" ng-show="dineinChecked">
+               <label class="item item-input">
+                  <span class="input-label">When?</span>
+                  <input ng-model="dinner.dineinAt" type="datetime-local">
+               </label>
             </div>
-        </div>
-        
-<!--         <h2>Invite Friends</h2>
+
+            <div class="item item-checkbox borderless">
+               <label class="checkbox">
+                  <input ng-model="takeawayChecked" type="checkbox">
+               </label>
+               Guests can take their food with them!
+            </div>
+            <div class="list" ng-show="takeawayChecked">
+               <div class="row item">
+                  <label class="col col-80 item-input">
+                     <span class="input-label">From</span>
+                     <input ng-model="dinner.takeawayFrom" type="datetime-local">
+                  </label>
+                  <button ng-click="fromNow()" class="button button-stable col col-20">Now</button>
+               </div>
+               <label class="item item-input">
+                  <span class="input-label">Until</span>
+                  <input ng-model="dinner.takeawayUntil" type="datetime-local">
+               </label>
+            </div>
+         </div>
+
+         <div class="card">
+            <div class="item item-checkbox borderless isolated">
+               <label class="checkbox">
+                  <input ng-model="dinner.isPublic" type="checkbox">
+               </label>
+               Visible for everyone
+            </div>
+         </div>
+         <button class="item button button-light button-block" disabled>
+            You're not cooking at your home address
+         </button>
+
+         </div>
+         </div>
+
+         <!--         <h2>Invite Friends</h2>
         <div class="card">
             <div class="list">
                <div class="item row row-center">
@@ -164,8 +165,8 @@
                 <button class="button button-light button-block item">Invite more Friends</button>
             </div>
         </div> -->
-        
-        <button ng-click="create()" class="button button-positive button-block">Create Dinner</button>
-        
-    </ion-content>
+
+         <button ng-click="create()" class="button button-positive button-block">Create Dinner</button>
+      </form>
+   </ion-content>
 </ion-view>

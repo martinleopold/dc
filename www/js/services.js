@@ -55,7 +55,8 @@ s.factory('util', function() {
 			offsetMins = offsetMins || 0;
 			var n = new Date();
 			var d = new Date( n.getTime() - n.getTimezoneOffset()*60000 + offsetMins*60000 );
-			return (d.toISOString()).substring(0,16);
+			//return (d.toISOString()).substring(0,16); // text representation
+			return d;
 		}
 	};
 });
