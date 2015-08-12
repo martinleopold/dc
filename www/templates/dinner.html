@@ -7,14 +7,21 @@
 
 	<div class="card">
         
-        <div ng-show="applicationState() == 'applied' || applicationState() == 'declined'" class="application-status positive">
+        <!--<div ng-show="applicationState() == 'applied' || applicationState() == 'declined'" class="application-status positive">
          You already <strong>applied</strong> to this Dinner for <strong>{{application.count}} person(s)</strong> to <strong>{{application.dinein ? 'eat there' : 'take your food away'}}</strong>, but you can still change your application below. 
-         </div>
-
-         <div ng-show="applicationState() == 'accepted'" class="application-status positive">
-         Yay! You are already <strong>accepted</strong> to this Dinner! You applied for <strong>{{application.count}}</strong> person(s) and you want to <strong>{{application.dinein ? 'eat there' : 'take your food away'}}</strong>. Look below for an exact adress. 
+         </div>-->
+        
+        <div ng-show="applicationState() == 'applied' || applicationState() == 'declined'" class="application-status positive">
+         You already <strong>applied</strong> to this Dinner, but you can still change your application below. 
          </div>
         
+         <!--<div ng-show="applicationState() == 'accepted'" class="application-status positive">
+         Yay! You are already <strong>accepted</strong> to this Dinner! You applied for <strong>{{application.count}}</strong> person(s) and you want to <strong>{{application.dinein ? 'eat there' : 'take your food away'}}</strong>. Look below for an exact adress. 
+         </div>-->
+        
+        <div ng-show="applicationState() == 'accepted'" class="application-status positive">
+         Yay! You are already <strong>accepted</strong> to this Dinner! Look below for an exact adress. 
+         </div>
         
 		<div class="item item-text-wrap dinner-title">
 			<h1>{{dinner.title}}</h1>
@@ -44,6 +51,19 @@
 				        <span>at {{isHost() ? 'your' : dinner.userData.firstname + "'s"}} place</span>
 				    </div>
 				</button>
+            </div>
+        </div>
+        <div class="row item item-text-wrap">
+            <div class="col">
+                <!-- Platz für Anmeldungen/Modus -->
+                <p>1 Eating there</p>
+                <p>2 Take away</p>
+                <p>accepted</p> <!-- bzw. applied -->
+            </div>
+            <div class="col">
+                <!-- Platz für Dinner Credits -->
+                <p>3 Dinner Credits</p>
+                <p>charged</p> <!-- bzw. reserved -->
             </div>
         </div>
         <div class="mapwrapper">
@@ -106,9 +126,9 @@
 
  	<h2>Conversations</h2>
     
-    <div class="card conversation">
+    <!--<div class="card conversation">
 		<button class="button button-block button-stable icon ion-chatbubble-working">Start new conversation</button>  
-	</div>
+	</div>-->
       
 	<div class="card conversation">
         <div class="list">
@@ -181,6 +201,16 @@
       
 	<div ng-show="!isHost() && !applicationState()">
 	<h2>Apply</h2>
+        
+        <div class="card">
+            <div class="item item-checkbox borderless">
+               <label class="checkbox">
+                  <input ng-model="" type="checkbox">
+               </label>
+               I want to eat there!
+            </div>
+         </div>
+        
 		<div class="row apply-number">
 			<div class="col col-50">
                 <p class="info card-info"><i>For how many pepole?</i></p>
@@ -200,14 +230,53 @@
             </div>
 			</div>
 		</div>
-		<div class="row apply-visit-take-away">
+        
+        <div class="card">
+            <div class="item item-checkbox borderless">
+               <label class="checkbox">
+                  <input ng-model="" type="checkbox">
+               </label>
+               I want food for take-away!
+            </div>
+         </div>
+        
+		<div class="row apply-number">
+			<div class="col col-50">
+                <p class="info card-info"><i>For how many pepole?</i></p>
+				<p class="info card-info">You'll also be charged this many credits.</p>
+			</div>
+			<div class="col counter col-center">
+            <div class="row">
+				<div class="col">
+                    <button ng-click="addCount(-1, 1, 9)" class="button button-stable icon ion-android-remove"></button>
+                </div>
+                <div class="col">
+				    <h2>{{application.count}}</h2>
+                </div>
+                <div class="col">
+				<button ng-click="addCount(1, 1, 9)" class="button button-stable icon ion-android-add"></button>
+                </div>
+            </div>
+			</div>
+		</div>
+        
+        <h2>Apply until</h2>
+        
+        <p class="info">I need to know whether I can come until...</p>
+        <div class="row">
+            <div class="col"><input ng-model="" type="datetime-local"></div>
+        </div>
+        
+        <button class="button button-block button-positive">Sign me up!</button>  
+	            
+		<!--<div class="row apply-visit-take-away">
 			<div class="col col-50">
 				<button ng-click="apply(true)" ng-disabled="!dinner.dinein" class="button button-energized">I want to go there!</button>
 			</div>
 			<div class="col col-50">
 				<button ng-click="apply(false)" ng-disabled="!dinner.takeaway" class="button button-positive">I want to take my food away!</button>
 			</div>
-		</div>
+		</div>-->
         
 	 </div>
       
