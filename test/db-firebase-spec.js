@@ -756,7 +756,7 @@ describe("firebase db service", function() {
    /*
     * FRIEND REQUEST
     */
-   fdescribe('friend request function', function() {
+   describe('friend request function', function() {
       var friendRequest;
       var refFriendRequest;
 
