@@ -46,10 +46,12 @@ gulp.task('watch-sass', function() {
 gulp.task('js', function(done) {
    gulp.src(paths.js)
       .pipe($.cached())
+      .pipe($.sourcemaps.init())
       .pipe($.babel())
-      .pipe($.concat('app.all.js'))
+      .pipe($.concat('app.js'))
       .pipe($.uglify({ mangle: false }))
       .pipe($.rename({ extname: '.min.js' }))
+      .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest('./www/js/'))
       .on('end', done);
 });
