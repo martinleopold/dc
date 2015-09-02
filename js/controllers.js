@@ -105,7 +105,7 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 	if ($scope.user) $scope.dinner.hostedByUser = $scope.user.userId;
 
 	$scope.create = function() {
-		db.dinner.create($scope.dinner).then(function(data) {
+		db.dinner.create($scope.dinner).then(function() {
 			console.log('Dinner created', $scope.dinner);
 			$state.go('app.lookfor');
 		}, function(error) {
@@ -138,7 +138,7 @@ c.controller('LookForDinnersCtrl', function($scope, db, resumeSession) {
 
 
 /* Dinner */
-c.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams, $state) {
+c.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams) {
 	resumeSession($scope);
 
 	$scope.application = { count:1 };
@@ -158,7 +158,7 @@ c.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams, $st
 		$scope.application.userId = $scope.user.uid;
 		$scope.application.dinnerId = $scope.dinner.$id;
 		db.newApplication($scope.application).then(function(application) {
-			console.log('application created:', application)
+			console.log('application created:', application);
 			// $state.go('app.dinner', {dinnerId: application.dinnerId});
 		}, function(error) {
 			console.log('error creating application:', error);

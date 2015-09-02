@@ -13,6 +13,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       if (window.cordova && window.cordova.plugins.Keyboard) {
          cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
+      /* global StatusBar */
       if (window.StatusBar) {
          // org.apache.cordova.statusbar required
          StatusBar.styleDefault();
@@ -79,7 +80,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       url: "/lookfor",
       views: {
          'mainContent': {
-            templateUrl: "templates/lookfor.html",
+            templateUrl: "templates/lookfor.html"
             // controller: 'LookForDinnersCtrl' // FIXME
          }
       }
@@ -89,7 +90,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       url: "/user/:userId",
       views: {
          'mainContent': {
-            templateUrl: "templates/profile.html",
+            templateUrl: "templates/profile.html"
             // controller: 'UserCtrl'
          }
       }
@@ -100,11 +101,11 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       url: "/dinner/:dinnerId",
       views: {
          'mainContent': {
-            templateUrl: "templates/dinner.html",
+            templateUrl: "templates/dinner.html"
             // controller: 'DinnerCtrl'
          }
       }
-   })
+   });
 
 
    // if none of the above states are matched, use this as the fallback

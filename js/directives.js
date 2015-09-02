@@ -1,12 +1,13 @@
 angular.module('dc.directives', [])
 
 .directive('map', function() {
+   /* global google */
    return {
       restrict: 'E',
       scope: {
          onCreate: '&'
       },
-      link: function($scope, $element, $attr) {
+      link: function($scope, $element) {
          function initialize() {
             var mapOptions = {
                center: new google.maps.LatLng(48.2085, 16.373),
@@ -33,7 +34,7 @@ angular.module('dc.directives', [])
             google.maps.event.addDomListener(window, 'load', initialize);
          }
       }
-   }
+   };
 })
 
 // whenever the given expression is truthy show animated pending dots appended to the element
@@ -49,7 +50,7 @@ angular.module('dc.directives', [])
          scope.$watch(attr.pendingDots, function(newVal) {
             if (newVal) element.addClass(showClassName);
             else element.removeClass(showClassName);
-         })
+         });
       }
    };
 });

@@ -1,13 +1,13 @@
 
 angular.module( 'dc.dev', [] )
 
-.config(function($stateProvider, $urlRouterProvider) {
+.config(function($stateProvider) {
    $stateProvider
 
    .state('dev', {
       url: '/dev',
       abstract: true,
-      templateUrl: 'templates/menu.html',
+      templateUrl: 'templates/menu.html'
    })
 
    .state('dev.menu', {
@@ -134,6 +134,6 @@ angular.module( 'dc.dev', [] )
             templateUrl: "templates/confirm_application.html"
          }
       }
-   })
+   });
 
 });
