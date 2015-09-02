@@ -1,3 +1,5 @@
+/* eslint-env node */
+
 var gulp = require('gulp');
 var bower = require('bower');
 var sh = require('shelljs');
@@ -6,7 +8,8 @@ var $ = require('gulp-load-plugins')();
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  js: ['./js/**/*.js']
+  js: ['./js/**/*.js'],
+  test: ['./test/**/*.js']
 };
 
 
@@ -47,11 +50,9 @@ gulp.task('watch-sass', function() {
  * JS
  */
 
-gulp.task('js', function(done) {
+gulp.task('js', ['eslint'], function(done) {
    gulp.src(paths.js)
       .pipe($.cached())
-      .pipe($.eslint())
-      .pipe($.eslint.format())
       .pipe($.sourcemaps.init())
       .pipe($.babel())
       .pipe($.concat('app.js'))
@@ -62,8 +63,15 @@ gulp.task('js', function(done) {
       .on('end', done);
 });
 
+gulp.task('eslint', function() {
+   return gulp.src(paths.js.concat(paths.test))
+      .pipe($.cached())
+      .pipe($.eslint())
+      .pipe($.eslint.format());
+});
+
 gulp.task('watch-js', function() {
-   gulp.watch(paths.js, ['scripts']);
+   gulp.watch(paths.js.concat(paths.test), ['js']);
 });
 
 
