@@ -1,13 +1,21 @@
 {
-  "name": "dc",
-  "private": "true",
-  "devDependencies": {
-    "angular-mocks": "1.4.3",
-    "ionic": "driftyco/ionic-bower#1.1.0"
-  },
-  "dependencies": {
-    "angularfire": "~1.1.2",
-    "firebase": "~2.2.9",
-    "lodash": "lodash/lodash#^3.10.1"
-  }
+   "name": "dc",
+   "private": "true",
+   "devDependencies": {
+      "angular-mocks": "1.4.3",
+      "ionic": "driftyco/ionic-bower#1.1.0"
+   },
+   "dependencies": {
+      "angularfire": "~1.1.2",
+      "firebase": "~2.2.9",
+      "lodash": "lodash/lodash#^3.10.1"
+   },
+   "overrides": {
+      "angularfire": {
+         "main": "dist/angularfire.min.js"
+      },
+      "lodash": {
+         "main": "lodash.min.js"
+      }
+   }
 }

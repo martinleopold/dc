@@ -2,8 +2,7 @@
   "name": "dc",
   "app_id": "",
   "gulpStartupTasks": [
-    "sass",
-    "js",
+    "default",
     "watch"
   ],
   "watchPatterns": [

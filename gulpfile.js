@@ -5,6 +5,7 @@ var bower = require('bower');
 var sh = require('shelljs');
 var karma = require('karma').server;
 var $ = require('gulp-load-plugins')();
+var wiredep = require('wiredep').stream;
 
 var paths = {
   sass: ['./scss/**/*.scss'],
@@ -17,7 +18,7 @@ var paths = {
 /**
  * main tasks
  */
-gulp.task('default', ['sass', 'js']);
+gulp.task('default', ['sass', 'js', 'inject-bower']);
 gulp.task('watch', ['watch-sass', 'watch-js']);
 
 
@@ -72,6 +73,18 @@ gulp.task('eslint', function() {
 
 gulp.task('watch-js', function() {
    gulp.watch(paths.js.concat(paths.test), ['js']);
+});
+
+
+/**
+ * inject bower dependecies
+ */
+gulp.task('inject-bower', function() {
+   return gulp.src('./www/index.html')
+      .pipe(wiredep({
+         exclude: "angular/"
+      }))
+      .pipe(gulp.dest('./www/'));
 });
 
 
