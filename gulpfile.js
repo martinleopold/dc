@@ -46,9 +46,12 @@ gulp.task('watch-sass', function() {
 /**
  * JS
  */
+
 gulp.task('js', function(done) {
    gulp.src(paths.js)
       .pipe($.cached())
+      .pipe($.eslint())
+      .pipe($.eslint.format())
       .pipe($.sourcemaps.init())
       .pipe($.babel())
       .pipe($.concat('app.js'))
