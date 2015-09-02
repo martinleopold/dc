@@ -47,12 +47,13 @@ gulp.task('js', function(done) {
    gulp.src(paths.js)
       .pipe($.cached())
       .pipe($.babel())
+      .pipe($.concat('app.all.js'))
       .pipe(gulp.dest('./www/js/'))
       .on('end', done);
 });
 
 gulp.task('watch-js', function() {
-   gulp.watch(paths.jsSrc, ['scripts']);
+   gulp.watch(paths.js, ['scripts']);
 });
 
 
