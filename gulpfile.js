@@ -23,15 +23,18 @@ gulp.task('watch', ['watch-sass', 'watch-js']);
  * SASS
  */
 gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
-    .pipe($.sass())
-    .pipe(gulp.dest('./www/css/'))
-    .pipe($.minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe($.rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
-    .on('end', done);
+   gulp.src('./scss/ionic.app.scss')
+      .pipe($.cached())
+      .pipe($.sourcemaps.init())
+      .pipe($.sass())
+      // .pipe(gulp.dest('./www/css/'))
+      .pipe($.minifyCss({
+         keepSpecialComments: 0
+      }))
+      .pipe($.rename({ extname: '.min.css' }))
+      .pipe($.sourcemaps.write('.'))
+      .pipe(gulp.dest('./www/css/'))
+      .on('end', done);
 });
 
 gulp.task('watch-sass', function() {
