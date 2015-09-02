@@ -1,13 +1,8 @@
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var bower = require('bower');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
 var sh = require('shelljs');
+var karma = require('karma').server;
 var $ = require('gulp-load-plugins')();
-
 
 var paths = {
   sass: ['./scss/**/*.scss'],
@@ -15,17 +10,26 @@ var paths = {
 };
 
 
+
+/**
+ * main tasks
+ */
 gulp.task('default', ['sass', 'js']);
+gulp.task('watch', ['watch-sass', 'watch-js']);
 
 
+
+/**
+ * SASS
+ */
 gulp.task('sass', function(done) {
   gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
+    .pipe($.sass())
     .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
+    .pipe($.minifyCss({
       keepSpecialComments: 0
     }))
-    .pipe(rename({ extname: '.min.css' }))
+    .pipe($.rename({ extname: '.min.css' }))
     .pipe(gulp.dest('./www/css/'))
     .on('end', done);
 });
@@ -36,6 +40,9 @@ gulp.task('watch-sass', function() {
 
 
 
+/**
+ * JS
+ */
 gulp.task('js', function(done) {
    gulp.src(paths.js)
       .pipe($.cached())
@@ -49,29 +56,36 @@ gulp.task('watch-js', function() {
 });
 
 
-gulp.task('watch', ['watch-sass', 'watch-js']);
 
+/**
+ * install tools (bower, git)
+ */
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
     .on('log', function(data) {
-      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
+      $.util.log('bower', $.util.colors.cyan(data.id), data.message);
     });
 });
 
 gulp.task('git-check', function(done) {
   if (!sh.which('git')) {
     console.log(
-      '  ' + gutil.colors.red('Git is not installed.'),
+      '  ' + $.util.colors.red('Git is not installed.'),
       '\n  Git, the version control system, is required to download Ionic.',
-      '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
+      '\n  Download git here:', $.util.colors.cyan('http://git-scm.com/downloads') + '.',
+      '\n  Once git is installed, run \'' + $.util.colors.cyan('gulp install') + '\' again.'
     );
     process.exit(1);
   }
   done();
 });
 
-// deploy app to web via ftp
+
+
+/**
+ * deploy app to web via ftp
+ * TODO: replace with vinyl-ftp
+ */
 try {
   var sftpConfig = JSON.parse( require('fs').readFileSync('sftp.config') );
   var sftp = require('gulp-sftp')(sftpConfig);
@@ -84,8 +98,10 @@ try {
 }
 
 
-// run karma tests once
-var karma = require('karma').server;
+
+/**
+ * run test suite once
+ */
 gulp.task('test', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js',
@@ -95,8 +111,9 @@ gulp.task('test', function (done) {
    });
 });
 
-
-// (test driven development) watch for file changes and re-run tests on each change
+/**
+ * watch for file changes and re-run tests on each change (i.e. test driven development)
+ */
 gulp.task('tdd', function (done) {
   karma.start({
     configFile: __dirname + '/karma.conf.js'
