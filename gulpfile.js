@@ -8,19 +8,14 @@ var rename = require('gulp-rename');
 var sh = require('shelljs');
 var $ = require('gulp-load-plugins')();
 
+
 var paths = {
   sass: ['./scss/**/*.scss'],
   js: ['./js/**/*.js']
 };
 
+
 gulp.task('default', ['sass', 'js']);
-
-var exec = require('child_process').exec;
-gulp.task('serve', function() {
-  exec('ionic serve --nobrowser');
-  exec('open "http://localhost:8100" -a "Google Chrome"');
-});
-
 
 
 gulp.task('sass', function(done) {
