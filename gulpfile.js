@@ -9,9 +9,11 @@ var wiredep = require('wiredep').stream;
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  js: ['./js/**/*.js'],
+  js: ['./js/**/*.js', '!js/**/*.old.js'],
   test: ['./test/**/*.js']
 };
+
+$.cached.caches = {}; // clear caches
 
 
 
