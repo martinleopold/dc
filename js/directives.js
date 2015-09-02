@@ -1,12 +1,12 @@
-'use strict';
+angular.module('dc.directives', [])
 
-angular.module('dc.directives', []).directive('map', function () {
+.directive('map', function() {
    return {
       restrict: 'E',
       scope: {
          onCreate: '&'
       },
-      link: function link($scope, $element, $attr) {
+      link: function($scope, $element, $attr) {
          function initialize() {
             var mapOptions = {
                center: new google.maps.LatLng(48.2085, 16.373),
@@ -21,7 +21,7 @@ angular.module('dc.directives', []).directive('map', function () {
             });
 
             // Stop the side bar from dragging when mousedown/tapdown on the map
-            google.maps.event.addDomListener($element[0], 'mousedown', function (e) {
+            google.maps.event.addDomListener($element[0], 'mousedown', function(e) {
                e.preventDefault();
                return false;
             });
@@ -33,22 +33,23 @@ angular.module('dc.directives', []).directive('map', function () {
             google.maps.event.addDomListener(window, 'load', initialize);
          }
       }
-   };
+   }
 })
 
 // whenever the given expression is truthy show animated pending dots appended to the element
-.directive('pendingDots', function () {
+.directive('pendingDots', function() {
    return {
       restrict: 'EA',
-      link: function link(scope, element, attr) {
+      link: function(scope, element, attr) {
          var dot = '.',
-             className = 'pending-dots',
-             showClassName = 'show-pending-dots',
-             html = '<span class="' + className + '"><span class="dot-1">' + dot + '</span><span class="dot-2">' + dot + '</span><span class="dot-3">' + dot + '</span></span>';
+         className = 'pending-dots',
+         showClassName = 'show-pending-dots',
+         html = '<span class="' + className + '"><span class="dot-1">' + dot + '</span><span class="dot-2">' + dot + '</span><span class="dot-3">' + dot + '</span></span>';
          element.append(html);
-         scope.$watch(attr.pendingDots, function (newVal) {
-            if (newVal) element.addClass(showClassName);else element.removeClass(showClassName);
-         });
+         scope.$watch(attr.pendingDots, function(newVal) {
+            if (newVal) element.addClass(showClassName);
+            else element.removeClass(showClassName);
+         })
       }
    };
 });

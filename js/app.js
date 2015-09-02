@@ -4,10 +4,10 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-'use strict';
+angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.directives', 'dc.dev'])
 
-angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.directives', 'dc.dev']).run(function ($ionicPlatform) {
-   $ionicPlatform.ready(function () {
+.run(function($ionicPlatform) {
+   $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
       if (window.cordova && window.cordova.plugins.Keyboard) {
@@ -18,31 +18,44 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
          StatusBar.styleDefault();
       }
    });
-}).config(function ($stateProvider, $urlRouterProvider) {
+})
+
+.config(function($stateProvider, $urlRouterProvider) {
 
    // Ionic uses AngularUI Router which uses the concept of states
    // Learn more here: https://github.com/angular-ui/ui-router
    // Set up the various states which the app can be in.
    // Each state's controller can be found in controllers.js
-   $stateProvider.state('login', {
+   $stateProvider
+
+   .state('login', {
       url: '/login',
       templateUrl: 'templates/login.html',
       controller: 'LoginCtrl'
-   }).state('logout', {
+   })
+
+   .state('logout', {
       url: '/logout',
-      onEnter: function onEnter(logout) {
+      onEnter: function(logout) {
          logout();
       }
-   }).state('signup', {
+   })
+
+   .state('signup', {
       url: '/signup',
       templateUrl: 'templates/signup.html',
       controller: 'SignupCtrl'
-   }).state('app', {
+   })
+
+
+   .state('app', {
       url: '/app',
       abstract: true,
       templateUrl: 'templates/menu.html',
       controller: 'AppCtrl'
-   }).state('app.settings', {
+   })
+
+   .state('app.settings', {
       url: '/settings',
       views: {
          'mainContent': {
@@ -50,7 +63,9 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
             controller: 'SettingsCtrl'
          }
       }
-   }).state('app.newdinner', {
+   })
+
+   .state('app.newdinner', {
       url: "/newdinner",
       views: {
          'mainContent': {
@@ -58,32 +73,40 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
             controller: "NewDinnerCtrl"
          }
       }
-   }).state('app.lookfor', {
+   })
+
+   .state('app.lookfor', {
       url: "/lookfor",
       views: {
          'mainContent': {
-            templateUrl: "templates/lookfor.html"
+            templateUrl: "templates/lookfor.html",
+            // controller: 'LookForDinnersCtrl' // FIXME
          }
       }
-   }). // controller: 'LookForDinnersCtrl' // FIXME
-   state('app.user', {
+   })
+
+   .state('app.user', {
       url: "/user/:userId",
       views: {
          'mainContent': {
-            templateUrl: "templates/profile.html"
+            templateUrl: "templates/profile.html",
+            // controller: 'UserCtrl'
          }
       }
-   }). // controller: 'UserCtrl'
-   state('app.dinner', {
+   })
+
+
+   .state('app.dinner', {
       url: "/dinner/:dinnerId",
       views: {
          'mainContent': {
-            templateUrl: "templates/dinner.html"
+            templateUrl: "templates/dinner.html",
+            // controller: 'DinnerCtrl'
          }
       }
-   });
+   })
+
 
    // if none of the above states are matched, use this as the fallback
-   // controller: 'DinnerCtrl'
    $urlRouterProvider.otherwise('/login');
 });
