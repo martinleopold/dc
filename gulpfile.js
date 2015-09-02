@@ -48,6 +48,8 @@ gulp.task('js', function(done) {
       .pipe($.cached())
       .pipe($.babel())
       .pipe($.concat('app.all.js'))
+      .pipe($.uglify({ mangle: false }))
+      .pipe($.rename({ extname: '.min.js' }))
       .pipe(gulp.dest('./www/js/'))
       .on('end', done);
 });
