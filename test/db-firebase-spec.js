@@ -18,7 +18,7 @@ describe("firebase db service", function() {
       db.settings.checkArguments = true; // enable arguments checking
    }));
 
-   jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000; // timeout for async calls
+   jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // timeout for async calls
 
 
    function generateUUID() {

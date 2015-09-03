@@ -3,7 +3,7 @@
 var gulp = require('gulp');
 var bower = require('bower');
 var sh = require('shelljs');
-var karma = require('karma').server;
+var KarmaServer = require('karma').Server;
 var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 
@@ -137,21 +137,21 @@ try {
  * run test suite once
  */
 gulp.task('test', function (done) {
-  karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: true
+   new KarmaServer({
+      configFile: __dirname + '/karma.conf.js',
+      singleRun: true
    }, function() {
       done();
-   });
+   }).start();
 });
 
 /**
  * watch for file changes and re-run tests on each change (i.e. test driven development)
  */
 gulp.task('tdd', function (done) {
-  karma.start({
-    configFile: __dirname + '/karma.conf.js'
-  }, function() {
-     done();
-  });
+   new KarmaServer({
+      configFile: __dirname + '/karma.conf.js'
+   }, function() {
+      done();
+   }).start();
 });
