@@ -22,7 +22,7 @@ s.factory('Friends', function() {
 			// Simple index lookup
 			return friends[friendId];
 		}
-	}
+	};
 });
 
 s.factory('resumeSession', function($rootScope, db, $q, $state) {
@@ -43,7 +43,7 @@ s.factory('resumeSession', function($rootScope, db, $q, $state) {
 					return user;
 				});
 			}
-		}).catch(function onRejected (error) {
+		}).catch(function onRejected () {
 			$state.go('app.login');
 		});
 	};

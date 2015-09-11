@@ -1,3 +1,5 @@
+/* eslint-env jasmine */
+/* global module, inject */
 describe("firebase db service", function() {
 
    // load db module
@@ -16,7 +18,7 @@ describe("firebase db service", function() {
       db.settings.checkArguments = true; // enable arguments checking
    }));
 
-   jasmine.DEFAULT_TIMEOUT_INTERVAL = 5000; // timeout for async calls
+   jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // timeout for async calls
 
 
    function generateUUID() {
@@ -27,7 +29,7 @@ describe("firebase db service", function() {
         return (c=='x' ? r : (r&0x3|0x8)).toString(16);
       });
       return uuid;
-   };
+   }
 
 
    /*
@@ -139,7 +141,7 @@ describe("firebase db service", function() {
    var useFixture = function(ref, fixture) {
       ref = ref || fb; // if ref is falsy, use root
 
-      return new Promise(function resolver (resolve) {
+      return new Promise(function resolver (resolve, reject) {
          ref.set(fixture, function onComplete(error) {
             if (error !== null) {
                reject( new Error("Failed setting fixture ", fixture) );
@@ -170,7 +172,7 @@ describe("firebase db service", function() {
       } else {
          match = isEqual(data, expected);
       }
-      if ( !match ) throw new Error("Unexpected Data:\nGot: " + JSON.stringify(returned) + '\nExpected: ' + JSON.stringify(expected));
+      if ( !match ) throw new Error("Unexpected Data:\nGot: " + JSON.stringify(data) + '\nExpected: ' + JSON.stringify(expected));
       return true;
    }
 
@@ -313,7 +315,7 @@ describe("firebase db service", function() {
       });
 
       function getTimeoutPromise(time) {
-         return new Promise(function(resolve, reject) {
+         return new Promise(function(resolve) {
             stack.push(time);
             setTimeout(function() {
                resolve(time);
@@ -354,12 +356,12 @@ describe("firebase db service", function() {
             'a',
             getTimeoutPromise.partial(1000),
             function(arg) {
-               stack.push('b')
+               stack.push('b');
                return arg + 'b';
             }
          ).then(function(result) {
             expect(result).toBe('1000b');
-            expect(stack).toEqual([undefined, 1000, 'b'])
+            expect(stack).toEqual([undefined, 1000, 'b']);
          }).then(done, done.fail);
       });
    });
@@ -605,39 +607,39 @@ describe("firebase db service", function() {
       describe('checkObject', function() {
          it('should handle undefined object', function() {
             var obj; // its value is undefined
-            expect(function() { db.util.checkObject(obj) }).toThrow();
-            expect(function() { db.util.checkObject() }).toThrow();
-            expect(function() { db.util.checkObject(undefined) }).toThrow();
-            expect(function() { db.util.checkObject(null) }).toThrow();
+            expect(function() { db.util.checkObject(obj); }).toThrow();
+            expect(function() { db.util.checkObject(); }).toThrow();
+            expect(function() { db.util.checkObject(undefined); }).toThrow();
+            expect(function() { db.util.checkObject(null); }).toThrow();
          });
 
          it('should handle non-object', function() {
-            expect(function() { db.util.checkObject("") }).toThrow();
-            expect(function() { db.util.checkObject("xyz") }).toThrow();
-            expect(function() { db.util.checkObject(0) }).toThrow();
-            expect(function() { db.util.checkObject(1) }).toThrow();
-            expect(function() { db.util.checkObject(true) }).toThrow();
-            expect(function() { db.util.checkObject(false) }).toThrow();
-            expect(function() { db.util.checkObject(function(arguments) {
-            }) }).toThrow();
+            expect(function() { db.util.checkObject(""); }).toThrow();
+            expect(function() { db.util.checkObject("xyz"); }).toThrow();
+            expect(function() { db.util.checkObject(0); }).toThrow();
+            expect(function() { db.util.checkObject(1); }).toThrow();
+            expect(function() { db.util.checkObject(true); }).toThrow();
+            expect(function() { db.util.checkObject(false); }).toThrow();
+            expect(function() { db.util.checkObject(function() {
+            }); }).toThrow();
          });
 
          it('should handle not giving properties', function() {
             var result;
-            expect(function() { result = db.util.checkObject({}) }).not.toThrow();
+            expect(function() { result = db.util.checkObject({}); }).not.toThrow();
             expect(result).toBe(true);
          });
 
          it('should handle properties array', function() {
             var result;
-            expect(function() { result = db.util.checkObject({x:"", y:"", z:""}, ["x", "y", "z"]) }).not.toThrow();
+            expect(function() { result = db.util.checkObject({x:"", y:"", z:""}, ["x", "y", "z"]); }).not.toThrow();
             expect(result).toBe(true);
-            expect(function() { db.util.checkObject({x:"", y:""}, ["x", "y", "z"]) }).toThrow();
+            expect(function() { db.util.checkObject({x:"", y:""}, ["x", "y", "z"]); }).toThrow();
          });
 
          it('should handle properties as arguments', function() {
-            expect(function() { db.util.checkObject({x:"", y:"", z:""}, "x", "y", "z") }).not.toThrow();
-            expect(function() { db.util.checkObject({x:"", y:""}, "x", "y", "z") }).toThrow();
+            expect(function() { db.util.checkObject({x:"", y:"", z:""}, "x", "y", "z"); }).not.toThrow();
+            expect(function() { db.util.checkObject({x:"", y:""}, "x", "y", "z"); }).toThrow();
          });
       });
    });
