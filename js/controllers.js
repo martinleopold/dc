@@ -102,7 +102,12 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 		isPublic: true
 	};
 
-	if ($scope.user) $scope.dinner.hostedByUser = $scope.user.userId;
+	if ($scope.user) {
+		$scope.dinner.hostedByUser = $scope.user.userId;
+	} else {
+		console.warn("can't create dinner: no user ");
+	}
+	// console.log($scope.dinner);
 
 	$scope.create = function() {
 		db.dinner.create($scope.dinner).then(function() {
