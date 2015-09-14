@@ -40,7 +40,7 @@ gulp.task('sass', function() {
       .pipe(gulp.dest('./www/css/'));
 });
 
-gulp.task('watch-sass', function() {
+gulp.task('watch-sass', ['sass'], function() {
    gulp.watch(paths.sass, ['sass']);
 });
 
@@ -52,7 +52,7 @@ gulp.task('watch-sass', function() {
 
 gulp.task('js', ['eslint'], function() {
    return gulp.src(paths.js)
-      // .pipe($.cached('js')) // can't cache here, beacause we need all ro concat
+      // .pipe($.cached('js')) // can't cache here, beacause we need all files to concat
       .pipe($.sourcemaps.init())
       .pipe($.babel())
       .pipe($.concat('app.js'))
@@ -69,7 +69,7 @@ gulp.task('eslint', function() {
       .pipe($.eslint.format());
 });
 
-gulp.task('watch-js', function() {
+gulp.task('watch-js', ['js'], function() {
    return gulp.watch(paths.js.concat(paths.test), ['js']);
 });
 
