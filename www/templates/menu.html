@@ -2,35 +2,33 @@
 
    <ion-side-menu-content>
       <ion-nav-bar class="bar-dark">
-         <!-- <ion-nav-back-button></ion-nav-back-button> -->
          <ion-nav-buttons side="left">
+            <!-- <ion-nav-back-button class="button-clear"><i class="ion-ios-arrow-back"></i> Back</ion-nav-back-button> -->
             <button class="button button-icon button-clear ion-navicon" menu-toggle="left"></button>
          </ion-nav-buttons>
       </ion-nav-bar>
 
-	      <ion-nav-view name="mainContent"></ion-nav-view>
+      <ion-nav-view name="mainContent"></ion-nav-view>
    </ion-side-menu-content>
 
    <!-- <ion-pane ion-side-menu-content>
-		<ion-nav-bar class="bar-dark nav-title-slide-ios7">
-			<ion-nav-back-button class="button-clear"><i class="icon ion-ios-arrow-back"></i> Back</ion-nav-back-button>
-		</ion-nav-bar>
-		<ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
-	</ion-pane> -->
+      <ion-nav-bar class="bar-dark nav-title-slide-ios7">
+         <ion-nav-back-button class="button-clear"><i class="icon ion-ios-arrow-back"></i> Back</ion-nav-back-button>
+      </ion-nav-bar>
+      <ion-nav-view name="menuContent" animation="slide-left-right"></ion-nav-view>
+   </ion-pane> -->
 
    <ion-side-menu side="left">
       <header class="bar bar-header bar-dark bar-menu">
          <div class="row row-center">
             <div class="col-33">
-               <!-- USER-IMAGE -->
+               <!-- TODO: USER-IMAGE -->
             </div>
             <div class="col">
                <div class="username">{{user.firstName}}</div>
                <div class="row row-center">
                   <div class="col-33 credits">{{user.numCredits || 0}}</div>
-                  <div class="col credits-label">Dinner
-                     <br />Credits</div>
-               </div>
+                  <div class="col credits-label">Dinner<br />Credits</div></div>
             </div>
          </div>
       </header>

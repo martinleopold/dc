@@ -106,6 +106,23 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
    });
 
 
+   $stateProvider
+   .state('test', {
+      url: '/test',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl'
+   })
+   .state('test.tabs', {
+      url: "/tabs",
+      views: {
+         'mainContent': {
+            templateUrl: "templates/test/tabs.html"
+         }
+      }
+   });
+
+
    // if none of the above states are matched, use this as the fallback
    $urlRouterProvider.otherwise('/login');
 });
