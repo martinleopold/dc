@@ -18,7 +18,7 @@ var paths = {
 /**
  * main tasks
  */
-gulp.task('default', ['sass', 'js', 'inject-bower']);
+gulp.task('default', ['sass', 'js']);
 gulp.task('watch', ['watch-sass', 'watch-js']);
 
 
@@ -50,7 +50,7 @@ gulp.task('watch-sass', ['sass'], function() {
  * JS
  */
 
-gulp.task('js', ['eslint'], function() {
+gulp.task('js', ['inject-bower', 'eslint'], function() {
    return gulp.src(paths.js)
       // .pipe($.cached('js')) // can't cache here, beacause we need all files to concat
       .pipe($.sourcemaps.init())
