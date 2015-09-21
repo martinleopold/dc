@@ -1,5 +1,6 @@
 // Karma configuration
 // Generated on Sun Mar 08 2015 17:49:29 GMT+0100 (CET)
+/* eslint-env node */
 
 module.exports = function(config) {
   config.set({
@@ -19,9 +20,9 @@ module.exports = function(config) {
       'www/lib/angular/angular.js',
       'www/lib/angular-mocks/angular-mocks.js',
       'www/lib/firebase/firebase.js',
-      'www/lib/angularfire/dist/angularfire.min.js',
-      'www/lib/lodash/lodash.min.js',
-      'www/js/db-firebase.js',
+      'www/lib/angularfire/dist/angularfire.js',
+      'www/lib/lodash/lodash.js',
+      'js/db-firebase.js',
       'test/*.js'
     ],
 
@@ -40,7 +41,7 @@ module.exports = function(config) {
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['mocha'],
 
 
     // web server port
@@ -63,6 +64,9 @@ module.exports = function(config) {
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
     browsers: ['Chrome'],
+
+
+    browserNoActivityTimeout: 30000,
 
 
     // Continuous Integration mode

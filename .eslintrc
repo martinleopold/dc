@@ -1,0 +1,18 @@
+{
+   "parser": "babel-eslint",
+   "extends": "eslint:recommended",
+   "rules": {
+      "strict": 0,
+      "semi": [1, "always"],
+      "no-console": 0
+   },
+   "env": {
+      "browser": true
+   },
+   "globals": {
+      "angular": false,
+      "cordova": false,
+      "Firebase": false,
+      "_": false
+   }
+}

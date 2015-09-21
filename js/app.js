@@ -13,6 +13,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       if (window.cordova && window.cordova.plugins.Keyboard) {
          cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       }
+      /* global StatusBar */
       if (window.StatusBar) {
          // org.apache.cordova.statusbar required
          StatusBar.styleDefault();
@@ -47,7 +48,6 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       controller: 'SignupCtrl'
    })
 
-
    .state('app', {
       url: '/app',
       abstract: true,
@@ -80,7 +80,7 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       views: {
          'mainContent': {
             templateUrl: "templates/lookfor.html",
-            // controller: 'LookForDinnersCtrl' // FIXME
+            controller: 'LookForDinnersCtrl'
          }
       }
    })
@@ -90,21 +90,37 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       views: {
          'mainContent': {
             templateUrl: "templates/profile.html",
-            // controller: 'UserCtrl'
+            controller: 'UserCtrl'
          }
       }
    })
-
 
    .state('app.dinner', {
       url: "/dinner/:dinnerId",
       views: {
          'mainContent': {
             templateUrl: "templates/dinner.html",
-            // controller: 'DinnerCtrl'
+            controller: 'DinnerCtrl'
          }
       }
+   });
+
+
+   $stateProvider
+   .state('test', {
+      url: '/test',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl'
    })
+   .state('test.tabs', {
+      url: "/tabs",
+      views: {
+         'mainContent': {
+            templateUrl: "templates/test/tabs.html"
+         }
+      }
+   });
 
 
    // if none of the above states are matched, use this as the fallback
