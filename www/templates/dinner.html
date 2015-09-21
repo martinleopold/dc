@@ -6,26 +6,26 @@
   <ion-content class="has-header">
 
 	<div class="card">
-        
+
         <!--<div ng-show="applicationState() == 'applied' || applicationState() == 'declined'" class="application-status positive">
-         You already <strong>applied</strong> to this Dinner for <strong>{{application.count}} person(s)</strong> to <strong>{{application.dinein ? 'eat there' : 'take your food away'}}</strong>, but you can still change your application below. 
+         You already <strong>applied</strong> to this Dinner for <strong>{{application.count}} person(s)</strong> to <strong>{{application.dinein ? 'eat there' : 'take your food away'}}</strong>, but you can still change your application below.
          </div>-->
-        
+
         <div ng-show="applicationState() == 'applied' || applicationState() == 'declined'" class="application-status positive">
-         You already <strong>applied</strong> to this Dinner, but you can still change your application below. 
+         You already <strong>applied</strong> to this Dinner, but you can still change your application below.
          </div>
-        
+
          <!--<div ng-show="applicationState() == 'accepted'" class="application-status positive">
-         Yay! You are already <strong>accepted</strong> to this Dinner! You applied for <strong>{{application.count}}</strong> person(s) and you want to <strong>{{application.dinein ? 'eat there' : 'take your food away'}}</strong>. Look below for an exact adress. 
+         Yay! You are already <strong>accepted</strong> to this Dinner! You applied for <strong>{{application.count}}</strong> person(s) and you want to <strong>{{application.dinein ? 'eat there' : 'take your food away'}}</strong>. Look below for an exact adress.
          </div>-->
-        
+
         <div ng-show="applicationState() == 'accepted'" class="application-status positive">
-         Yay! You are already <strong>accepted</strong> to this Dinner! Look below for an exact adress. 
+         Yay! You are already <strong>accepted</strong> to this Dinner! Look below for an exact adress.
          </div>
-        
+
 		<div class="item item-text-wrap dinner-title">
 			<p>You applied for</p> <!-- bzw. You are accepted to -->
-            
+
             <h1>{{dinner.title}}</h1>
         </div>
         <div class="item item-text-wrap dinner-info">
@@ -36,7 +36,7 @@
     <div class="row row-center dinner-categories">
         <div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="col-33 icon-left ion-record category"> <span>{{type}}</span></div>
     </div>
-      
+
     <div class="card">
         <div class="row row-center">
             <div class="col">
@@ -82,7 +82,7 @@
 			</style>
 			<map on-create="mapCreated(map)"></map>
         </div>
-        
+
         <div class="adress-information">
             <strong>Selma cooks here:</strong> Lützowgasse, 1140 Wien
         </div>
@@ -99,11 +99,11 @@
                                     <!--<span>{{a.user.firstname}} {{a.user.lastname}} </span>-->
                                 </div>
                             </a>
-                </div>  
-            
+                </div>
+
         </div>
     </div>
-      
+
 	<div ng-show="isHost()" class="provide-padding-for-h2">
 	<h2>Applicants</h2>
     <div class="card">
@@ -115,10 +115,10 @@
 						<p class="applicant-name">{{a.user.firstname}}</p>
                         <p class="mode">Take away</p>
 					</div>
-                
+
             </a>
             </div>
-		
+
 		<div class="accept-buttons"><a ng-click="declineApplication(a)" class="button button-stable ion-close"></a>
             <a ng-click="acceptApplication(a)" class="button button-stable ion-checkmark"></a></div>
 	</div>
@@ -127,92 +127,92 @@
 
 
  	<h2>Conversations</h2>
-    
+
     <!--<div class="card conversation">
-		<button class="button button-block button-stable icon ion-chatbubble-working">Start new conversation</button>  
+		<button class="button button-block button-stable icon ion-chatbubble-working">Start new conversation</button>
 	</div>-->
-      
+
 	<div class="card conversation">
         <div class="list">
             <div class="item item-text-wrap">
             <div class="item-avatar" href="#">
               <img src="img/pw.jpg">
               <h3>Venkman</h3>
-              <span>on Aug 14, 17:30</span>  
+              <span>on Aug 14, 17:30</span>
             </div>
-            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>
             </div>
             <div class="item item-text-wrap">
             <div class="item-avatar" href="#">
               <img src="img/pw.jpg">
               <h3>Venkman</h3>
-              <span>on Aug 14, 17:30</span>  
+              <span>on Aug 14, 17:30</span>
             </div>
-            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>
             </div>
         </div>
 
         <button class="button button-block button-stable icon ion-chatbubble-working">Reply to conversation</button>
 	</div>
-      
+
     <div class="card conversation">
         <div class="list">
             <div class="item item-text-wrap">
             <div class="item-avatar" href="#">
               <img src="img/pw.jpg">
               <h3>Venkman</h3>
-              <span>on Aug 14, 17:30</span>  
+              <span>on Aug 14, 17:30</span>
             </div>
-            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>
             </div>
             <div class="item item-text-wrap">
             <div class="item-avatar" href="#">
               <img src="img/pw.jpg">
               <h3>Venkman</h3>
-              <span>on Aug 14, 17:30</span>  
+              <span>on Aug 14, 17:30</span>
             </div>
             <textarea>
-                    
+
             </textarea>
-            
+
             </div>
-            
+
         </div>
-        
+
         <div class="button-bar">
                 <a class="button button-stable">Cancel</a>
                 <a class="button button-stable">Reply</a>
         </div>
-        
-	</div> 
-	
+
+	</div>
+
     <h2>Reviews</h2>
-      
+
     <div class="card conversation">
         <div class="list">
             <div class="item item-text-wrap">
             <div class="item-avatar" href="#">
               <img src="img/pw.jpg">
               <h3>Venkman</h3>
-              <span>on Aug 14, 17:30</span>  
+              <span>on Aug 14, 17:30</span>
             </div>
-            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>  
+            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>
             </div>
         </div>
-    </div>  
-      
+    </div>
+
 	<div ng-show="!isHost() && !applicationState()">
 	<h2>Apply</h2>
-        
+
         <div class="card">
             <div class="item item-checkbox borderless">
                <label class="checkbox">
-                  <input ng-model="" type="checkbox">
+                  <input type="checkbox">
                </label>
                I want to eat there!
             </div>
          </div>
-        
+
 		<div class="row apply-number">
 			<div class="col col-50">
                 <p class="info card-info"><i>For how many pepole?</i></p>
@@ -232,16 +232,16 @@
             </div>
 			</div>
 		</div>
-        
+
         <div class="card">
             <div class="item item-checkbox borderless">
                <label class="checkbox">
-                  <input ng-model="" type="checkbox">
+                  <input type="checkbox">
                </label>
                I want food for take-away!
             </div>
          </div>
-        
+
 		<div class="row apply-number">
 			<div class="col col-50">
                 <p class="info card-info"><i>For how many pepole?</i></p>
@@ -261,16 +261,16 @@
             </div>
 			</div>
 		</div>
-        
+
         <h2>Apply until</h2>
-        
+
         <p class="info">I need to know whether I can come until...</p>
         <div class="row">
-            <div class="col"><input ng-model="" type="datetime-local"></div>
+            <div class="col"><input type="datetime-local"></div>
         </div>
-        
-        <button class="button button-block button-positive">Sign me up!</button>  
-	            
+
+        <button class="button button-block button-positive">Sign me up!</button>
+
 		<!--<div class="row apply-visit-take-away">
 			<div class="col col-50">
 				<button ng-click="apply(true)" ng-disabled="!dinner.dinein" class="button button-energized">I want to go there!</button>
@@ -279,9 +279,9 @@
 				<button ng-click="apply(false)" ng-disabled="!dinner.takeaway" class="button button-positive">I want to take my food away!</button>
 			</div>
 		</div>-->
-        
+
 	 </div>
-      
+
     <!--<button class="button button-block button-stable">Change your application</button>-->
   </ion-content>
 </ion-view>

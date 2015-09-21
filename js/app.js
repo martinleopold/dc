@@ -48,7 +48,6 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       controller: 'SignupCtrl'
    })
 
-
    .state('app', {
       url: '/app',
       abstract: true,
@@ -80,8 +79,8 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       url: "/lookfor",
       views: {
          'mainContent': {
-            templateUrl: "templates/lookfor.html"
-            // controller: 'LookForDinnersCtrl' // FIXME
+            templateUrl: "templates/lookfor.html",
+            controller: 'LookForDinnersCtrl'
          }
       }
    })
@@ -90,19 +89,35 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
       url: "/user/:userId",
       views: {
          'mainContent': {
-            templateUrl: "templates/profile.html"
-            // controller: 'UserCtrl'
+            templateUrl: "templates/profile.html",
+            controller: 'UserCtrl'
          }
       }
    })
-
 
    .state('app.dinner', {
       url: "/dinner/:dinnerId",
       views: {
          'mainContent': {
-            templateUrl: "templates/dinner.html"
-            // controller: 'DinnerCtrl'
+            templateUrl: "templates/dinner.html",
+            controller: 'DinnerCtrl'
+         }
+      }
+   });
+
+
+   $stateProvider
+   .state('test', {
+      url: '/test',
+      abstract: true,
+      templateUrl: 'templates/menu.html',
+      controller: 'AppCtrl'
+   })
+   .state('test.tabs', {
+      url: "/tabs",
+      views: {
+         'mainContent': {
+            templateUrl: "templates/test/tabs.html"
          }
       }
    });

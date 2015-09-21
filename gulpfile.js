@@ -9,18 +9,16 @@ var wiredep = require('wiredep').stream;
 
 var paths = {
   sass: ['./scss/**/*.scss'],
-  js: ['./js/**/*.js', '!js/**/*.old.js'],
+  js: ['js/**/*.js', '!js/**/*.old.js'],
   test: ['./test/**/*.js']
 };
-
-$.cached.caches = {}; // clear caches
 
 
 
 /**
  * main tasks
  */
-gulp.task('default', ['sass', 'js', 'inject-bower']);
+gulp.task('default', ['sass', 'js']);
 gulp.task('watch', ['watch-sass', 'watch-js']);
 
 
@@ -28,9 +26,9 @@ gulp.task('watch', ['watch-sass', 'watch-js']);
 /**
  * SASS
  */
-gulp.task('sass', function(done) {
-   gulp.src('./scss/ionic.app.scss')
-      .pipe($.cached())
+gulp.task('sass', function() {
+   return gulp.src('./scss/ionic.app.scss')
+      .pipe($.cached('sass'))
       .pipe($.sourcemaps.init())
       .pipe($.sass())
       // .pipe(gulp.dest('./www/css/'))
@@ -39,11 +37,10 @@ gulp.task('sass', function(done) {
       }))
       .pipe($.rename({ extname: '.min.css' }))
       .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest('./www/css/'))
-      .on('end', done);
+      .pipe(gulp.dest('./www/css/'));
 });
 
-gulp.task('watch-sass', function() {
+gulp.task('watch-sass', ['sass'], function() {
    gulp.watch(paths.sass, ['sass']);
 });
 
@@ -53,28 +50,27 @@ gulp.task('watch-sass', function() {
  * JS
  */
 
-gulp.task('js', ['eslint'], function(done) {
-   gulp.src(paths.js)
-      .pipe($.cached())
+gulp.task('js', ['inject-bower', 'eslint'], function() {
+   return gulp.src(paths.js)
+      // .pipe($.cached('js')) // can't cache here, beacause we need all files to concat
       .pipe($.sourcemaps.init())
       .pipe($.babel())
       .pipe($.concat('app.js'))
       .pipe($.uglify({ mangle: false }))
       .pipe($.rename({ extname: '.min.js' }))
       .pipe($.sourcemaps.write('.'))
-      .pipe(gulp.dest('./www/js/'))
-      .on('end', done);
+      .pipe(gulp.dest('./www/js/'));
 });
 
 gulp.task('eslint', function() {
    return gulp.src(paths.js.concat(paths.test))
-      .pipe($.cached())
+      .pipe($.cached('eslint'))
       .pipe($.eslint())
       .pipe($.eslint.format());
 });
 
-gulp.task('watch-js', function() {
-   gulp.watch(paths.js.concat(paths.test), ['js']);
+gulp.task('watch-js', ['js'], function() {
+   return gulp.watch(paths.js.concat(paths.test), ['js']);
 });
 
 

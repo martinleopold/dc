@@ -2,7 +2,6 @@
   "name": "dc",
   "app_id": "",
   "gulpStartupTasks": [
-    "default",
     "watch"
   ],
   "watchPatterns": [

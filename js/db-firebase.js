@@ -2,7 +2,7 @@ angular.module('dc.db', ['firebase'])
 
 .value( 'fb', new Firebase("https://dinner-collective.firebaseio.com/") ) // define firebase ref as value service so it can be overridden easily
 
-.factory('db', ['$rootScope', '$q', '$firebase', 'fb' , function($rootScope, $q, $firebase, fb) {
+.factory('db', ['$rootScope', '$q', '$firebase', 'fb', function($rootScope, $q, $firebase, fb) {
 
    var ref = { root: fb }; // store firebase references. place the main ref in there as 'root' as well, even though is shorter just to use 'fb'
 
@@ -454,7 +454,16 @@ ref.review = fb.child('review');
 db.dinner.get = function (dinnerId) {
    return db.query.get(
       ref.dinner.orderByKey().equalTo(dinnerId)
-   );
+   ).then(function (obj) {
+      var id = _(obj).keys().first();
+      var dinner = _(obj).values().first();
+      dinner.dinnerId = id;
+      return dinner;
+   });
+};
+
+db.dinner.getAll = function () {
+   return db.query.get( ref.dinner );
 };
 
 db.dinner.getMessages = function (dinnerId) {

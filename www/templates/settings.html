@@ -1,4 +1,4 @@
-<ion-view title="Settings">
+<ion-view title="Settings" class="">
    <ion-nav-buttons side="left">
       <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
    </ion-nav-buttons>
@@ -7,7 +7,6 @@
 
       <ion-tab title="About You">
          <ion-content>
-
             <h2>Your photo</h2>
             <div class="card">
                <div class="item item-image">
@@ -39,7 +38,6 @@
                      <textarea ng-model="user.info" placeholder="Tell us a bit about yourself - for example what you like to eat, what your hobbies are or what kind of socks you like to wear."></textarea>
                   </label>
                </div>
-
             </div>
 
             <!-- <h2>Gallery</h2>
@@ -147,23 +145,23 @@
                   <i class="icon ion-earth"></i>
                </div>
             </div>
-             
+
             <h2>Recieve notifications via e-mail</h2>
             <div class="card">
-                <div class="item item-checkbox">
-                        <label class="checkbox">
-                           <input type="checkbox">
-                        </label>
-                        All notifications
-                </div>
-                <div class="item item-checkbox">
-                        <label class="checkbox">
-                           <input type="checkbox">
-                        </label>
-                        Only important notifications
-                </div>
+               <div class="item item-checkbox">
+                  <label class="checkbox">
+                     <input type="checkbox">
+                  </label>
+                  All notifications
+               </div>
+               <div class="item item-checkbox">
+                  <label class="checkbox">
+                     <input type="checkbox">
+                  </label>
+                  Only important notifications
+               </div>
             </div>
-             
+
             <button ng-click="update()" class="button button-positive button-block">Save Changes</button>
          </ion-content>
       </ion-tab>
