@@ -131,7 +131,7 @@ c.controller('LookForDinnersCtrl', function($scope, db, resumeSession) {
 		console.log('dinners', $scope.dinners);
 	});
 
-	// TODO: remove this. use filter instea
+	// TODO: remove this. use filter instead
 	$scope.getBeginTime = function(dinner) {
 		var time;
 		if (dinner.dinein && dinner.dinein.enabled) time = dinner.dinein.time;
