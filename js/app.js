@@ -4,9 +4,11 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.directives', 'dc.dev'])
+var dc = angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.directives', 'dc.dev']);
 
-.run(function($ionicPlatform) {
+
+// ionic setup
+dc.run(function($ionicPlatform) {
    $ionicPlatform.ready(function() {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
       // for form inputs)
@@ -19,9 +21,11 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
          StatusBar.styleDefault();
       }
    });
-})
+});
 
-.config(function($stateProvider, $urlRouterProvider) {
+
+// app states (ui-router)
+dc.config(function($stateProvider, $urlRouterProvider) {
 
    // Ionic uses AngularUI Router which uses the concept of states
    // Learn more here: https://github.com/angular-ui/ui-router
@@ -125,4 +129,11 @@ angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'd
 
    // if none of the above states are matched, use this as the fallback
    $urlRouterProvider.otherwise('/login');
+});
+
+
+// timezone support
+dc.run(function () {
+   /* global moment */
+   moment.tz.setDefault('Europe/Vienna');
 });

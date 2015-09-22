@@ -125,8 +125,7 @@ $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
 @import "www/lib/ionic/scss/ionic";
-@import "fonts";
-@import "pending-dots";
+
 
 h1{
     font-size: $font-size-title;

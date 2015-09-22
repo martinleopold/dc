@@ -8,7 +8,8 @@
   "dependencies": {
     "angularfire": "~1.1.2",
     "firebase": "~2.2.9",
-    "lodash": "lodash/lodash#^3.10.1"
+    "lodash": "lodash/lodash#^3.10.1",
+    "moment-timezone": "~0.4.0"
   },
   "overrides": {
     "angularfire": {
@@ -16,6 +17,10 @@
     },
     "lodash": {
       "main": "lodash.min.js"
-    }
+   },
+   "moment-timezone": {
+     "main": "builds/moment-timezone-with-data.js"
+   }
+
   }
 }

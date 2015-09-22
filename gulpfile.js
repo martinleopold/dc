@@ -8,7 +8,7 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 
 var paths = {
-  sass: ['./scss/**/*.scss'],
+  sass: ['scss/includes/*.scss', 'scss/*.scss', 'scss/overrides/*.scss'],
   js: ['js/**/*.js', '!js/**/*.old.js'],
   test: ['./test/**/*.js']
 };
@@ -27,11 +27,11 @@ gulp.task('watch', ['watch-sass', 'watch-js']);
  * SASS
  */
 gulp.task('sass', function() {
-   return gulp.src('./scss/ionic.app.scss')
-      .pipe($.cached('sass'))
+   return gulp.src(paths.sass)
+      // .pipe($.cached('sass')) // can't cache here, beacause we need all files to concat for sass
       .pipe($.sourcemaps.init())
       .pipe($.sass())
-      // .pipe(gulp.dest('./www/css/'))
+      .pipe($.concat('ionic.app.css'))
       .pipe($.minifyCss({
          keepSpecialComments: 0
       }))
