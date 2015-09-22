@@ -1,0 +1,20 @@
+body.platform-browser {
+   .device-preview {
+      background-image: url(../img/phone-case.png);
+      width: 365px;
+      height: 792px;
+      position: relative;
+      margin: 10px auto;
+   }
+
+   .app {
+      position: absolute;
+      top: 104px;
+      left: 19px;
+      z-index: 0;
+      width: 328px;
+      height: 576px;
+      border: 4px solid #22272d;
+      overflow:hidden;
+   }
+}
