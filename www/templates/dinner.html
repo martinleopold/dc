@@ -112,6 +112,7 @@
             <a ui-sref="app.user({userId:a.userId})" class="button button-light button-block application">
 					<div class="item-avatar">
 						<img src="img/pw.jpg">
+                        <span class="badge badge-positive">-15</span> <!--Shows "Dinner Credits"-->
 						<p class="applicant-name">{{a.user.firstname}}</p>
                         <p class="mode">Take away</p>
 					</div>
@@ -124,7 +125,6 @@
 	</div>
 	</div>
     </div>
-
 
  	<h2>Conversations</h2>
     
@@ -152,7 +152,7 @@
             </div>
         </div>
 
-        <button class="button button-block button-stable icon ion-chatbubble-working">Reply to conversation</button>
+        <button class="button button-block button-stable">Reply to conversation</button>
 	</div>
       
     <div class="card conversation">
@@ -203,15 +203,15 @@
       
 	<div ng-show="!isHost() && !applicationState()">
 	<h2>Apply</h2>
-        
-        <div class="card">
-            <div class="item item-checkbox borderless">
-               <label class="checkbox">
-                  <input ng-model="" type="checkbox">
-               </label>
-               I want to eat there!
-            </div>
-         </div>
+    
+    
+    <div class="card">
+        <div class="item item-checkbox borderless">
+           <label class="checkbox">
+              <input ng-model="" type="checkbox">
+           </label>
+           I want to eat there!
+        </div>
         
 		<div class="row apply-number">
 			<div class="col col-50">
@@ -233,14 +233,12 @@
 			</div>
 		</div>
         
-        <div class="card">
             <div class="item item-checkbox borderless">
                <label class="checkbox">
                   <input ng-model="" type="checkbox">
                </label>
                I want food for take-away!
             </div>
-         </div>
         
 		<div class="row apply-number">
 			<div class="col col-50">
@@ -262,14 +260,23 @@
 			</div>
 		</div>
         
+    </div>
+
+        
         <h2>Apply until</h2>
-        
-        <p class="info">I need to know whether I can come until...</p>
-        <div class="row">
-            <div class="col"><input ng-model="" type="datetime-local"></div>
+        <div class="card apply-until">
+            <div class="row item">
+                <div class="col">
+                    <p class="info card-info">I need to know whether I can come until...</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col item item-input"><input ng-model="" type="datetime-local"></div>
+            </div>
         </div>
+            
         
-        <button class="button button-block button-positive">Sign me up!</button>  
+        <button class="button button-block button-positive">Sign me up!</button>    
 	            
 		<!--<div class="row apply-visit-take-away">
 			<div class="col col-50">
