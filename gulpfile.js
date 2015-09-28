@@ -1,61 +1,121 @@
+/* eslint-env node */
+
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var bower = require('bower');
-var concat = require('gulp-concat');
-var sass = require('gulp-sass');
-var minifyCss = require('gulp-minify-css');
-var rename = require('gulp-rename');
 var sh = require('shelljs');
+var KarmaServer = require('karma').Server;
+var $ = require('gulp-load-plugins')();
+var wiredep = require('wiredep').stream;
 
 var paths = {
-  sass: ['./scss/**/*.scss']
+  sass: ['scss/includes/*.scss', 'scss/*.scss', 'scss/overrides/*.scss'],
+  js: ['js/**/*.js', '!js/**/*.old.js'],
+  test: ['./test/**/*.js']
 };
 
-gulp.task('default', ['sass']);
 
-var exec = require('child_process').exec;
-gulp.task('serve', function() {
-  exec('ionic serve --nobrowser');
-  exec('open "http://localhost:8100" -a "Google Chrome"');
+
+/**
+ * main tasks
+ */
+gulp.task('default', ['sass', 'js']);
+gulp.task('watch', ['watch-sass', 'watch-js']);
+
+
+
+/**
+ * SASS
+ */
+gulp.task('sass', function() {
+   return gulp.src(paths.sass)
+      // .pipe($.cached('sass')) // can't cache here, beacause we need all files to concat for sass
+      .pipe($.sourcemaps.init())
+      .pipe($.sass())
+      .pipe($.concat('ionic.app.css'))
+      .pipe($.minifyCss({
+         keepSpecialComments: 0
+      }))
+      .pipe($.rename({ extname: '.min.css' }))
+      .pipe($.sourcemaps.write('.'))
+      .pipe(gulp.dest('./www/css/'));
 });
 
-gulp.task('sass', function(done) {
-  gulp.src('./scss/ionic.app.scss')
-    .pipe(sass())
-    .pipe(gulp.dest('./www/css/'))
-    .pipe(minifyCss({
-      keepSpecialComments: 0
-    }))
-    .pipe(rename({ extname: '.min.css' }))
-    .pipe(gulp.dest('./www/css/'))
-    .on('end', done);
+gulp.task('watch-sass', ['sass'], function() {
+   gulp.watch(paths.sass, ['sass']);
 });
 
-gulp.task('watch', function() {
-  gulp.watch(paths.sass, ['sass']);
+
+
+/**
+ * JS
+ */
+
+gulp.task('js', ['inject-bower', 'eslint'], function() {
+   return gulp.src(paths.js)
+      // .pipe($.cached('js')) // can't cache here, beacause we need all files to concat
+      .pipe($.sourcemaps.init())
+      .pipe($.babel())
+      .pipe($.concat('app.js'))
+      .pipe($.uglify({ mangle: false }))
+      .pipe($.rename({ extname: '.min.js' }))
+      .pipe($.sourcemaps.write('.'))
+      .pipe(gulp.dest('./www/js/'));
 });
 
+gulp.task('eslint', function() {
+   return gulp.src(paths.js.concat(paths.test))
+      .pipe($.cached('eslint'))
+      .pipe($.eslint())
+      .pipe($.eslint.format());
+});
+
+gulp.task('watch-js', ['js'], function() {
+   return gulp.watch(paths.js.concat(paths.test), ['js']);
+});
+
+
+/**
+ * inject bower dependecies
+ */
+gulp.task('inject-bower', function() {
+   return gulp.src('./www/index.html')
+      .pipe(wiredep({
+         exclude: "angular/"
+      }))
+      .pipe(gulp.dest('./www/'));
+});
+
+
+
+/**
+ * install tools (bower, git)
+ */
 gulp.task('install', ['git-check'], function() {
   return bower.commands.install()
     .on('log', function(data) {
-      gutil.log('bower', gutil.colors.cyan(data.id), data.message);
+      $.util.log('bower', $.util.colors.cyan(data.id), data.message);
     });
 });
 
 gulp.task('git-check', function(done) {
   if (!sh.which('git')) {
     console.log(
-      '  ' + gutil.colors.red('Git is not installed.'),
+      '  ' + $.util.colors.red('Git is not installed.'),
       '\n  Git, the version control system, is required to download Ionic.',
-      '\n  Download git here:', gutil.colors.cyan('http://git-scm.com/downloads') + '.',
-      '\n  Once git is installed, run \'' + gutil.colors.cyan('gulp install') + '\' again.'
+      '\n  Download git here:', $.util.colors.cyan('http://git-scm.com/downloads') + '.',
+      '\n  Once git is installed, run \'' + $.util.colors.cyan('gulp install') + '\' again.'
     );
     process.exit(1);
   }
   done();
 });
 
-// deploy app to web via ftp
+
+
+/**
+ * deploy app to web via ftp
+ * TODO: replace with vinyl-ftp
+ */
 try {
   var sftpConfig = JSON.parse( require('fs').readFileSync('sftp.config') );
   var sftp = require('gulp-sftp')(sftpConfig);
@@ -68,19 +128,26 @@ try {
 }
 
 
-// run karma tests once
-var karma = require('karma').server;
+
+/**
+ * run test suite once
+ */
 gulp.task('test', function (done) {
-  karma.start({
-    configFile: __dirname + '/karma.conf.js',
-    singleRun: true
-  }, done);
+   new KarmaServer({
+      configFile: __dirname + '/karma.conf.js',
+      singleRun: true
+   }, function() {
+      done();
+   }).start();
 });
 
-
-// (test driven development) watch for file changes and re-run tests on each change
+/**
+ * watch for file changes and re-run tests on each change (i.e. test driven development)
+ */
 gulp.task('tdd', function (done) {
-  karma.start({
-    configFile: __dirname + '/karma.conf.js'
-  }, done);
+   new KarmaServer({
+      configFile: __dirname + '/karma.conf.js'
+   }, function() {
+      done();
+   }).start();
 });
