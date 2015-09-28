@@ -24,7 +24,8 @@
     "karma-chrome-launcher": "^0.2.0",
     "karma-jasmine": "^0.3.6",
     "karma-mocha-reporter": "^1.1.1",
-    "shelljs": "^0.5.3"
+    "shelljs": "^0.5.3",
+    "wiredep": "^2.2.2"
   },
   "cordovaPlugins": [
     "cordova-plugin-camera",
