@@ -174,9 +174,10 @@ h2{
     button.button-block{
         margin: 0;
         width: 100%;
-        height: auto;
+        min-height: 9*$gru;
         box-shadow: $card-box-shadow;
-
+        border-top: 1px solid $grey-15;
+        
         .item-avatar{
             padding-left: 0;
             min-height: 7*$gru;
@@ -449,7 +450,12 @@ button.button-block{
         background-color: $grey-05;
         padding-left: 50px;
         padding-right: 8px;
-
+        
+        
+        &.borderless{
+            line-height: 5*$gru;
+        }
+        
         .checkbox{
             padding-top: 7+$hgru;
 
@@ -498,11 +504,12 @@ button.button-block{
     &.borderless{
             margin-top: 0;
             box-shadow: $borderless-box-shadow;
+        //margin-bottom:0;
     }
 
     &.isolated{
         height: 9*$gru;
-        padding-top: 25px;
+        //padding-top: 25px;
     }
 
 }
@@ -760,15 +767,53 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         font-size: $font-size-title;
         line-height: $font-size-title + $hgru;
         margin: 0;
+        
     }
 
     &.dinner-title{
         padding-top: $gru + $hgru;
+        background-color: #EBF3FC;
+        margin-bottom: 2*$gru;
+        
+        &.control-application{
+            margin-bottom: 0;
+            background-color: #fff;
+        }
+        
+        p{ 
+            font-size: $font-size-base;
+        }
+            
+        .row{
+            margin-top: 2*$gru;
+            margin-bottom: 0;
+            
+            .icon{
+                font-size: $font-size-xlarge;
+                color: $positive;
+            }
+            
+            p{
+                font-size: $font-size-base;
+                margin-bottom: 0;
+            }
+            
+            .host{
+                color: $positive;
+            }
+            
+            .status{
+                font-size: $font-size-small;
+                font-style: italic;
+                font-weight: 300;
+                line-height: 1;
+            }
+        }
     }
 
     &.dinner-info{
         padding-top: 0;
-        padding-bottom: 2*$gru + $hgru
+        padding-bottom: $hgru;
     }
 
     .row{
@@ -794,14 +839,21 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .dinner-categories{
     padding: $gru 3*$gru 2*$gru 3*$gru;
-
+    color: $positive;
+    
     .category{
-        font-size: $font-size-small;
+        font-weight: 300;
         text-transform: capitalize;
         overflow: hidden;
-
+        float:left;
+        font-size: $font-size-xlarge;
+        padding-right: 2*$gru;
+        line-height: $font-size-xlarge;
+        
         span{
+            font-size: $font-size-base;
             padding-left: $hgru;
+            color: $base-color;
         }
     }
 }
@@ -1366,6 +1418,13 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                     font-weight: 300;
                     line-height: 2*$gru + $hgru;
                 }
+                
+                .reply{
+                    color: $positive;
+                    font-family: $font-family-sans-serif;
+                    font-weight: 400;
+                    font-style: italic;
+                }
             }
 
             .item-avatar{
@@ -1382,6 +1441,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
                 h3{
                     display: inline;
+                    color: $positive;
                     font-size: $font-size-button;
                 }
 
@@ -1454,6 +1514,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
         &.button-block{
             line-height: 9*$gru;
+            border-top: 1px solid $grey-15;
         }
 
         &.icon:before{

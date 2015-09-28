@@ -9,20 +9,23 @@
 			
             <h2>Current Dinners</h2>
             
-            <div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
-				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
-				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
-					<div class="col col-75">
-                        <p class="dinnertitle">{{dinner.title}}</p>
-                        <p class="dinnerlocation">at Selma's place</p>
-                    </div>
-					<div class="col">
-                        <p class="dinnerdate">
-                        {{dinner | getBeginTime | date : 'd.M. HH:mm'}}
-                        </p>
-                    </div>
-				</a>
-			</div>
+            <div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card dinner">
+             <style>
+                a,
+                a:visited,
+                a:active,
+                a:hover {
+                   text-decoration: none;
+                   color: black;
+                }
+             </style>
+             <a ng-href="#/app/dinner/{{dinnerId}}" class="">
+                <div class="title-location">
+                   <p class="dinnertitle">{{dinner.title}}</p>
+                    <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.'}}, {{dinner | getBeginTime | date : 'HH:mm'}} at <span class="host">Selma</span>'s place</p>
+                </div>
+             </a>
+          </div>
             
             <h2>Past Dinners</h2>
             
@@ -36,20 +39,23 @@
             
             <h2>Current Dinners</h2>
             
-			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
-				<style> a, a:visited, a:active, a:hover {text-decoration:none; color:black;}</style>
-				<a ng-href="#/app/dinner/{{dinner.$id}}"class="row row-center">
-					<div class="col col-75">
-                        <p class="dinnertitle">{{dinner.title}}</p>
-                        <p class="dinnerlocation">at Selma's place</p>
-                    </div>
-					<div class="col">
-                        <p class="dinnerdate">
-                        {{dinner | getBeginTime | date : 'd.M. HH:mm'}}
-                        </p>
-                    </div>
-				</a>
-			</div>
+			<div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card dinner">
+             <style>
+                a,
+                a:visited,
+                a:active,
+                a:hover {
+                   text-decoration: none;
+                   color: black;
+                }
+             </style>
+             <a ng-href="#/app/dinner/{{dinnerId}}" class="">
+                <div class="title-location">
+                   <p class="dinnertitle">{{dinner.title}}</p>
+                    <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.'}}, {{dinner | getBeginTime | date : 'HH:mm'}} at <span class="host">Selma</span>'s place</p>
+                </div>
+             </a>
+          </div>
             
             <h2>Application pending</h2>
             
