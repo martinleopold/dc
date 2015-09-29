@@ -44,6 +44,7 @@ $grey-09:                         #e8e8e8 !default;
 $grey-15:                         #d8d8d8 !default;
 $grey-30:                         #b2b2b2 !default;
 $grey-70:                         #4c4c4c !default;
+$grey-75:                         #404040 !default;
 $grey-80:                         #323232 !default;
 $grey-85:                         #262626 !default;
 
@@ -178,6 +179,10 @@ h2{
         box-shadow: $card-box-shadow;
         border-top: 1px solid $grey-15;
         
+        &.not-bottom{
+            border-top: 0;
+        }
+        
         .item-avatar{
             padding-left: 0;
             min-height: 7*$gru;
@@ -212,8 +217,23 @@ h2{
     font-style: $button-font-style;
 }
 
-.button.button-positive{
+.button:hover{
+    color: $base-color;
+}
+
+.button.button-positive,
+.button.button-positive:hover{
     color: $grey-70;
+}
+
+.button.button-positive.activated,
+.button.button-positive.active{
+    box-shadow: none;
+}
+
+.button.button-stable.activated,
+.button.button-stable.active{
+    box-shadow: none;
 }
 
 button.button-block{
@@ -454,6 +474,11 @@ button.button-block{
         
         &.borderless{
             line-height: 5*$gru;
+            margin-bottom: 1px;
+        }
+        
+        &.borderless:last-child{
+            margin-bottom: -1px;
         }
         
         .checkbox{
@@ -1009,21 +1034,21 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .apply-number{
 
-    padding: 0 $gru $gru $gru;
-    margin-bottom: $gru;
-
-    .col:first-child{
-        padding: 0 0 0 $gru;
+    margin: $gru;
+    
+    .col{
+        padding-right: $gru;
     }
-
+    
     p{
         line-height: $font-size-small + $hgru;
     }
 
     .counter{
-        background-color: $stable;
+        background-color: #fff;
         padding: 0;
-        margin-right: $gru;
+        padding-right: 2 * $gru;
+        margin-left: -$gru;
 
         .row, .col{
             padding: 0;
@@ -1043,6 +1068,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
         button{
             display:block;
+            background-color: $stable;
             box-shadow: $card-box-shadow;
             height: 7*$gru;
             padding:0;
@@ -1088,17 +1114,25 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         margin: 0;
         padding: 0;
     }
-
+    
     .username{
         font-family: $font-family-serif, serif;
-        font-size: $font-size-xlarge;
-        font-weight: 300;
+        font-size: $font-size-title;
+        font-weight: 900;
         margin-bottom: 2*$gru;
+        margin-left: $gru;
+        margin-top: 2*$gru;
+        max-height: 3*$gru;
+        display: block;
     }
 
     .credits{
+        max-height: 3*$gru;
+        clear:left;
+        position: absolute;
+        left: 2*$gru;
+        top: 8*$gru + $hgru;
         font-size: $font-size-xlarge;
-        text-align: center;
     }
 
     .credits-label{
@@ -1122,12 +1156,13 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         .item{
             height: $height-medium - 1px;
             margin-bottom: 1px;
-            background-color: $grey-85;
+            background-color: $grey-75;
 
             .item-content{
-                background-color: $grey-85;
+                background-color: $grey-75;
                 color: white;
                 font-size: $font-size-button;
+                font-weight: 600;
             }
         }
     }
@@ -1244,8 +1279,8 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             vertical-align: middle;
             float: right;
             height: 7*$gru;
-            padding-top: 3*$gru+0.5*$hgru;
-            padding-right: 3*$gru + $hgru;
+            padding-top: 3 * $gru + 0.5 * $hgru;
+            padding-right: 3 * $gru + $hgru;
         }
 
         .checkbox{
@@ -1274,9 +1309,9 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 &:after{
                     @include rotate(0);
                     border-width: 0px;
-                    color: $base-color;
+                    color: $positive;
                     top: -3px;
-                    left: 0px;
+                    left: -1px;
                     font-size: 5*$hgru+4px;
                     font-family: "Ionicons";
                     content: $ionicon-var-checkmark-circled;

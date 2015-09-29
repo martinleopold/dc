@@ -236,22 +236,22 @@
 
         
 		<div class="row apply-number">
-			<div class="col col-50">
+            <div class="col col-50">
                 <p class="info card-info"><i>For how many pepole?</i></p>
 				<p class="info card-info">You'll also be charged this many credits.</p>
 			</div>
 			<div class="col counter col-center">
-            <div class="row">
-				<div class="col">
-                    <button ng-click="addCount(-1, 1, 9)" class="button button-stable icon ion-android-remove"></button>
+                <div class="row">
+                    <div class="col">
+                        <button ng-click="addCount(-1, 1, 9)" class="button button-stable icon ion-android-remove"></button>
+                    </div>
+                    <div class="col">
+                        <h2>{{application.count}}</h2>
+                    </div>
+                    <div class="col">
+                    <button ng-click="addCount(1, 1, 9)" class="button button-stable icon ion-android-add"></button>
+                    </div>
                 </div>
-                <div class="col">
-				    <h2>{{application.count}}</h2>
-                </div>
-                <div class="col">
-				<button ng-click="addCount(1, 1, 9)" class="button button-stable icon ion-android-add"></button>
-                </div>
-            </div>
 			</div>
 		</div>
         
