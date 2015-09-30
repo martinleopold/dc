@@ -18,8 +18,8 @@ var paths = {
 /**
  * main tasks
  */
-gulp.task('default', ['sass', 'js']);
-gulp.task('watch', ['watch-sass', 'watch-js']);
+gulp.task('default', ['ruby-sass', 'js']);
+gulp.task('watch', ['watch-ruby-sass', 'watch-js']);
 
 
 
@@ -42,6 +42,27 @@ gulp.task('sass', function() {
 
 gulp.task('watch-sass', ['sass'], function() {
    gulp.watch(paths.sass, ['sass']);
+});
+
+gulp.task('ruby-sass', function() {
+   var sassOptions = {
+      sourcemap: true,
+      emitCompileError: true,
+      style: 'expanded'
+   };
+   return $.rubySass(paths.sass, sassOptions)
+      .on('error', $.rubySass.logError)
+      .pipe($.concat('ionic.app.css'))
+      // .pipe($.minifyCss({
+      //    keepSpecialComments: 0
+      // }))
+      .pipe($.rename({ extname: '.min.css' }))
+      .pipe($.sourcemaps.write('.'))
+      .pipe(gulp.dest('./www/css/'));
+});
+
+gulp.task('watch-ruby-sass', ['ruby-sass'], function() {
+   gulp.watch(paths.sass, ['ruby-sass']);
 });
 
 
@@ -120,7 +141,7 @@ try {
   var sftpConfig = JSON.parse( require('fs').readFileSync('sftp.config') );
   var sftp = require('gulp-sftp')(sftpConfig);
 
-  gulp.task('deploy-web', ['sass'], function() {
+  gulp.task('deploy-web', ['ruby-sass'], function() {
     gulp.src('./www/**/*').pipe(sftp);
   });
 } catch(e) {
