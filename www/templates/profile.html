@@ -9,21 +9,25 @@
             <div class="card">
                <div class="item item-image">
                   <img src="img/pm_b.jpg">
-                  <span class="badge badge-energized icon-left ion-ribbon-a">14</span>
                </div>
                <div class="item item-text-wrap">
                   <h1>{{user.firstName}} {{user.lastName}}</h1>
-                  <p>cooked 28 times</p>
+                  <div class="row row-center statistics">
+                      <i class=" col col-10 icon ion-heart"></i>
+                      <div class="col col-50"><p>cooked 28 times</p></div>
+                      <i class="col col-10 icon ion-ribbon-b"></i>
+                      <div class="col"><p>8 Tips</p></div>
+                  </div>
                </div>
                <div class="list novpadding">
                   <div class="row single">
                      <div class="col">
-                        <button class="button button-block button-stable">
+                        <button class="button not-bottom button-block button-stable icon-left ion-person-add">
                            Befriend
                         </button>
                      </div>
                      <div class="col">
-                        <button class="button button-block button-stable icon-left ion-ribbon-a">
+                        <button class="button not-bottom button-block button-stable icon-left ion-ribbon-a">
                            Award a tip!
                         </button>
                      </div>
@@ -36,29 +40,22 @@
 
             <h2>Dinners</h2>
             <div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card dinner">
-               <style>
-                  a,
-                  a:visited,
-                  a:active,
-                  a:hover {
-                     text-decoration: none;
-                     color: black;
-                  }
-               </style>
-               <a ng-href="#/app/dinner/{{dinnerId}}" class="row row-center">
-                  <div class="col col-75 title-location">
-                     <p class="dinnertitle">{{dinner.title}}</p>
-                     <p class="dinnerlocation">at Selma's place</p>
-                  </div>
-                  <div class="col">
-                     <p class="dinnerdate">
-                        <span>{{dinner | getBeginTime | date : 'd.M.'}}
-                           <span>{{dinner | getBeginTime | date : 'HH:mm'}}</span>
-                        </span>
-                     </p>
-                  </div>
-               </a>
-            </div>
+             <style>
+                a,
+                a:visited,
+                a:active,
+                a:hover {
+                   text-decoration: none;
+                   color: black;
+                }
+             </style>
+             <a ng-href="#/app/dinner/{{dinnerId}}" class="">
+                <div class="title-location">
+                   <p class="dinnertitle">{{dinner.title}}</p>
+                    <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.'}}, {{dinner | getBeginTime | date : 'HH:mm'}} at <span class="host">Selma</span>'s place</p>
+                </div>
+             </a>
+          </div>
 
             <!-- <h2>Friends</h2>
          <div class="card">
@@ -95,17 +92,57 @@
 
       <ion-tab title="Reviews">
          <ion-content>
-            <h2>Reviews for
-               <span class="dinnertitle">Wienerschnitzel with Kartoffelsalat</span>
-            </h2>
-            <label class="hint">
+
+            <div class="card conversation review">
+               <div class="list">
+                   <div class="item item-reviewtitle">
+                        Wienerschnitzel... <span>on Aug 14, 9:30am</span>
+                   </div>
+                    
+                  <div class="item item-text-wrap">
+                     <div class="item-avatar" href="#">
+                        <img src="img/pw.jpg">
+                        <h3>Venkman</h3>
+                        <span>on Aug 14, 17:30</span>
+                     </div>
+                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
+                        wie die meine.</p>
+                  </div>
+                   <div class="item item-text-wrap">
+                     <div class="item-avatar" href="#">
+                        <img src="img/pw.jpg">
+                        <h3>Venkman</h3>
+                        <span>on Aug 14, 17:30</span>
+                     </div>
+                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
+                        wie die meine.</p>
+                  </div>
+                   <div class="item item-text-wrap">
+                     <div class="item-avatar" href="#">
+                        <img src="img/pw.jpg">
+                        <h3>Venkman</h3>
+                        <span>on Aug 14, 17:30</span>
+                     </div>
+                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
+                        wie die meine.</p>
+                  </div>
+                
+                   <label class="hint">
                <strong>Hey, you've taken part in this Dinner!</strong> Why don’t you write a bit about how you liked it?</label>
-            <div class="card conversation">
-               <button class="button button-block button-stable icon ion-chatbubble-working">Write new review</button>
+                   <button class="button button-block button-stable icon ion-chatbubble-working">Write new review</button>
+               </div>
             </div>
 
+             
+            
+
             <div class="card conversation">
+                
                <div class="list">
+                   <div class="item item-reviewtitle">
+                        Wienerschnitzel... <span>on Aug 14, 9:30am</span>
+                   </div>
+                    
                   <div class="item item-text-wrap">
                      <div class="item-avatar" href="#">
                         <img src="img/pw.jpg">
@@ -115,50 +152,11 @@
                      <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
                         wie die meine.</p>
                   </div>
-               </div>
-            </div>
-
-            <h2>Reviews for
-               <span class="dinnertitle">Wienerschnitzel with Kartoffelsalat</span>
-            </h2>
-
-            <div class="card conversation">
-               <div class="list">
-                  <div class="item item-text-wrap">
-                     <div class="item-avatar" href="#">
-                        <img src="img/pw.jpg">
-                        <h3>Venkman</h3>
-                        <span>on Aug 14, 17:30</span>
-                     </div>
-                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
-                        wie die meine.</p>
-                  </div>
-               </div>
-            </div>
-
-            <div class="card conversation">
-               <div class="list">
-                  <div class="item item-text-wrap">
-                     <div class="item-avatar" href="#">
-                        <img src="img/pw.jpg">
-                        <h3>Venkman</h3>
-                        <span>on Aug 14, 17:30</span>
-                     </div>
-                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
-                        wie die meine.</p>
-                  </div>
-               </div>
-            </div>
-
-            <h2>Reviews for
-               <span class="dinnertitle">Wienerschnitzel with Kartoffelsalat</span>
-            </h2>
-            <label class="hint">
+                   
+                   <label class="hint">
                <strong>Hey, you've taken part in this Dinner!</strong> Why don’t you write a bit about how you liked it?</label>
-
-            <div class="card conversation">
-               <div class="list">
-                  <div class="item item-text-wrap">
+                  
+                   <div class="item item-text-wrap">
                      <div class="item-avatar" href="#">
                         <img src="img/pw.jpg">
                         <h3>Venkman</h3>
@@ -174,20 +172,7 @@
                   <a class="button button-stable">Submit</a>
                </div>
             </div>
-
-            <div class="card conversation">
-               <div class="list">
-                  <div class="item item-text-wrap">
-                     <div class="item-avatar" href="#">
-                        <img src="img/pw.jpg">
-                        <h3>Venkman</h3>
-                        <span>on Aug 14, 17:30</span>
-                     </div>
-                     <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
-                        wie die meine.</p>
-                  </div>
-               </div>
-            </div>
+             
          </ion-content>
       </ion-tab>
 

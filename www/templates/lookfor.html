@@ -111,17 +111,10 @@
                color: black;
             }
          </style>
-         <a ng-href="#/app/dinner/{{dinnerId}}" class="row row-center">
-            <div class="col col-75 title-location">
+         <a ng-href="#/app/dinner/{{dinnerId}}" class="">
+            <div class="title-location">
                <p class="dinnertitle">{{dinner.title}}</p>
-               <p class="dinnerlocation">at Selma's place</p>
-            </div>
-            <div class="col">
-               <p class="dinnerdate">
-                  <span>{{dinner | getBeginTime | date : 'd.M.'}}
-                     <span>{{dinner | getBeginTime | date : 'HH:mm'}}</span>
-                  </span>
-               </p>
+                <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.'}}, {{dinner | getBeginTime | date : 'HH:mm'}} at <span class="host">Selma</span>'s place</p>
             </div>
          </a>
       </div>

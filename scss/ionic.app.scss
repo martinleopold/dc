@@ -20,8 +20,8 @@ $dark:                            #444 !default;
 
 //$dp:                              1px / 360px * 100%;
 //gru = grid unit
-$gru:                             8px !default;
-$hgru:                            4px !default;
+$gru:                             8px;
+$hgru:                            4px;
 
 $height-small:                    11*$hgru !default;
 $height-medium:                   7*$gru !default;
@@ -44,11 +44,12 @@ $grey-09:                         #e8e8e8 !default;
 $grey-15:                         #d8d8d8 !default;
 $grey-30:                         #b2b2b2 !default;
 $grey-70:                         #4c4c4c !default;
+$grey-75:                         #404040 !default;
 $grey-80:                         #323232 !default;
 $grey-85:                         #262626 !default;
 
 $energized:                       #e83f72 !default;
-$positive:                        #16e6c0 !default;
+$positive:                        #00cf4c !default;
 $dark:                            #323232 !default;
 $stable:                          $grey-05 !default;
 
@@ -109,7 +110,7 @@ $tabs-height:                     $height-medium !default;
 $tabs-text-font-size:             $font-size-button !default;
 $tabs-text-font-style:            italic !default;
 
-// $tabs-striped-border-width:       20px; //???
+ $tabs-striped-border-width:       5px; 
 
 //Z-Indexes
 //--------------------------------
@@ -174,9 +175,14 @@ h2{
     button.button-block{
         margin: 0;
         width: 100%;
-        height: auto;
+        min-height: 9*$gru;
         box-shadow: $card-box-shadow;
-
+        border-top: 1px solid $grey-15;
+        
+        &.not-bottom{
+            border-top: 0;
+        }
+        
         .item-avatar{
             padding-left: 0;
             min-height: 7*$gru;
@@ -209,6 +215,25 @@ h2{
 .button{
     box-shadow: $card-box-shadow;
     font-style: $button-font-style;
+}
+
+.button:hover{
+    color: $base-color;
+}
+
+.button.button-positive,
+.button.button-positive:hover{
+    color: $grey-70;
+}
+
+.button.button-positive.activated,
+.button.button-positive.active{
+    box-shadow: none;
+}
+
+.button.button-stable.activated,
+.button.button-stable.active{
+    box-shadow: none;
 }
 
 button.button-block{
@@ -254,7 +279,7 @@ button.button-block{
 
     i{
         font-style: italic;
-        font-weight: normal;
+        font-weight: 600;
     }
 
     .data{
@@ -278,23 +303,34 @@ button.button-block{
     box-shadow: $bar-box-shadow;
 }
 
+.nav-bar-tabs-top.hide ~ .view-container .tabs-top .tabs {
+    top: $bar-height;
+}
+
 .tabs-top{
+        
     &.tabs-striped{
 
         .tabs{
             border-bottom: none;
-        }
+
         .tab-item{
                 color: #fff; //UNSAUBER!
-            }
-            &.tab-item-active,
-            &.active,
-            &.activated {
                 margin-top: 0;
-                margin-bottom: -$tabs-striped-border-width;
-                border-width: 0px 0px $tabs-striped-border-width 0px !important;
-                border-style: solid;
+            
+                &.tab-item-active,
+                &.active,
+                &.activated {
+                    margin-top: 0px !important;
+                    border-width: 0px 0px $tabs-striped-border-width 0px !important;
+                    border-style: solid;
+
+                    .tab-title{
+                        margin-top: 0px !important;
+                    }
+                }
             }
+        }
     }
 
     .icon{
@@ -434,7 +470,17 @@ button.button-block{
         background-color: $grey-05;
         padding-left: 50px;
         padding-right: 8px;
-
+        
+        
+        &.borderless{
+            line-height: 5*$gru;
+            margin-bottom: 1px;
+        }
+        
+        &.borderless:last-child{
+            margin-bottom: -1px;
+        }
+        
         .checkbox{
             padding-top: 7+$hgru;
 
@@ -483,11 +529,12 @@ button.button-block{
     &.borderless{
             margin-top: 0;
             box-shadow: $borderless-box-shadow;
+        //margin-bottom:0;
     }
 
     &.isolated{
         height: 9*$gru;
-        padding-top: 25px;
+        //padding-top: 25px;
     }
 
 }
@@ -577,10 +624,9 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         content: '';
         background-image: url(../img/dinner_mask.png);
         pointer-events: none;
-        height: 9*$gru;
+        height: 5*$gru;
         width: 40px;
-        right: 10*$gru + $hgru;
-        margin-top: -2*$gru;
+        right: $gru;
         background-repeat: no-repeat;
         background-position: right;
     }
@@ -597,17 +643,32 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         &.dinnertitle{
             font-size: $font-size-xlarge;
             font-family: "Bree Serif", serif;
-            font-weight: 300;
-            padding-bottom: $hgru;
+            font-weight: 400;
+            padding: $gru + $hgru;
+            padding-bottom: 2*$gru;
+            margin: $hgru;
+            border-bottom: 1px solid rgba(0,0,0,0.1);            
             white-space: nowrap;
             overflow: hidden;
         }
 
-        &.dinnerlocation{
+        &.dinnerinfo{
             font-size: $font-size-small;
+            padding: $gru;
+            padding-left: $gru + $hgru;
+            margin: $hgru;
             font-style: italic;
             font-weight: 300;
             line-height: $font-size-small;
+            
+            .host{
+                color: $positive;
+            }
+            
+            i{
+                margin-right: $hgru;
+                font-size: $font-size-small;
+            }
         }
 
         &.dinnerdate{
@@ -731,15 +792,53 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         font-size: $font-size-title;
         line-height: $font-size-title + $hgru;
         margin: 0;
+        
     }
 
     &.dinner-title{
         padding-top: $gru + $hgru;
+        background-color: #EBF3FC;
+        margin-bottom: 2*$gru;
+        
+        &.control-application{
+            margin-bottom: 0;
+            background-color: #fff;
+        }
+        
+        p{ 
+            font-size: $font-size-base;
+        }
+            
+        .row{
+            margin-top: 2*$gru;
+            margin-bottom: 0;
+            
+            .icon{
+                font-size: $font-size-xlarge;
+                color: $positive;
+            }
+            
+            p{
+                font-size: $font-size-base;
+                margin-bottom: 0;
+            }
+            
+            .host{
+                color: $positive;
+            }
+            
+            .status{
+                font-size: $font-size-small;
+                font-style: italic;
+                font-weight: 300;
+                line-height: 1;
+            }
+        }
     }
 
     &.dinner-info{
         padding-top: 0;
-        padding-bottom: 2*$gru + $hgru
+        padding-bottom: $hgru;
     }
 
     .row{
@@ -765,14 +864,21 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .dinner-categories{
     padding: $gru 3*$gru 2*$gru 3*$gru;
-
+    color: $positive;
+    
     .category{
-        font-size: $font-size-small;
+        font-weight: 300;
         text-transform: capitalize;
         overflow: hidden;
-
+        float:left;
+        font-size: $font-size-xlarge;
+        padding-right: 2*$gru;
+        line-height: $font-size-xlarge;
+        
         span{
+            font-size: $font-size-base;
             padding-left: $hgru;
+            color: $base-color;
         }
     }
 }
@@ -830,7 +936,14 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             padding-left: 8*$gru;
             min-height: 7*$gru;
             padding-top: 2*$gru + $hgru;
-
+            
+            .badge{
+                position: absolute;
+                top: 5*$gru + $hgru;
+                left: 5*$gru;
+                font-weight: 600;
+            }
+            
             img:first-child{
                 max-height: 7*$gru;
                 max-width: 7*$gru;
@@ -921,24 +1034,24 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .apply-number{
 
-    padding: 0 $gru $gru $gru;
-    margin-bottom: $gru;
-
-    .col:first-child{
-        padding: 0 0 0 $gru;
+    margin: $gru;
+    
+    .col{
+        padding-right: $gru;
     }
-
+    
     p{
         line-height: $font-size-small + $hgru;
     }
 
     .counter{
-        background-color: $stable;
-        box-shadow: $block-button-box-shadow;
+        background-color: #fff;
         padding: 0;
+        padding-right: 2 * $gru;
+        margin-left: -$gru;
 
         .row, .col{
-            padding:0;
+            padding: 0;
             overflow:hidden;
         }
 
@@ -955,7 +1068,8 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
         button{
             display:block;
-            box-shadow: none;
+            background-color: $stable;
+            box-shadow: $card-box-shadow;
             height: 7*$gru;
             padding:0;
             width: 100%;
@@ -963,6 +1077,16 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             text-align: center;
         }
     }
+}
+
+.apply-until{
+    
+    padding: $gru $gru $gru $gru;
+    
+    .col{
+        margin-bottom: $hgru; 
+    }
+
 }
 
 .apply-visit-take-away{
@@ -990,17 +1114,25 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         margin: 0;
         padding: 0;
     }
-
+    
     .username{
         font-family: $font-family-serif, serif;
-        font-size: $font-size-xlarge;
-        font-weight: 300;
+        font-size: $font-size-title;
+        font-weight: 900;
         margin-bottom: 2*$gru;
+        margin-left: $gru;
+        margin-top: 2*$gru;
+        max-height: 3*$gru;
+        display: block;
     }
 
     .credits{
+        max-height: 3*$gru;
+        clear:left;
+        position: absolute;
+        left: 2*$gru;
+        top: 8*$gru + $hgru;
         font-size: $font-size-xlarge;
-        text-align: center;
     }
 
     .credits-label{
@@ -1024,12 +1156,13 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         .item{
             height: $height-medium - 1px;
             margin-bottom: 1px;
-            background-color: $grey-85;
+            background-color: $grey-75;
 
             .item-content{
-                background-color: $grey-85;
+                background-color: $grey-75;
                 color: white;
                 font-size: $font-size-button;
+                font-weight: 600;
             }
         }
     }
@@ -1041,17 +1174,18 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         &.borderless{
             margin: 0;
             box-shadow: none;
-            //border-top: 1px solid rgba(0,0,0,0.1);
+            border-top: 1px solid rgba(0,0,0,0.1);
             height: 9*$gru;
             line-height: 9*$gru;
-            margin-top: $gru;
         }
     }
 }
 
 .person-item{
-    padding-bottom: $hgru;
-
+    margin: 0 $gru;
+    padding-bottom: $gru;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    
     .button-block{
         font-style:normal;
         text-align: left;
@@ -1072,7 +1206,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 height: 7*$gru;
                 width: 7*$gru;
                 top: $gru;
-                left: $gru;
+                left: 0;
             }
         }
     }
@@ -1084,11 +1218,12 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
     &.notification{
 
+        padding-bottom: $hgru;
         vertical-align: middle;
-        border-bottom: 1px solid rgba(0,0,0,0.1);
 
         .person-info{
-            padding-bottom: $gru+$hgru;
+            padding-bottom: $gru + $hgru;
+            
         }
 
         p{
@@ -1144,8 +1279,8 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             vertical-align: middle;
             float: right;
             height: 7*$gru;
-            padding-top: 3*$gru+0.5*$hgru;
-            padding-right: 3*$gru + $hgru;
+            padding-top: 3 * $gru + 0.5 * $hgru;
+            padding-right: 3 * $gru + $hgru;
         }
 
         .checkbox{
@@ -1174,9 +1309,9 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 &:after{
                     @include rotate(0);
                     border-width: 0px;
-                    color: $base-color;
+                    color: $positive;
                     top: -3px;
-                    left: 0px;
+                    left: -1px;
                     font-size: 5*$hgru+4px;
                     font-family: "Ionicons";
                     content: $ionicon-var-checkmark-circled;
@@ -1195,11 +1330,16 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             }
         }
     }
+    
+}
+
+.person-item:first-child{
+    border-top: 0px;
 }
 
 .person-item:last-child{
     padding-bottom: $gru;
-
+    
     &.notification{
         padding-bottom: $hgru;
     }
@@ -1255,6 +1395,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             padding-left: $gru;
             line-height: 7*$gru;
             vertical-align: middle;
+            color: $positive;
         }
 }
 
@@ -1295,13 +1436,13 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 //Conversations
 
 .conversation{
-    padding-top: 2*$gru 0 0 0;
+    padding: 0;
 
     .list{
         padding: 0;
 
         .item{
-            border-bottom: 1px solid $grey-15;
+            border-top: 1px solid $grey-15;
 
             &.item-text-wrap{
                 padding: 2*$gru 0 0 0;
@@ -1311,6 +1452,13 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                     font-family: $font-family-serif;
                     font-weight: 300;
                     line-height: 2*$gru + $hgru;
+                }
+                
+                .reply{
+                    color: $positive;
+                    font-family: $font-family-sans-serif;
+                    font-weight: 400;
+                    font-style: italic;
                 }
             }
 
@@ -1328,6 +1476,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
                 h3{
                     display: inline;
+                    color: $positive;
                     font-size: $font-size-button;
                 }
 
@@ -1346,8 +1495,37 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 line-height: 2*$gru + $hgru;
                 font-size: $font-size-small;
                 min-height: 9*$gru;
+                width: 100%;
+                border-bottom: 1px solid $grey-15;
             }
 
+        }
+        
+        .item-reviewtitle{
+            font-family: $font-family-serif;
+            font-size: $font-size-large;
+            padding-bottom: $hgru;
+            
+            span{
+                font-family: $font-family-sans-serif;
+                font-size: $font-size-small;
+                font-weight: 300;
+            }
+        }
+        
+        .item:first-child{
+            border-top:0;
+        }
+        
+        .hint{
+            padding-top: $gru;
+            padding-bottom: 2*$gru;
+        }
+        
+        .button-block{
+            padding-bottom: 0;
+            margin-bottom: 0;
+            border-top: 1px solid $grey-15; 
         }
 
     }
@@ -1355,7 +1533,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     .button-bar{
 
             background-color: $stable;
-
+        
             .button{
                 line-height: 7*$gru;
                 height: 7*$gru;
@@ -1371,12 +1549,27 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
         &.button-block{
             line-height: 9*$gru;
+            border-top: 1px solid $grey-15;
         }
 
         &.icon:before{
             line-height: 9*$gru;
             padding-right: $gru+$hgru;
             font-size: 3*$gru+$hgru;
+        }
+    }
+}
+
+.item-text-wrap{
+    .statistics{
+        margin-bottom: 0;
+        margin-top: $gru+$hgru;
+        p{
+            font-size: $font-size-base;
+        }
+
+        .icon{
+            color: $positive;
         }
     }
 }

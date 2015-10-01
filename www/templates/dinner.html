@@ -24,50 +24,44 @@
          </div>
 
 		<div class="item item-text-wrap dinner-title">
-			<p>You applied for</p> <!-- bzw. You are accepted to -->
+			<p>You applied for</p>  <!--bzw. You are accepted to -->
 
             <h1>{{dinner.title}}</h1>
+            
+            <div class="row">
+                <div class="col col-10"><i class="icon ion-person"></i></div>
+                <div class="col col-33">
+                    <p><span class="host">Victoria</span>'s</p>
+                </div>
+                <div class="col col-10"><i class="icon ion-clock"></i></div>
+                <div class="col">
+                    <p>{{dinner | getBeginTime | date : 'd.M.'}}, {{dinner | getBeginTime | date : 'HH:mm'}}</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col col-10"><i class="icon ion-clipboard"></i></div>
+                <div class="col col-33">
+                    <!-- Platz für Anmeldungen/Modus -->
+                    <p>1 Eat there<br />2 Take away</p>
+                    <p class="status">accepted</p> <!-- bzw. applied -->
+                </div>
+                <div class="col col-10"><i class="icon ion-ribbon-b"></i></div>
+                <div class="col">
+                    <!-- Platz für Dinner Credits -->
+                    <p>3 Dinner Credits</p>
+                    <p class="status">charged</p> <!-- bzw. reserved -->
+                </div>
+            </div>
         </div>
+        
         <div class="item item-text-wrap dinner-info">
 			<p class="dinner-info">{{dinner.info}}</p>
         </div>
-    </div>
 
-    <div class="row row-center dinner-categories">
-        <div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="col-33 icon-left ion-record category"> <span>{{type}}</span></div>
-    </div>
-
-    <div class="card">
-        <div class="row row-center">
-            <div class="col">
-                <p class="dinnerdate">
-                    <span>{{dinner | getBeginTime | date : 'd.M.'}}
-                        <span>{{dinner | getBeginTime | date : 'HH:mm'}}</span>
-                    </span>
-                </p>
-            </div>
-            <div class="col col-75">
-				<button ui-sref="app.user({userId: dinner.userData.uid})" ng-show="dinner.userData.firstname" class="button button-stable button-block profile-link">
-				    <div class="item-avatar">
-				        <img src="img/pw.jpg">
-				        <span>at {{isHost() ? 'your' : dinner.userData.firstname + "'s"}} place</span>
-				    </div>
-				</button>
-            </div>
+    <div class=" item item-text-wrap row row-center dinner-categories">
+        <div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="category"><i class="icon ion-record"></i> <span>{{type}}</span></div>
         </div>
-        <div class="row item item-text-wrap">
-            <div class="col">
-                <!-- Platz für Anmeldungen/Modus -->
-                <p>1 Eating there</p>
-                <p>2 Take away</p>
-                <p>accepted</p> <!-- bzw. applied -->
-            </div>
-            <div class="col">
-                <!-- Platz für Dinner Credits -->
-                <p>3 Dinner Credits</p>
-                <p>charged</p> <!-- bzw. reserved -->
-            </div>
-        </div>
+      
         <div class="mapwrapper">
 			<style>
 				map {
@@ -112,6 +106,7 @@
             <a ui-sref="app.user({userId:a.userId})" class="button button-light button-block application">
 					<div class="item-avatar">
 						<img src="img/pw.jpg">
+                        <span class="badge badge-positive">-15</span> <!--Shows "Dinner Credits"-->
 						<p class="applicant-name">{{a.user.firstname}}</p>
                         <p class="mode">Take away</p>
 					</div>
@@ -124,7 +119,6 @@
 	</div>
 	</div>
     </div>
-
 
  	<h2>Conversations</h2>
 
@@ -140,7 +134,7 @@
               <h3>Venkman</h3>
               <span>on Aug 14, 17:30</span>
             </div>
-            <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>
+            <p><span class="reply">@Venkman</span> Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist wie die meine.</p>
             </div>
             <div class="item item-text-wrap">
             <div class="item-avatar" href="#">
@@ -152,7 +146,7 @@
             </div>
         </div>
 
-        <button class="button button-block button-stable icon ion-chatbubble-working">Reply to conversation</button>
+        <button class="item button button-block button-stable">Reply to conversation</button>
 	</div>
 
     <div class="card conversation">
@@ -203,16 +197,15 @@
 
 	<div ng-show="!isHost() && !applicationState()">
 	<h2>Apply</h2>
-
-        <div class="card">
-            <div class="item item-checkbox borderless">
-               <label class="checkbox">
-                  <input type="checkbox">
-               </label>
-               I want to eat there!
-            </div>
-         </div>
-
+    
+    <div class="card">
+        <div class="item item-checkbox borderless">
+           <label class="checkbox">
+              <input ng-model="" type="checkbox">
+           </label>
+           I want to eat there!
+        </div>
+        
 		<div class="row apply-number">
 			<div class="col col-50">
                 <p class="info card-info"><i>For how many pepole?</i></p>
@@ -233,43 +226,53 @@
 			</div>
 		</div>
 
-        <div class="card">
             <div class="item item-checkbox borderless">
                <label class="checkbox">
                   <input type="checkbox">
                </label>
                I want food for take-away!
             </div>
-         </div>
+            
 
+        
 		<div class="row apply-number">
-			<div class="col col-50">
+            <div class="col col-50">
                 <p class="info card-info"><i>For how many pepole?</i></p>
 				<p class="info card-info">You'll also be charged this many credits.</p>
 			</div>
 			<div class="col counter col-center">
-            <div class="row">
-				<div class="col">
-                    <button ng-click="addCount(-1, 1, 9)" class="button button-stable icon ion-android-remove"></button>
+                <div class="row">
+                    <div class="col">
+                        <button ng-click="addCount(-1, 1, 9)" class="button button-stable icon ion-android-remove"></button>
+                    </div>
+                    <div class="col">
+                        <h2>{{application.count}}</h2>
+                    </div>
+                    <div class="col">
+                    <button ng-click="addCount(1, 1, 9)" class="button button-stable icon ion-android-add"></button>
+                    </div>
                 </div>
-                <div class="col">
-				    <h2>{{application.count}}</h2>
-                </div>
-                <div class="col">
-				<button ng-click="addCount(1, 1, 9)" class="button button-stable icon ion-android-add"></button>
-                </div>
-            </div>
 			</div>
 		</div>
+        
+    </div>
 
+        
         <h2>Apply until</h2>
-
-        <p class="info">I need to know whether I can come until...</p>
-        <div class="row">
-            <div class="col"><input type="datetime-local"></div>
+        <div class="card apply-until">
+            <div class="row item">
+                <div class="col">
+                    <p class="info card-info">I need to know whether I can come until...</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col item item-input"><input ng-model="" type="datetime-local"></div>
+            </div>
         </div>
-
-        <button class="button button-block button-positive">Sign me up!</button>
+            
+        
+        <button class="button button-block button-positive">Sign me up!</button>    
+	            
 
 		<!--<div class="row apply-visit-take-away">
 			<div class="col col-50">
