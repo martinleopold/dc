@@ -49,6 +49,7 @@ gulp.task('ruby-sass', function() {
       loadPath: '.', // base path for @import
       sourcemap: true,
       emitCompileError: true,
+      trace: true,
       style: 'expanded'
    };
    return $.rubySass(paths.sass, sassOptions)
