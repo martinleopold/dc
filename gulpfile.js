@@ -46,6 +46,7 @@ gulp.task('watch-sass', ['sass'], function() {
 
 gulp.task('ruby-sass', function() {
    var sassOptions = {
+      loadPath: '.', // base path for @import
       sourcemap: true,
       emitCompileError: true,
       style: 'expanded'
