@@ -28,6 +28,10 @@
     "shelljs": "^0.5.3",
     "wiredep": "^2.2.2"
   },
+  "engines": {
+    "node": "~4.1.1",
+    "npm": "~3.3.5"
+  },
   "cordovaPlugins": [
     "cordova-plugin-camera",
     "ionic-plugin-keyboard",
