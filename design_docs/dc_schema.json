@@ -79,8 +79,8 @@
 				"type" : "array",
 				"items" : { "$ref" : "#/userImageSchema" }
 			},
-			"numCredits"			: { "type" : "integer" },
 			"friends"				: { "$ref" : "#/refListSchema" },
+         "credits"			: { "type" : "integer" }
 		}
 	},
 
@@ -90,7 +90,7 @@
 			"originalURL"	: { "type" : "string" },
 			"largeURL"		: { "type" : "string" },
 			"mediumURL"		: { "type" : "string" },
-			"smallURL"		: { "type" : "string" },
+			"smallURL"		: { "type" : "string" }
 		}
 	},
 
@@ -165,11 +165,21 @@
 			"byUser"		: { "$ref" : "#/refSchema" },
 			"forDinner"		: { "$ref" : "#/refSchema" },
 			"host"			: { "$ref" : "#/refSchema" },
-			"numSpots"		: { "type" : "integer" },
-			"isDineIn"		: { "type" : "boolean" },
-			"status"		: { "enum" : [ "pending", "accepted", "rejected" ] }
+			"status"		: { "enum" : [ "PENDING", "ACCEPTED", "REJECTED", "etc." ] },
+         "credits"		: { "type" : "integer" },
+         "details" :  { "$ref" : "#/applicationDetailsSchema" },
+         "changes" :  { "$ref" : "#/applicationDetailsSchema" }
 		}
 	},
+
+   "applicationDetailsSchema" : {
+      "type" : "object",
+      "properties" : {
+         "numSpots"		: { "type" : "integer" },
+         "isDineIn"		: { "type" : "boolean" },
+         "notifyUntil"  : { "$ref" : "#/timestampSchema" }
+      }
+   },
 
 
 
