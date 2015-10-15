@@ -17,7 +17,7 @@ var dcSchema =
    "locationSchema" : {
       "type" : "object",
       "properties" : {
-         "latituted"   : { "type" : "number" },
+         "latitude"   : { "type" : "number" },
          "longitude"   : { "type" : "number" }
       }
    },
@@ -176,8 +176,8 @@ var dcSchema =
    "applicationDetailsSchema" : {
       "type" : "object",
       "properties" : {
-         "numSpots"      : { "type" : "integer" },
-         "isDineIn"      : { "type" : "boolean" },
+         "spotsDineIn"      : { "type" : "integer" },
+         "spotsTakeAway"    : { "type" : "integer" },
          "notifyUntil"   : { "$ref" : "#/timestampSchema" }
       }
    },
