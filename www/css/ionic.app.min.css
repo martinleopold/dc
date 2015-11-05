@@ -41,6 +41,16 @@
   font-weight: 300;
   font-style: italic;
 }
+<<<<<<< HEAD
+@font-face {
+  font-family: "dinner-collective";
+  src: url("../fonts/dc/dinner-collective.eot");
+  src: url("../fonts/dc/dinner-collective.eot?#iefix") format("embedded-opentype"), url("../fonts/dc/dinner-collective.woff") format("woff"), url("../fonts/dc/dinner-collective.ttf") format("truetype"), url("../fonts/dc/dinner-collective.svg#dinner-collective") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+=======
+>>>>>>> master
 
 
 
@@ -9423,7 +9433,11 @@ input:checked + .checkbox-icon:after {
   color: #444;
 }
 .item-select.item-stable:after, .item-select.item-stable .input-label {
+<<<<<<< HEAD
+  color: #656565;
+=======
   color: #666666;
+>>>>>>> master
 }
 .item-select.item-positive select {
   background: #00cf4c;
@@ -11117,6 +11131,12 @@ button.button-block {
 .tabs-top .button {
   font-size: 18px;
 }
+<<<<<<< HEAD
+.tabs-top .button.placepin {
+  font-size: 16px;
+}
+=======
+>>>>>>> master
 
 .scroll-content.has-header.has-tabs-top {
   top: 112px;
@@ -11191,6 +11211,34 @@ button.button-block {
 .item.item-input {
   padding: 0;
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
+  overflow: visible;
+}
+.item.item-input.time-input {
+  padding-bottom: 1px;
+  box-shadow: none;
+  padding-right: 0px;
+}
+.item.item-input.time-input span.input-label {
+  width: 25%;
+  padding-left: 8px;
+  font-style: italic;
+  font-size: 18px;
+}
+.item.item-input.time-input input {
+  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+  max-width: 55%;
+  padding: 24px 0;
+  padding-left: 16px;
+}
+.item.item-input.time-input button {
+  margin-left: 8px;
+  min-height: 48px;
+  padding: 0;
+  text-align: center;
+  min-width: 48px;
+=======
+>>>>>>> master
 }
 .item.item-input textarea, .item.item-input input {
   font-size: 18px;
@@ -12129,6 +12177,115 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
   color: #00cf4c;
 }
 
+<<<<<<< HEAD
+[data-icon]:before {
+  font-family: "dinner-collective" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="dc-"]:before,
+[class*=" dc-"]:before {
+  font-family: "dinner-collective" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dc-home:before {
+  content: "b";
+}
+
+.dc-hot:before {
+  content: "c";
+}
+
+.dc-organic:before {
+  content: "d";
+}
+
+.dc-thumbsup:before {
+  content: "e";
+}
+
+.dc-vegan:before {
+  content: "a";
+}
+
+.dc-vegetarian:before {
+  content: "f";
+}
+
+.dc-sweet:before {
+  content: "g";
+}
+
+.dc-kosher:before {
+  content: "h";
+}
+
+.dc-halal:before {
+  content: "i";
+}
+
+.dc-pin:before {
+  content: "j";
+}
+
+.dc-badge:before {
+  content: "k";
+}
+
+.dc-plate:before {
+  content: "l";
+}
+
+.dc-box:before {
+  content: "m";
+}
+
+.dc-person-befriend:before {
+  content: "n";
+}
+
+.dc-person-unfriend:before {
+  content: "o";
+}
+
+.dc-logo:before {
+  content: "p";
+}
+
+.dc-search:before {
+  content: "q";
+}
+
+.dc-stopwatch:before {
+  content: "r";
+}
+
+.dc-location:before {
+  content: "s";
+}
+
+.dc-global:before {
+  content: "t";
+}
+
+=======
+>>>>>>> master
 
 
 /*# sourceMappingURL=ionic.app.min.css.map */

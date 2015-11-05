@@ -103,9 +103,10 @@
             </div>
 
             <div class="list" ng-show="dineinChecked">
-               <label class="item item-input">
+               <label class="item item-input time-input">
                   <span class="input-label">When?</span>
                   <input ng-model="dinner.dineinAt" type="datetime-local">
+                  <button ng-click="fromNow()" class="button button-stable">Now</button>
                </label>
             </div>
 
@@ -116,15 +117,14 @@
                Guests can take their food with them!
             </div>
             <div class="list" ng-show="takeawayChecked">
-               <div class="row item">
-                  <label class="col col-80 item-input">
+                  
+                <label class="item item-input time-input">
                      <span class="input-label">From</span>
                      <input ng-model="dinner.takeawayFrom" type="datetime-local">
-                  </label>
-                  <button ng-click="fromNow()" class="button button-stable col col-20">Now</button>
-               </div>
-               <label class="item item-input">
-                  <span class="input-label">Until</span>
+                     <button ng-click="fromNow()" class="button button-stable">Now</button>
+                </label>
+               <label class="item item-input time-input">
+                  <span class="input-label col-25">Until</span>
                   <input ng-model="dinner.takeawayUntil" type="datetime-local">
                </label>
             </div>
