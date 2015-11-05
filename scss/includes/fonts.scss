@@ -77,3 +77,15 @@
     font-style: italic;
 
 }
+
+@font-face {
+  font-family: "dinner-collective";
+  src:url("../fonts/dc/dinner-collective.eot");
+  src:url("../fonts/dc/dinner-collective.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/dc/dinner-collective.woff") format("woff"),
+    url("../fonts/dc/dinner-collective.ttf") format("truetype"),
+    url("../fonts/dc/dinner-collective.svg#dinner-collective") format("svg");
+  font-weight: normal;
+  font-style: normal;
+
+}
