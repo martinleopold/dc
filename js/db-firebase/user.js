@@ -48,6 +48,7 @@ angular.module('dc.db.user', ['dc.db.base'])
       return $q(function (resolve, reject) {
          checkObject(user, 'userId', 'firstName', 'lastName', 'email');
          user.createdAt = Firebase.ServerValue.TIMESTAMP;
+         user.credits = 0;
          ref.user.child(user.userId).set(user, function onComplete(error) {
             if (error === null) resolve();
             else reject(error);
