@@ -16,8 +16,8 @@
 	"locationSchema" : {
 		"type" : "object",
 		"properties" : {
-			"latituted"	: { "type" : "number" },
-			"longitude"	: { "type" : "number" }
+			"lat"	: { "type" : "number" },
+			"lng"	: { "type" : "number" }
 		}
 	},
 

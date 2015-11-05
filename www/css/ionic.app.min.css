@@ -41,6 +41,7 @@
   font-weight: 300;
   font-style: italic;
 }
+<<<<<<< HEAD
 @font-face {
   font-family: "dinner-collective";
   src: url("../fonts/dc/dinner-collective.eot");
@@ -48,6 +49,8 @@
   font-weight: normal;
   font-style: normal;
 }
+=======
+>>>>>>> master
 
 
 
@@ -9430,7 +9433,11 @@ input:checked + .checkbox-icon:after {
   color: #444;
 }
 .item-select.item-stable:after, .item-select.item-stable .input-label {
+<<<<<<< HEAD
   color: #656565;
+=======
+  color: #666666;
+>>>>>>> master
 }
 .item-select.item-positive select {
   background: #00cf4c;
@@ -11124,9 +11131,12 @@ button.button-block {
 .tabs-top .button {
   font-size: 18px;
 }
+<<<<<<< HEAD
 .tabs-top .button.placepin {
   font-size: 16px;
 }
+=======
+>>>>>>> master
 
 .scroll-content.has-header.has-tabs-top {
   top: 112px;
@@ -11201,6 +11211,7 @@ button.button-block {
 .item.item-input {
   padding: 0;
   box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1);
+<<<<<<< HEAD
   overflow: visible;
 }
 .item.item-input.time-input {
@@ -11226,6 +11237,8 @@ button.button-block {
   padding: 0;
   text-align: center;
   min-width: 48px;
+=======
+>>>>>>> master
 }
 .item.item-input textarea, .item.item-input input {
   font-size: 18px;
@@ -12164,6 +12177,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
   color: #00cf4c;
 }
 
+<<<<<<< HEAD
 [data-icon]:before {
   font-family: "dinner-collective" !important;
   content: attr(data-icon);
@@ -12270,6 +12284,8 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder {
   content: "t";
 }
 
+=======
+>>>>>>> master
 
 
 /*# sourceMappingURL=ionic.app.min.css.map */
