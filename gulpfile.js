@@ -1,5 +1,7 @@
 /* eslint-env node */
 
+var MINIFY = false; // use minfyCss and uglify?
+
 var gulp = require('gulp');
 var bower = require('bower');
 var sh = require('shelljs');
@@ -32,9 +34,7 @@ gulp.task('sass', function() {
       .pipe($.sourcemaps.init())
       .pipe($.sass())
       .pipe($.concat('ionic.app.css'))
-      .pipe($.minifyCss({
-         keepSpecialComments: 0
-      }))
+      .pipe($.if(MINIFY, $.minifyCss({ keepSpecialComments: 0 })))
       .pipe($.rename({ extname: '.min.css' }))
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest('./www/css/'));
@@ -55,9 +55,7 @@ gulp.task('ruby-sass', function() {
    return $.rubySass(paths.sass, sassOptions)
       .on('error', $.rubySass.logError)
       .pipe($.concat('ionic.app.css'))
-      // .pipe($.minifyCss({
-      //    keepSpecialComments: 0
-      // }))
+      .pipe($.if(MINIFY, $.minifyCss({ keepSpecialComments: 0 })))
       .pipe($.rename({ extname: '.min.css' }))
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest('./www/css/'));
@@ -79,7 +77,7 @@ gulp.task('js', ['inject-bower', 'eslint'], function() {
       .pipe($.sourcemaps.init())
       .pipe($.babel())
       .pipe($.concat('app.js'))
-      .pipe($.uglify({ mangle: false }))
+      .pipe($.if(MINIFY, $.uglify({ mangle: false })))
       .pipe($.rename({ extname: '.min.js' }))
       .pipe($.sourcemaps.write('.'))
       .pipe(gulp.dest('./www/js/'));
@@ -87,7 +85,7 @@ gulp.task('js', ['inject-bower', 'eslint'], function() {
 
 gulp.task('eslint', function() {
    return gulp.src(paths.js.concat(paths.test))
-      .pipe($.cached('eslint'))
+      .pipe($.cached('eslint')) // only lint changed files
       .pipe($.eslint())
       .pipe($.eslint.format());
 });
