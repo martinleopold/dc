@@ -13,7 +13,7 @@ var path = require('path');
 var paths = {
   sass: ['scss/includes/*.scss', 'scss/*.scss', 'scss/overrides/*.scss'],
   js: ['js/**/*.js', '!js/**/*.old.js'],
-  test: ['./test/**/*.js']
+  test: ['./test/*.js']
 };
 
 
@@ -166,7 +166,9 @@ var karmaTestFiles = [
   'www/lib/firebase/firebase.js',
   'www/lib/angularfire/dist/angularfire.js',
   'www/lib/lodash/lodash.js',
-  'js/includes/**/*.js'
+  'https://maps.googleapis.com/maps/api/js?key=AIzaSyDOea9C6l1k-ZBFqixwd0p82nbHUdrmi8Q',
+  'js/includes/**/*.js',
+  'test/includes/**/*.js'
 ];
 
 // figure out which test files to run
