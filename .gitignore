@@ -11,12 +11,17 @@
 ehthumbs.db
 Thumbs.db
 
-#
+# platform files / libraries
 node_modules/
+www/lib/
 platforms/
 plugins/
 .sass-cache/
-
-#
 *.sublime-workspace
+
+# credentials
 sftp.config
+
+# compiled scripts and styles
+www/css/
+www/js/
