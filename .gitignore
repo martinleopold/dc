@@ -11,8 +11,9 @@
 ehthumbs.db
 Thumbs.db
 
-# platform files
+# platform files / libraries
 node_modules/
+www/lib/
 platforms/
 plugins/
 .sass-cache/

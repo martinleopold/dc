@@ -72,10 +72,13 @@ gulp.task('watch-ruby-sass', ['ruby-sass'], function() {
  */
 
 gulp.task('js', ['inject-bower', 'eslint'], function() {
+   var babelOptions = {
+      presets: ['es2015']
+   };
    return gulp.src(paths.js)
       // .pipe($.cached('js')) // can't cache here, beacause we need all files to concat
       .pipe($.sourcemaps.init())
-      .pipe($.babel())
+      .pipe($.babel(babelOptions))
       .pipe($.concat('app.js'))
       .pipe($.if(MINIFY, $.uglify({ mangle: false })))
       .pipe($.rename({ extname: '.min.js' }))
