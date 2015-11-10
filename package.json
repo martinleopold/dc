@@ -50,6 +50,7 @@
       "clean": "npm run bower-clean; npm run npm-clean",
       "bower-install": "npm run bower-clean; bower install",
       "npm-install": "npm run npm-clean; npm install",
+      "clean-install": "npm run bower-install; npm run npm-install",
       "preinstall": "npm prune; npm run bower-install"
    }
 }
