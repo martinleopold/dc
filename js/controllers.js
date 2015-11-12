@@ -1,3 +1,5 @@
+/* globals moment */
+
 var c = angular.module( 'dc.controllers', ['dc.services'] );
 
 
@@ -209,4 +211,28 @@ c.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams) {
 	// 		console.error('error declining application', error);
 	// 	});
 	// };
+});
+
+/* Dinner List */
+c.controller('DinnerListCtrl', function($scope, db, $rootScope, $state, resumeSession) {
+	console.log('Controller: DinnerListCtrl');
+
+	resumeSession($scope);
+
+	var hostedDinners =  db.user.getHostedDinners( $rootScope.user.userId );
+	hostedDinners.then(function (dinners) {
+
+		// past hosted dinners
+		$scope.pastHostedDinners = _.filter(dinners, function(dinner){
+			return dinner.dineinAt < moment().format('X');
+		});
+		console.log('past hosted: ', $scope.pastHostedDinners);
+
+		// future hosted dinners
+		$scope.futureHostedDinners = _.filter(dinners, function(dinner){
+			return dinner.dineinAt >= moment().format('X');
+		});
+		console.log('future hosted: ', $scope.futureHostedDinners);
+	});
+
 });
