@@ -16,7 +16,7 @@
 
             -->
 
-            <div ng-repeat="(dinnerId, dinner) in hostedDinners | orderBy : getBeginTime" class="card dinner">
+            <div ng-repeat="(dinnerId, dinner) in futureHostedDinners | orderBy : getBeginTime" class="card dinner">
              <style>
                 a,
                 a:visited,
@@ -29,7 +29,7 @@
              <a ng-href="#/app/dinner/{{dinnerId}}" class="">
                 <div class="title-location">
                    <p class="dinnertitle">{{dinner.title}}</p>
-                    <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.'}}, {{dinner | getBeginTime | date : 'HH:mm'}} at <span class="host">your</span> place</p>
+                    <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.yyyy HH:mm'}} at <span class="host">your</span> place</p>
                 </div>
              </a>
           </div>
@@ -37,6 +37,24 @@
             <h2>Past Dinners</h2>
 
             <!-- Block of own Dinners whose date has passed-->
+
+            <div ng-repeat="(dinnerId, dinner) in pastHostedDinners | orderBy : getBeginTime" class="card dinner">
+             <style>
+                a,
+                a:visited,
+                a:active,
+                a:hover {
+                   text-decoration: none;
+                   color: black;
+                }
+             </style>
+             <a ng-href="#/app/dinner/{{dinnerId}}" class="">
+                <div class="title-location">
+                   <p class="dinnertitle">{{dinner.title}}</p>
+                    <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.yyyy HH:mm'}} at <span class="host">your</span> place</p>
+                </div>
+             </a>
+          </div>
 
 		</ion-content>
 	  </ion-tab>
@@ -59,7 +77,7 @@
              <a ng-href="#/app/dinner/{{dinnerId}}" class="">
                 <div class="title-location">
                    <p class="dinnertitle">{{dinner.title}}</p>
-                    <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.'}}, {{dinner | getBeginTime | date : 'HH:mm'}} at <span class="host">Selma</span>'s place</p>
+                    <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.yyyy HH:mm'}} at <span class="host">Selma</span>'s place</p>
                 </div>
              </a>
           </div>
