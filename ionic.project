@@ -1,6 +1,6 @@
 {
-  "name": "dc",
-  "app_id": "",
+  "name": "dinner-collective",
+  "app_id": "ad04cddd",
   "gulpStartupTasks": [
     "watch"
   ],
