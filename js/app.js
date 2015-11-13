@@ -107,6 +107,16 @@ dc.config(function($stateProvider, $urlRouterProvider) {
             controller: 'DinnerCtrl'
          }
       }
+   })
+
+   .state('app.dinnerlist', {
+      url: '/dinner_list',
+      views: {
+         'mainContent': {
+            templateUrl: "templates/dinner_list.html",
+            controller: 'DinnerListCtrl'
+         }
+       }
    });
 
 

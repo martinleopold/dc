@@ -36,7 +36,7 @@ s.factory('resumeSession', function($rootScope, db, $q, $state) {
 			} else {
 				console.log('resuming session for user', userId);
 				// fetch user data
-				db.user.get(userId).then(function(user) {
+				return db.user.get(userId).then(function(user) {
 					console.log('resume successful', user);
 					$rootScope.user = user;
 					$scope.user = user;

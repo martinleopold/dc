@@ -105,5 +105,10 @@ angular.module('dc.db.user', ['dc.db.base'])
       );
    };
 
+   user.getHostedDinners = function (userId) {
+     return db.query.get( ref.dinner.orderByChild('hostedByUser').equalTo(userId) );
+   };
+
    return user;
+
 }]);
