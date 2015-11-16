@@ -43,6 +43,7 @@ $grey-05:                         #f2f2f2 !default;
 $grey-09:                         #e8e8e8 !default;
 $grey-15:                         #d8d8d8 !default;
 $grey-30:                         #b2b2b2 !default;
+$grey-50:                         #808080 !default;
 $grey-70:                         #4c4c4c !default;
 $grey-75:                         #404040 !default;
 $grey-80:                         #323232 !default;
@@ -170,13 +171,13 @@ h2{
     margin: 0 $content-padding $content-padding $content-padding;
     padding: 0;
 
-
     button.button-block{
         margin: 0;
         width: 100%;
         min-height: 9*$gru;
         box-shadow: $card-box-shadow;
         border-top: 1px solid $grey-15;
+        
         
         &.not-bottom{
             border-top: 0;
@@ -207,6 +208,13 @@ h2{
 
     &.last-before-hoverbuttons{ //only relevant on the filter-options screen
         margin-bottom: 10*$gru;
+    }
+    
+    &.button-block-wrapper{
+        padding: 0;
+        border: 0;
+        overflow: visible;
+        box-shadow: none;
     }
 
 }
@@ -239,7 +247,6 @@ button.button-block{
     box-shadow: $block-button-box-shadow;
     height: $height-large;
     margin: $gru;
-    width: ceil(340px / 360px * 100%);  //UNSAUBER?
 }
 
 .button-bar{
@@ -340,6 +347,7 @@ button.button-block{
         font-size: $font-size-button;
         
         &.placepin{
+            width: 100%;
             font-size: $font-size-base;
         }
     }
@@ -451,7 +459,7 @@ button.button-block{
             
             span{
                 &.input-label{
-                    width: 25%;
+                    width: 8*$gru;
                     padding-left: $gru;
                     font-style: italic;
                     font-size: $font-size-button;
@@ -460,17 +468,25 @@ button.button-block{
             
             input{
                 box-shadow: $card-box-shadow;
-                max-width: 55%;
                 padding: 3*$gru 0;
                 padding-left: 2*$gru;
+                margin-right: 9*$gru;
             }
             
             button{
-                margin-left: $gru;
+                position: absolute;
+                top: 0;
+                right: 0;
                 min-height: 6*$gru;
                 padding: 0;
                 text-align: center;
-                min-width: 6*$gru;
+                width: 7*$gru;
+                
+                &.invisible{
+                    background-color: #fff;
+                    content: ' ';
+                    box-shadow: 1px 1px 0 rgba(0, 0, 0, 0);
+                }
             }
         }
         
@@ -1244,6 +1260,12 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 top: $gru;
                 left: 0;
             }
+        }
+        
+        &.activated{
+            box-shadow: none;
+            background-color: #fff;
+            color: $grey-50;
         }
     }
 

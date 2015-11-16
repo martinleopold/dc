@@ -124,8 +124,9 @@
                      <button ng-click="fromNow()" class="button button-stable">Now</button>
                 </label>
                <label class="item item-input time-input">
-                  <span class="input-label col-25">Until</span>
+                  <span class="input-label">Until</span>
                   <input ng-model="dinner.takeawayUntil" type="datetime-local">
+                  <button class="button button-stable invisible">Placeholder</button>
                </label>
             </div>
          </div>
@@ -138,9 +139,12 @@
                Visible for everyone
             </div>
          </div>
-         <button class="item button button-light button-block" disabled>
+          
+         <div class="card button-block-wrapper">
+            <button class="item button button-stable button-block" disabled>
             You're not cooking at your home address
-         </button>
+            </button>
+         </div>
 
          </div>
          </div>
@@ -169,7 +173,9 @@
             </div>
         </div> -->
 
-         <button ng-click="create()" class="button button-positive button-block">Create Dinner</button>
+        <div class="card button-block-wrapper">
+         <button ng-click="create()" class="item button button-positive button-block">Create Dinner</button>
+    </div>
       </form>
    </ion-content>
 </ion-view>
