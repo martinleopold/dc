@@ -2,11 +2,11 @@
 
 @font-face {
   font-family: "dinner-collective";
-  src:url("../fonts/dc/dinner-collective.eot");
-  src:url("../fonts/dc/dinner-collective.eot?#iefix") format("embedded-opentype"),
-    url("../fonts/dc/dinner-collective.woff") format("woff"),
-    url("../fonts/dc/dinner-collective.ttf") format("truetype"),
-    url("../fonts/dc/dinner-collective.svg#dinner-collective") format("svg");
+  src:url("fonts/dinner-collective.eot");
+  src:url("fonts/dinner-collective.eot?#iefix") format("embedded-opentype"),
+    url("fonts/dinner-collective.woff") format("woff"),
+    url("fonts/dinner-collective.ttf") format("truetype"),
+    url("fonts/dinner-collective.svg#dinner-collective") format("svg");
   font-weight: normal;
   font-style: normal;
 
@@ -38,37 +38,37 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.dc-home:before {
-  content: "b";
-}
-.dc-hot:before {
-  content: "c";
-}
-.dc-organic:before {
-  content: "d";
-}
-.dc-thumbsup:before {
-  content: "e";
-}
 .dc-vegan:before {
   content: "a";
 }
 .dc-vegetarian:before {
-  content: "f";
+  content: "b";
 }
 .dc-sweet:before {
-  content: "g";
+  content: "c";
 }
 .dc-kosher:before {
-  content: "h";
+  content: "d";
 }
 .dc-halal:before {
+  content: "e";
+}
+.dc-hot:before {
+  content: "f";
+}
+.dc-badge:before {
+  content: "g";
+}
+.dc-dinner:before {
+  content: "h";
+}
+.dc-dinner-new:before {
   content: "i";
 }
 .dc-pin:before {
   content: "j";
 }
-.dc-badge:before {
+.dc-pot:before {
   content: "k";
 }
 .dc-plate:before {
@@ -83,18 +83,42 @@
 .dc-person-unfriend:before {
   content: "o";
 }
-.dc-logo:before {
+.dc-person-pending:before {
   content: "p";
 }
-.dc-search:before {
+.dc-location:before {
   content: "q";
 }
-.dc-stopwatch:before {
+.dc-home:before {
   content: "r";
 }
-.dc-location:before {
+.dc-global:before {
   content: "s";
 }
-.dc-global:before {
+.dc-upload:before {
   content: "t";
+}
+.dc-camera:before {
+  content: "u";
+}
+.dc-unlock:before {
+  content: "v";
+}
+.dc-lock:before {
+  content: "w";
+}
+.dc-stopwatch:before {
+  content: "x";
+}
+.dc-search:before {
+  content: "y";
+}
+.dc-thumbsup:before {
+  content: "z";
+}
+.dc-logo:before {
+  content: "A";
+}
+.dc-organic:before {
+  content: "B";
 }

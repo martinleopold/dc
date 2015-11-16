@@ -7,11 +7,11 @@
 
             <h2>Search within</h2>
             <div class="card">
-                <div class="range">
-                  <i class="icon dc-home"></i>
-                  <input type="range" name="volume">
+                <div class="range range-positive">
+                  <i class="value">4km</i>
+                  <input ng-model="user.settings.searchradius" type="range" name="radius" min="0" max="5">
                   <i class="icon dc-global"></i>
-                </div>  
+               </div> 
             </div>
 
             <h2>Refine</h2>
@@ -88,12 +88,10 @@
                 <label class="item item-input time-input">
                     <span class="input-label">From</span>
                     <input type="datetime-local">
-                    <button class="button button-stable">Now</button>
                 </label>
                 <label class="item item-input time-input">
                   <span class="input-label">Until</span>
                   <input type="datetime-local">
-                  <button class="button button-stable invisible">Placeholder</button>
                </label>
             </div>
 
