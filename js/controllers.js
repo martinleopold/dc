@@ -96,7 +96,7 @@ c.controller('UserCtrl', function($scope, db, resumeSession, $stateParams) {
 
 
 /* New Dinner */
-c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSession, util) {
+c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSession) {
 	console.log('Controller: newdinner');
 	resumeSession($scope);
 
@@ -109,7 +109,13 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 	}
 
 	$scope.create = function() {
-		db.dinner.create($scope.dinner).then(function() {
+		var dinner = _.cloneDeep($scope.dinner);
+		
+		dinner.dineinAt = moment(dinner.dineinAt).toISOString();
+		dinner.takeawayFrom = moment(dinner.takeawayFrom).toISOString();
+		dinner.takeawayUntil = moment(dinner.takeawayUntil).toISOString();
+
+		db.dinner.create(dinner).then(function() {
 			console.log('Dinner created', $scope.dinner);
 			$state.go('app.lookfor');
 		}, function(error) {
@@ -117,10 +123,7 @@ c.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSes
 		});
 	};
 
-	$scope.fromNow = function() {
-		$scope.dinner.takeawayFrom = util.now();
-		$scope.dinner.takeawayUntil = util.now(60);
-	};
+
 });
 
 
