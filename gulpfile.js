@@ -17,6 +17,21 @@ var paths = {
 };
 
 
+/**
+ * helpers
+ */
+
+var injectValue = function(value, startTag, endTag) {
+   startTag = startTag || '/* inject:value */';
+   endTag = endTag || '/* endinject */';
+   var regexEscape = function(str) {
+        return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+   };
+   var search = regexEscape(startTag) + '(.|\n|\r)*?' + regexEscape(endTag);
+   var replace = startTag + '\n' + JSON.stringify(value, null, '   ') + '\n' + endTag;
+   return $.replace( new RegExp(search), replace );
+};
+
 
 /**
  * main tasks
@@ -72,7 +87,7 @@ gulp.task('watch-ruby-sass', ['ruby-sass'], function() {
  * JS
  */
 
-gulp.task('js', ['inject-bower', 'eslint'], function() {
+gulp.task('js', ['inject-bower', 'inject-secrets', 'eslint'], function() {
    var babelOptions = {
       presets: ['es2015']
    };
@@ -108,6 +123,17 @@ gulp.task('inject-bower', function() {
          exclude: "angular/"
       }))
       .pipe(gulp.dest('./www/'));
+});
+
+
+/**
+ * inject secrets
+ */
+gulp.task('inject-secrets', function() {
+   var secrets = require('./secrets.json');
+   return gulp.src('./js/services/secrets.js')
+      .pipe( injectValue(secrets) )
+      .pipe( gulp.dest('./js/services/') );
 });
 
 
