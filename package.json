@@ -38,19 +38,21 @@
     "cordova-plugin-camera",
     "ionic-plugin-keyboard",
     "cordova-plugin-console",
-    "cordova-plugin-device"
+    "cordova-plugin-device",
+    "cordova-plugin-inappbrowser",
+    "cordova-plugin-whitelist"
   ],
   "cordovaPlatforms": [
     "android",
     "ios"
-   ],
-   "scripts": {
-      "bower-clean": "rm -rf www/lib/",
-      "npm-clean": "rm -rf node_modules/",
-      "clean": "npm run bower-clean; npm run npm-clean",
-      "bower-install": "npm run bower-clean; bower install",
-      "npm-install": "npm run npm-clean; npm install",
-      "clean-install": "npm run bower-install; npm run npm-install",
-      "preinstall": "npm prune; npm run bower-install"
-   }
+  ],
+  "scripts": {
+    "bower-clean": "rm -rf www/lib/",
+    "npm-clean": "rm -rf node_modules/",
+    "clean": "npm run bower-clean; npm run npm-clean",
+    "bower-install": "npm run bower-clean; bower install",
+    "npm-install": "npm run npm-clean; npm install",
+    "clean-install": "npm run bower-install; npm run npm-install",
+    "preinstall": "npm prune; npm run bower-install"
+  }
 }

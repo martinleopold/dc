@@ -43,6 +43,10 @@ c.controller('SignupCtrl', function($scope, db, $rootScope, $state, login) {
  */
 c.controller('LoginCtrl', function($scope, login, bindPending) {
 	console.log('Controller: login');
+	angular.element(document).ready(function () {
+		$scope.debug = document[0].body.className;
+		console.log($scope.debug);
+	});
 
 	$scope.user = {};
 	$scope.user = {

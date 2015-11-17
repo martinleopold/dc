@@ -9,6 +9,7 @@
       <form name="form" novalidate >
          <div class="card">
             <div class="list">
+               <pre>{{debug}}</pre>
                <label ng-show="error == 'NETWORK_ERROR'" class="item error">Oh my! Looks like there is a problem with the network...</label>
                <label ng-show="error == 'INVALID_PASSWORD' || error == 'INVALID_EMAIL' || error == 'INVALID_USER'" class="item error">Either e-mail or password are incorrect. Maybe both.</label>
 
