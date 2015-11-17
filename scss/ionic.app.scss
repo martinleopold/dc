@@ -111,7 +111,7 @@ $tabs-height:                     $height-medium !default;
 $tabs-text-font-size:             $font-size-button !default;
 $tabs-text-font-style:            italic !default;
 
- $tabs-striped-border-width:       5px; 
+ $tabs-striped-border-width:       5px;
 
 //Z-Indexes
 //--------------------------------
@@ -134,7 +134,7 @@ $footer-box-shadow:                  0 -3px 0 rgba(0, 0, 0, .1) !default;
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
 // Include all of Ionic
-@import "www/lib/ionic/scss/ionic";
+@import "../www/lib/ionic/scss/ionic";
 
 h1{
     font-size: $font-size-title;
@@ -185,12 +185,12 @@ h2{
         min-height: 9*$gru;
         box-shadow: $card-box-shadow;
         border-top: 1px solid $grey-15;
-        
-        
+
+
         &.not-bottom{
             border-top: 0;
         }
-        
+
         .item-avatar{
             padding-left: 0;
             min-height: 7*$gru;
@@ -217,7 +217,7 @@ h2{
     &.last-before-hoverbuttons{ //only relevant on the filter-options screen
         margin-bottom: 10*$gru;
     }
-    
+
     &.button-block-wrapper{
         padding: 0;
         border: 0;
@@ -322,7 +322,7 @@ button.button-block{
 }
 
 .tabs-top{
-        
+
     &.tabs-striped{
 
         .tabs{
@@ -331,7 +331,7 @@ button.button-block{
         .tab-item{
                 color: #fff; //UNSAUBER!
                 margin-top: 0;
-            
+
                 &.tab-item-active,
                 &.active,
                 &.activated {
@@ -353,7 +353,7 @@ button.button-block{
 
     .button{
         font-size: $font-size-button;
-        
+
         &.placepin{
             width: 100%;
             font-size: $font-size-base;
@@ -458,13 +458,13 @@ button.button-block{
         padding:0;
         box-shadow: $card-box-shadow;
         overflow: visible;
-        
+
         &.time-input{
-            
+
             padding-bottom: 1px;
             box-shadow: none;
             padding-right: 0px;
-            
+
             span{
                 &.input-label{
                     width: 10*$gru;
@@ -473,14 +473,14 @@ button.button-block{
                     font-size: $font-size-button;
                 }
             }
-            
+
             input{
                 box-shadow: $card-box-shadow;
                 padding: 3*$gru 0;
                 padding-left: 2*$gru;
             }
         }
-        
+
         textarea, input{
             font-size: $font-size-button;
             padding: 2*$gru;
@@ -512,17 +512,17 @@ button.button-block{
         background-color: $grey-05;
         padding-left: 50px;
         padding-right: 8px;
-        
-        
+
+
         &.borderless{
             line-height: 5*$gru;
             margin-bottom: 1px;
         }
-        
+
         &.borderless:last-child{
             margin-bottom: -1px;
         }
-        
+
         .checkbox{
             padding-top: 7+$hgru;
 
@@ -689,7 +689,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             padding: $gru + $hgru;
             padding-bottom: 2*$gru;
             margin: $hgru;
-            border-bottom: 1px solid rgba(0,0,0,0.1);            
+            border-bottom: 1px solid rgba(0,0,0,0.1);
             white-space: nowrap;
             overflow: hidden;
         }
@@ -702,11 +702,11 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             font-style: italic;
             font-weight: 300;
             line-height: $font-size-small;
-            
+
             .host{
                 color: $positive;
             }
-            
+
             i{
                 margin-right: $hgru;
                 font-size: $font-size-small;
@@ -834,48 +834,48 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         font-size: $font-size-title;
         line-height: $font-size-title + $hgru;
         margin: 0;
-        
+
     }
 
     &.dinner-title{
         padding-top: $gru + $hgru;
         background-color: #EBF3FC;
         margin-bottom: 2*$gru;
-        
+
         &.control-application{
             margin-bottom: 0;
             background-color: #fff;
         }
-        
-        p{ 
+
+        p{
             font-size: $font-size-base;
         }
-            
+
         .row{
             margin-top: 2*$gru;
             margin-bottom: 0;
-            
+
             .icon{
                 font-size: $font-size-xlarge;
                 color: $positive;
             }
-            
+
             p{
                 font-size: $font-size-base;
                 margin-bottom: 0;
             }
-            
+
             .host{
                 color: $positive;
             }
-            
+
             .status{
                 font-size: $font-size-small;
                 font-style: italic;
                 font-weight: 300;
                 line-height: 1;
             }
-            
+
         }
     }
 
@@ -908,7 +908,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 .dinner-categories{
     padding: $gru 3*$gru 2*$gru 3*$gru;
     color: $positive;
-    
+
     .category{
         font-weight: 300;
         text-transform: capitalize;
@@ -917,7 +917,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         font-size: $font-size-xlarge;
         padding-right: 2*$gru;
         line-height: $font-size-xlarge;
-        
+
         span{
             font-size: $font-size-base;
             padding-left: $hgru;
@@ -979,14 +979,14 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             padding-left: 8*$gru;
             min-height: 7*$gru;
             padding-top: 2*$gru + $hgru;
-            
+
             .badge{
                 position: absolute;
                 top: 5*$gru + $hgru;
                 left: 5*$gru;
                 font-weight: 600;
             }
-            
+
             img:first-child{
                 max-height: 7*$gru;
                 max-width: 7*$gru;
@@ -1078,11 +1078,11 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 .apply-number{
 
     margin: $gru;
-    
+
     .col{
         padding-right: $gru;
     }
-    
+
     p{
         line-height: $font-size-small + $hgru;
     }
@@ -1123,11 +1123,11 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 }
 
 .apply-until{
-    
+
     padding: $gru $gru $gru $gru;
-    
+
     .col{
-        margin-bottom: $hgru; 
+        margin-bottom: $hgru;
     }
 
 }
@@ -1157,7 +1157,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         margin: 0;
         padding: 0;
     }
-    
+
     .username{
         font-family: $font-family-serif, serif;
         font-size: $font-size-title;
@@ -1228,7 +1228,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     margin: 0 $gru;
     padding-bottom: $gru;
     border-top: 1px solid rgba(0,0,0,0.1);
-    
+
     .button-block{
         font-style:normal;
         text-align: left;
@@ -1252,7 +1252,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 left: 0;
             }
         }
-        
+
         &.activated{
             box-shadow: none;
             background-color: #fff;
@@ -1272,7 +1272,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
         .person-info{
             padding-bottom: $gru + $hgru;
-            
+
         }
 
         p{
@@ -1379,7 +1379,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             }
         }
     }
-    
+
 }
 
 .person-item:first-child{
@@ -1388,7 +1388,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .person-item:last-child{
     padding-bottom: $gru;
-    
+
     &.notification{
         padding-bottom: $hgru;
     }
@@ -1502,7 +1502,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                     font-weight: 300;
                     line-height: 2*$gru + $hgru;
                 }
-                
+
                 .reply{
                     color: $positive;
                     font-family: $font-family-sans-serif;
@@ -1549,32 +1549,32 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             }
 
         }
-        
+
         .item-reviewtitle{
             font-family: $font-family-serif;
             font-size: $font-size-large;
             padding-bottom: $hgru;
-            
+
             span{
                 font-family: $font-family-sans-serif;
                 font-size: $font-size-small;
                 font-weight: 300;
             }
         }
-        
+
         .item:first-child{
             border-top:0;
         }
-        
+
         .hint{
             padding-top: $gru;
             padding-bottom: 2*$gru;
         }
-        
+
         .button-block{
             padding-bottom: 0;
             margin-bottom: 0;
-            border-top: 1px solid $grey-15; 
+            border-top: 1px solid $grey-15;
         }
 
     }
@@ -1582,7 +1582,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     .button-bar{
 
             background-color: $stable;
-        
+
             .button{
                 line-height: 7*$gru;
                 height: 7*$gru;
@@ -1627,25 +1627,25 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 .range input{
     height: $height-large;
     padding-right: 0;
-    
+
     &::-webkit-slider-thumb {
         border-radius: $range-slider-border-radius;
         background-color: $positive;
         box-shadow: none;
         left: -1px;
     }
-    
+
     &::-webkit-slider-thumb:before {
         left: -2000px;
     }
-    
+
     &::-ms-thumb {
         border-radius: $range-slider-border-radius;
         background-color: $positive;
         border-color:$positive;
         box-shadow: none;
    }
-    
+
 }
 
 .range{
@@ -1654,7 +1654,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
         min-width: 5*$gru;
         //padding-top: 2px;
     }
-    
+
     .value{
         padding: 0 $hgru;
         color: $positive;
@@ -1668,24 +1668,24 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 
 .button{
     .icon{
-        
+
         &.dc-upload{
             margin-top: -3px;
         }
-        
+
         &.dc-camera{
             margin-top: -5px;
         }
-        
+
         &.dc-pin{
             margin-left: -2px;
         }
-        
+
         &.dc-person-befriend{
             margin-left: -$gru;
             padding-right: $gru;
         }
-        
+
         &.dc-badge{
             margin-left: -$hgru;
             padding-right: $hgru;
@@ -1699,7 +1699,7 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
             margin-right: $hgru;
             margin-top: 3px;
         }
-        
+
         &.dc-badge{
             margin-right: $hgru;
             margin-top: 1px;
