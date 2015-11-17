@@ -1,5 +1,5 @@
 /* eslint-env jasmine */
-/* global module, inject */
+/* global module, inject, promiseHelpers */
 describe("firebase db service", function() {
 
    // load db module
@@ -20,6 +20,8 @@ describe("firebase db service", function() {
 
    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000; // timeout for async calls
 
+   promiseHelpers.ngApplyWrap();
+   var chainFns = promiseHelpers.chainFns;
 
    function generateUUID() {
       var d = new Date().getTime();
@@ -32,105 +34,6 @@ describe("firebase db service", function() {
    }
 
 
-   /*
-    * PROMISE HELPERS
-    */
-
-   var applyInterval;
-   var startApply = inject(function($rootScope) {
-      applyInterval = setInterval(function() {
-         $rootScope.$apply();
-         // $rootScope.$digest();
-      }, 500);
-   });
-   var stopApply = function() {
-      clearInterval(applyInterval);
-   };
-
-   // wrap tests, so angular promises ($q) are properly resolved
-   function ngApplyWrap() {
-      beforeEach(startApply);
-      afterEach(stopApply);
-   }
-
-   // wrap tests for angular promises to work (see promise helpers)
-   ngApplyWrap();
-
-   // wrap a single angular promise in an ES6 promise
-   // and make sure its resolved
-   /*
-   var when = function(promise) {
-      return new Promise(function(resolve, reject) {
-         promise.then(function onFulfilled(result) {
-            // console.log('success:', result);
-            stopApply();
-            resolve(result);
-         }, function onRejected(error) {
-            // console.log('error:', error);
-            stopApply();
-            reject(error);
-         });
-         startApply();
-      });
-   };
-   */
-
-   // turn something into a function that returns it
-   // constant function
-   /*
-   function cfn(something) {
-      return function giveMeIt () {
-         return something;
-      };
-   }
-   */
-
-   // add partial application to function prototype
-   // returns the function with the given parameters already bound to it
-   // used to be able to pass a promise to .then (which expects a function that returns a promise)
-   // also used with chainFns()
-   Function.prototype.partial = function partial() {
-      // this: the function partial was called on
-      // call bind on the function: this.bind(null, arg1, arg2, arg3, ...)
-      var args = Array.prototype.slice.call(arguments); // make a real array
-      args.unshift(null); // adds null to beginning of args array
-      return Function.prototype.bind.apply(this, args);
-   };
-
-   // simple chaining of promises
-   // (simpler than when + partial in .then chains...)
-   /*
-   !!! this actually doesn't ensure the proper sequence since the promises already started the race!
-   function chain() {
-      var promise = Promise.resolve();
-      var args = Array.prototype.slice.call(arguments);
-      args.forEach(function(arg) {
-         promise = promise.then(function() {
-            return Promise.resolve( arg ); // assimilate, if not already a promise
-         });
-      });
-      return promise;
-   }
-   */
-
-   // chain (promise-returning) functions
-   // makes sure the functions are called in sequence
-   // if a function doesn't return a promise, a promise that fulfills with its return value is used instead
-   // thus promises can also be used instead of functions
-   // returns a promise that resolves when all input functions resloved its promises
-   function chainFns() {
-      var promise = Promise.resolve();
-      var args = Array.prototype.slice.call(arguments);
-      args.forEach(function(fn) {
-         promise = promise.then(function() {
-            var result;
-            if (typeof fn == 'function') result = fn.apply(null, arguments); // call function with incoming arguments
-            else result = fn;
-            return Promise.resolve( result ); // assimilate, if not already a promise
-         });
-      });
-      return promise;
-   }
 
 
    /*

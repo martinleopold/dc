@@ -15,16 +15,15 @@ module.exports = function(config) {
 
 
     // list of files / patterns to load in the browser
-    files: [
-      // 'www/lib/ionic/js/ionic.bundle.js',
-      'www/lib/angular/angular.js',
-      'www/lib/angular-mocks/angular-mocks.js',
-      'www/lib/firebase/firebase.js',
-      'www/lib/angularfire/dist/angularfire.js',
-      'www/lib/lodash/lodash.js',
-      'js/db-firebase.js',
-      'test/*.js'
-    ],
+   //  files: [
+   //    // 'www/lib/ionic/js/ionic.bundle.js',
+   //    'www/lib/angular/angular.js',
+   //    'www/lib/angular-mocks/angular-mocks.js',
+   //    'www/lib/firebase/firebase.js',
+   //    'www/lib/angularfire/dist/angularfire.js',
+   //    'www/lib/lodash/lodash.js',
+   //    'js/includes/**/*.js'
+   //  ],
 
 
     // list of files to exclude

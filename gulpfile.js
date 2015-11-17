@@ -8,11 +8,12 @@ var sh = require('shelljs');
 var KarmaServer = require('karma').Server;
 var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
+var path = require('path');
 
 var paths = {
   sass: ['scss/includes/*.scss', 'scss/*.scss', 'scss/overrides/*.scss'],
   js: ['js/**/*.js', '!js/**/*.old.js'],
-  test: ['./test/**/*.js']
+  test: ['./test/*.js']
 };
 
 
@@ -154,24 +155,57 @@ try {
 
 
 /**
+ * karma setup
+ */
+var karmaOptions = {
+   configFile: __dirname + '/karma.conf.js'
+};
+
+// base test files (always included)
+var karmaTestFiles = [
+  // 'www/lib/ionic/js/ionic.bundle.js',
+  'www/lib/angular/angular.js',
+  'www/lib/angular-mocks/angular-mocks.js',
+  'www/lib/firebase/firebase.js',
+  'www/lib/angularfire/dist/angularfire.js',
+  'www/lib/lodash/lodash.js',
+  'https://maps.googleapis.com/maps/api/js?key=AIzaSyDOea9C6l1k-ZBFqixwd0p82nbHUdrmi8Q',
+  'js/includes/**/*.js',
+  'test/includes/**/*.js'
+];
+
+// figure out which test files to run
+// gets all test specified in paths.test by default
+// runs a specific file, if the '--file spec-file.js' option is used
+function getKarmaTestFiles() {
+   var files = karmaTestFiles;
+   if (!gulp.env.file) return files.concat(paths.test); // default tests
+   return files.concat([path.join('test', gulp.env.file)]); // file specified on command line
+}
+
+/**
  * run test suite once
+ * use the '--file spec-file.js' option to run a specific test suite
  */
 gulp.task('test', function (done) {
-   new KarmaServer({
-      configFile: __dirname + '/karma.conf.js',
-      singleRun: true
-   }, function() {
+   var opts = Object.assign({}, karmaOptions, {
+      singleRun: true,
+      files: getKarmaTestFiles()
+   });
+   new KarmaServer(opts, function() {
       done();
    }).start();
 });
 
 /**
  * watch for file changes and re-run tests on each change (i.e. test driven development)
+ * use the ''--file spec-file.js' option to run a specific test suite
  */
 gulp.task('tdd', function (done) {
-   new KarmaServer({
-      configFile: __dirname + '/karma.conf.js'
-   }, function() {
+   var opts = Object.assign({}, karmaOptions, {
+      files: getKarmaTestFiles()
+   });
+   new KarmaServer(opts, function() {
       done();
    }).start();
 });
