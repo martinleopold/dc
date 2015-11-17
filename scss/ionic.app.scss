@@ -43,6 +43,7 @@ $grey-05:                         #f2f2f2 !default;
 $grey-09:                         #e8e8e8 !default;
 $grey-15:                         #d8d8d8 !default;
 $grey-30:                         #b2b2b2 !default;
+$grey-50:                         #808080 !default;
 $grey-70:                         #4c4c4c !default;
 $grey-75:                         #404040 !default;
 $grey-80:                         #323232 !default;
@@ -116,6 +117,14 @@ $tabs-text-font-style:            italic !default;
 //--------------------------------
 
 
+// Range
+// -------------------------------
+$range-track-height:              2px !default;
+$range-slider-width:              $hgru + $gru !default;
+$range-slider-height:             $hgru + $gru !default;
+$range-slider-box-shadow:         none;
+$range-default-track-bg:          $grey-50 !default;
+
 //Footer
 //--------------------------------
 $footer-box-shadow:                  0 -3px 0 rgba(0, 0, 0, .1) !default;
@@ -170,13 +179,13 @@ h2{
     margin: 0 $content-padding $content-padding $content-padding;
     padding: 0;
 
-
     button.button-block{
         margin: 0;
         width: 100%;
         min-height: 9*$gru;
         box-shadow: $card-box-shadow;
         border-top: 1px solid $grey-15;
+        
         
         &.not-bottom{
             border-top: 0;
@@ -207,6 +216,13 @@ h2{
 
     &.last-before-hoverbuttons{ //only relevant on the filter-options screen
         margin-bottom: 10*$gru;
+    }
+    
+    &.button-block-wrapper{
+        padding: 0;
+        border: 0;
+        overflow: visible;
+        box-shadow: none;
     }
 
 }
@@ -239,7 +255,6 @@ button.button-block{
     box-shadow: $block-button-box-shadow;
     height: $height-large;
     margin: $gru;
-    width: ceil(340px / 360px * 100%);  //UNSAUBER?
 }
 
 .button-bar{
@@ -340,6 +355,7 @@ button.button-block{
         font-size: $font-size-button;
         
         &.placepin{
+            width: 100%;
             font-size: $font-size-base;
         }
     }
@@ -451,7 +467,7 @@ button.button-block{
             
             span{
                 &.input-label{
-                    width: 25%;
+                    width: 10*$gru;
                     padding-left: $gru;
                     font-style: italic;
                     font-size: $font-size-button;
@@ -460,17 +476,8 @@ button.button-block{
             
             input{
                 box-shadow: $card-box-shadow;
-                max-width: 55%;
                 padding: 3*$gru 0;
                 padding-left: 2*$gru;
-            }
-            
-            button{
-                margin-left: $gru;
-                min-height: 6*$gru;
-                padding: 0;
-                text-align: center;
-                min-width: 6*$gru;
             }
         }
         
@@ -1245,6 +1252,12 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
                 left: 0;
             }
         }
+        
+        &.activated{
+            box-shadow: none;
+            background-color: #fff;
+            color: $grey-50;
+        }
     }
 
     .person-name{
@@ -1611,6 +1624,105 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 }
 
 
+.range input{
+    height: $height-large;
+    padding-right: 0;
+    
+    &::-webkit-slider-thumb {
+        border-radius: $range-slider-border-radius;
+        background-color: $positive;
+        box-shadow: none;
+        left: -1px;
+    }
+    
+    &::-webkit-slider-thumb:before {
+        left: -2000px;
+    }
+    
+    &::-ms-thumb {
+        border-radius: $range-slider-border-radius;
+        background-color: $positive;
+        border-color:$positive;
+        box-shadow: none;
+   }
+    
+}
+
+.range{
+    .icon{
+        font-size: 5*$gru;
+        min-width: 5*$gru;
+        //padding-top: 2px;
+    }
+    
+    .value{
+        padding: 0 $hgru;
+        color: $positive;
+        font-style: italic;
+        font-size: $font-size-button;
+    }
+}
+
+
+//Feinjustierung für DC-Icons
+
+.button{
+    .icon{
+        
+        &.dc-upload{
+            margin-top: -3px;
+        }
+        
+        &.dc-camera{
+            margin-top: -5px;
+        }
+        
+        &.dc-pin{
+            margin-left: -2px;
+        }
+        
+        &.dc-person-befriend{
+            margin-left: -$gru;
+            padding-right: $gru;
+        }
+        
+        &.dc-badge{
+            margin-left: -$hgru;
+            padding-right: $hgru;
+        }
+    }
+}
+
+.statistics{
+    .icon{
+        &.dc-dinner{
+            margin-right: $hgru;
+            margin-top: 3px;
+        }
+        
+        &.dc-badge{
+            margin-right: $hgru;
+            margin-top: 1px;
+        }
+    }
+}
+
+.dinner-title .row .col{
+    .icon{
+        &.dc-plate{
+            margin-left: -2px;
+        }
+    }
+}
+
+.bar{
+    .icon{
+        &.dc-location{
+            margin-top: 4px;
+        }
+    }
+}
+
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
 //////////////////////////////////////////////////////////
@@ -1648,37 +1760,37 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
   -moz-osx-font-smoothing: grayscale;
 }
 
-.dc-home:before {
-  content: "b";
-}
-.dc-hot:before {
-  content: "c";
-}
-.dc-organic:before {
-  content: "d";
-}
-.dc-thumbsup:before {
-  content: "e";
-}
 .dc-vegan:before {
   content: "a";
 }
 .dc-vegetarian:before {
-  content: "f";
+  content: "b";
 }
 .dc-sweet:before {
-  content: "g";
+  content: "c";
 }
 .dc-kosher:before {
-  content: "h";
+  content: "d";
 }
 .dc-halal:before {
+  content: "e";
+}
+.dc-hot:before {
+  content: "f";
+}
+.dc-badge:before {
+  content: "g";
+}
+.dc-dinner:before {
+  content: "h";
+}
+.dc-dinner-new:before {
   content: "i";
 }
 .dc-pin:before {
   content: "j";
 }
-.dc-badge:before {
+.dc-pot:before {
   content: "k";
 }
 .dc-plate:before {
@@ -1693,18 +1805,42 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
 .dc-person-unfriend:before {
   content: "o";
 }
-.dc-logo:before {
+.dc-person-pending:before {
   content: "p";
 }
-.dc-search:before {
+.dc-location:before {
   content: "q";
 }
-.dc-stopwatch:before {
+.dc-home:before {
   content: "r";
 }
-.dc-location:before {
+.dc-global:before {
   content: "s";
 }
-.dc-global:before {
+.dc-upload:before {
   content: "t";
+}
+.dc-camera:before {
+  content: "u";
+}
+.dc-unlock:before {
+  content: "v";
+}
+.dc-lock:before {
+  content: "w";
+}
+.dc-stopwatch:before {
+  content: "x";
+}
+.dc-search:before {
+  content: "y";
+}
+.dc-thumbsup:before {
+  content: "z";
+}
+.dc-logo:before {
+  content: "A";
+}
+.dc-organic:before {
+  content: "B";
 }
