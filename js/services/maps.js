@@ -1,5 +1,5 @@
 /* global google */
-angular.module('dc.maps', []) // define module and dependencies
+angular.module('dc.maps', []) // define module (with dependencies)
 
 .factory('maps', ['$q', function($q) {
     return {

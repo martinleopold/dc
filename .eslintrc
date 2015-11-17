@@ -14,6 +14,9 @@
       "angular": false,
       "cordova": false,
       "Firebase": false,
-      "_": false
+      "Geofire": false,
+      "_": false,
+      "google": false,
+      "moment": false
    }
 }

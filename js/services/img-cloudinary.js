@@ -1,4 +1,4 @@
-angular.module('dc.img', [])
+angular.module('dc.img', []) // define module (with dependencies)
 
 .factory('img', ['$http', function($http) {
     return {
