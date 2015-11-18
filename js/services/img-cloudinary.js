@@ -12,28 +12,28 @@ angular.module('dc.img', ['dc.secrets']) // define module (with dependencies)
    }
 
     return {
-
-      upload(dataURI, public_id) {
-         var data = new FormData();
+      // TODO
+      upload: function(dataURI, public_id) {
          var timestamp = moment().unix();
-         data.append('file', dataURI);
-         if (public_id) {
-            data.append('public_id', public_id);
-         }
-         data.append('api_key', secrets.cloudinary.api_key);
-         data.append('timestamp', timestamp);
-         data.append('signature', sign(public_id, timestamp));
-
-         return $http.post({
+         var extractData = function(obj) { return obj.data; }; // return data property of an object
+         
+         // this runs a POST request with 'Content-Type: application/json; charset=UTF-8'
+         // and data is automatically sent as JSON
+         return $http({
+            method: 'POST',
             url: 'https://api.cloudinary.com/v1_1/dinner-collective/image/upload',
-            headers: {
-               'Content-Type': 'multipart/form-data'
-            },
-            data
-         });
+            // headers: {'Content-Type': 'application/json; charset=UTF-8'},
+            data: {
+               file: dataURI,
+               public_id: public_id,
+               api_key: secrets.cloudinary.api_key,
+               timestamp: timestamp,
+               signature: sign(public_id, timestamp)
+            }
+         }).then(extractData, extractData);
       },
 
-      delete(imageID) {
+      delete: function(imageID) {
          imageID = null;
          return imageID;
       }

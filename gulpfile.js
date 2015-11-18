@@ -195,9 +195,12 @@ var karmaTestFiles = [
   'www/lib/firebase/firebase.js',
   'www/lib/angularfire/dist/angularfire.js',
   'www/lib/lodash/lodash.js',
+  'www/lib/moment/moment.js',
+  'www/lib/SHA-1/sha1.js',
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyDOea9C6l1k-ZBFqixwd0p82nbHUdrmi8Q',
-  'js/includes/**/*.js',
-  'test/includes/**/*.js'
+  'js/services/**/*.js',
+  'test/includes/**/*.js',
+  { pattern: 'test/**/*.+(png|jpg|jpeg|gif)', served:true, included:false } // load all images
 ];
 
 // figure out which test files to run
