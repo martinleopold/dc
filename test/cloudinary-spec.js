@@ -1,5 +1,5 @@
 /* eslint-env jasmine */
-/* global promiseHelpers, moduleHelpers */
+/* global promiseHelpers, moduleHelpers, httpHelpers */
 
 describe("dc.img module", function() {
    httpHelpers.init(); // use ngMockE2E to allow for real $http requests
@@ -48,7 +48,7 @@ describe("dc.img module", function() {
 
    var testImage =  "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg==";
 
-   it('upload inline data url', function(done) {
+   fit('upload inline data url', function(done) {
       img.upload(testImage, 'test').then(function(result) {
          expect(result.public_id).toBe('test');
          // console.log(result);
@@ -59,7 +59,7 @@ describe("dc.img module", function() {
       });
    });
 
-   it('upload bigger file', function(done) {
+   it('upload bigger image', function(done) {
       img2Data('base/test/img/lenna.png').then(function (data) {
          img.upload(data, 'lenna').then(function (result) {
             // console.log(result);
@@ -69,6 +69,17 @@ describe("dc.img module", function() {
             console.log(err);
             done.fail();
          });
+      });
+   });
+
+   fit('delete image', function(done) {
+      img.delete('test').then(function (result) {
+         // console.log(result);
+         expect(result.result).toBe('ok');
+         done();
+      }).catch(function (err) {
+         console.log(err);
+         done.fail();
       });
    });
 
