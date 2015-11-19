@@ -10,13 +10,13 @@
             <h2>Your photo</h2>
             <div class="card">
                <div class="item item-image">
-                  <img src="img/pm_b.jpg">
+                  <img src="{{user.image.url || 'img/pm_b.jpg'}}">
                </div>
                <div class="button-bar">
-                  <a class="button button-stable">
+                  <a class="button button-stable" ng-click="uploadFromLibrary()">
                      <i class="icon dc-upload icon-with-text"></i> Upload new photo
                   </a>
-                  <a class="button button-stable" style="max-width: 15%">
+                  <a class="button button-stable" style="max-width: 15%" ng-click="uploadFromCamera()">
                      <i class="icon dc-camera"></i>
                   </a>
                </div>

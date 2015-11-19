@@ -78,16 +78,12 @@ angular.module('dc.db.user', ['dc.db.base'])
       return db.query.update( ref.user.child(userId).child('settings'), settings );
    };
 
-   user.createImage = function () {
-
+   user.setImage = function (userId, img) {
+      return db.query.set( ref.user.child(userId).child('image'), img );
    };
 
-   user.deleteImage = function () {
-
-   };
-
-   user.reorderImage = function () {
-
+   user.deleteImage = function (userId) {
+      return db.query.delete( ref.user.child(userId).child('image') );
    };
 
    user.getFriends = function (userId) {
