@@ -16,7 +16,7 @@
 
             -->
 
-            <div ng-repeat="(dinnerId, dinner) in futureHostedDinners | orderBy : getBeginTime" class="card dinner">
+            <div ng-repeat="(dinnerId, dinner) in futureHostedDinners | orderBy : getBeginTime : true" class="card dinner">
              <style>
                 a,
                 a:visited,
