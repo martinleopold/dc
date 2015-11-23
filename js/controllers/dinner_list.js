@@ -8,10 +8,13 @@ angular.module('dc.controllers')
    resumeSession($scope).then(function(){
       var hostedDinners =  db.user.getHostedDinners( $rootScope.user.userId );
       hostedDinners.then(function (dinners) {
+         dinners = _.map(dinners, function (dinner, id) {
+            dinner.dinnerId = id;
+            return dinner;
+         });
 
          // past hosted dinners
          $scope.pastHostedDinners = _.filter(dinners, function(dinner){
-
             // time of dinner before now
             return moment(dinner.dineinAt).isBefore(moment());
          });
