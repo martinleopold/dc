@@ -17,6 +17,21 @@ var paths = {
 };
 
 
+/**
+ * helpers
+ */
+
+var injectValue = function(value, startTag, endTag) {
+   startTag = startTag || '/* inject:value */';
+   endTag = endTag || '/* endinject */';
+   var regexEscape = function(str) {
+        return str.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+   };
+   var search = regexEscape(startTag) + '(.|\n|\r)*?' + regexEscape(endTag);
+   var replace = startTag + '\n' + JSON.stringify(value, null, '   ') + '\n' + endTag;
+   return $.replace( new RegExp(search), replace );
+};
+
 
 /**
  * main tasks
@@ -72,7 +87,7 @@ gulp.task('watch-ruby-sass', ['ruby-sass'], function() {
  * JS
  */
 
-gulp.task('js', ['inject-bower', 'eslint'], function() {
+gulp.task('js', ['inject-bower', 'inject-secrets', 'eslint'], function() {
    var babelOptions = {
       presets: ['es2015']
    };
@@ -108,6 +123,17 @@ gulp.task('inject-bower', function() {
          exclude: "angular/"
       }))
       .pipe(gulp.dest('./www/'));
+});
+
+
+/**
+ * inject secrets
+ */
+gulp.task('inject-secrets', function() {
+   var secrets = require('./secrets.json');
+   return gulp.src('./js/services/secrets.js')
+      .pipe( injectValue(secrets) )
+      .pipe( gulp.dest('./js/services/') );
 });
 
 
@@ -169,9 +195,12 @@ var karmaTestFiles = [
   'www/lib/firebase/firebase.js',
   'www/lib/angularfire/dist/angularfire.js',
   'www/lib/lodash/lodash.js',
+  'www/lib/moment/moment.js',
+  'www/lib/SHA-1/sha1.js',
   'https://maps.googleapis.com/maps/api/js?key=AIzaSyDOea9C6l1k-ZBFqixwd0p82nbHUdrmi8Q',
-  'js/includes/**/*.js',
-  'test/includes/**/*.js'
+  'js/services/**/*.js',
+  'test/includes/**/*.js',
+  { pattern: 'test/**/*.+(png|jpg|jpeg|gif)', served:true, included:false } // load all images
 ];
 
 // figure out which test files to run

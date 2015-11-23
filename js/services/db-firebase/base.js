@@ -153,6 +153,10 @@ db.query.set = function set (ref, data) {
    });
 };
 
+db.query.delete = function delete_ (ref) {
+   return db.query.set( ref, null );
+};
+
 db.query.push = function push (ref, data) {
    return $q(function resolver (resolve, reject) {
       var newRef = ref.push(data, function onComplete (error) {

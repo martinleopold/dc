@@ -21,6 +21,8 @@ plugins/
 
 # credentials
 sftp.config
+secrets.json
+js/services/secrets.js
 
 # compiled scripts and styles
 www/css/

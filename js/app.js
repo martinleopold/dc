@@ -4,7 +4,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var dc = angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.directives', 'dc.dev']);
+var dc = angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.img', 'dc.directives', 'dc.dev']);
 
 
 // ionic setup

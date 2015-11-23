@@ -10,7 +10,8 @@
     "firebase": "~2.2.9",
     "lodash": "lodash/lodash#^3.10.1",
     "moment-timezone": "~0.4.1",
-    "geofire": "~3.2.3"
+    "geofire": "~3.2.3",
+    "SHA-1": "~0.1.1"
   },
   "overrides": {
     "angularfire": {

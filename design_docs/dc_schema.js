@@ -76,10 +76,7 @@ var dcSchema =
          "email"          : { "type" : "email" },
          "info"           : { "type" : "string" },
          "settings"       : { "$ref" : "#/userSettingsSchema" },
-         "images"         : {
-            "type" : "array",
-            "items" : { "$ref" : "#/userImageSchema" }
-         },
+         "image"         : { "$ref" : "#/userImageSchema" },
          "friends"        : { "$ref" : "#/refListSchema" },
          "credits"        : { "type" : "integer" }
       }
@@ -88,10 +85,7 @@ var dcSchema =
    "userImageSchema" : {
       "type" : "object",
       "properties" : {
-         "originalURL"   : { "type" : "string" },
-         "largeURL"      : { "type" : "string" },
-         "mediumURL"     : { "type" : "string" },
-         "smallURL"      : { "type" : "string" }
+         "url"   : { "type" : "string" }
       }
    },
 

@@ -17,6 +17,7 @@
       "Geofire": false,
       "_": false,
       "google": false,
-      "moment": false
+      "moment": false,
+      "sha1": false
    }
 }
