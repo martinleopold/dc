@@ -7,6 +7,7 @@ var f = angular.module('dc.filters', []); // create filters module
  */
 f.filter('getBeginTime', function() {
    return function(dinner) {
+      if (!dinner) return '';
       return dinner.dineinAt || dinner.takeawayFrom;
    };
 });

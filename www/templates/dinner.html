@@ -27,7 +27,7 @@
 			<p>You applied for</p>  <!--bzw. You are accepted to -->
 
             <h1>{{dinner.title}}</h1>
-            
+
             <div class="row">
                 <div class="col col-10"><i class="icon dc-pin"></i></div>
                 <div class="col col-33">
@@ -55,7 +55,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="item item-text-wrap dinner-info">
 			<p class="dinner-info">{{dinner.info}}</p>
         </div>
@@ -63,7 +63,7 @@
     <div class=" item item-text-wrap row row-center dinner-categories">
         <div ng-repeat="(type, enabled) in dinner.type" ng-show="enabled" class="category"><i class="icon ion-record"></i> <span>{{type}}</span></div>
         </div>
-      
+
         <div class="mapwrapper">
 			<style>
 				map {
@@ -199,15 +199,15 @@
 
 	<div ng-show="!isHost() && !applicationState()">
 	<h2>Apply</h2>
-    
+
     <div class="card">
         <div class="item item-checkbox borderless">
            <label class="checkbox">
-              <input ng-model="" type="checkbox">
+              <input type="checkbox">
            </label>
            I want to eat there!
         </div>
-        
+
 		<div class="row apply-number">
 			<div class="col col-50">
                 <p class="info card-info"><i>For how many pepole?</i></p>
@@ -234,9 +234,9 @@
                </label>
                I want food for take-away!
             </div>
-            
 
-        
+
+
 		<div class="row apply-number">
             <div class="col col-50">
                 <p class="info card-info"><i>For how many pepole?</i></p>
@@ -256,10 +256,10 @@
                 </div>
 			</div>
 		</div>
-        
+
     </div>
 
-        
+
         <h2>Apply until</h2>
         <div class="card apply-until">
             <div class="row item">
@@ -268,15 +268,15 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col item item-input"><input ng-model="" type="datetime-local"></div>
+                <div class="col item item-input"><input type="datetime-local"></div>
             </div>
         </div>
-            
-        
+
+
         <div class="card button-block-wrapper">
-        <button class="item button button-block button-positive">Sign me up!</button>    
+        <button class="item button button-block button-positive">Sign me up!</button>
         </div>
-	            
+
 
 		<!--<div class="row apply-visit-take-away">
 			<div class="col col-50">
