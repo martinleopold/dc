@@ -142,8 +142,26 @@ dc.config(function($stateProvider, $urlRouterProvider) {
 });
 
 
+
 // timezone support
+/* global moment */
 dc.run(function () {
-   /* global moment */
    moment.tz.setDefault('Europe/Vienna');
+
+   // define a specialized locale (settings are inherited from 'en')
+   moment.locale('en-dc', {
+      longDateFormat : {
+         LT : "HH:mm",
+         LTS : "HH:mm:ss",
+         L : "MMM D, YYYY" // Aug 12, 2015 14:00
+      },
+      calendar : {
+         lastDay : '[Yesterday,] LT',
+         sameDay : '[Today,] LT',
+         nextDay : '[Tomorrow,] LT',
+         lastWeek : '[last] dddd[,] LT',
+         nextWeek : 'dddd[,] LT',
+         sameElse : 'L'
+      }
+   });
 });
