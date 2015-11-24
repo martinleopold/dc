@@ -15,5 +15,5 @@ gulp 3.9.0
 karma-cli 0.1.1
 firesafe 0.1.1
 
-ios-deploy 1.8.2
-ios-sim 5.0.3
+ios-deploy 1.8.3
+ios-sim 5.0.4
