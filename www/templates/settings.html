@@ -4,7 +4,11 @@
    </ion-nav-buttons>
 
    <ion-tabs class="tabs-top tabs-dark tabs-striped">
+      <!--
 
+      Tab : ABOUT YOU
+
+      -->
       <ion-tab title="About You">
          <ion-content>
             <h2>Your photo</h2>
@@ -78,12 +82,20 @@
          </ion-content>
       </ion-tab>
 
+
+      <!--
+
+      Tab : OTHER SETTINGS
+
+      -->
       <ion-tab title="Other Settings">
          <ion-content>
             <h2>Your Address</h2>
             <p class="info"><i>This is where you'll cook.</i> Your exact adress will only be shared with people you accept as guests.</p>
             <div class="card">
-               <div class="list">
+
+               <!-- address form -->
+               <div class="list" ng-form name="addressForm" ng-model-options="{updateOn:'blur', debounce:1000}">
                   <label class="item error">It seems we couldn't find an adress that matches your inputs...</label>
                   <div class="row">
                      <div class="col col-67">
@@ -113,19 +125,16 @@
                      <input ng-model="user.address.country" type="text" placeholder="Country">
                   </label>
                </div>
-               <style>
-                  map {
-                     display: block;
-                     width: 100%;
-                     height: 100%;
-                     height: 250px;
-                  }
+               <!-- /address form -->
 
-                  .scroll {
-                     height: 100%;
-                  }
+               <!-- MAP -->
+               <style>
+                  .angular-google-map-container { height: 300px; }
                </style>
-               <map on-create="mapCreated(map)"></map>
+               <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
+                  <ui-gmap-marker coords="marker.coords" idkey="marker.id"></ui-gmap-marker>
+               </ui-gmap-google-map>
+               <!-- /MAP -->
 
                <div class="list">
                   <div class="row single">

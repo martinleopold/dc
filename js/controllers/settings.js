@@ -5,11 +5,14 @@
  * Settings
  */
 angular.module('dc.controllers')
-.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession, img, $q, getImageFromPhone) {
+.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession, img, $q, getImageFromPhone, uiGmapGoogleMapApi, maps) {
 
    console.log('Controller: settings');
    resumeSession($scope);
 
+   /**
+    * Update User Data
+    */
    $scope.update = function() {
       console.log('updating user');
       db.user.update($scope.user).then(function() {
@@ -19,11 +22,9 @@ angular.module('dc.controllers')
       });
    };
 
-   $scope.mapCreated = function(map) {
-      $scope.map = map;
-   };
-
-
+   /**
+    * User Image
+    */
    function uploadFrom (source) {
       getImageFromPhone(source).then(function (dataURL) {
          return img.upload( dataURL, $rootScope.user.userId );
@@ -42,5 +43,37 @@ angular.module('dc.controllers')
    $scope.uploadFromCamera = function() {
       uploadFrom('camera');
    };
+
+   /**
+    * Map
+    */
+   $scope.map = {
+      center: { latitude: 48.2087105, longitude: 16.372654600000033 }, // Stephansplatz 1, 1010 Wien
+      zoom: 16,
+      options: {
+         disableDefaultUI: true,
+         draggable: false,
+         scrollwheel: false
+      }
+   };
+
+   $scope.marker = {
+      id: 'settings'
+   };
+
+   uiGmapGoogleMapApi.then(function(gmaps) {
+      // maps ... google.maps object
+   });
+
+   $scope.$watch("user.address", function(address) {
+      // console.log( "address changed:", address );
+      maps.addressToLocation(address).then(function (result) {
+         // console.log(result.formatted_address, result.location);
+         $scope.map.center = result.location;
+         $scope.marker.coords = result.location;
+      });
+   }, true);
+
+
 
 });
