@@ -5,7 +5,7 @@
  * Settings
  */
 angular.module('dc.controllers')
-.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession, img, $q, getImageFromPhone, maps) {
+.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession, img, $q, getImageFromPhone, maps, sliderToDistance) {
 
    console.log('Controller: settings');
 
@@ -75,5 +75,14 @@ angular.module('dc.controllers')
          $scope.userData.location = result.location;
       });
    }, true);
+
+
+   /**
+    * Default Search Radius
+    */
+   $scope.searchRadius = '';
+   $scope.$watch("userData.settings.searchradius", function(idx) {
+      $scope.searchRadius = sliderToDistance(idx) + 'km';
+   });
 
 });

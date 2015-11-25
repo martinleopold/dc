@@ -95,7 +95,7 @@
             <div class="card">
 
                <!-- address form -->
-               <div class="list" ng-form name="addressForm" ng-model-options="{updateOn:'blur', debounce:1000}">
+               <div class="list" ng-form name="addressForm" ng-model-options="{updateOn:'blur'}">
                   <label class="item error">It seems we couldn't find an adress that matches your inputs...</label>
                   <div class="row">
                      <div class="col col-67">
@@ -151,8 +151,8 @@
             <h2>Always start to search within</h2>
             <div class="card">
                <div class="range range-positive">
-                  <i class="value">4km</i>
-                  <input ng-model="userData.settings.searchradius" type="range" name="radius" min="0" max="5">
+                  <i class="value">{{searchRadius}}</i>
+                  <input ng-model="userData.settings.searchradius" type="range" name="radius" min="0" max="5" ng-change="updateDistance(userData.settings.searchradius)">
                   <i class="icon dc-global"></i>
                </div>
             </div>

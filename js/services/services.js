@@ -136,3 +136,13 @@ s.factory('getImageFromPhone', function($q) {
       });
    };
 });
+
+
+s.factory('sliderToDistance', function() {
+   return function sliderToDistance(idx) {
+      var dist = [1, 3, 5, 10, 30, 100];
+      if (idx < 0) { idx = 0; }
+      else if (idx > 5) { idx = 5; }
+      return dist[idx];
+   };
+});
