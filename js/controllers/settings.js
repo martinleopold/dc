@@ -5,7 +5,7 @@
  * Settings
  */
 angular.module('dc.controllers')
-.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession, img, $q, getImageFromPhone, uiGmapGoogleMapApi, maps) {
+.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession, img, $q, getImageFromPhone, maps) {
 
    console.log('Controller: settings');
    resumeSession($scope);
@@ -21,6 +21,7 @@ angular.module('dc.controllers')
          console.error('update failed', error);
       });
    };
+
 
    /**
     * User Image
@@ -44,6 +45,7 @@ angular.module('dc.controllers')
       uploadFrom('camera');
    };
 
+
    /**
     * Map
     */
@@ -52,6 +54,7 @@ angular.module('dc.controllers')
       zoom: 16,
       options: {
          disableDefaultUI: true,
+         disableDoubleClickZoom: true,
          draggable: false,
          scrollwheel: false
       }
@@ -61,10 +64,6 @@ angular.module('dc.controllers')
       id: 'settings'
    };
 
-   uiGmapGoogleMapApi.then(function(gmaps) {
-      // maps ... google.maps object
-   });
-
    $scope.$watch("user.address", function(address) {
       // console.log( "address changed:", address );
       maps.addressToLocation(address).then(function (result) {
@@ -73,7 +72,5 @@ angular.module('dc.controllers')
          $scope.marker.coords = result.location;
       });
    }, true);
-
-
 
 });
