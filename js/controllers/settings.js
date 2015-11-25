@@ -8,14 +8,19 @@ angular.module('dc.controllers')
 .controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession, img, $q, getImageFromPhone, maps) {
 
    console.log('Controller: settings');
-   resumeSession($scope);
+
+   $scope.userData = {};
+   resumeSession().then(function (user) {
+      $scope.userData = user;
+   });
 
    /**
     * Update User Data
     */
    $scope.update = function() {
       console.log('updating user');
-      db.user.update($scope.user).then(function() {
+      db.user.update($scope.userData).then(function() {
+         $rootScope.user = $scope.userData;
          console.log('update successful');
       }, function(error) {
          console.error('update failed', error);
@@ -32,7 +37,7 @@ angular.module('dc.controllers')
       }).then(function (imageRecord) {
          console.log('image uploaded ', imageRecord);
          $rootScope.user.image = imageRecord;
-         $scope.user.image = imageRecord;
+         $scope.userData.image = imageRecord;
          return db.user.setImage($rootScope.user.userId, imageRecord);
       });
    }
@@ -50,7 +55,6 @@ angular.module('dc.controllers')
     * Map
     */
    $scope.map = {
-      center: { latitude: 48.2087105, longitude: 16.372654600000033 }, // Stephansplatz 1, 1010 Wien
       zoom: 16,
       options: {
          disableDefaultUI: true,
@@ -61,15 +65,14 @@ angular.module('dc.controllers')
    };
 
    $scope.marker = {
-      id: 'settings'
+      id: 0
    };
 
-   $scope.$watch("user.address", function(address) {
+   $scope.$watch("userData.address", function(address) {
       // console.log( "address changed:", address );
       maps.addressToLocation(address).then(function (result) {
-         // console.log(result.formatted_address, result.location);
-         $scope.map.center = result.location;
-         $scope.marker.coords = result.location;
+         console.log(result.formatted_address, result.location);
+         $scope.userData.location = result.location;
       });
    }, true);
 

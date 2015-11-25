@@ -14,7 +14,7 @@
             <h2>Your photo</h2>
             <div class="card">
                <div class="item item-image">
-                  <img src="{{user.image.url || 'img/pm_b.jpg'}}">
+                  <img src="{{userData.image.url || 'img/pm_b.jpg'}}">
                </div>
                <div class="button-bar">
                   <a class="button button-stable" ng-click="uploadFromLibrary()">
@@ -31,50 +31,50 @@
                <div class="list">
                   <label class="item error">Your name cannot contain certain characters.</label>
                   <label class="item item-input">
-                     <input ng-model="user.firstName" type="text" placeholder="First Name">
+                     <input ng-model="userData.firstName" type="text" placeholder="First Name">
                   </label>
 
                   <label class="item error">Your name cannot contain certain characters.</label>
                   <label class="item item-input">
-                     <input ng-model="user.lastName" type="text" placeholder="Last Name">
+                     <input ng-model="userData.lastName" type="text" placeholder="Last Name">
                   </label>
                   <label class="item item-input">
-                     <textarea ng-model="user.info" placeholder="Tell us a bit about yourself - for example what you like to eat, what your hobbies are or what kind of socks you like to wear."></textarea>
+                     <textarea ng-model="userData.info" placeholder="Tell us a bit about yourself - for example what you like to eat, what your hobbies are or what kind of socks you like to wear."></textarea>
                   </label>
                </div>
             </div>
 
             <!-- <h2>Gallery</h2>
-						<p>Upload photos of your food, your kitchen or where you'll eat with your guests.</p>
-						<div class="card">
-								<div class="list">
-										<div class="item item-image">
-												<div class="row">
-														<div class="col col-20"><button class="button button-light icon ion-close"></div>
-														<div class="col col-60 item-image"><img src="img/lndsc.jpeg"></div>
-														<div class="col col-20"><button class="button button-light icon ion-drag"></div>
-												</div>
-										</div>
-										<div class="item item-image">
-												<div class="row">
-														<div class="col col-20"><button class="button button-light icon ion-close"></div>
-														<div class="col col-60 item-image"><img src="img/lndsc.jpeg"></div>
-														<div class="col col-20"><button class="button button-light icon ion-drag"></div>
-												</div>
-										</div>
-										<div class="item item-image">
-												<div class="row">
-														<div class="col col-20"><button class="button button-light icon ion-close"></div>
-														<div class="col col-60 item-image"><img src="img/lndsc.jpeg"></div>
-														<div class="col col-20"><button class="button button-light icon ion-drag"></div>
-												</div>
-										</div>
-								</div>
-								<div class="button-bar">
-									<a class="button button-light icon-left ion-upload">Upload new photo</a>
-									<a class="button button-light icon ion-camera" style="max-width: 15%"></a>
-								</div>
-						</div> -->
+                  <p>Upload photos of your food, your kitchen or where you'll eat with your guests.</p>
+                  <div class="card">
+                        <div class="list">
+                              <div class="item item-image">
+                                    <div class="row">
+                                          <div class="col col-20"><button class="button button-light icon ion-close"></div>
+                                          <div class="col col-60 item-image"><img src="img/lndsc.jpeg"></div>
+                                          <div class="col col-20"><button class="button button-light icon ion-drag"></div>
+                                    </div>
+                              </div>
+                              <div class="item item-image">
+                                    <div class="row">
+                                          <div class="col col-20"><button class="button button-light icon ion-close"></div>
+                                          <div class="col col-60 item-image"><img src="img/lndsc.jpeg"></div>
+                                          <div class="col col-20"><button class="button button-light icon ion-drag"></div>
+                                    </div>
+                              </div>
+                              <div class="item item-image">
+                                    <div class="row">
+                                          <div class="col col-20"><button class="button button-light icon ion-close"></div>
+                                          <div class="col col-60 item-image"><img src="img/lndsc.jpeg"></div>
+                                          <div class="col col-20"><button class="button button-light icon ion-drag"></div>
+                                    </div>
+                              </div>
+                        </div>
+                        <div class="button-bar">
+                           <a class="button button-light icon-left ion-upload">Upload new photo</a>
+                           <a class="button button-light icon ion-camera" style="max-width: 15%"></a>
+                        </div>
+                  </div> -->
 
             <div class="card button-block-wrapper">
              <button ng-click="update()" class="item button button-positive button-block">Save Changes</button>
@@ -100,29 +100,29 @@
                   <div class="row">
                      <div class="col col-67">
                         <label class="item item-input">
-                           <input ng-model="user.address.street" type="text" placeholder="Street name">
+                           <input ng-model="userData.address.street" type="text" placeholder="Street name">
                         </label>
                      </div>
                      <div class="col col-33">
                         <label class="item item-input">
-                           <input ng-model="user.address.no" type="text" placeholder="No./Door">
+                           <input ng-model="userData.address.no" type="text" placeholder="No./Door">
                         </label>
                      </div>
                   </div>
                   <div class="row">
                      <div class="col col-33">
                         <label class="item item-input">
-                           <input ng-model="user.address.zip" type="text" placeholder="ZIP">
+                           <input ng-model="userData.address.zip" type="text" placeholder="ZIP">
                         </label>
                      </div>
                      <div class="col col-67">
                         <label class="item item-input">
-                           <input ng-model="user.address.city" type="text" placeholder="City">
+                           <input ng-model="userData.address.city" type="text" placeholder="City">
                         </label>
                      </div>
                   </div>
                   <label class="item item-input">
-                     <input ng-model="user.address.country" type="text" placeholder="Country">
+                     <input ng-model="userData.address.country" type="text" placeholder="Country">
                   </label>
                </div>
                <!-- /address form -->
@@ -131,8 +131,8 @@
                <style>
                   .angular-google-map-container { height: 300px; }
                </style>
-               <ui-gmap-google-map center="map.center" zoom="map.zoom" options="map.options">
-                  <ui-gmap-marker coords="marker.coords" idkey="marker.id"></ui-gmap-marker>
+               <ui-gmap-google-map center="userData.location" zoom="map.zoom" options="map.options">
+                  <ui-gmap-marker coords="userData.location" idkey="marker.id"></ui-gmap-marker>
                </ui-gmap-google-map>
                <!-- /MAP -->
 
@@ -152,7 +152,7 @@
             <div class="card">
                <div class="range range-positive">
                   <i class="value">4km</i>
-                  <input ng-model="user.settings.searchradius" type="range" name="radius" min="0" max="5">
+                  <input ng-model="userData.settings.searchradius" type="range" name="radius" min="0" max="5">
                   <i class="icon dc-global"></i>
                </div>
             </div>

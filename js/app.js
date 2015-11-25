@@ -4,7 +4,7 @@
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
 
-var dc = angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.img', 'dc.directives', 'dc.dev', 'dc.maps', 'uiGmapgoogle-maps']);
+var dc = angular.module('dc', ['ionic', 'dc.controllers', 'dc.services', 'dc.filters', 'dc.db', 'dc.img', 'dc.directives', 'dc.dev', 'dc.maps']);
 
 
 // ionic setup
@@ -170,6 +170,7 @@ dc.run(function () {
 
 // google maps for angular
 dc.config(function(uiGmapGoogleMapApiProvider, secrets) {
+   // console.log('init gmaps');
    uiGmapGoogleMapApiProvider.configure({
       key: secrets.maps.api_key,
       libraries: 'drawing'
