@@ -197,7 +197,8 @@ var karmaTestFiles = [
   'www/lib/lodash/lodash.js',
   'www/lib/moment/moment.js',
   'www/lib/SHA-1/sha1.js',
-  'https://maps.googleapis.com/maps/api/js?key=AIzaSyDOea9C6l1k-ZBFqixwd0p82nbHUdrmi8Q',
+  'www/lib/angular-simple-logger/dist/angular-simple-logger.js',
+  'www/lib/angular-google-maps/dist/angular-google-maps.js',
   'js/services/**/*.js',
   'test/includes/**/*.js',
   { pattern: 'test/**/*.+(png|jpg|jpeg|gif)', served:true, included:false } // load all images

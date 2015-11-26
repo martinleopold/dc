@@ -25,26 +25,31 @@ s.factory('Friends', function() {
    };
 });
 
-s.factory('resumeSession', function($rootScope, db, $q, $state) {
-   return function($scope) {
+
+/**
+ * resume the user session if there is one, otherwise redirect to login page
+ * $rootScope.user is populated on sucess
+ * @return {Promise} user on sucess, null on failure
+ */
+s.factory('resumeSession', function($rootScope, db, $state) {
+   return function() {
       return db.auth.getCurrentSession()
       .then(function onFulfilled (userId) {
          if ($rootScope.user && $rootScope.user.uid === userId) {
             // no need to refetch user data
-            $scope.user = $rootScope.user;
-            return $scope.user;
+            return _.cloneDeep($rootScope.user);
          } else {
             console.log('resuming session for user', userId);
             // fetch user data
             return db.user.get(userId).then(function(user) {
                console.log('resume successful', user);
                $rootScope.user = user;
-               $scope.user = user;
-               return user;
+               return _.cloneDeep($rootScope.user);
             });
          }
       }).catch(function onRejected () {
          $state.go('app.login');
+         return null;
       });
    };
 });
@@ -129,5 +134,15 @@ s.factory('getImageFromPhone', function($q) {
             reject(message);
          }, options);
       });
+   };
+});
+
+
+s.factory('sliderToDistance', function() {
+   return function sliderToDistance(idx) {
+      var dist = [1, 3, 5, 10, 30, 100];
+      if (idx < 0) { idx = 0; }
+      else if (idx > 5) { idx = 5; }
+      return dist[idx];
    };
 });

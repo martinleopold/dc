@@ -3,7 +3,7 @@
 <head>
    <meta charset="utf-8">
    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
-   <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline'">
+   <meta http-equiv="Content-Security-Policy" content="default-src * 'unsafe-inline' 'unsafe-eval'">
 
    <title>Dinner Collective : Web Preview</title>
 
@@ -12,9 +12,6 @@
 
    <!-- ionic/angularjs js -->
    <script src="lib/ionic/js/ionic.bundle.js"></script>
-
-   <!-- google maps js api -->
-   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDOea9C6l1k-ZBFqixwd0p82nbHUdrmi8Q&sensor=true"></script>
 
    <!-- cordova script (this will be a 404 during development) -->
    <script src="cordova.js"></script>
@@ -29,6 +26,8 @@
    <script src="lib/rsvp/rsvp.js"></script>
    <script src="lib/geofire/dist/geofire.js"></script>
    <script src="lib/SHA-1/sha1.js"></script>
+   <script src="lib/angular-simple-logger/dist/angular-simple-logger.js"></script>
+   <script src="lib/angular-google-maps/dist/angular-google-maps.js"></script>
    <!-- endbower -->
 
    <!-- your app's js -->
