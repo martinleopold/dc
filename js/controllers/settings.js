@@ -35,6 +35,7 @@ angular.module('dc.controllers')
       getImageFromPhone(source).then(function (dataURL) {
          return img.upload( dataURL, $rootScope.user.userId );
       }).then(function (imageRecord) {
+         imageRecord.urls = img.urls(imageRecord.public_id);
          console.log('image uploaded ', imageRecord);
          $rootScope.user.image = imageRecord;
          $scope.userData.image = imageRecord;

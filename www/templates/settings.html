@@ -14,7 +14,7 @@
             <h2>Your photo</h2>
             <div class="card">
                <div class="item item-image">
-                  <img src="{{userData.image.url || 'img/pm_b.jpg'}}">
+                  <img ng-src="{{ (userData.image.public_id | imageURL) || 'img/pm_b.jpg' }}">
                </div>
                <div class="button-bar">
                   <a class="button button-stable" ng-click="uploadFromLibrary()">

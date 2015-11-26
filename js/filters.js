@@ -1,4 +1,4 @@
-var f = angular.module('dc.filters', []); // create filters module
+var f = angular.module('dc.filters', ['dc.img']); // create filters module
 
 
 /**
@@ -22,5 +22,35 @@ f.filter('getBeginTime', function() {
 f.filter('calendarTime', function() {
    return function(timeStr) {
       return moment(timeStr).calendar();
+   };
+});
+
+
+/**
+ * get named user image url
+ * @param  {string} 'public_id' cloudinary public id (== userId)
+ * @param  {string} 'name' named image version
+ * @return {string} image url
+ */
+f.filter('imageURL', function(img) {
+   return function(public_id, name) {
+      if (!public_id) return undefined;
+      name = name || 'default';
+      return img.urls(public_id)[name];
+   };
+});
+
+
+/**
+ * get transformed user image url
+ * @param  {string} 'public_id' cloudinary public id (== userId)
+ * @param  {string} 'transform' cloudinary transform string
+ * @return {string} image url
+ */
+f.filter('imageURLWithTransforms', function(img) {
+   return function(public_id, transform) {
+      if (!public_id) return undefined;
+      transform = transform || '';
+      return img.url(public_id, transform);
    };
 });
