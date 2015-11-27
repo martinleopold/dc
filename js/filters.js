@@ -4,11 +4,17 @@ var f = angular.module('dc.filters', ['dc.img']); // create filters module
 /**
  * Compute begin time of a dinner.
  * @param  {dinner} 'dinner'
+ * @param  {string} 'formatStr' optional moment.js format string
+ * @return iso time string or undefined if no valid time found
  */
 f.filter('getBeginTime', function() {
-   return function(dinner) {
+   return function(dinner, formatStr) {
       if (!dinner) return '';
-      return dinner.dineinAt || dinner.takeawayFrom;
+      var time = dinner.dineinAt || dinner.takeawayFrom;
+      if (!time) return undefined;
+
+      if (!formatStr) return moment(time).toISOString();
+      return moment(time).format(formatStr);
    };
 });
 
