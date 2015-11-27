@@ -5,15 +5,61 @@ angular.module('dc.controllers')
 .controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams) {
 
    console.log('Controller: dinner');
-   resumeSession($scope);
+   resumeSession().then(function () {
+      $scope.userIs = {
+         host : false,
+         applicant : false,
+         guest : false
+      };
+   });
 
-   $scope.application = { count:1 };
+   $scope.application = {
+      spotsDinein:1,
+      spotsTakeaway:1
+   };
+
+   $scope.add = function(prop, val) {
+      if (!prop) return;
+      val = val || 1;
+      var newVal = $scope.application[prop] + val;
+      if (newVal > 9) newVal = 9;
+      if (newVal < 1) newVal = 1;
+      return $scope.application[prop] = newVal;
+   };
+
+   $scope.sub = function(prop, val) {
+      if (!prop) return;
+      val = -val || -1;
+      return $scope.add(prop, val);
+   };
 
    // $scope.dinner = db.getDinnerSync($stateParams.dinnerId);
    db.dinner.get($stateParams.dinnerId).then(function (dinner) {
       $scope.dinner = dinner;
       console.log('dinner', dinner);
+      //dinner.hostedByUser
+      return db.user.get(dinner.hostedByUser);
+   }).then(function (user) {
+      console.log('host', user);
+      $scope.host = user;
    });
+
+   /**
+    * Map
+    */
+   $scope.map = {
+      zoom: 16,
+      options: {
+         disableDefaultUI: true,
+         disableDoubleClickZoom: true,
+         draggable: false,
+         scrollwheel: false
+      }
+   };
+
+   $scope.marker = {
+      id: 0
+   };
 
    // $scope.applications = db.getDinnerApplicationsSync($stateParams.dinnerId);
 

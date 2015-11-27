@@ -54,3 +54,16 @@ f.filter('imageURLWithTransforms', function(img) {
       return img.url(public_id, transform);
    };
 });
+
+
+/**
+ * flatten address object
+ * @param  {object} 'address' address object
+ * @return {string} string representation of address
+ */
+f.filter('flattenAddress', function() {
+   return function(address) {
+      if (!address) return '';
+      return `${address.street} ${address.no}, ${address.zip} ${address.city}`;
+   };
+});
