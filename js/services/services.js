@@ -146,3 +146,19 @@ s.factory('sliderToDistance', function() {
       return dist[idx];
    };
 });
+
+
+/**
+ * convert object to array, preserving the keys as $id.
+ * used to be able to order in ng-repeat (which only supports array)
+ * @param  obj 'obj' the object to be converted
+ * @return {array} the converted array.
+ */
+s.factory('toArray', function() {
+   return function toArray(obj) {
+      if (!(obj instanceof Object)) return obj;
+      return _.map(obj, function(val, key) {
+         return Object.defineProperty(val, '$id', {__proto__: null, value: key});
+      });
+   };
+});

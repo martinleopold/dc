@@ -37,8 +37,8 @@
          <br />Or being less picky, but what do I know...
       </div>
 
-      <div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card dinner">
-         <div ui-sref="app.dinner({dinnerId:dinnerId})" class="">
+      <div ng-repeat="dinner in dinners | orderBy: getBeginTime" class="card dinner">
+         <div ui-sref="app.dinner({dinnerId:dinner.$id})" class="">
             <div class="title-location">
                <p class="dinnertitle">{{dinner.title}}</p>
                 <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host">{{dinner.hostedByUser}}</span>'s place</p>

@@ -2,16 +2,13 @@
  * Dinner List
  */
 angular.module('dc.controllers')
-.controller('DinnerListCtrl', function($scope, db, $rootScope, $state, resumeSession) {
+.controller('DinnerListCtrl', function($scope, db, $rootScope, $state, resumeSession, toArray, $filter) {
    console.log('Controller: DinnerListCtrl');
 
    resumeSession($scope).then(function(){
       var hostedDinners =  db.user.getHostedDinners( $rootScope.user.userId );
       hostedDinners.then(function (dinners) {
-         dinners = _.map(dinners, function (dinner, id) {
-            dinner.dinnerId = id;
-            return dinner;
-         });
+         dinners = toArray(dinners);
 
          // past hosted dinners
          $scope.pastHostedDinners = _.filter(dinners, function(dinner){
@@ -31,4 +28,5 @@ angular.module('dc.controllers')
       });
    });
 
+   $scope.getBeginTime = $filter('getBeginTime');
 });
