@@ -2,7 +2,7 @@
  * Dinner
  */
 angular.module('dc.controllers')
-.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams) {
+.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams, uiGmapGoogleMapApi) {
 
    console.log('Controller: dinner');
    resumeSession().then(function () {
@@ -57,9 +57,17 @@ angular.module('dc.controllers')
       }
    };
 
-   $scope.marker = {
-      id: 0
-   };
+   uiGmapGoogleMapApi.then(function (gmaps) {
+      $scope.marker = {
+         id: 0,
+         options: {
+            icon: {
+               url: './img/pin@2x.png',
+               scaledSize: new gmaps.Size(23, 32)
+            }
+         }
+      };
+   });
 
    // $scope.applications = db.getDinnerApplicationsSync($stateParams.dinnerId);
 
