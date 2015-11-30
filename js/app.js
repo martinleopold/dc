@@ -161,7 +161,7 @@ dc.run(function () {
          nextDay : '[Tomorrow,] LT',
          lastWeek : '[last] dddd[,] LT',
          nextWeek : 'dddd[,] LT',
-         sameElse : 'L'
+         sameElse : 'L LT'
       }
    });
 });
