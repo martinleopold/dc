@@ -19,6 +19,7 @@ angular.module('dc.db.dinner', ['dc.db.base'])
 
 
    ref.dinner = fb.child('dinner');
+   ref.dinnerIndex = fb.child('dinnerIndex');
    ref.application = fb.child('application');
    ref.message = fb.child('message');
    ref.review = fb.child('review');
@@ -76,12 +77,13 @@ angular.module('dc.db.dinner', ['dc.db.base'])
    // fulfills with the new dinnerId, rejects with the error
    // TODO: test
    dinner.create = function (dinner) {
-      return $q(function resolver (resolve) {
-         dinner = _.cloneDeep(dinner); // don't modify the passed data
-         checkObject(dinner, 'hostedByUser', 'title', 'description', 'tags', 'isPublic'); // can throw and thus reject this promise
-         // TODO: check for dineinAt or (takeawayFrom and takeawayUntil)
-         dinner.createdAt = Firebase.ServerValue.TIMESTAMP;
-         resolve( db.query.push(ref.dinner, dinner) );
+      dinner = _.cloneDeep(dinner); // don't modify the passed data
+      checkObject(dinner, 'hostedByUser', 'title', 'description', 'tags', 'isPublic'); // can throw and thus reject this promise
+      // TODO: check for dineinAt or (takeawayFrom and takeawayUntil)
+      dinner.createdAt = Firebase.ServerValue.TIMESTAMP;
+
+      return db.query.push(ref.dinner, dinner).then(function (dinnerId) {
+         return db.geo.set(ref.dinnerIndex, dinnerId, dinner.location);
       });
    };
 

@@ -162,3 +162,21 @@ s.factory('toArray', function() {
       });
    };
 });
+
+
+s.factory('locationArray', function() {
+   return function locationArray(obj) {
+      if (!obj.latitude || !obj.longitude) return undefined;
+      return [obj.latitude, obj.longitude];
+   };
+});
+
+s.factory('locationObject', function() {
+   return function locationObject(arr) {
+      if (arr.length < 2) return undefined;
+      return {
+         latitude: arr[0],
+         longitude: arr[1]
+      };
+   };
+});

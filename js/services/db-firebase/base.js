@@ -11,7 +11,7 @@ angular.module('dc.db.base', ['firebase'])
    util
    query
 */
-.factory('dbBase', ['$rootScope', '$q', '$firebase', 'fb', function($rootScope, $q, $firebase, fb) {
+.factory('dbBase', ['$rootScope', '$q', '$firebase', 'fb', 'locationArray', function($rootScope, $q, $firebase, fb, locationArray) {
    var ref = { root: fb }; // store firebase references. place the main ref in there as 'root' as well, even though is shorter just to use 'fb'
 
    var db = {}; // the db interface to be exported (as 'db')
@@ -195,6 +195,31 @@ db.query.get = function get (ref) {
       });
    });
 };
+
+
+   db.geo = {};
+
+   db.geo.set = function set (ref, id, locationObj) {
+      var gf = new GeoFire(ref);
+      return $q.when( gf.set(id, locationArray(locationObj)) );
+   };
+
+   db.geo.get = function get (ref, id) {
+      var gf = new GeoFire(ref);
+      return $q.when( gf.get(id) );
+   };
+
+   db.geo.delete = function get (ref, id) {
+      var gf = new GeoFire(ref);
+      return $q.when( gf.remove(id) );
+   };
+   db.geo.query = function set (ref, centerObj, radius) {
+      var gf = new GeoFire(ref);
+      return $q.when(gf.query({
+         center: locationArray(centerObj),
+         radius: radius
+      }));
+   };
 
    return db;
 }]);

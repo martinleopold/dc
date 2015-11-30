@@ -14,7 +14,7 @@
       "angular": false,
       "cordova": false,
       "Firebase": false,
-      "Geofire": false,
+      "GeoFire": false,
       "_": false,
       "google": false,
       "moment": false,
