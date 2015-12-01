@@ -4,9 +4,10 @@
    </ion-nav-buttons>
 
    <div class="bar bar-subheader bar-search has-dropdown">
-      <i class="icon ion-navigate"></i>
-      <input class="adress-search" placeholder="Your location">
+      <i class="icon ion-home"></i>
+      <input class="adress-search" placeholder="Your home address" value="{{user.address | flattenAddress}}">
    </div>
+   <!-- TODO: CENTER OF SEARCH -->
    <ul class="adress-dropdown">
       <li class="dropdown-item">
          <i class="icon ion-navigate"></i>
@@ -29,14 +30,18 @@
          <label>Salzgries, 1010 Wien</label>
       </li>
    </ul>
+   <!-- /TODO: CENTER OF SEARCH -->
 
    <ion-content class="has-subheader">
-      <div class="error">
+      <!-- TODO: VALIDATION -->
+      <!-- <div class="error">
          <br /> Hrm. We don't seem to have anything that matches your query at the moment - maybe try changing your filter settings.
          <br />
          <br />Or being less picky, but what do I know...
-      </div>
+      </div> -->
+      <!-- /TODO: VALIDATION -->
 
+      <!-- result list -->
       <div ng-repeat="dinner in dinners | orderBy: getBeginTime" class="card dinner">
          <div ui-sref="app.dinner({dinnerId:dinner.$id})" class="">
             <div class="title-location">
@@ -44,7 +49,9 @@
                 <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host">{{dinner.hostedByUser}}</span>'s place</p>
             </div>
          </div>
-      </div>
+      </div> <!-- /result list -->
+
+      <!-- TODO: result map -->
    </ion-content>
 
    <button class="button button-positive maptoggle">

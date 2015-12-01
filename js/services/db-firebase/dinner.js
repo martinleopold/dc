@@ -32,6 +32,7 @@ angular.module('dc.db.dinner', ['dc.db.base'])
          var id = _(obj).keys().first();
          var dinner = _(obj).values().first();
          dinner.dinnerId = id;
+         dinner.$id = id;
          return dinner;
       });
    };
@@ -39,6 +40,21 @@ angular.module('dc.db.dinner', ['dc.db.base'])
    dinner.getAll = function () {
       return db.query.get( ref.dinner );
    };
+
+
+   dinner.getLocal = function (centerObj, radius) {
+      return db.geo.query(ref.dinnerIndex, centerObj, radius).then(function (results) {
+         // console.log(results);
+         var dinnerPromises = _.map(results, function (result) {
+            return dinner.get(result.key).then(function (dinner) {
+               dinner.distance = result.distance; // add distance to dinner
+               return dinner;
+            });
+         });
+         return $q.all(dinnerPromises);
+      });
+   };
+
 
    dinner.getMessages = function (dinnerId) {
       return db.query.get( ref.message.orderByChild('toDinner').equalTo(dinnerId) );

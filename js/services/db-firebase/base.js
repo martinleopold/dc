@@ -11,7 +11,7 @@ angular.module('dc.db.base', ['firebase'])
    util
    query
 */
-.factory('dbBase', ['$rootScope', '$q', '$firebase', 'fb', 'locationArray', function($rootScope, $q, $firebase, fb, locationArray) {
+.factory('dbBase', ['$rootScope', '$q', '$firebase', 'fb', 'locationArray', 'locationObject', function($rootScope, $q, $firebase, fb, locationArray, locationObject) {
    var ref = { root: fb }; // store firebase references. place the main ref in there as 'root' as well, even though is shorter just to use 'fb'
 
    var db = {}; // the db interface to be exported (as 'db')
@@ -213,12 +213,36 @@ db.query.get = function get (ref) {
       var gf = new GeoFire(ref);
       return $q.when( gf.remove(id) );
    };
+
+   /**
+    * distance based query
+    * @param  {object} ref       firebase ref with geofire index
+    * @param  {object} centerObj center of search. object with latitude and longitude properties
+    * @param  {number} radius    search radius in km
+    * @return {Promise} array with result objects {key, location, distance} on success
+    */
    db.geo.query = function set (ref, centerObj, radius) {
       var gf = new GeoFire(ref);
-      return $q.when(gf.query({
-         center: locationArray(centerObj),
-         radius: radius
-      }));
+      return $q(function resolver(resolve) {
+         var gq = gf.query({
+            center: locationArray(centerObj),
+            radius: radius
+         });
+         var results = [];
+         gq.on('key_entered', function (key, location, distance) {
+            results.push({
+               key: key,
+               location: locationObject(location),
+               distance: distance
+            });
+            // console.log(key, location, distance);
+         });
+         gq.on('ready', function () {
+            // console.log('initial state loaded');
+            gq.cancel();
+            resolve(results);
+         });
+      });
    };
 
    return db;
