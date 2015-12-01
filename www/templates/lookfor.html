@@ -46,7 +46,7 @@
          <div ui-sref="app.dinner({dinnerId:dinner.$id})" class="">
             <div class="title-location">
                <p class="dinnertitle">{{dinner.title}}</p>
-                <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host">{{dinner.hostedByUser}}</span>'s place</p>
+                <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host">{{dinner.hostedByUser}}</span>'s place ({{dinner.distance | number: 1}} km)</p>
             </div>
          </div>
       </div> <!-- /result list -->
