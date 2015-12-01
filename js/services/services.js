@@ -1,30 +1,5 @@
 var s = angular.module('dc.services', []);
 
-/**
- * A simple example service that returns some data.
- */
-s.factory('Friends', function() {
-   // Might use a resource here that returns a JSON array
-
-   // Some fake testing data
-   var friends = [
-      { id: 0, name: 'Scruff McGruff' },
-      { id: 1, name: 'G.I. Joe' },
-      { id: 2, name: 'Miss Frizzle' },
-      { id: 3, name: 'Ash Ketchum' }
-   ];
-
-   return {
-      all: function() {
-         return friends;
-      },
-      get: function(friendId) {
-         // Simple index lookup
-         return friends[friendId];
-      }
-   };
-});
-
 
 /**
  * resume the user session if there is one, otherwise redirect to login page
@@ -54,17 +29,6 @@ s.factory('resumeSession', function($rootScope, db, $state) {
    };
 });
 
-s.factory('util', function() {
-   return {
-      now: function(offsetMins) {
-         offsetMins = offsetMins || 0;
-         var n = new Date();
-         var d = new Date( n.getTime() - n.getTimezoneOffset()*60000 + offsetMins*60000 );
-         //return (d.toISOString()).substring(0,16); // text representation
-         return d;
-      }
-   };
-});
 
 s.factory('login', function($rootScope, db, $state) {
    return function(user) {
@@ -84,6 +48,7 @@ s.factory('login', function($rootScope, db, $state) {
    };
 });
 
+
 s.factory('logout', function($rootScope, db, $state) {
    return function() {
       console.log("logging out");
@@ -96,6 +61,7 @@ s.factory('logout', function($rootScope, db, $state) {
       $state.go('login'); // immediately go to login page
    };
 });
+
 
 // ping pending state of a promise to a variable $scope.name
 s.factory('bindPending', function() {
@@ -119,6 +85,7 @@ s.factory('bindPending', function() {
       });
    };
 });
+
 
 /* global Camera */
 s.factory('getImageFromPhone', function($q) {
@@ -170,6 +137,7 @@ s.factory('locationArray', function() {
       return [obj.latitude, obj.longitude];
    };
 });
+
 
 s.factory('locationObject', function() {
    return function locationObject(arr) {
