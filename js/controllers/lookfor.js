@@ -15,6 +15,11 @@ angular.module('dc.controllers')
 
       db.dinner.getLocal($scope.query.center, $scope.query.radius).then(function (dinners) {
          console.log(dinners);
+         // filter: own dinners, past dinners
+         // TODO: filter past dinners
+         dinners = _.filter(dinners, function (dinner) {
+            return dinner.hostedByUser != $scope.user.userId;
+         });
          $scope.dinners = dinners;
       });
    });
