@@ -42,21 +42,30 @@
       <!-- /TODO: VALIDATION -->
 
       <!-- result list -->
-      <div ng-repeat="dinner in dinners | orderBy: getBeginTime" class="card dinner">
+      <div ng-repeat="dinner in dinners | orderBy: getBeginTime" class="card dinner" ng-hide="isMapView">
          <div ui-sref="app.dinner({dinnerId:dinner.$id})" class="">
             <div class="title-location">
                <p class="dinnertitle">{{dinner.title}}</p>
-                <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host">{{dinner.hostedByUser}}</span>'s place ({{dinner.distance | number: 1}} km)</p>
+                <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host" ui-sref="app.user({userId:dinner.hostedByUser})">{{dinner.hostedByUser}}</span>'s place ({{dinner.distance | number: 1}} km)</p>
             </div>
          </div>
       </div> <!-- /result list -->
 
-      <!-- TODO: result map -->
+      <!-- result map -->
+      <div class="mapwrapper" ng-show="isMapView">
+         <style>
+            .angular-google-map-container { height: 440px; }
+         </style>
+         <ui-gmap-google-map center="query.center" zoom="map.zoom" options="map.options">
+             <ui-gmap-markers models="dinners" coords="'location'" idkey="'markerId'" fit="" options="marker.options" click="markerClicked"></ui-gmap-markers>
+         </ui-gmap-google-map>
+      </div> <!-- /result map -->
    </ion-content>
 
-   <button class="button button-positive maptoggle">
-        <i class="icon dc-pin"></i>
-    </button>
+   <button class="button button-positive maptoggle" ng-click="isMapView = !isMapView">
+      <i class="icon dc-pin" ng-hide="isMapView"></i>
+      <i class="icon ion-ios-list" ng-show="isMapView"></i>
+   </button>
    <!--<div class="filterbutton">
         <a class="button button-positive icon ion-close"></a>
         <a class="button button-positive">Change Filters</a>
