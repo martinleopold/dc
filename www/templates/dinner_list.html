@@ -16,7 +16,7 @@
 
             -->
 
-            <div ng-repeat="(dinnerId, dinner) in futureHostedDinners | orderBy : getBeginTime" class="card dinner">
+            <div ng-repeat="dinner in futureHostedDinners | orderBy : getBeginTime" class="card dinner">
              <style>
                 a,
                 a:visited,
@@ -26,7 +26,7 @@
                    color: black;
                 }
              </style>
-             <a ng-href="#/app/dinner/{{dinner.dinnerId}}" class="">
+             <a ui-sref="app.dinner({dinnerId:dinner.$id})" class="">
                 <div class="title-location">
                    <p class="dinnertitle">{{dinner.title}}</p>
                     <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host">your</span> place</p>
@@ -38,7 +38,7 @@
 
             <!-- Block of own Dinners whose date has passed-->
 
-            <div ng-repeat="(dinnerId, dinner) in pastHostedDinners | orderBy : getBeginTime" class="card dinner">
+            <div ng-repeat="dinner in pastHostedDinners | orderBy : getBeginTime" class="card dinner">
              <style>
                 a,
                 a:visited,
@@ -48,7 +48,7 @@
                    color: black;
                 }
              </style>
-             <a ng-href="#/app/dinner/{{dinner.dinnerId}}" class="">
+             <a ui-sref="app.dinner({dinnerId:dinner.$id})" class="">
                 <div class="title-location">
                    <p class="dinnertitle">{{dinner.title}}</p>
                     <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host">your</span> place</p>
@@ -64,7 +64,7 @@
 
             <h2>Current Dinners</h2>
 
-			<div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card dinner">
+			<div ng-repeat="dinner in dinners | orderBy : getBeginTime" class="card dinner">
              <style>
                 a,
                 a:visited,
@@ -74,7 +74,7 @@
                    color: black;
                 }
              </style>
-             <a ng-href="#/app/dinner/{{dinner.dinnerId}}" class="">
+             <a ui-sref="app.dinner({dinnerId:dinner.$id})" class="">
                 <div class="title-location">
                    <p class="dinnertitle">{{dinner.title}}</p>
                     <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host">Selma</span>'s place</p>
