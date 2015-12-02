@@ -184,26 +184,6 @@ angular.module('dc.db.dinner', ['dc.db.base', 'dc.db.application'])
       return db.query.update( ref.dinner.child(dinnerId), dinner );
    };
 
-   // TODO: test
-   // TODO: only possible if host of dinner
-   dinner.acceptApplication = function (applicationId) {
-      var application = {
-         updatedAt : Firebase.ServerValue.TIMESTAMP,
-         status : 'accepted'
-      };
-      return db.query.update( ref.application.child(applicationId), application );
-   };
-
-   // TODO: test
-   // TODO: only possible if host of dinner
-   dinner.rejectApplication = function (applicationId) {
-      var application = {
-         updatedAt : Firebase.ServerValue.TIMESTAMP,
-         status : 'rejected'
-      };
-      return db.query.update( ref.application.child(applicationId), application );
-   };
-
 
    /*
     * DINNER (Guest)
@@ -213,20 +193,6 @@ angular.module('dc.db.dinner', ['dc.db.base', 'dc.db.application'])
     *
     */
 
-   // TODO: test
-   dinner.createApplication = function (application) {
-      return $q(function(resolve) {
-         application = _.cloneDeep(application); // don't modify the passed data
-         checkObject(application, 'byUser', 'forDinner', 'numSpots', 'isDineIn', 'isPublic');
-         // TODO: what about host property?
-         // TODO: cant apply to own dinner, can't apply to closed or cancelled or past dinner.
-         application.createdAt = Firebase.ServerValue.TIMESTAMP;
-         application.status = 'pending';
-         resolve(
-            db.query.push(ref.application, application)
-         );
-      });
-   };
 
    dinner.createReview = function (review) {
       return $q(function resolver (resolve) {
