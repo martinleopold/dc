@@ -19,9 +19,9 @@
 
          <div class="item item-text-wrap dinner-title">
             <!-- Role intros -->
-            <p ng-show="userIs.host">You are hosting</p>
-            <p ng-show="userIs.applicant">You applied for</p>
-            <p ng-show="userIs.guest">You are accepted to</p>
+            <p ng-show="userIs.hosting">You are hosting</p>
+            <p ng-show="userIs.pending">You applied for</p>
+            <p ng-show="userIs.accepted">You are accepted to</p>
 
             <!-- Title -->
             <h1>{{dinner.title}}</h1>
@@ -100,7 +100,7 @@
          </div>
       </div>
 
-      <div ng-show="userIs.host" class="provide-padding-for-h2">
+      <div ng-show="userIs.hosting" class="provide-padding-for-h2">
          <h2>Applicants</h2>
          <div class="card">
             <div ng-repeat="a in applications" class="application" ng-show="a.state === 'applied'">
@@ -215,7 +215,7 @@
       <!--
          APPLY
       -->
-      <div ng-show="!userIs.host && !userIs.applicant && !userIs.guest">
+      <div ng-show="userIs.applying">
          <h2>Apply</h2>
 
          <!-- dine in -->

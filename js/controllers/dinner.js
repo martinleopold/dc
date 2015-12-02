@@ -5,35 +5,23 @@ angular.module('dc.controllers')
 .controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams, uiGmapGoogleMapApi) {
 
    console.log('Controller: dinner');
-   resumeSession().then(function () {
-      $scope.userIs = {
-         host : false,
-         applicant : false,
-         guest : false
-      };
-   });
+
+   $scope.userIs = {
+      hosting : false,
+      applying : false,
+      pending : false,
+      accepted : false
+   };
 
    $scope.application = {
       spotsDinein:1,
       spotsTakeaway:1
    };
 
-   $scope.add = function(prop, val) {
-      if (!prop) return;
-      val = val || 1;
-      var newVal = $scope.application[prop] + val;
-      if (newVal > 9) newVal = 9;
-      if (newVal < 1) newVal = 1;
-      return $scope.application[prop] = newVal;
-   };
+   // load user data
+   var resumePromise = resumeSession();
 
-   $scope.sub = function(prop, val) {
-      if (!prop) return;
-      val = -val || -1;
-      return $scope.add(prop, val);
-   };
-
-   // $scope.dinner = db.getDinnerSync($stateParams.dinnerId);
+   // load dinner and host details
    db.dinner.get($stateParams.dinnerId).then(function (dinner) {
       $scope.dinner = dinner;
       console.log('dinner', dinner);
@@ -43,6 +31,15 @@ angular.module('dc.controllers')
       console.log('host', user);
       $scope.host = user;
    });
+
+   // set user role flags
+   resumePromise.then(function () {
+      return db.dinner.getUserRole($stateParams.dinnerId, $scope.user.userId);
+   }).then(function (userFlags) {
+      console.log('userIs', userFlags);
+      $scope.userIs = userFlags;
+   });
+
 
    /**
     * Map
@@ -68,6 +65,26 @@ angular.module('dc.controllers')
          }
       };
    });
+
+
+   /**
+    * Spot controls
+    */
+   $scope.add = function(prop, val) {
+      if (!prop) return;
+      val = val || 1;
+      var newVal = $scope.application[prop] + val;
+      if (newVal > 9) newVal = 9;
+      if (newVal < 1) newVal = 1;
+      return $scope.application[prop] = newVal;
+   };
+
+   $scope.sub = function(prop, val) {
+      if (!prop) return;
+      val = -val || -1;
+      return $scope.add(prop, val);
+   };
+
 
    // $scope.applications = db.getDinnerApplicationsSync($stateParams.dinnerId);
 

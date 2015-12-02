@@ -75,6 +75,31 @@ angular.module('dc.db.dinner', ['dc.db.base'])
    };
 
 
+   dinner.getUserRole = function (dinnerId, userId) {
+      var dinnerPromise = db.dinner.get(dinnerId);
+      var applicationPromise = db.application.getByUserForDinner(userId, dinnerId);
+      var userIs = {
+         hosting : false,
+         applying : false,
+         pending : false,
+         accepted : false
+      };
+      return $q.all([dinnerPromise, applicationPromise]).then(function ([dinner, apps]) {
+         var application = apps[0];
+         if (userId === dinner.hostedByUser) {
+            userIs.hosting = true;
+         } else if (!application) {
+            userIs.applying = true;
+         } else if (application.state === 'PENDING') {
+            userIs.pending = true;
+         } else if (application.state.indexOf('ACCEPTED') === 0) {
+            userIs.accepted = true;
+         }
+         return userIs;
+      });
+   };
+
+
    /*
     * DINNER (Host)
     *

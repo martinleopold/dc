@@ -186,7 +186,9 @@ db.query.get = function get (ref) {
       ref.once('value', function callback (dataSnapshot) {
          var data = dataSnapshot.val();
          if (data === null) {
-            reject( createError(db.error.notFound, 'db.query.get: no data.') );
+            // TODO: alter tests to reflect this change
+            // reject( createError(db.error.notFound, 'db.query.get: no data.') );
+            resolve(null);
          } else {
             resolve(data);
          }

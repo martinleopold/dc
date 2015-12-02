@@ -29,6 +29,29 @@ angular.module('dc.db.application', ['dc.db.base'])
       });
    };
 
+
+   app.getAllForDinner = function (dinnerId) {
+      return db.query.get(
+         ref.application.orderByChild('forDinner').equalTo(dinnerId)
+      );
+   };
+
+   app.getAllByUser = function (userId) {
+      return db.query.get(
+         ref.application.orderByChild('byUser').equalTo(userId)
+      );
+   };
+
+   // returns an array of apps
+   app.getByUserForDinner = function (userId, dinnerId) {
+      return app.getAllForDinner(dinnerId).then(function (apps) {
+         return _.filter(apps, function (app) {
+            return app.byUser === userId;
+         });
+      });
+   };
+
+
    app.host_accepts = function(application) {
       var applicationId = application.key();
       return db.query.update(
