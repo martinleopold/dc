@@ -148,3 +148,33 @@ s.factory('locationObject', function() {
       };
    };
 });
+
+
+/**
+ * convert time string to ISO8601 e.g. '2013-02-04T22:44:30.652Z'
+ * @param  {string} 'timeStr' time string to convert
+ * @return {string} the iso time string or null if not parseable
+ */
+s.factory('isoTime', function() {
+   return function isoTime(timeStr) {
+      if ( !timeStr ) return null;
+      var time = moment(timeStr);
+      if ( !time.isValid() ) return null;
+      return time.toISOString();
+   };
+});
+
+
+/**
+ * convert time string to unix timestamp (seconds after epoc)
+ * @param  {string} 'timeStr' time string to convert
+ * @return {string} the unix timestamp or null if not parseable
+ */
+s.factory('unixTime', function() {
+   return function unixTime(timeStr) {
+      if ( !timeStr ) return null;
+      var time = moment(timeStr);
+      if ( !time.isValid() ) return null;
+      return time.unix();
+   };
+});
