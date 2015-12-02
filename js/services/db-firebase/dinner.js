@@ -1,4 +1,4 @@
-angular.module('dc.db.dinner', ['dc.db.base', 'dc.db.application'])
+angular.module('dc.db.dinner', ['dc.db.base'])
 
 .factory('dbDinner', ['dbBase', '$q', function(dbBase, $q) {
    var db = dbBase;
@@ -76,7 +76,7 @@ angular.module('dc.db.dinner', ['dc.db.base', 'dc.db.application'])
 
    dinner.getUserRole = function (dinnerId, userId) {
       var dinnerPromise = db.dinner.get(dinnerId);
-      var applicationPromise = db.application.getByUserForDinner(userId, dinnerId);
+      var applicationPromise = db.user.getApplicationsForDinner(userId, dinnerId);
       var userIs = {
          hosting : false,
          applying : false,
@@ -98,9 +98,11 @@ angular.module('dc.db.dinner', ['dc.db.base', 'dc.db.application'])
       });
    };
 
-   // TODO : make this the main method
+
    dinner.getApplications = function(dinnerId) {
-      return db.application.getAllForDinner(dinnerId);
+      return db.query.get(
+         ref.application.orderByChild('forDinner').equalTo(dinnerId)
+      );
    };
 
    // get all who have applied for a dinner

@@ -8,7 +8,7 @@ angular.module('dc.db.application', ['dc.db.base'])
    var app = {};
 
 
-      ref.application = fb.child('application');
+   ref.application = fb.child('application');
 
    // create a new application and transfer credits from user
    app.create = function (application, user) {
@@ -32,31 +32,6 @@ angular.module('dc.db.application', ['dc.db.base'])
          );
       });
    };
-
-   // TODO : move to dinner.getApplications
-   app.getAllForDinner = function (dinnerId) {
-      return db.query.get(
-         ref.application.orderByChild('forDinner').equalTo(dinnerId)
-      );
-   };
-
-   // TODO : move to user.getApplications
-   app.getAllByUser = function (userId) {
-      return db.query.get(
-         ref.application.orderByChild('byUser').equalTo(userId)
-      );
-   };
-
-   // TODO : move to user.getDinnerApplications
-   // returns an array of apps
-   app.getByUserForDinner = function (userId, dinnerId) {
-      return app.getAllForDinner(dinnerId).then(function (apps) {
-         return _.filter(apps, function (app) {
-            return app.byUser === userId;
-         });
-      });
-   };
-
 
    app.host_accepts = function(application) {
       var applicationId = application.key();
