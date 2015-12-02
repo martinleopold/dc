@@ -1,4 +1,4 @@
-angular.module('dc.db.dinner', ['dc.db.base'])
+angular.module('dc.db.dinner', ['dc.db.base', 'dc.db.application'])
 
 .factory('dbDinner', ['dbBase', '$q', function(dbBase, $q) {
    var db = dbBase;
@@ -20,7 +20,6 @@ angular.module('dc.db.dinner', ['dc.db.base'])
 
    ref.dinner = fb.child('dinner');
    ref.dinnerIndex = fb.child('dinnerIndex');
-   ref.application = fb.child('application');
    ref.message = fb.child('message');
    ref.review = fb.child('review');
    var dinner = {};
@@ -96,6 +95,41 @@ angular.module('dc.db.dinner', ['dc.db.base'])
             userIs.accepted = true;
          }
          return userIs;
+      });
+   };
+
+   // TODO : make this the main method
+   dinner.getApplications = function(dinnerId) {
+      return db.application.getAllForDinner(dinnerId);
+   };
+
+   // get all who have applied for a dinner
+   // returns array. each user has an additional 'application' property
+   dinner.getAllApplicants = function(dinnerId) {
+      return db.dinner.getApplications(dinnerId).then(function (apps) {
+         var peoplePromises = _.map(apps, function (app) {
+            return db.user.get(app.byUser).then(function (user) {
+               user.application = app;
+               return user;
+            });
+         });
+         return $q.all(peoplePromises);
+      });
+   };
+
+   dinner.getGuests = function (dinnerId) {
+      return db.dinner.getAllApplicants(dinnerId).then(function (users) {
+         return _.filter(users, function (user) {
+            return user.application.state.indexOf('ACCEPTED') === 0;
+         });
+      });
+   };
+
+   dinner.getPending = function (dinnerId) {
+      return db.dinner.getAllApplicants(dinnerId).then(function (users) {
+         return _.filter(users, function (user) {
+            return user.application.state === ('PENDING');
+         });
       });
    };
 

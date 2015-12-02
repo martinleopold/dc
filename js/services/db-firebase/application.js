@@ -3,8 +3,12 @@ angular.module('dc.db.application', ['dc.db.base'])
 .factory('dbApplication', ['dbBase', '$q', function(dbBase, $q) {
    var db = dbBase;
    var ref = db.ref;
+   var fb = db.ref.root;
 
    var app = {};
+
+
+      ref.application = fb.child('application');
 
    // create a new application and transfer credits from user
    app.create = function (application, user) {
@@ -29,19 +33,21 @@ angular.module('dc.db.application', ['dc.db.base'])
       });
    };
 
-
+   // TODO : move to dinner.getApplications
    app.getAllForDinner = function (dinnerId) {
       return db.query.get(
          ref.application.orderByChild('forDinner').equalTo(dinnerId)
       );
    };
 
+   // TODO : move to user.getApplications
    app.getAllByUser = function (userId) {
       return db.query.get(
          ref.application.orderByChild('byUser').equalTo(userId)
       );
    };
 
+   // TODO : move to user.getDinnerApplications
    // returns an array of apps
    app.getByUserForDinner = function (userId, dinnerId) {
       return app.getAllForDinner(dinnerId).then(function (apps) {

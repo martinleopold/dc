@@ -13,6 +13,12 @@ angular.module('dc.controllers')
       accepted : false
    };
 
+   $scope.num = {
+      dineIn : 0,
+      takeAway : 0,
+      total : 0
+   };
+
    $scope.application = {
       spotsDinein:1,
       spotsTakeaway:1
@@ -21,23 +27,68 @@ angular.module('dc.controllers')
    // load user data
    var resumePromise = resumeSession();
 
-   // load dinner and host details
-   db.dinner.get($stateParams.dinnerId).then(function (dinner) {
-      $scope.dinner = dinner;
+   // load dinner
+   var dinnerPromise = db.dinner.get($stateParams.dinnerId).then(function (dinner) {
       console.log('dinner', dinner);
-      //dinner.hostedByUser
-      return db.user.get(dinner.hostedByUser);
-   }).then(function (user) {
-      console.log('host', user);
-      $scope.host = user;
+      $scope.dinner = dinner;
+      return dinner;
+   });
+
+   // load host details
+   dinnerPromise.then(function () {
+      db.user.get($scope.dinner.hostedByUser).then(function (user) {
+         console.log('host', user);
+         $scope.host = user;
+      });
    });
 
    // set user role flags
-   resumePromise.then(function () {
+   var rolePromise = resumePromise.then(function () {
       return db.dinner.getUserRole($stateParams.dinnerId, $scope.user.userId);
    }).then(function (userFlags) {
       console.log('userIs', userFlags);
       $scope.userIs = userFlags;
+      return userFlags;
+   });
+
+   // load guests
+   var guestsPromise = dinnerPromise.then(function () {
+      db.dinner.getGuests($scope.dinner.dinnerId).then(function (guests) {
+         console.log('guests', guests);
+         $scope.guests = guests;
+         return guests;
+      });
+   });
+
+   // compute guest numbers
+   guestsPromise.then(function () {
+      var num = {
+         dineIn : 0,
+         takeAway : 0,
+         total : 0
+      };
+      $scope.num = _.reduce($scope.guests, function (num, guest) {
+         var details = guest.application.details;
+         if (details.spotsDinein) {
+            num.dineIn += details.spotsDinein;
+            num.total += details.spotsDinein;
+         }
+         if (details.spotsTakeaway) {
+            num.takeAway += details.spotsTakeaway;
+            num.total += details.spotsTakeaway;
+         }
+         return num;
+      }, num);
+   });
+
+   // load applicants
+   rolePromise.then(function () {
+      if ($scope.userIs.hosting) {
+         db.dinner.getPending($stateParams.dinnerId).then(function (users) {
+            console.log('applicants', users);
+            $scope.applicants = users;
+         });
+      }
    });
 
 
