@@ -14,7 +14,7 @@
          <!-- Guest note -->
          <div ng-show="userIs.accepted" class="application-status positive">
             Yay! You are already
-            <strong>accepted</strong> to this Dinner! Look below for an exact adress.
+            <strong>accepted</strong> to this Dinner! Look below the map for an exact adress.
          </div>
 
          <div class="item item-text-wrap dinner-title">
@@ -40,22 +40,30 @@
                </div>
             </div> <!-- /.row -->
 
-            <div class="row" ng-show="userIs.hosting">
+            <div class="row" ng-show="userIs.hosting || userIs.pending">
                <!-- application details -->
                <div class="col col-10"><i class="icon dc-plate"></i></div>
-               <div class="col col-33">
-                  <p>{{num.dineIn}} Eat there<br />{{num.takeAway}} Take away</p>
-                  <p class="status">accepted</p>
-                  <!-- bzw. applied -->
+               <div class="col col-33" ng-show="userIs.hosting">
+                  <p>{{numAccepted.dineIn}} Eat there<br />{{numAccepted.takeAway}} Take away</p>
+                  <p class="status" >accepted</p>
                </div>
+               <div class="col col-33" ng-show="userIs.pending">
+                  <p>{{numPending.dineIn}} Eat there<br />{{numPending.takeAway}} Take away</p>
+                  <p class="status" >applied</p>
+               </div>
+
                <!-- credit summary -->
                <div class="col col-10"><i class="icon dc-logo"></i></div>
-               <div class="col">
-                  <p>{{num.total}} Dinner Credits</p>
-                  <p class="status">received after dinner</p>
-                  <!-- bzw. reserved -->
+               <div class="col" ng-show="userIs.hosting">
+                  <p>{{numAccepted.total}} Dinner Credits</p>
+                  <p class="status" >received after dinner</p>
+               </div>
+               <div class="col" ng-show="userIs.pending">
+                  <p>{{numPending.total}} Dinner Credits</p>
+                  <p class="status" >reserved</p>
                </div>
             </div> <!-- /.row -->
+
          </div> <!-- .item -->
 
          <!-- description -->

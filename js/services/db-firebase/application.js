@@ -11,26 +11,24 @@ angular.module('dc.db.application', ['dc.db.base'])
    ref.application = fb.child('application');
 
    // create a new application and transfer credits from user
+   // user object needed for current credits
    app.create = function (application, user) {
-      return $q(function(resolve) {
-         application = _.cloneDeep(application); // don't modify the passed data
-         // db.util.checkObject(application, 'byUser', 'forDinner', 'numSpots', 'host', 'isPublic', 'details');
-         // db.util.checkObject(application.details, 'numSpots', 'isDineIn', 'notifyUntil');
+      application = _.cloneDeep(application); // don't modify the passed data
+      db.util.checkObject(application, 'byUser', 'forDinner', 'details', 'host');
+      db.util.checkObject(application.details, 'spotsDinein', 'spotsTakeaway', 'spotsTotal');
+      var applicationId = ref.application.push().key(); // generate new push id
+      application.createdAt = Firebase.ServerValue.TIMESTAMP;
+      application.state = 'PENDING';
+      application.credits = application.details.spotsTotal;
+      var credits = user.credits ? user.credits : 0;
 
-         var userId = user.key();
-         var applicationId = ref.application.push().key(); // generate new push id
-         application.createdAt = Firebase.ServerValue.TIMESTAMP;
-         application.state = 'PENDING';
-         application.credits = application.details.spotsTotal;
-         // prepare cross tree update (user credits, application)
-         var update = {};
-         update[`user/${userId}/credits`] = user.credits - application.details.spotsTotal;
-         update[`application/${applicationId}`] = application;
+      // prepare cross tree update (user credits, application)
+      var update = {};
 
-         resolve(
-            db.query.update(ref.root, update)
-         );
-      });
+      update[`user/${user.userId}/credits`] = credits - application.details.spotsTotal;
+      update[`application/${applicationId}`] = application;
+      console.log('update', update);
+      return db.query.update(ref.root, update);
    };
 
    app.host_accepts = function(application) {

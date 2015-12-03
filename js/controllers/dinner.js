@@ -2,7 +2,7 @@
  * Dinner
  */
 angular.module('dc.controllers')
-.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams, uiGmapGoogleMapApi) {
+.controller('DinnerCtrl', function($scope, db, resumeSession, $stateParams, uiGmapGoogleMapApi, $state) {
 
    console.log('Controller: dinner');
 
@@ -13,7 +13,8 @@ angular.module('dc.controllers')
       accepted : false
    };
 
-   $scope.num = {
+   // accepted guest numbers
+   $scope.numAccepted = {
       dineIn : 0,
       takeAway : 0,
       total : 0
@@ -27,6 +28,13 @@ angular.module('dc.controllers')
    $scope.applicationSpots = {
       dineIn:1,
       takeAway:1
+   };
+
+   // pending numbers
+   $scope.numPending = {
+      dineIn : 0,
+      takeAway : 0,
+      total : 0
    };
 
    // load user data
@@ -72,7 +80,7 @@ angular.module('dc.controllers')
          takeAway : 0,
          total : 0
       };
-      $scope.num = _.reduce($scope.guests, function (num, guest) {
+      $scope.numAccepted = _.reduce($scope.guests, function (num, guest) {
          var details = guest.application.details;
          if (details.spotsDinein) {
             num.dineIn += details.spotsDinein;
@@ -96,6 +104,22 @@ angular.module('dc.controllers')
       }
    });
 
+   // load pending application details (if user is pending)
+   rolePromise.then(function () {
+      if ($scope.userIs.pending) {
+         db.user.getApplicationsForDinner($scope.user.userId, $stateParams.dinnerId).then(function (apps) {
+            console.log(apps);
+            if (apps) {
+               var details = apps[0].details;
+               $scope.numPending = {
+                  dineIn : details.spotsDinein,
+                  takeAway : details.spotsTakeaway,
+                  total : details.spotsTotal
+               };
+            }
+         });
+      }
+   });
 
    /**
     * Map
@@ -162,6 +186,13 @@ angular.module('dc.controllers')
       app.details.spotsTotal = app.details.spotsDinein + app.details.spotsTakeaway;
       if (!app.details.spotsTotal) return; // sanity check TODO: real validation
       console.log('application', app);
+      db.application.create(app, $scope.user).then(function () {
+         $state.transitionTo($state.current, $stateParams, {
+            reload: true,
+            inherit: false,
+            notify: true
+         });
+      });
    };
 
 });
