@@ -186,13 +186,10 @@ angular.module('dc.controllers')
       app.details.spotsTotal = app.details.spotsDinein + app.details.spotsTakeaway;
       if (!app.details.spotsTotal) return; // sanity check TODO: real validation
       console.log('application', app);
-      db.application.create(app, $scope.user).then(function () {
-         $state.transitionTo($state.current, $stateParams, {
-            reload: true,
-            inherit: false,
-            notify: true
-         });
-      });
+      $state.go( $state.current, $stateParams, {reload: true, notify: true} );
+      // db.application.create(app, $scope.user).then(function () {
+      //    $state.go( $state.current, $stateParams, {reload: true, notify: true} );
+      // });
    };
 
 });

@@ -176,3 +176,10 @@ dc.config(function(uiGmapGoogleMapApiProvider, secrets) {
       libraries: 'drawing'
    });
 });
+
+
+// TODO : this breaks tabs
+// globally disable views cache TODO : make this sane
+// dc.config(function($ionicConfigProvider) {
+//   $ionicConfigProvider.views.maxCache(0);
+// });
