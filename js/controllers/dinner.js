@@ -19,9 +19,14 @@ angular.module('dc.controllers')
       total : 0
    };
 
-   $scope.application = {
-      spotsDinein:1,
-      spotsTakeaway:1
+   $scope.checkbox = {
+      dineIn: false,
+      takeAway: false
+   };
+
+   $scope.applicationSpots = {
+      dineIn:1,
+      takeAway:1
    };
 
    // load user data
@@ -81,7 +86,7 @@ angular.module('dc.controllers')
       }, num);
    });
 
-   // load applicants
+   // load applicants (if user is hosting)
    rolePromise.then(function () {
       if ($scope.userIs.hosting) {
          db.dinner.getPending($stateParams.dinnerId).then(function (users) {
@@ -119,22 +124,44 @@ angular.module('dc.controllers')
 
 
    /**
-    * Spot controls
+    * Application details
     */
-   $scope.add = function(prop, val) {
+   $scope.addSpot = function(prop, val) {
       if (!prop) return;
       val = val || 1;
-      var newVal = $scope.application[prop] + val;
+      var newVal = $scope.applicationSpots[prop] + val;
       if (newVal > 9) newVal = 9;
       if (newVal < 1) newVal = 1;
-      return $scope.application[prop] = newVal;
+      return $scope.applicationSpots[prop] = newVal;
    };
 
-   $scope.sub = function(prop, val) {
+   $scope.subSpot = function(prop, val) {
       if (!prop) return;
       val = -val || -1;
-      return $scope.add(prop, val);
+      return $scope.addSpot(prop, val);
    };
 
+   $scope.apply = function() {
+      // fill out the application
+      var app = {
+         details : {
+            spotsDinein : 0,
+            spotsTakeaway: 0
+         }
+      };
+      app.byUser = $scope.user.userId;
+      app.forDinner = $scope.dinner.dinnerId;
+      app.host = $scope.dinner.hostedByUser;
+
+      if ($scope.checkbox.dineIn) {
+         app.details.spotsDinein = $scope.applicationSpots.dineIn;
+      }
+      if ($scope.checkbox.takeAway) {
+         app.details.spotsTakeaway = $scope.applicationSpots.takeAway;
+      }
+      app.details.spotsTotal = app.details.spotsDinein + app.details.spotsTakeaway;
+      if (!app.details.spotsTotal) return; // sanity check TODO: real validation
+      console.log('application', app);
+   };
 
 });

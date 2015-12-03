@@ -7,12 +7,12 @@
 
       <div class="card">
          <!-- Applicant note -->
-         <div ng-show="userIs.applicant" class="application-status positive">
+         <div ng-show="userIs.pending" class="application-status positive">
             You already <strong>applied</strong> to this Dinner, but you can still change your application below.
          </div>
 
          <!-- Guest note -->
-         <div ng-show="userIs.guest" class="application-status positive">
+         <div ng-show="userIs.accepted" class="application-status positive">
             Yay! You are already
             <strong>accepted</strong> to this Dinner! Look below for an exact adress.
          </div>
@@ -31,46 +31,46 @@
                <!-- host -->
                <div class="col col-10"><i class="icon dc-pin"></i></div>
                <div class="col col-33" >
-                  <p ng-show="host.firstName" ui-sref="app.user({ userId: dinner.hostedByUser })"><span class="host">{{userIs.host ? 'Your' : host.firstName}}</span>{{userIs.host ? ' place' : '\'s'}}</p>
+                  <p ng-show="host.firstName" ui-sref="app.user({ userId: dinner.hostedByUser })"><span class="host">{{userIs.hosting ? 'Your' : host.firstName}}</span>{{userIs.hosting ? ' place' : '\'s'}}</p>
                </div>
                <!-- time/date -->
                <div class="col col-10"><i class="icon dc-stopwatch"></i></div>
                <div class="col">
                   <p>{{dinner | getBeginTime | calendarTime}}</p>
                </div>
-            </div>
+            </div> <!-- /.row -->
 
-            <div class="row">
+            <div class="row" ng-show="userIs.hosting">
                <!-- application details -->
                <div class="col col-10"><i class="icon dc-plate"></i></div>
                <div class="col col-33">
-                  <p>1 Eat there
-                     <br />2 Take away</p>
+                  <p>{{num.dineIn}} Eat there<br />{{num.takeAway}} Take away</p>
                   <p class="status">accepted</p>
                   <!-- bzw. applied -->
                </div>
                <!-- credit summary -->
                <div class="col col-10"><i class="icon dc-logo"></i></div>
                <div class="col">
-                  <p>3 Dinner Credits</p>
-                  <p class="status">charged</p>
+                  <p>{{num.total}} Dinner Credits</p>
+                  <p class="status">received after dinner</p>
                   <!-- bzw. reserved -->
                </div>
-            </div>
+            </div> <!-- /.row -->
          </div> <!-- .item -->
 
-         <!-- description-->
+         <!-- description -->
          <div class="item item-text-wrap dinner-info">
             <p class="dinner-info">{{dinner.description}}</p>
          </div>
 
-         <!-- tags-->
+         <!-- Tags/Categories -->
          <div class="item item-text-wrap row row-center dinner-categories">
             <div ng-repeat="(type, enabled) in dinner.tags" ng-show="enabled" class="category">
                <i class="icon ion-record" ></i><span>{{type}}</span>
             </div>
          </div>
 
+         <!-- Map -->
          <div class="mapwrapper">
             <style>
                .angular-google-map-container { height: 300px; }
@@ -80,12 +80,14 @@
             </ui-gmap-google-map>
          </div>
 
-         <div class="adress-information" ng-show="userIs && host && dinner">
-            <strong>{{ userIs.host ? 'You cook' : host.firstName + ' cooks'}} here: </strong>{{dinner.address | flattenAddress}}
+         <!-- Address -->
+         <div class="adress-information" ng-show="dinner && (userIs.hosting || userIs.accepted)">
+            <strong>{{ userIs.hosting ? 'You cook' : host.firstName + ' cooks'}} here: </strong>{{dinner.address | flattenAddress}}
          </div>
       </div> <!-- /.card-->
 
 
+      <!--Guests -->
       <h2>Guests</h2>
       <div class="card">
          <div class="row guests">
@@ -100,6 +102,7 @@
          </div>
       </div>
 
+      <!--Applicants -->
       <div ng-show="userIs.hosting" class="provide-padding-for-h2">
          <h2>Applicants</h2>
          <div class="card">
@@ -222,12 +225,12 @@
          <div class="card">
             <div class="item item-checkbox borderless">
                <label class="checkbox">
-                  <input type="checkbox" ng-model="dineinChecked">
+                  <input type="checkbox" ng-model="checkbox.dineIn">
                </label>
                I want to eat there!
             </div>
 
-            <div class="row apply-number" ng-show="dineinChecked">
+            <div class="row apply-number" ng-show="checkbox.dineIn">
                <div class="col col-50">
                   <p class="info card-info"><i>For how many pepole?</i></p>
                   <p class="info card-info">You'll also be charged this many credits.</p>
@@ -235,13 +238,13 @@
                <div class="col counter col-center">
                   <div class="row">
                      <div class="col">
-                        <button ng-click="sub('spotsDinein')" class="button button-stable icon ion-android-remove"></button>
+                        <button ng-click="subSpot('dineIn')" class="button button-stable icon ion-android-remove"></button>
                      </div>
                      <div class="col">
-                        <h2>{{application.spotsDinein}}</h2>
+                        <h2>{{applicationSpots.dineIn}}</h2>
                      </div>
                      <div class="col">
-                        <button ng-click="add('spotsDinein')" class="button button-stable icon ion-android-add"></button>
+                        <button ng-click="addSpot('dineIn')" class="button button-stable icon ion-android-add"></button>
                      </div>
                   </div>
                </div>
@@ -250,12 +253,12 @@
             <!-- take away -->
             <div class="item item-checkbox borderless">
                <label class="checkbox">
-                  <input type="checkbox" ng-model="takeawayChecked">
+                  <input type="checkbox" ng-model="checkbox.takeAway">
                </label>
                I want food for take-away!
             </div>
 
-            <div class="row apply-number" ng-show="takeawayChecked">
+            <div class="row apply-number" ng-show="checkbox.takeAway">
                <div class="col col-50">
                   <p class="info card-info"><i>For how many pepole?</i></p>
                   <p class="info card-info">You'll also be charged this many credits.</p>
@@ -263,13 +266,13 @@
                <div class="col counter col-center">
                   <div class="row">
                      <div class="col">
-                        <button ng-click="sub('spotsTakeaway')" class="button button-stable icon ion-android-remove"></button>
+                        <button ng-click="subSpot('takeAway')" class="button button-stable icon ion-android-remove"></button>
                      </div>
                      <div class="col">
-                        <h2>{{application.spotsTakeaway}}</h2>
+                        <h2>{{applicationSpots.takeAway}}</h2>
                      </div>
                      <div class="col">
-                        <button ng-click="add('spotsTakeaway')" class="button button-stable icon ion-android-add"></button>
+                        <button ng-click="addSpot('takeAway')" class="button button-stable icon ion-android-add"></button>
                      </div>
                   </div>
                </div>
@@ -278,7 +281,7 @@
          </div>
 
 
-         <h2>Apply until</h2>
+         <!-- <h2>Apply until</h2>
          <div class="card apply-until">
             <div class="row item">
                <div class="col">
@@ -290,11 +293,11 @@
                   <input type="datetime-local">
                </div>
             </div>
-         </div>
+         </div> -->
 
 
          <div class="card button-block-wrapper">
-            <button class="item button button-block button-positive">Sign me up!</button>
+            <button ng-click="apply()" class="item button button-block button-positive">Sign me up!</button>
          </div>
 
 
