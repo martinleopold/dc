@@ -912,18 +912,33 @@ textarea:-ms-input-placeholder, input:-ms-input-placeholder { /* Internet Explor
     .category{
         font-weight: 300;
         text-transform: capitalize;
-        overflow: hidden;
+        overflow: visible;
         float:left;
         font-size: $font-size-xlarge;
         padding-right: 2*$gru;
         line-height: $font-size-xlarge;
-
+        vertical-align: middle;
+        width: 33%;
+        
         span{
+            display:block;
             font-size: $font-size-base;
-            padding-left: $hgru;
+            padding-top: 2px;
             color: $base-color;
+            text-align: center;
+            line-height: 1;
+            overflow: visible;
+        }
+        
+        .icon{
+            display:block;
+            text-align: center;
         }
     }
+}
+
+.dinner-categories + .dinner-categories{
+    padding-top: $hgru;
 }
 
 .profile-link{
