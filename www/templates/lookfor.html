@@ -4,74 +4,10 @@
    </ion-nav-buttons>
 
    <div class="bar bar-subheader bar-search has-dropdown">
-      <i class="icon dc-location"></i>
-      <input class="adress-search" placeholder="Your location">
+      <i class="icon ion-home"></i>
+      <input class="adress-search" placeholder="Your home address" value="{{user.address | flattenAddress}}">
    </div>
-   <ul class="adress-dropdown">
-      <li class="dropdown-item">
-         <i class="icon dc-location"></i>
-         <label>Your location</label>
-      </li>
-      <li class="dropdown-item">
-         <i class="icon dc-home"></i>
-         <label>Your home adress</label>
-      </li>
-      <li class="dropdown-item">
-         <i class="icon dc-search"></i>
-         <label>Salmansdorfer Platz, 1060 Wien</label>
-      </li>
-      <li class="dropdown-item">
-         <i class=""></i>
-         <label>Salzburger Straße, 1170 Wien</label>
-      </li>
-      <li class="dropdown-item">
-         <i class=""></i>
-         <label>Salzgries, 1010 Wien</label>
-      </li>
-   </ul>
-   <ion-content class="has-subheader">
-      <div class="error">
-         <br /> Hrm. We don't seem to have anything that matches your query at the moment - maybe try changing your filter settings.
-         <br />
-         <br />Or being less picky, but what do I know...
-      </div>
-
-      <div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card dinner">
-         <style>
-            a,
-            a:visited,
-            a:active,
-            a:hover {
-               text-decoration: none;
-               color: black;
-            }
-         </style>
-         <a ng-href="#/app/dinner/{{dinnerId}}" class="row row-center">
-            <div class="col col-75 title-location">
-               <p class="dinnerId">{{dinnerId}}</p>
-               <p class="dinnertitle">{{dinner.title}}</p>
-               <p class="dinnerlocation">at Selma's place</p>
-            </div>
-            <div class="col">
-               <p class="dinnerdate">
-                  <span>{{dinner | getBeginTime | date : 'd.M.'}}
-                     <span>{{dinner | getBeginTime | date : 'HH:mm'}}</span>
-                  </span>
-               </p>
-            </div>
-         </a>
-      </div>
-
-   </ion-content>
-<ion-view title="Look for Dinners">
-   <ion-nav-buttons side="left">
-      <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
-   </ion-nav-buttons>
-
-   <div class="bar bar-subheader bar-search has-dropdown">
-      <i class="icon ion-navigate"></i>
-      <input class="adress-search" placeholder="Your location">
-   </div>
+   <!-- TODO: CENTER OF SEARCH -->
    <ul class="adress-dropdown">
       <li class="dropdown-item">
          <i class="icon ion-navigate"></i>
@@ -94,36 +30,42 @@
          <label>Salzgries, 1010 Wien</label>
       </li>
    </ul>
+   <!-- /TODO: CENTER OF SEARCH -->
+
    <ion-content class="has-subheader">
-      <div class="error">
+      <!-- TODO: VALIDATION -->
+      <!-- <div class="error">
          <br /> Hrm. We don't seem to have anything that matches your query at the moment - maybe try changing your filter settings.
          <br />
          <br />Or being less picky, but what do I know...
-      </div>
+      </div> -->
+      <!-- /TODO: VALIDATION -->
 
-      <div ng-repeat="(dinnerId, dinner) in dinners | orderBy : getBeginTime" class="card dinner">
-         <style>
-            a,
-            a:visited,
-            a:active,
-            a:hover {
-               text-decoration: none;
-               color: black;
-            }
-         </style>
-         <a ng-href="#/app/dinner/{{dinnerId}}" class="">
+      <!-- result list -->
+      <div ng-repeat="dinner in dinners | orderBy: getBeginTime" class="card dinner" ng-hide="isMapView">
+         <div ui-sref="app.dinner({dinnerId:dinner.$id})" class="">
             <div class="title-location">
                <p class="dinnertitle">{{dinner.title}}</p>
-                <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | date : 'd.M.'}}, {{dinner | getBeginTime | date : 'HH:mm'}} at <span class="host">Selma</span>'s place</p>
+                <p class="dinnerinfo"><i class="icon ion-flash"></i> {{dinner | getBeginTime | calendarTime}} at <span class="host" ui-sref="app.user({userId:dinner.hostedByUser})">{{dinner.hostedByUser}}</span>'s place ({{dinner.distance | number: 1}} km)</p>
             </div>
-         </a>
-      </div>
+         </div>
+      </div> <!-- /result list -->
 
+      <!-- result map -->
+      <div class="mapwrapper" ng-show="isMapView">
+         <style>
+            .angular-google-map-container { height: 440px; }
+         </style>
+         <ui-gmap-google-map center="query.center" zoom="map.zoom" options="map.options">
+             <ui-gmap-markers models="dinners" coords="'location'" idkey="'markerId'" fit="" options="marker.options" click="markerClicked"></ui-gmap-markers>
+         </ui-gmap-google-map>
+      </div> <!-- /result map -->
    </ion-content>
 
-   <button class="button button-positive maptoggle">
-        <i class="icon dc-pin"></i>
-    </button>
+   <button class="button button-positive maptoggle" ng-click="isMapView = !isMapView">
+      <i class="icon dc-pin" ng-hide="isMapView"></i>
+      <i class="icon ion-ios-list" ng-show="isMapView"></i>
+   </button>
    <!--<div class="filterbutton">
         <a class="button button-positive icon ion-close"></a>
         <a class="button button-positive">Change Filters</a>

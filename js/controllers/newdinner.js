@@ -2,7 +2,7 @@
  * New Dinner
  */
 angular.module('dc.controllers')
-.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSession) {
+.controller('NewDinnerCtrl', function($scope, db, $rootScope, $state, resumeSession, isoTime) {
 
    console.log('Controller: newdinner');
    resumeSession($scope);
@@ -22,12 +22,12 @@ angular.module('dc.controllers')
       }
 
       dinner.isPublic = true;
-      dinner.dineinAt = moment(dinner.dineinAt).toISOString();
-      dinner.takeawayFrom = moment(dinner.takeawayFrom).toISOString();
-      dinner.takeawayUntil = moment(dinner.takeawayUntil).toISOString();
+      dinner.dineinAt = isoTime(dinner.dineinAt);
+      dinner.takeawayFrom = isoTime(dinner.takeawayFrom);
+      dinner.takeawayUntil = isoTime(dinner.takeawayUntil);
 
       db.dinner.create(dinner).then(function() {
-         console.log('Dinner created', $scope.dinner);
+         console.log('Dinner created', dinner);
          $state.go('app.lookfor');
       }, function(error) {
          console.error('Error creating dinner', error);

@@ -160,7 +160,7 @@ var dcSchema =
          "byUser"          : { "$ref" : "#/refSchema" },
          "forDinner"       : { "$ref" : "#/refSchema" },
          "host"            : { "$ref" : "#/refSchema" },
-         "status"          : { "enum" : [ "PENDING", "ACCEPTED", "REJECTED", "etc." ] },
+         "state"          : { "enum" : [ "PENDING", "ACCEPTED", "REJECTED", "etc." ] },
          "credits"         : { "type" : "integer" },
          "details"         : { "$ref" : "#/applicationDetailsSchema" },
          "changes"         : { "$ref" : "#/applicationDetailsSchema" }
@@ -170,8 +170,9 @@ var dcSchema =
    "applicationDetailsSchema" : {
       "type" : "object",
       "properties" : {
-         "spotsDineIn"      : { "type" : "integer" },
-         "spotsTakeAway"    : { "type" : "integer" },
+         "spotsDinein"      : { "type" : "integer" },
+         "spotsTakeaway"    : { "type" : "integer" },
+         "spotsTotal"       : { "type" : "integer" },
          "notifyUntil"   : { "$ref" : "#/timestampSchema" }
       }
    },

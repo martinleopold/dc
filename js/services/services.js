@@ -1,30 +1,5 @@
 var s = angular.module('dc.services', []);
 
-/**
- * A simple example service that returns some data.
- */
-s.factory('Friends', function() {
-   // Might use a resource here that returns a JSON array
-
-   // Some fake testing data
-   var friends = [
-      { id: 0, name: 'Scruff McGruff' },
-      { id: 1, name: 'G.I. Joe' },
-      { id: 2, name: 'Miss Frizzle' },
-      { id: 3, name: 'Ash Ketchum' }
-   ];
-
-   return {
-      all: function() {
-         return friends;
-      },
-      get: function(friendId) {
-         // Simple index lookup
-         return friends[friendId];
-      }
-   };
-});
-
 
 /**
  * resume the user session if there is one, otherwise redirect to login page
@@ -54,17 +29,6 @@ s.factory('resumeSession', function($rootScope, db, $state) {
    };
 });
 
-s.factory('util', function() {
-   return {
-      now: function(offsetMins) {
-         offsetMins = offsetMins || 0;
-         var n = new Date();
-         var d = new Date( n.getTime() - n.getTimezoneOffset()*60000 + offsetMins*60000 );
-         //return (d.toISOString()).substring(0,16); // text representation
-         return d;
-      }
-   };
-});
 
 s.factory('login', function($rootScope, db, $state) {
    return function(user) {
@@ -84,6 +48,7 @@ s.factory('login', function($rootScope, db, $state) {
    };
 });
 
+
 s.factory('logout', function($rootScope, db, $state) {
    return function() {
       console.log("logging out");
@@ -96,6 +61,7 @@ s.factory('logout', function($rootScope, db, $state) {
       $state.go('login'); // immediately go to login page
    };
 });
+
 
 // ping pending state of a promise to a variable $scope.name
 s.factory('bindPending', function() {
@@ -119,6 +85,7 @@ s.factory('bindPending', function() {
       });
    };
 });
+
 
 /* global Camera */
 s.factory('getImageFromPhone', function($q) {
@@ -144,5 +111,70 @@ s.factory('sliderToDistance', function() {
       if (idx < 0) { idx = 0; }
       else if (idx > 5) { idx = 5; }
       return dist[idx];
+   };
+});
+
+
+/**
+ * convert object to array, preserving the keys as $id.
+ * used to be able to order in ng-repeat (which only supports array)
+ * @param  obj 'obj' the object to be converted
+ * @return {array} the converted array.
+ */
+s.factory('toArray', function() {
+   return function toArray(obj) {
+      if (!(obj instanceof Object)) return obj;
+      return _.map(obj, function(val, key) {
+         return Object.defineProperty(val, '$id', {__proto__: null, value: key});
+      });
+   };
+});
+
+
+s.factory('locationArray', function() {
+   return function locationArray(obj) {
+      if (!obj.latitude || !obj.longitude) return undefined;
+      return [obj.latitude, obj.longitude];
+   };
+});
+
+
+s.factory('locationObject', function() {
+   return function locationObject(arr) {
+      if (arr.length < 2) return undefined;
+      return {
+         latitude: arr[0],
+         longitude: arr[1]
+      };
+   };
+});
+
+
+/**
+ * convert time string to ISO8601 e.g. '2013-02-04T22:44:30.652Z'
+ * @param  {string} 'timeStr' time string to convert
+ * @return {string} the iso time string or null if not parseable
+ */
+s.factory('isoTime', function() {
+   return function isoTime(timeStr) {
+      if ( !timeStr ) return null;
+      var time = moment(timeStr);
+      if ( !time.isValid() ) return null;
+      return time.toISOString();
+   };
+});
+
+
+/**
+ * convert time string to unix timestamp (seconds after epoc)
+ * @param  {string} 'timeStr' time string to convert
+ * @return {string} the unix timestamp or null if not parseable
+ */
+s.factory('unixTime', function() {
+   return function unixTime(timeStr) {
+      if ( !timeStr ) return null;
+      var time = moment(timeStr);
+      if ( !time.isValid() ) return null;
+      return time.unix();
    };
 });

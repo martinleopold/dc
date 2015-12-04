@@ -11,7 +11,7 @@ angular.module('dc.db.base', ['firebase'])
    util
    query
 */
-.factory('dbBase', ['$rootScope', '$q', '$firebase', 'fb', function($rootScope, $q, $firebase, fb) {
+.factory('dbBase', ['$rootScope', '$q', '$firebase', 'fb', 'locationArray', 'locationObject', function($rootScope, $q, $firebase, fb, locationArray, locationObject) {
    var ref = { root: fb }; // store firebase references. place the main ref in there as 'root' as well, even though is shorter just to use 'fb'
 
    var db = {}; // the db interface to be exported (as 'db')
@@ -186,7 +186,9 @@ db.query.get = function get (ref) {
       ref.once('value', function callback (dataSnapshot) {
          var data = dataSnapshot.val();
          if (data === null) {
-            reject( createError(db.error.notFound, 'db.query.get: no data.') );
+            // TODO: alter tests to reflect this change
+            // reject( createError(db.error.notFound, 'db.query.get: no data.') );
+            resolve(null);
          } else {
             resolve(data);
          }
@@ -195,6 +197,55 @@ db.query.get = function get (ref) {
       });
    });
 };
+
+
+   db.geo = {};
+
+   db.geo.set = function set (ref, id, locationObj) {
+      var gf = new GeoFire(ref);
+      return $q.when( gf.set(id, locationArray(locationObj)) );
+   };
+
+   db.geo.get = function get (ref, id) {
+      var gf = new GeoFire(ref);
+      return $q.when( gf.get(id) );
+   };
+
+   db.geo.delete = function get (ref, id) {
+      var gf = new GeoFire(ref);
+      return $q.when( gf.remove(id) );
+   };
+
+   /**
+    * distance based query
+    * @param  {object} ref       firebase ref with geofire index
+    * @param  {object} centerObj center of search. object with latitude and longitude properties
+    * @param  {number} radius    search radius in km
+    * @return {Promise} array with result objects {key, location, distance} on success
+    */
+   db.geo.query = function set (ref, centerObj, radius) {
+      var gf = new GeoFire(ref);
+      return $q(function resolver(resolve) {
+         var gq = gf.query({
+            center: locationArray(centerObj),
+            radius: radius
+         });
+         var results = [];
+         gq.on('key_entered', function (key, location, distance) {
+            results.push({
+               key: key,
+               location: locationObject(location),
+               distance: distance
+            });
+            // console.log(key, location, distance);
+         });
+         gq.on('ready', function () {
+            // console.log('initial state loaded');
+            gq.cancel();
+            resolve(results);
+         });
+      });
+   };
 
    return db;
 }]);

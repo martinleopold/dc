@@ -19,7 +19,7 @@ angular.module('dc.db.dinner', ['dc.db.base'])
 
 
    ref.dinner = fb.child('dinner');
-   ref.application = fb.child('application');
+   ref.dinnerIndex = fb.child('dinnerIndex');
    ref.message = fb.child('message');
    ref.review = fb.child('review');
    var dinner = {};
@@ -31,6 +31,7 @@ angular.module('dc.db.dinner', ['dc.db.base'])
          var id = _(obj).keys().first();
          var dinner = _(obj).values().first();
          dinner.dinnerId = id;
+         dinner.$id = id;
          return dinner;
       });
    };
@@ -38,6 +39,21 @@ angular.module('dc.db.dinner', ['dc.db.base'])
    dinner.getAll = function () {
       return db.query.get( ref.dinner );
    };
+
+
+   dinner.getLocal = function (centerObj, radius) {
+      return db.geo.query(ref.dinnerIndex, centerObj, radius).then(function (results) {
+         // console.log(results);
+         var dinnerPromises = _.map(results, function (result) {
+            return dinner.get(result.key).then(function (dinner) {
+               dinner.distance = result.distance; // add distance to dinner
+               return dinner;
+            });
+         });
+         return $q.all(dinnerPromises);
+      });
+   };
+
 
    dinner.getMessages = function (dinnerId) {
       return db.query.get( ref.message.orderByChild('toDinner').equalTo(dinnerId) );
@@ -54,6 +70,68 @@ angular.module('dc.db.dinner', ['dc.db.base'])
          message.createdAt = Firebase.ServerValue.TIMESTAMP;
          // TODO: either toDinner or toGroup needs to be set.
          resolve( db.query.create(ref.message.push(message)) );
+      });
+   };
+
+
+   dinner.getUserRole = function (dinnerId, userId) {
+      var dinnerPromise = db.dinner.get(dinnerId);
+      var applicationPromise = db.user.getApplicationsForDinner(userId, dinnerId);
+      var userIs = {
+         hosting : false,
+         applying : false,
+         pending : false,
+         accepted : false
+      };
+      return $q.all([dinnerPromise, applicationPromise]).then(function ([dinner, apps]) {
+         var application = apps[0];
+         if (userId === dinner.hostedByUser) {
+            userIs.hosting = true;
+         } else if (!application) {
+            userIs.applying = true;
+         } else if (application.state === 'PENDING') {
+            userIs.pending = true;
+         } else if (application.state.indexOf('ACCEPTED') === 0) {
+            userIs.accepted = true;
+         }
+         return userIs;
+      });
+   };
+
+
+   dinner.getApplications = function(dinnerId) {
+      return db.query.get(
+         ref.application.orderByChild('forDinner').equalTo(dinnerId)
+      );
+   };
+
+   // get all who have applied for a dinner
+   // returns array. each user has an additional 'application' property
+   dinner.getAllApplicants = function(dinnerId) {
+      return db.dinner.getApplications(dinnerId).then(function (apps) {
+         var peoplePromises = _.map(apps, function (app) {
+            return db.user.get(app.byUser).then(function (user) {
+               user.application = app;
+               return user;
+            });
+         });
+         return $q.all(peoplePromises);
+      });
+   };
+
+   dinner.getGuests = function (dinnerId) {
+      return db.dinner.getAllApplicants(dinnerId).then(function (users) {
+         return _.filter(users, function (user) {
+            return user.application.state.indexOf('ACCEPTED') === 0;
+         });
+      });
+   };
+
+   dinner.getPending = function (dinnerId) {
+      return db.dinner.getAllApplicants(dinnerId).then(function (users) {
+         return _.filter(users, function (user) {
+            return user.application.state === ('PENDING');
+         });
       });
    };
 
@@ -76,12 +154,13 @@ angular.module('dc.db.dinner', ['dc.db.base'])
    // fulfills with the new dinnerId, rejects with the error
    // TODO: test
    dinner.create = function (dinner) {
-      return $q(function resolver (resolve) {
-         dinner = _.cloneDeep(dinner); // don't modify the passed data
-         checkObject(dinner, 'hostedByUser', 'title', 'description', 'tags', 'isPublic'); // can throw and thus reject this promise
-         // TODO: check for dineinAt or (takeawayFrom and takeawayUntil)
-         dinner.createdAt = Firebase.ServerValue.TIMESTAMP;
-         resolve( db.query.push(ref.dinner, dinner) );
+      dinner = _.cloneDeep(dinner); // don't modify the passed data
+      checkObject(dinner, 'hostedByUser', 'title', 'description', 'tags', 'isPublic'); // can throw and thus reject this promise
+      // TODO: check for dineinAt or (takeawayFrom and takeawayUntil)
+      dinner.createdAt = Firebase.ServerValue.TIMESTAMP;
+
+      return db.query.push(ref.dinner, dinner).then(function (dinnerId) {
+         return db.geo.set(ref.dinnerIndex, dinnerId, dinner.location);
       });
    };
 
@@ -107,26 +186,6 @@ angular.module('dc.db.dinner', ['dc.db.base'])
       return db.query.update( ref.dinner.child(dinnerId), dinner );
    };
 
-   // TODO: test
-   // TODO: only possible if host of dinner
-   dinner.acceptApplication = function (applicationId) {
-      var application = {
-         updatedAt : Firebase.ServerValue.TIMESTAMP,
-         status : 'accepted'
-      };
-      return db.query.update( ref.application.child(applicationId), application );
-   };
-
-   // TODO: test
-   // TODO: only possible if host of dinner
-   dinner.rejectApplication = function (applicationId) {
-      var application = {
-         updatedAt : Firebase.ServerValue.TIMESTAMP,
-         status : 'rejected'
-      };
-      return db.query.update( ref.application.child(applicationId), application );
-   };
-
 
    /*
     * DINNER (Guest)
@@ -136,20 +195,6 @@ angular.module('dc.db.dinner', ['dc.db.base'])
     *
     */
 
-   // TODO: test
-   dinner.createApplication = function (application) {
-      return $q(function(resolve) {
-         application = _.cloneDeep(application); // don't modify the passed data
-         checkObject(application, 'byUser', 'forDinner', 'numSpots', 'isDineIn', 'isPublic');
-         // TODO: what about host property?
-         // TODO: cant apply to own dinner, can't apply to closed or cancelled or past dinner.
-         application.createdAt = Firebase.ServerValue.TIMESTAMP;
-         application.status = 'pending';
-         resolve(
-            db.query.push(ref.application, application)
-         );
-      });
-   };
 
    dinner.createReview = function (review) {
       return $q(function resolver (resolve) {

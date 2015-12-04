@@ -4,12 +4,13 @@
 angular.module('dc.controllers')
 .controller('UserCtrl', function($scope, db, resumeSession, $stateParams) {
 
-   resumeSession($scope);
-   db.getUserData($stateParams.userId).then(function(user) {
-      $scope.user = user;
+   resumeSession();
+
+   db.user.get($stateParams.userId).then(function (user) {
+      $scope.profile = user;
    });
 
-   db.getUserDinners($stateParams.userId).then(function(dinners) {
+   db.user.getHostedDinners($stateParams.userId).then(function(dinners) {
       $scope.dinners = dinners;
    });
 

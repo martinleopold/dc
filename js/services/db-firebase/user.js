@@ -105,6 +105,22 @@ angular.module('dc.db.user', ['dc.db.base'])
      return db.query.get( ref.dinner.orderByChild('hostedByUser').equalTo(userId) );
    };
 
+
+   user.getApplications = function (userId) {
+      return db.query.get(
+         ref.application.orderByChild('byUser').equalTo(userId)
+      );
+   };
+
+   // returns an array of apps
+   user.getApplicationsForDinner = function (userId, dinnerId) {
+      return db.dinner.getApplications(dinnerId).then(function (apps) {
+         return _.filter(apps, function (app) {
+            return app.byUser === userId;
+         });
+      });
+   };
+
    return user;
 
 }]);

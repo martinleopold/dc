@@ -5,7 +5,7 @@
  * Settings
  */
 angular.module('dc.controllers')
-.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession, img, $q, getImageFromPhone, maps, sliderToDistance) {
+.controller('SettingsCtrl', function($scope, db, $rootScope, $state, resumeSession, img, $q, getImageFromPhone, maps, sliderToDistance, uiGmapGoogleMapApi) {
 
    console.log('Controller: settings');
 
@@ -65,9 +65,17 @@ angular.module('dc.controllers')
       }
    };
 
-   $scope.marker = {
-      id: 0
-   };
+   uiGmapGoogleMapApi.then(function (gmaps) {
+      $scope.marker = {
+         id: 0,
+         options: {
+            icon: {
+               url: './img/pin@2x.png',
+               scaledSize: new gmaps.Size(23, 32)
+            }
+         }
+      };
+   });
 
    $scope.$watch("userData.address", function(address) {
       // console.log( "address changed:", address );

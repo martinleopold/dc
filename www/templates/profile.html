@@ -4,14 +4,17 @@
    </ion-nav-buttons>
 
    <ion-tabs class="tabs-top tabs-dark tabs-striped">
+      <!--
+         About
+       -->
       <ion-tab title="About">
          <ion-content>
             <div class="card">
                <div class="item item-image">
-                  <img src="img/pm_b.jpg">
+                  <img ng-src="{{profile.image.public_id | imageURL}}">
                </div>
                <div class="item item-text-wrap">
-                  <h1>{{user.firstName}} {{user.lastName}}</h1>
+                  <h1>{{profile.firstName}} {{profile.lastName}}</h1>
                   <div class="row row-center statistics">
                       <i class=" col col-10 icon dc-dinner"></i>
                       <div class="col col-50"><p>cooked 28 times</p></div>
@@ -36,7 +39,7 @@
                   </div>
                </div>
                <div class="item item-text-wrap">
-                  <p class="user-info">{{user.info}}</p>
+                  <p class="user-info">{{profile.info}}</p>
                </div>
             </div>
 
@@ -92,6 +95,10 @@
          </ion-content>
       </ion-tab>
 
+
+      <!--
+         Reviews
+      -->
       <ion-tab title="Reviews">
          <ion-content>
 
@@ -100,7 +107,7 @@
                    <div class="item item-reviewtitle">
                         Wienerschnitzel... <span>on Aug 14, 9:30am</span>
                    </div>
-                    
+
                   <div class="item item-text-wrap">
                      <div class="item-avatar" href="#">
                         <img src="img/pw.jpg">
@@ -128,23 +135,23 @@
                      <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
                         wie die meine.</p>
                   </div>
-                
+
                    <label class="hint">
                <strong>Hey, you've taken part in this Dinner!</strong> Why don’t you write a bit about how you liked it?</label>
                    <button class="button button-block button-stable icon ion-chatbubble-working">Write new review</button>
                </div>
             </div>
 
-             
-            
+
+
 
             <div class="card conversation">
-                
+
                <div class="list">
                    <div class="item item-reviewtitle">
                         Wienerschnitzel... <span>on Aug 14, 9:30am</span>
                    </div>
-                    
+
                   <div class="item item-text-wrap">
                      <div class="item-avatar" href="#">
                         <img src="img/pw.jpg">
@@ -154,10 +161,10 @@
                      <p>Eine wunderbare Heiterkeit hat meine ganze Seele eingenommen, gleich den süßen Frühlingsmorgen, die ich mit ganzem Herzen genieße. Ich bin allein und freue mich meines Lebens in dieser Gegend, die für solche Seelen geschaffen ist
                         wie die meine.</p>
                   </div>
-                   
+
                    <label class="hint">
                <strong>Hey, you've taken part in this Dinner!</strong> Why don’t you write a bit about how you liked it?</label>
-                  
+
                    <div class="item item-text-wrap">
                      <div class="item-avatar" href="#">
                         <img src="img/pw.jpg">
@@ -174,7 +181,7 @@
                   <a class="button button-stable">Submit</a>
                </div>
             </div>
-             
+
          </ion-content>
       </ion-tab>
 

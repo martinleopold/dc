@@ -1,12 +1,12 @@
-# global dependencies:
+# global dev dependencies:
 
-node 5.1.0
-npm 3.4.1
+node 5.1.1
+npm 3.5.1
 
-cordova 5.4.0
-ionic 1.7.10
+cordova 5.4.1
+ionic 1.7.11
 
-bower 1.6.5
+bower 1.6.8
 gulp 3.9.0
 
 
